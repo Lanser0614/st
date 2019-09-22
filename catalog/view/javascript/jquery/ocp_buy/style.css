@@ -1,0 +1,222 @@
+#checkout-page{}
+#checkout-page h1{
+	display:none;
+}
+#checkout-page h2{
+	font-size:18px;
+}
+
+#checkout-page .right-left > div {
+    width: 57%;
+}
+#checkout-page .right-left > div + div {
+    width: 37%;
+}
+
+#checkout-page .form-group {
+	display: flex;
+  justify-content: space-between;
+	align-items: center;
+	position:relative;
+}
+#checkout-page .form-group label{
+	width:24%;
+	margin-right:1%;
+}
+#checkout-page .form-group input{
+	width:75%;
+}
+
+#checkout-form {position:relative;}
+#checkout-form .has-feedback .form-control-feedback{top:26px;right:10px}
+#checkout-form #payment-form{display:none; padding-top:38px;}
+
+
+.ocpb-products td {
+	vertical-align:middle;
+}
+
+
+.total-items td, .ocpb-products td{
+  padding:12px 10px 11px 10px;
+}
+.total-items .total-total td,
+.table .total-sub_total td{
+	border-bottom:none;
+}
+
+.ocpb-products .th{
+	font-size:18px;
+	color:#055187;
+}
+
+td.value{
+	white-space:nowrap;
+}
+
+
+#product-bottom{
+	max-width:450px;
+}
+#product-bottom fieldset{
+	padding:0px;
+	border:none;
+}
+#product-bottom .th{
+	display:none;
+}
+
+
+
+.ocpb-coupon{
+	float:left;
+	width:36%;
+	margin-bottom:18px;
+}
+.ocpb-coupon b{
+	display:block;
+	font-size:14px;
+	margin-bottom:6px;
+}
+.ocpb-coupon div{
+	display: flex;
+  justify-content: space-between;
+	align-items: center;
+}
+.ocpb-coupon input{
+	display:block;
+	margin-right:6px;
+}
+
+
+
+.radio label input{
+  display:none;
+}
+.radio label{
+	display:block;
+	margin:0px;
+	padding:0px;
+	cursor:pointer;
+}
+.radio label span small{
+	display:block;
+	font-size:13px;
+	font-weight:normal;
+	color:#585858;
+	padding-top:2px;
+}
+.radio label > span{
+	display: flex;
+  justify-content: flex-start;
+	align-items: center;
+	min-height:100px;
+	padding:0px 8px 0px 52px;
+	border:solid 1px #cccccc;
+	font-size:16px;
+	font-weight:500;
+	position:relative;
+}
+.radio label > span::before{
+	content:'';
+	position:absolute;
+	top:50%; left:20px;
+	width:15px; height:13px;
+	margin-top:-7px;
+	border:solid 2px #cccccc;
+}
+.radio label input:checked + span{
+	color:#055187;
+	border:solid 1px #055187;
+}
+.radio label input:checked + span::before{
+	border:solid 2px #055187;
+}
+.radio label input:checked + span::after{
+	content:'';
+	position:absolute;
+	top:50%; left:23px;
+	width:13px; height:11px;
+	margin-top:-4px;
+	background: url('galka.png') no-repeat;
+}
+
+.no-input{
+	color:#7ab143;
+}
+.no-input::before{
+	display:none;
+}
+
+
+
+#shipping-methods, #payment-methods{
+	display: flex;
+  justify-content: space-between;
+	align-items: stretch;
+	flex-wrap: wrap;
+	margin-left:-6%;
+}
+#shipping-methods .radio, #payment-methods .radio{
+	width:44%;
+	margin:0px 0px 22px 6%;
+}
+
+
+
+
+#button-order{
+	font-size:20px;
+}
+		
+
+.customer-type {position:relative;z-index:3;}
+.customer-type ul {list-style: none;margin:0 0 12px 0;padding:0;}
+.customer-type label {padding: 3px 10px;border-radius:8px;text-decoration:none;cursor:pointer;margin: 0 10px 0 0;font-size:14px;color:#23a1d1;}
+.customer-type label:hover {text-decoration:underline;cursor:pointer;color:#23527c}
+.customer-type label.checked {background-color:#dff7dd;text-decoration:none;color:#000;}
+
+.ocpb-login-form, .ocpb-login-bg {display:none}
+.ocpb-login-bg {
+	position:absolute;
+	top:-6px ; left:-6px; bottom:-2px; right:-6px;
+	background-color:#fff;z-index:2;opacity:0.9;
+}
+.ocpb-login-form {width: 300px;background-color: #fff;padding: 15px 20px 5px 20px;border-radius: 10px;position: absolute;top: 50px;left: 50%;margin-left: -150px;z-index:3;border: 1px solid #ddd;border-radius: 4px;}
+.ocpb-login-form .row {
+	display: flex;
+  justify-content: space-between;
+	align-items: center;
+}
+.ocpb-login-form .row a{
+	font-size:13px;
+	opacity:0.8;
+}
+
+
+
+.ocpb-design-2 {margin-bottom: 100px;}
+.ocpb-design-2 .ocpb-products {border-top: 1px solid #ddd;margin-top: 20px;}
+
+#shipping-methods {margin-bottom:18px}
+.ocpb-buttons {margin-top: 25px}
+.ocpb-agree {margin-top: 15px;color: #b5b4b4;font-size: 12px;}
+.ocpb-agree a {color: #256aa3;}
+.ocpb-agree a:hover {text-decoration: underline;}
+.ocpb-totals {margin-top:40px;}
+
+.ocpb-oneclick {margin-bottom: 20px;border-top: 1px solid #eee;padding-top: 20px}
+.ocpb-oneclick .h3 {font-size: 20px;margin: 0 0 5px 0;}
+.ocpb-oneclick .form-group {margin: 0;}
+.ocpb-oneclick .ocpb-agree {margin-top: 10px;}
+
+
+@media (max-width:767px){
+#shipping-methods, #payment-methods{
+	margin-left:0px;
+}
+#shipping-methods .radio, #payment-methods .radio{
+	width:100%;
+	margin:0px 0px 16px 0px;
+}
+}

@@ -1,0 +1,21 @@
+#live-search {width:100%;position:absolute;z-index:1000;margin-top:3px;background-color:#FFF;border: 1px solid #ddd;box-shadow: 0 2px 2px #ddd;left: 0; top:100%; display:none;}
+#live-search ul {list-style-type: none;margin:0px;padding:0px;}
+#live-search ul li {background-color: #fff;cursor: pointer; overflow: hidden;padding:4px 6px; font-size:13px;}
+#live-search ul li:after {clear:both;content:'';}
+#live-search ul li:nth-child(even) {background-color:#fafafa;}
+#live-search ul li:hover {background-color:#EEE;}
+#live-search ul li a{text-decoration: none;display:table; width:100%;}
+#live-search ul li .cell {display: table-cell;padding: 4px 6px; vertical-align: middle;}
+#live-search ul li .livesearch-image {}
+#live-search ul li .livesearch-info {}
+#live-search ul li .livesearch-description{display:block;font-weight: normal;font-size: 10px;color:#555;margin:0;}
+#live-search ul li .livesearch-product-model{font-weight: normal;color:#555;}
+#live-search ul li .livesearch-product-sku{font-weight: normal;color:#555;}
+#live-search ul li .livesearch-price {text-align: right;	font-weight: bold; white-space:nowrap;}
+#live-search ul li .livesearch-price .livesearch-product-price{color: #333333;display:block;}
+#live-search ul li .livesearch-price .livesearch-product-special{color: #ff0000;text-decoration: line-through;display:block;}
+#live-search ul li .livesearch-product-price > .livesearch-product-special {margin-top: -5px;}
+#live-search ul li.result-heading {display:none}
+#live-search ul li .result-text{font-weight: bold;text-align: center;font-size: 11px;line-height: 20px;color:#fff;background-color:#2098C5;width: 100%;border-bottom-left-radius: 10px;border-bottom-right-radius: 10px;}
+#live-search ul li .view-all-results:hover {border-bottom: 1px dotted; color: #fff;}
+#live-search ul li .view-all-results {color: #fff;}

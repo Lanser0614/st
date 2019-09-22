@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script src="js/jquery.mask.js"></script>
+        <script src="js/jquery.jcarousel.min.js"></script>
+        <script src="js/jcarousel.basic.js"></script>
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/jcarousel.basic.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.css">
+        
+        <script type="text/javascript" src="js/fancybox/jquery.fancybox.js?v=2.1.5"></script>
+	<link rel="stylesheet" type="text/css" href="js/fancybox/jquery.fancybox.css?v=2.1.5" media="screen" />
+        
+        <script>
+            $('.phone-mask').mask('+7.000.000.00.00');
+            
+            $(document).ready(function(){
+                $('.zt').mouseover(function(){
+                    num = $(this).attr('id').substr(2);
+                    $('#zc'+num).show();
+        
+                    switch(num) {
+                        case '1':
+                            img = 'rul';
+                            break;
+                        case '2':
+                            img = 'kabina';
+                            break;
+                        case '3':
+                            img = 'mosti';
+                            break;
+                        case '4':
+                            img = 'sceplenie';
+                            break;
+                        case '5':
+                            img = 'ohlazdenie';
+                            break;
+                        case '6':
+                            img = 'dvigatel';
+                            break;
+                        case '7':
+                            img = 'tormoz';
+                            break;
+                        case '8':
+                            img = 'podveska';
+                            break;
+                        case '9':
+                            img = 'toplivo';
+                            break;
+                        case '10':
+                            img = 'stupici';
+                            break;
+                        case '11':
+                            img = 'korobka';
+                            break;
+                        case '12':
+                            img = 'elektro';
+                            break;
+                        case '13':
+                            img = 'vihlop';
+                            break;
+                        case '14':
+                            img = 'kardan';
+                            break;
+                        default:
+                            img = 'all2';
+                    }
+                    
+                    $('#bus').css('background-image', 'url(images/bus/'+img+'.png)');
+                });
+                $('.zt').mouseout(function(){
+                    $('#bus').css('background-image', 'url(images/bus/all2.png)');
+                    $('.zc').hide();
+                });
+                
+                $(".fancycall").fancybox({
+                        maxWidth	: 800,
+                        maxHeight	: 600,
+                        fitToView	: false,
+                        width		: '595px',
+                        height		: '480px',
+                        autoSize	: false,
+                        closeClick	: false,
+                        openEffect	: 'none',
+                        closeEffect	: 'none',
+                        margin          : 50,
+                        padding:0
+                });
+                
+                
+                $('form').submit(function(){
+                    phone = $(this).children('[name="phone"]');
+                    if(/\+7\.\d\d\d\.\d\d\d\.\d\d\.\d\d/.test(phone.val())) {
+                        jQuery.ajax({
+                            url:     'callback.php', //Адрес подгружаемой страницы
+                            type:     "POST", //Тип запроса
+                            dataType: "html", //Тип данных
+                            data: $(this).serialize(), 
+                            success: function(response) { //Если все нормально
+                                //alert(response);
+								$.fancybox.close();
+								$.fancybox.open($('#fancythx'));
+                            },
+                            error: function(response) { //Если ошибка
+                                //document.getElementById(result_id).innerHTML = "Ошибка при отправке формы";
+                            }
+                        });
+                    } else {
+                        phone.css('border', '2px solid red');
+                        //phone.after('<span style="color: red;  position: absolute;  margin-top: 50px;  margin-left: -224px;  font-style: italic;">введите Ваш телефон</span>');
+                    }
+                    return false;
+                });
+            });
+        </script>
+    </head>
+    <body><div class="wrap">
+<!----- SCREEN1 ---------->
+        <div id="screen1" class="screen">
+            <div class="content">
+                <div class="right sc1r">
+                    <div class="lang left">
+                        <div class="ru"><a href="#">ru</a></div>
+                        <div class="en"><a href="#">en</a></div>
+                    </div>
+                    <div class="phone">+7.495.640.00.80</div>
+                    <div class="order-call"><a href="#fancyform1" class="fancycall">Заказать звонок</a></div>
+                    <div class="form-block1">
+                        <div class="form-title">оставьте заявку и получите</div>
+                        <div class="form-title2">бесплатное&nbsp;&nbsp;изготовление&nbsp;&nbsp;образца</div>
+                        <form action="" method="post">
+                            <input type="text" name="phone" placeholder="введите телефон" class="inp phone-mask" />
+                            <input type="submit" name="call2" value="получить изготовление" class="btn" />
+                        </form>
+                    </div>
+                </div>
+                <div class="sc1l">
+                    <h1>
+                        <span class="h11">Производство</span>
+                        <span class="h12">автозапчастей и<br />
+                            комплектующих</span>
+                        
+                    </h1>
+                    <div class="h13">для <b>отечественного</b> и <b>иностранного<br />
+                            автотранспорта</b></div>
+                    <div class="h14">с экономией</div>
+                    <div class="h15">379 %</div>
+                    <div class="h21">Оптовые поставки по России и СНГ</div>
+                </div>
+            </div>
+        </div>
+<!----- SCREEN2 ---------->
+        <div id="screen2" class="screen">
+            <div class="content">
+                <div class="sc2l left">
+                    <div class="h22">мы -<br />
+официальные<br />
+дилеры</div>
+                    <div class="h23">крупнейших мировых<br />
+заводов изготовителей</div>
+                </div>
+                <div class="sc2r">
+                    <a href="#" class="jcarousel-control-next">&rsaquo;</a>
+                    <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+                    <div class="jcarousel">
+                        <ul>
+                            <li>
+                                <div class="img"><img src="images/zavod/1.png" /></div>
+                                <div class="descr">
+                                    <div class="title">BSN INDUSTRIES PRIVATE LIMITED</div>
+                                    <p>Коленчатые валы для грузовой техники. Коленчатые валы для Тракторов и Сельскохозяйственной техники. </p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="img"><img src="images/zavod/2.png" /></div>
+                                <div class="descr">
+                                    <div class="title">The Escorts Group</div>
+                                    <p>Сельскохозяйственая техника, железнодорожное оборудование и автокомпоненты.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="img"><img src="images/zavod/3.png" /></div>
+                                <div class="descr">
+                                    <div class="title">clutchauto</div>
+                                    <p>Производство любых видов дисков и корзин сцепления для всех видов техники, от мотоцикла до грузовика</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="img"><img src="images/zavod/4.png" /></div>
+                                <div class="descr">
+                                    <div class="title">haldex india ltd</div>
+                                    <p>Тормозные суппорта для легковых и грузовых автомобилей. Регулировочные рычаги для коммерческого транспорта.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="img"><img src="images/zavod/5.png" /></div>
+                                <div class="descr">
+                                    <div class="title">LLOYD</div>
+                                    <p>Производитель радиаторов охлаждения, радиаторов отопления, интеркуллеров для автомобилей и мототехники.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="img"><img src="images/zavod/6.png" /></div>
+                                <div class="descr">
+                                    <div class="title">BSN INDUSTRIES PRIVATE LIMITED</div>
+                                    <p>Коленчатые валы для грузовой техники. Коленчатые валы для Тракторов и Сельскохозяйственной техники. </p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="img"><img src="images/zavod/7.png" /></div>
+                                <div class="descr">
+                                    <div class="title">poona shims pvt ltd</div>
+                                    <p>Производитель промышленных и автомобильных теплообменников и масляных радиаторов.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="img"><img src="images/zavod/8.png" /></div>
+                                <div class="descr">
+                                    <div class="title">Menon</div>
+                                    <p>Произодитель деталей кривошипно-поршневой группы, таких как поршни, кольца порневые, вкладыши, втулки.</p>
+                                </div>
+                            </li>
+                            
+                            <li>
+                                <div class="img"><img src="images/zavod/9.png" /></div>
+                                <div class="descr">
+                                    <div class="title">VICTOR</div>
+                                    <p>Мировой производитель прокладок и уплотнений.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="img"><img src="images/zavod/10.png" /></div>
+                                <div class="descr">
+                                    <div class="title">TIGER</div>
+                                    <p>Производитель рессорных листов и рессор для коммерческого транспорта и поездов.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+<!------- SCREEN3 ---------->        
+        <div id="screen3" class="screen">
+            <div class="content">
+                <div class="sc3-title">идеально подходит:</div>
+                <div class="sc3-content clearfix">
+                    <div class="sc3-it">
+                        <div class="num">1.</div>
+                        <div class="cont">
+                            для<br />
+                            <span>расширения</span><br />
+                            собственного<br />
+                            производства
+                        </div>
+                    </div>
+                    <div class="sc3-it">
+                        <div class="num">2.</div>
+                        <div class="cont">
+                            для<br />
+                            <span>поставщиков</span><br />
+                            запчастей и<br />
+                            комплектующих
+                        </div>
+                    </div>
+                    <div class="sc3-it">
+                        <div class="num">3.</div>
+                        <div class="cont">
+                            если вы ищите<br />
+                            <span>партнера</span><br />
+                            по производству<br />
+                            деталей
+                        </div>
+                    </div>
+                    <div class="sc3-it">
+                        <div class="num">4.</div>
+                        <div class="cont">
+                            для участия в<br />
+                            <span>трендах</span>
+                        </div>
+                    </div>
+                    <div class="sc3-it">
+                        <div class="num">5.</div>
+                        <div class="cont">
+                            для<br />
+                            <span>оптовых</span><br />
+                            продавцов
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!------- SCREEN4 ---------->        
+        <div id="screen4" class="screen">
+            <div class="content clearfix">
+                <div>
+                    <div class="sc4-it sc4-it1">
+                        <span class="img"></span>
+                        <b>снижение затрат</b>
+экономия времени 
+и бюджетов
+                    </div>
+                    <div class="sc4-it sc4-it2">
+                        <span class="img"></span>
+                        <b>все</b> запчасти и
+комплектующие 
+<b>от одного
+    поставщика</b>
+                    </div>
+                    <div class="sc4-it sc4-it3">
+                        <span class="img"></span>
+                        <b>финансовая </b>
+гарантия
+сроков
+                    </div>
+                    <div class="sc4-it sc4-it4">
+                        <span class="img"></span>
+<b>официальную
+    гарантию </b>
+от производителя
+                    </div>
+                </div>
+                <div>
+                    <div class="sc4-it sc4-it5">
+                        <span class="img"></span>
+                        <b>бесплатную</b>
+сертификацию 
+и доставку
+                    </div>
+                    <div class="sc4-it sc4-it6">
+                        <span class="img"></span>
+<b>индивидуальный
+    вид оплаты, </b>
+удобный для вас                        
+                    </div>
+                    <div class="sc4-it sc4-it7">
+                        <span class="img"></span>
+<b>документальное
+    сопровождение</b>
+(документация 
+и сертификаты)
+                    </div>
+                    <div class="sc4-it sc4-it8">
+                        <span class="img"></span>
+<b>европейский уровень </b>
+сервиса и качества 
+поставляемой 
+продукции
+                    </div>
+                </div>
+            </div>
+        </div>
+<!------- SCREEN5 ---------->        
+        <div id="screen5" class="screen">
+            <div class="content">
+                <div class="sc5r">
+                    <div class="form-block1">
+                        <div class="form-title">да, Я хочу с вами сотрудничать</div>
+                        <form action="" method="post">
+                            <input type="text" name="phone" placeholder="введите телефон" class="inp phone-mask" />
+                            <input type="submit" name="call2" value="хочу сотрудничать" class="btn" />
+                        </form>
+                        <div class="form-footer">введите Ваш номер телефона и мы свяжемся с Вами в кротчайшие сроки</div>
+                    </div>
+                </div>
+                <div class="sc5l transport clearfix">
+                    <div id="trans1" class="trans-it"></div>
+                    <div id="trans2" class="trans-it"></div>
+                    <div id="trans3" class="trans-it"></div>
+                    <div id="trans4" class="trans-it"></div>
+                    <div id="trans5" class="trans-it"></div>
+                    <div id="trans6" class="trans-it"></div>
+                    <div id="trans7" class="trans-it"></div>
+                    <div id="trans8" class="trans-it"></div>
+                </div>
+            </div>
+        </div>
+
+<!------- SCREEN6 ---------->        
+        <div id="screen6" class="screen">
+            <div class="content">
+                <div class="sc6-title">8</div>
+                <div class="sc6-title2">категорий транспорта</div>
+                
+                <div class="transport-wrap">
+                    <div class="sc6-title3">варианты автозапчастей:</div>
+                    <div class="transport-cont" id="bus">
+                        <div class="trans-right right">
+                            <div id="zt7" class="zt">Тормозная система</div>
+                            <div id="zc7" class="zc">воздушный компрессор, детали тормозной системы, механизм заднего тормоза, механизм переднего тормоза,
+    колодки, тормозные цилиндры</div>
+                            <div id="zt8" class="zt">Подвеска</div>
+                            <div id="zc8" class="zc">детали задней подвески, детали передней подвески</div>
+                            <div id="zt9" class="zt">Топливная система</div>
+                            <div id="zc9" class="zc">топливные насосы, топливопроводы, фильтра</div>
+                            <div id="zt10" class="zt">Ступицы и Колеса</div>
+                            <div id="zc10" class="zc"></div>
+                            <div id="zt11" class="zt">Коробка передач</div>
+                            <div id="zc11" class="zc">валы и шестерни, подшипники, механизм управления КПП</div>
+                            <div id="zt12" class="zt">Электрооборудование 
+и освещение</div>
+                            <div id="zc12" class="zc">аккумуляторная батарея, вентиляция и отопление, генератор и стартер, датчики и реле, освещение, приборы, стеклоочиститель</div>
+                        </div>
+                        <div class="trans-left left">
+                            <div id="zt1" class="zt">Рулевое управление</div>
+                            <div id="zc1" class="zc">рулевые тяги, рулевые наконечники</div>
+                            <div id="zt2" class="zt">Кабина, кузов</div>
+                            <div id="zc2" class="zc"></div>
+                            <div id="zt3" class="zt">Мосты</div>
+                            <div id="zc3" class="zc">задний мост, передний мост</div>
+                            <div id="zt4" class="zt">Сцепление </div>
+                            <div id="zc4" class="zc">маховик, диск сцепления, корзина сцепления, выжимной подшипник,  цилиндры сцепления</div>
+                            <div id="zt5" class="zt">Система охлаждения</div>
+                            <div id="zc5" class="zc">детали системы охлаждения, партубки и соединения</div>
+                            <div id="zt6" class="zt">Двигатель </div>
+                            <div id="zc6" class="zc">блок цилиндров,газораспределитель-
+    ный механизм, головка блока цилин- дров, кривошипно-шатунный механизм, фильтра, прокладки</div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="trans-bot">
+                            <div id="zt14" class="zt right">Карданные валы</div>
+                            <div id="zc14" class="zc"></div>
+                            <div id="zt13" class="zt">Выхлопная система</div>
+                            <div id="zc13" class="zc">детали выхлопной системы, турбокомпрессор и соединения</div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!------- SCREEN7 ---------->        
+        <div id="screen7" class="screen">
+            <div class="content">
+                <div class="sc7-title">Что входит в стоимость:</div>
+                <div class="sc7-content clearfix">
+                    <div class="sc7-it">
+                        <div class="img"><img src="images/cs71.gif" /></div>
+                        <p>изготовление</p>
+                    </div>
+                    <div class="sc7-it">
+                        <div class="img"><img src="images/cs72.gif" /></div>
+                        <p>сертификация</p>
+                    </div>
+                    <div class="sc7-it">
+                        <div class="img"><img src="images/cs73.gif" /></div>
+                        <p>транспортировка</p>
+                    </div>
+                    <div class="sc7-it">
+                        <div class="img"><img src="images/cs74.gif" /></div>
+                        <p>растаможка</p>
+                    </div>
+                    <div class="sc7-it">
+                        <div class="img"><img src="images/cs75.gif" /></div>
+                        <p>доставка <br />по россии и снг</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!------- SCREEN8 ---------->        
+        <div id="screen8" class="screen">
+            <div class="content">
+                <div class="form-block1">
+                    <div class="form-title">получить бесплатную <span>консультацию по экономии бюджета</span><br />при изготовлении автозапчастей и комплектующих</div>
+                    <form action="" method="post">
+                        <input type="text" name="phone" placeholder="введите Ваш телефон" class="inp phone-mask" />
+                        <input type="text" name="email" placeholder="введите Ваш email" class="inp inp-email" /><br />
+                        <input type="submit" name="call3" value="получить консультацию" class="btn" />
+                    </form>
+                </div>
+            </div>
+        </div>
+
+<!------- SCREEN9 ---------->        
+        <div id="screen9" class="screen">
+            <div class="content">
+                <div class="sc9l">
+                    <div class="sc9l-cont">
+                        <div class="h91">почему более</div>
+                        <div class="h92">довольных<br />клиентов</div>
+                        <div class="h93">уже выбрали нас</div>
+                    </div>
+                </div>
+                <div class="sc9r clearfix">
+                    <div class="sc9-it">
+                        <div class="img"><img src="images/sc91.gif" /></div>
+                        <div class="cont">свыше <br />
+                            <b>1000 видов</b><br />
+                            деталей</div>
+                    </div>
+                    <div class="sc9-it">
+                        <div class="img"><img src="images/sc92.gif" /></div>
+                        <div class="cont">материалы <br />
+                                <b>от лучших <br />
+                            поставщиков</b></div>
+                    </div>
+                </div>
+                <div class="sc9c clearfix">
+                    <div class="sc9-it">
+                        <div class="img"><img src="images/sc93.gif" /></div>
+                        <div class="cont"><b>гарантия</b><br />
+качества  и сроков</div>
+                    </div>
+                    <div class="sc9-it">
+                        <div class="img"><img src="images/sc94.gif" /></div>
+                        <div class="cont">бесплатное <br />
+<b>консультирование <br />
+    24/7</b></div>
+                    </div>
+                    <div class="sc9-it">
+                        <div class="img"><img src="images/sc95.gif" /></div>
+                        <div class="cont"><b>безопасность<br />
+                                и целостность </b><br />
+перевозки и отгрузки <br />
+автозапчастей</div>
+                    </div>
+                    <div class="sc9-it">
+                        <div class="img"><img src="images/sc96.gif" /></div>
+                        <div class="cont"><b>доставка</b><br />
+морем и воздухом</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+<!------- SCREEN10 ---------->        
+        <div id="screen10" class="screen">
+            <div class="content">
+                <div class="sc10l"></div>
+                <table>
+                    <tr>
+                        <th class="l">&nbsp;</th>
+                        <th class="c title">сравнение<br />процессов:</th>
+                        <th class="r">&nbsp;</th>
+                    </tr>
+                    <tr>
+                        <th class="l">российский завод</th>
+                        <th class="c">&nbsp;</th>
+                        <th class="r">мы</th>
+                    </tr>
+                    <tr>
+                        <td class="l">получение заказа</td>
+                        <td class="c"><img src="images/sc101.gif" /></td>
+                        <td class="r">получение заказа</td>
+                    </tr>
+                    <tr>
+                        <td class="l">закупка импортных материалов,<br />перенастройка оборудования</td>
+                        <td class="c"><img src="images/sc102.gif" /></td>
+                        <td class="r">размещение заказа на профильном заводе</td>
+                    </tr>
+                    <tr>
+                        <td class="l">оплачиваемое изготовление пресс-формы</td>
+                        <td class="c"><img src="images/sc103.gif" /></td>
+                        <td class="r">изготовление опытных образцов за наш счет</td>
+                    </tr>
+                    <tr>
+                        <td class="l">большое кол-во единиц запчастей<br />в минимальном заказе</td>
+                        <td class="c"><img src="images/sc104.gif" /></td>
+                        <td class="r">отгрузка партии, начиная с минимального <br />кол-ва единиц в заказе</td>
+                    </tr>
+                    <tr>
+                        <td class="l">отсутствие сертификации</td>
+                        <td class="c"><img src="images/sc105.gif" /></td>
+                        <td class="r">сертификация продукции,подготавка <br />необходимого пакета документов</td>
+                    </tr>
+                    <tr>
+                        <td class="l">срыв сроков</td>
+                        <td class="c"><img src="images/sc106.gif" /></td>
+                        <td class="r">финансовая гарантия сроков</td>
+                    </tr>
+                    <tr>
+                        <td class="l">некорректное общение,<br />платное консультирование</td>
+                        <td class="c"><img src="images/sc107.gif" /></td>
+                        <td class="r">квалифицированное бесплатное <br />консультирование 24/7</td>
+                    </tr>
+                    <tr>
+                        <td class="l last"><span>большие затраты</span><br />бюджетов, времени и ваших нервов<img src="images/eq.png" /></td>
+                        <td class="c last"><img src="images/sc108.gif" /></td>
+                        <td class="r last"><img src="images/eq.png" /><span>снижение  затрат до <span>379%</span></span><br />на всех этапах реализации проекта</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+<!------- SCREEN11 ---------->        
+        <div id="screen11" class="screen">
+            <div class="content">
+                <div class="sc11-title">Сертификаты качества:</div>
+                <div class="sc11-cont clearfix">
+                    <div class="sertif"><img src="http://placehold.it/118x166"></div>
+                    <div class="sertif"><img src="http://placehold.it/118x166"></div>
+                    <div class="sertif"><img src="http://placehold.it/118x166"></div>
+                    <div class="sertif"><img src="http://placehold.it/118x166"></div>
+                </div>
+            </div>
+        </div>
+
+<!------- SCREEN12 ---------->        
+        <div id="screen12" class="screen">
+            <div class="content">
+                <table>
+                    <tr class="steps">
+                        <td class="step5">простых
+                                шагов
+                                <p>к вашей 
+                            экономии</p>
+                        </td>
+                        <td class="step4">4</td>
+                        <td class="step3">3</td>
+                        <td class="step2">2</td>
+                        <td class="step1">1</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Вы оставляете заявку
+                            <div class="order-call2"><a href="#fancyform2" class="fancycall">оставить заявку</a></div>
+                        </td>
+                        <td>наш менеджер 
+свяжется с вами 
+для уточнения деталей</td>
+                        <td>бесплатное изготовление
+опытного образца</td>
+                        <td>расчет вашего заказа.
+заключение договора об 
+изготовлении и поставке</td>
+                        <td>изготовление товара.
+отгрузка спецтехникой</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+<!------- SCREEN13 ---------->        
+        <div id="screen13" class="screen">
+            <div class="content footer">
+                <div class="sc13t">
+                    <div class="form-block1">
+                        <div class="form-title">остались вопросы? задайте их нашему менеджеру</div>
+                        <form action="" method="post">
+                            <input type="text" name="phone" placeholder="введите телефон" class="inp phone-mask" autocomplete="off">
+                            <input type="submit" name="call2" value="задать вопрос" class="btn">
+                        </form>
+                        <div class="form-footer">введите Ваш номер телефона и мы свяжемся с Вами в кротчайшие сроки</div>
+                    </div>
+                </div>
+                <div class="sc13c">
+                    <div class="phone">+7.495.640.00.80</div>
+                    <div class="order-call3"><a href="#fancyform1" class="fancycall">Заказать звонок</a></div>
+                </div>
+                <div class="sc13r right map">
+                    <a href="#">посмотреть на карте Google</a>
+                </div>
+                <div class="sc13l address">
+                    посмотреть на карте Google<br />
+                    email: <a href="mailto:info@st-spares.ru">info@st-spares.ru</a>
+                </div>
+                <div class="sc13r2 right design">
+                    Design by <a href="http://brand-zavod.ru/">Brand-zavod</a>
+                </div>
+                <div class="sc13l2 copy">
+                    © 2015  Все права защищены
+                </div>
+            </div>
+        </div>
+
+
+<div class="fancyform-wrap" id="fancyform1">
+    <div class="form-title">заказать звонок</div>
+    <form action="" method="post">
+        <input type="text" name="phone" placeholder="введите Ваш телефон" class="inp phone-mask" autocomplete="off">
+        <input type="submit" name="call2" value="заказать звонок" class="btn">
+    </form>
+    <div class="form-footer">Мы гарантируем конфиденциальность данных.</div>
+</div>
+<div class="fancyform-wrap" id="fancyform2">
+    <div class="form-title">оставить заявку</div>
+    <form action="" method="post">
+        <input type="text" name="phone" placeholder="введите Ваш телефон" class="inp phone-mask" autocomplete="off">
+        <input type="submit" name="call2" value="оставить заявку" class="btn">
+    </form>
+    <div class="form-footer">Мы гарантируем конфиденциальность данных.</div>
+</div>
+
+<div class="fancyform-wrap" id="fancythx">
+    <div class="form-title">спасибо за заявку!</div>
+    <div class="form-message">наш менеджер свяжется с Вами в ближайшее время</div>
+</div>
+
+
+        </div>
+    </body>
+</html>

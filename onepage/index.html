@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Landing</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="Cache-Control" content="no-cache">
+        <script src="js/jquery-2.1.4.min.js"></script>
+        <script src="js/jquery.mask.js"></script>
+        <link rel="stylesheet" href="css/reset.css">
+        
+        <link rel="stylesheet" href="css/styles.css">
+        
+        <script type="text/javascript" src="js/fancybox/jquery.fancybox.js?v=2.1.5"></script>
+	<link rel="stylesheet" type="text/css" href="js/fancybox/jquery.fancybox.css?v=2.1.5" media="screen" />
+        
+        <script>
+            $('.phone-mask').mask('+7.000.000.00.00');
+            
+            $(document).ready(function(){
+                                
+                $(".fancycall").fancybox({
+                        maxWidth	: 800,
+                        maxHeight	: 600,
+                        fitToView	: false,
+                        width		: '595px',
+                        height		: '480px',
+                        autoSize	: false,
+                        closeClick	: false,
+                        openEffect	: 'none',
+                        closeEffect	: 'none',
+                        margin          : 50,
+                        padding:0
+                });
+                
+                
+                $('form').submit(function(){
+                    phone = $(this).children('[name="phone"]');
+                    if(/\+7\.\d\d\d\.\d\d\d\.\d\d\.\d\d/.test(phone.val())) {
+                        jQuery.ajax({
+                            url:     'callback.php', //Адрес подгружаемой страницы
+                            type:     "POST", //Тип запроса
+                            dataType: "html", //Тип данных
+                            data: $(this).serialize(), 
+                            success: function(response) { //Если все нормально
+                                //alert(response);
+								$.fancybox.close();
+								$.fancybox.open($('#fancythx'));
+                            },
+                            error: function(response) { //Если ошибка
+                                //document.getElementById(result_id).innerHTML = "Ошибка при отправке формы";
+                            }
+                        });
+                    } else {
+                        phone.css('border', '2px solid red');
+                        //phone.after('<span style="color: red;  position: absolute;  margin-top: 50px;  margin-left: -224px;  font-style: italic;">введите Ваш телефон</span>');
+                    }
+                    return false;
+                });
+				
+				
+            });
+        </script>
+    </head>
+    <body>
+<!----- SCREEN1 ---------->
+	<div id="screen1" class="screen">
+		<div class="content header">
+			<div class="header-t clearfix">
+				<div class="logo"><a href="/"><img src="images/logo.png" /></a></div>
+				<div class="mail">email: <br /><a href="mailto:info@st-spares.ru">info@st-spares.ru</a></div>
+				<div class="phone">+7 (495) 989-43-31<br />+7 (800) 775-70-72</div>
+				<div class="callback">
+					<a href="#fancyform1" class="fancycall">заказать звонок</a>
+				</div>
+			</div>
+			<h1>продажа<br />автозапчастей</h1>
+			<div id="firms">
+				<div class="firm firm1"></div>
+				<div class="firm firm2"></div>
+				<div class="firm firm3"></div>
+				<div class="firm firm4"></div>
+				<div class="firm firm5"></div>
+				<div id="firms-bg">!</div>
+			</div>
+		</div>
+	</div>
+<!------- SCREEN2 ---------->        	
+	<div id="screen2" class="screen">
+		<div class="content">
+			<div class="cont-left">
+				<div class="icon-b"><div class="icon icon1"></div><div class="c">cвыше <br />
+2000 позиций<br />
+на складе</div></div>
+				<div class="icon-b"><div class="icon icon2"></div><div class="c">гарантия <br />
+качества<br />
+и сроков</div></div>
+				<div class="icon-b"><div class="icon icon3"></div><div class="c">прямые договора <br />
+с лучшими <br />
+производителями</div></div>
+				<div class="icon-b"><div class="icon icon4"></div><div class="c">индивидуальный<br />
+подход</div></div>
+				<div class="icon-b"><div class="icon icon5"></div><div class="c">низкие<br />
+цены</div></div>
+				<div class="icon-b"><div class="icon icon6"></div><div class="c">гибкая система<br />
+скидок</div></div>
+				<div class="icon-b"><div class="icon icon7"></div><div class="c">оригинальное <br />
+качество</div></div>
+				<div class="icon-b"><div class="icon icon8"></div><div class="c">оптовые<br />
+поставки</div></div>
+			</div>
+			<div class="cont-right">
+				<h2>о нас</h2>
+<p>Во всем мире грузовые автомобили эксплуатируются в самых жестких условиях, в том числе вне заасфальтированных дорог. При этом предельно важна надежность и прочность каждой отдельной детали автомобиля. </p>
+
+<p>Продукция марки DT® Spare Parts - это высочайшее качество без компромиссов и исключений. 
+Консеквентная направленность на качество и выдающееся соотношение цена– качество сделали марку DT® Spare Parts тем, что она является сегодня - ведущей маркой продукта на независимом рынке для коммерческого транспорта (IAM).</p>
+<p>Продукция марки DT® Spare Parts - это высочайшее качество без компромиссов и исключений. 
+Консеквентная направленность на качество и выдающееся.</p>
+<p>Во всем мире грузовые автомобили эксплуатируются в самых жестких условиях, в том числе вне заасфальтированных дорог. </p>
+
+			</div>
+		</div>
+	</div>
+<!------- SCREEN3 ---------->        
+	<div id="screen3" class="screen">
+		<div class="content footer">
+			<div class="footer-l">
+				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1125.059921138048!2d37.55371639629514!3d55.669516141066445!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b54cdc4e4d9479%3A0xc68fc5963f894c16!2z0YPQuy4g0J_RgNC-0YTRgdC-0Y7Qt9C90LDRjywgOTMsINCc0L7RgdC60LLQsA!5e0!3m2!1sru!2sru!4v1441526592312" width="590" height="380" frameborder="0" style="border:0" allowfullscreen></iframe>
+			</div>
+			<div class="footer-r">
+				<h3>адрес</h3>
+				<div class="address">г. Москва,<br /> ул. Профсоюзная, дом 93</div>
+				<div class="mail"><a href="mailto:info@st-spares.ru">info@st-spares.ru</a></div>
+				<div class="phone">+7 (495) 989-43-31<br />+7 (800) 775-70-72</div>
+				<div class="callback">
+					<a href="#fancyform1" class="fancycall">заказать звонок</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+<div class="fancyform-wrap" id="fancyform1">
+    <div class="form-title">заказать звонок</div>
+    <form action="" method="post">
+        <input type="text" name="phone" placeholder="введите Ваш телефон" class="inp phone-mask" />
+        <input type="submit" name="call2" value="заказать звонок" class="btn">
+    </form>
+    <div class="form-footer">Мы гарантируем конфиденциальность данных.</div>
+</div>
+<div class="fancyform-wrap" id="fancyform2">
+    <div class="form-title">оставить заявку</div>
+    <form action="" method="post">
+        <input type="text" name="phone" placeholder="введите Ваш телефон" class="inp phone-mask" />
+        <input type="submit" name="call2" value="оставить заявку" class="btn">
+    </form>
+    <div class="form-footer">Мы гарантируем конфиденциальность данных.</div>
+</div>
+
+<div class="fancyform-wrap" id="fancythx">
+    <div class="form-title">спасибо за заявку!</div>
+    <div class="form-message">наш менеджер свяжется с Вами в ближайшее время</div>
+</div>
+
+
+    </body>
+</html>

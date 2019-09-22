@@ -1,0 +1,282 @@
+@import "../fonts/stylesheet.css";
+
+body {
+    color: #595959;
+    font-family: tahoma, sans-serif;
+	font-size: 12px;
+    
+}
+
+.clearfix:after { visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0; }
+
+.left {
+    float: left;
+}
+.right {
+    float: right;
+}
+
+.screen .content {
+    width: 1000px;
+    margin: 0 auto;
+    position: relative;
+}
+
+
+/*************** HEADER **************/
+#screen1 {
+	background: #855b1d url(../images/bg.jpg) no-repeat top center;
+}
+.header-t {
+	padding-top: 60px;
+	margin-bottom: 155px;
+}
+.header .logo,
+.header .mail,
+.header .phone,
+.header .callback {
+	float: left;
+}
+.header .logo {
+	margin-left: 110px;
+}
+.header .mail {
+	font-size: 14px;
+	color: #ffc703;
+	margin-left: 135px;
+	margin-top: 20px;
+	line-height:1.4em;	
+}
+.mail a {
+	color: #fff;
+	text-decoration: none;
+}
+.mail a:hover {
+	text-decoration: underline;
+}
+.header .phone {
+	font-size: 16px;
+	color: #fff;
+	margin-left: 90px;
+	margin-top: 14px;
+	line-height: 1.4em;
+}
+.header .callback {
+	margin-left: 60px;
+	margin-top: 14px;
+}
+.callback a {
+	display: inline-block;
+	border: 2px solid #ffc703;
+	color: #ffc703;
+	font-size: 14px;
+	padding: 12px 20px;
+	text-decoration: none;
+}
+.callback a:hover {
+	color: #fff;
+	background: #ffc703;
+}
+
+.header h1 {
+	margin: 70px 0 0 110px;
+	float: left;
+	color: #fff;
+	font-size: 43px;
+	line-height: 1.4em;
+	text-transform: uppercase;
+	font-weight: normal;
+	font-family: futur;
+}
+.header #firms {
+	margin-left: 580px;
+	height: 425px;
+}
+.header #firms-bg {
+	position: absolute;
+    background: url(../images/firms-bg.png) repeat-y 6px 0;
+    height: 155px;
+    width: 10px;
+    margin-top: -35px;
+}
+.header #firms .firm {
+	width: 250px;
+	height: 58px;
+	background: url(../images/firms.png) no-repeat top left;
+}
+.header #firms .firm2 {
+	background-position: 0 -58px;
+	height: 62px;
+}
+.header #firms .firm3 {
+	background-position: 0 -120px;
+	height: 65px;
+}
+.header #firms .firm4 {
+	background-position: 0 -185px;
+	height: 53px;
+}
+.header #firms .firm5 {
+	background-position: 0 -238px;
+	height: 72px;
+}
+.header #firms .firm1:hover {
+	background-position: -250px 0;
+}
+.header #firms .firm2:hover {
+	background-position: -250px -58px;
+}
+.header #firms .firm3:hover {
+	background-position: -250px -120px;
+}
+.header #firms .firm4:hover {
+	background-position: -250px -185px;
+}
+.header #firms .firm5:hover {
+	background-position: -250px -238px;
+}
+
+/********** CONTENT ***************/
+.cont-left {
+	float: left;
+	padding: 125px 30px 0 110px;
+	padding-left: 60px;
+	width: 490px;
+	font-family: arial;
+}
+.cont-left .icon-b {
+	float: left;
+	height: 85px;
+	margin-right: 60px;
+	width: 160px;
+}
+.cont-left .icon{
+	background: url(../images/icons.png) no-repeat left top;
+	width: 33px;
+	height: 31px;
+	float: left;
+}
+.cont-left .icon2{
+	background-position: 0 -31px;
+}
+.cont-left .icon3{
+	background-position: 0 -62px;
+}
+.cont-left .icon4{
+	background-position: 0 -93px;
+}
+.cont-left .icon5{
+	background-position: 0 -124px;
+}
+.cont-left .icon6{
+	background-position: 0 -155px;
+}
+.cont-left .icon7{
+	background-position: 0 -186px;
+}
+.cont-left .icon8{
+	background-position: 0 -217px;
+}
+.cont-left .icon-b .c {
+	margin-left: 60px;
+}
+
+
+
+
+.cont-right {
+	margin-left: 580px;
+	padding: 100px 90px 90px 10px;
+	background: url(../images/mause.png) no-repeat top left;
+}
+.cont-right h2 {
+	font-weight: normal;
+	text-transform: uppercase;
+	font-size: 14px;
+	color: #ffc703;
+	margin-bottom: 15px;
+	font-family: futur;
+}
+.cont-right p {
+	margin-bottom: 10px;
+}
+
+/*************** FOOTER *************/
+#screen3 {
+	background: #000;
+}
+.footer-l {
+	float: left;
+}
+.footer-r {
+	margin-left: 590px;
+	padding: 65px 60px;
+	color: #fff;
+	font-size: 14px;
+	line-height: 1.4em;
+}
+.footer-r h3 {
+	color: #ffc703;
+	text-transform: uppercase;
+	margin-bottom: 15px;
+}
+.footer-r .address {
+	margin-bottom: 40px;
+}
+.footer-r .mail {
+	margin-bottom: 30px;
+}
+.footer-r .phone {
+	margin-bottom: 45px;
+	font-size: 16px;
+}
+
+/******** FANCYFORM ***************/
+.fancyform-wrap {
+    padding: 150px 100px 70px 100px;
+    text-align: center;
+    display: none;
+}
+.fancyform-wrap .form-title {
+    font: bold 18px avant;
+    color: #261d1c;
+    text-transform: uppercase;
+    margin-bottom: 45px;
+    line-height: 1.9em;
+}
+.fancyform-wrap .form-footer {
+    font: normal 10px arial;
+    color: #a28d48;
+    margin-top: 80px;
+}
+.fancyform-wrap form .btn,
+.fancyform-wrap form .inp {
+    border: 2px solid #fff;
+    cursor: pointer;
+}
+.fancyform-wrap form .btn {
+    width: 226px;
+    height: 40px;
+    font: bold 14px avant;
+    text-transform: uppercase;
+    padding: 10px;
+    letter-spacing: 1px;
+    color: #fff;
+    margin-top: 8px;
+    background: #a28d48;
+}
+.fancyform-wrap form .btn:hover {
+    color: #fff;
+    background: #261d1c;
+}
+.fancyform-wrap form .inp {
+    width: 146px;
+    height: 16px;
+    color: #261d1c;
+    background: #f5d652 url(../images/inp-bg81.gif) no-repeat left top;
+    padding: 10px 10px 10px 65px;
+}
+.fancyform-wrap form .inp.inp-email {
+    background: #f5d652 url(../images/inp-bg82.gif) no-repeat left top;
+}
+#fancythx {padding-bottom: 175px;}
