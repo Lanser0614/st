@@ -1,7 +1,4 @@
 <?php
-// HTTP
-define('HTTP_SERVER', 'https://st-spares.ru/admin/');
-define('HTTP_CATALOG', 'https://st-spares.ru/');
 
 // HTTPS
 define('HTTPS_SERVER', 'https://st-spares.ru/admin/');

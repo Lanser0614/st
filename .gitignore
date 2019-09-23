@@ -1,0 +1,5 @@
+/docker
+/development
+.env
+docker-compose.yml
+config.php

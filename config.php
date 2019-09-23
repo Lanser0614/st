@@ -6,23 +6,25 @@ define('HTTP_SERVER', 'https://st-spares.ru/');
 define('HTTPS_SERVER', 'https://st-spares.ru/');
 
 // DIR
-define('DIR_APPLICATION', '/var/www/u5111971/public_html/st-spares.ru/catalog/');
-define('DIR_SYSTEM', '/var/www/u5111971/public_html/st-spares.ru/system/');
-define('DIR_IMAGE', '/var/www/u5111971/public_html/st-spares.ru/image/');
-define('DIR_LANGUAGE', '/var/www/u5111971/public_html/st-spares.ru/catalog/language/');
-define('DIR_TEMPLATE', '/var/www/u5111971/public_html/st-spares.ru/catalog/view/theme/');
-define('DIR_CONFIG', '/var/www/u5111971/public_html/st-spares.ru/system/config/');
-define('DIR_CACHE', '/var/www/u5111971/public_html/st-spares.ru/system/storage/cache/');
-define('DIR_DOWNLOAD', '/var/www/u5111971/public_html/st-spares.ru/system/storage/download/');
-define('DIR_LOGS', '/var/www/u5111971/public_html/st-spares.ru/system/storage/logs/');
-define('DIR_MODIFICATION', '/var/www/u5111971/public_html/st-spares.ru/system/storage/modification/');
-define('DIR_UPLOAD', '/var/www/u5111971/public_html/st-spares.ru/system/storage/upload/');
+define('DIR_APPLICATION', 'catalog/');
+define('DIR_SYSTEM', 'system/');
+define('DIR_IMAGE', 'image/');
+define('DIR_LANGUAGE', 'catalog/language/');
+define('DIR_TEMPLATE', 'catalog/view/theme/');
+define('DIR_CONFIG', 'system/config/');
+define('DIR_CACHE', 'system/storage/cache/');
+define('DIR_DOWNLOAD', 'system/storage/download/');
+define('DIR_LOGS', 'system/storage/logs/');
+define('DIR_MODIFICATION', 'system/storage/modification/');
+define('DIR_UPLOAD', 'system/storage/upload/');
+
+
 
 // DB
 define('DB_DRIVER', 'mysqli');
-define('DB_HOSTNAME', 'localhost');
-define('DB_USERNAME', 'u5111971_spares');
-define('DB_PASSWORD', '~^ZnMT;l3(Ix');
-define('DB_DATABASE', 'u5111971_spares');
+define('DB_HOSTNAME', 'mysql');
+define('DB_USERNAME', 'user');
+define('DB_PASSWORD', 'password');
+define('DB_DATABASE', 'db');
 define('DB_PORT', '3306');
 define('DB_PREFIX', '');
