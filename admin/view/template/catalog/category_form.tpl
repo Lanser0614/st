@@ -159,6 +159,12 @@
                 </div>
               </div>
               <div class="form-group">
+                <label class="col-sm-2 control-label">Изображения выводе в каталоге</label>
+                <div class="col-sm-10"><a href="" id="thumb-image2" data-toggle="image" class="img-thumbnail"><img src="<?php echo $thumb2; ?>" alt="" title="" data-placeholder="<?php echo $placeholder; ?>" /></a>
+                  <input type="hidden" name="image2" value="<?php echo $image2; ?>" id="input-image2" />
+                </div>
+              </div>
+              <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-top"><span data-toggle="tooltip" title="<?php echo $help_top; ?>"><?php echo $entry_top; ?></span></label>
                 <div class="col-sm-10">
                   <div class="checkbox">
@@ -169,6 +175,20 @@
                       <input type="checkbox" name="top" value="1" id="input-top" />
                       <?php } ?>
                       &nbsp; </label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-top"><span data-toggle="tooltip" title="Выводит в каталоге?">Выводит в каталоге как дочерный элемент</span></label>
+                <div class="col-sm-10">
+                  <div class="checkbox">
+                    <label>
+                      <?php if ($catalog) { ?>
+                      <input type="checkbox" name="catalog" value="1" checked="checked" id="input-catalog" />
+                      <?php } else { ?>
+                      <input type="checkbox" name="catalog" value="1" id="input-catalog" />
+                      <?php } ?>
+              &nbsp;     </label>
                   </div>
                 </div>
               </div>

@@ -98,8 +98,9 @@ class ControllerCommonHeader extends Controller {
 		
 		$this->load->model('catalog/information');
 		$data['informations'] = array();
-
+       
 		foreach ($this->model_catalog_information->getInformations() as $result) {
+	      
 			if ($result['bottom']) {
 				$data['informations'][] = array(
 					'title' => $result['title'],
@@ -121,32 +122,28 @@ class ControllerCommonHeader extends Controller {
 
 		$data['categories'] = array();
 
-		$categories = $this->model_catalog_category->getCategories(0);
+		$categories = $this->model_catalog_category->getTopCategories(0);
 
 		foreach ($categories as $category) {
-			if ($category['top']) {
-				// Level 2
-				/*$children_data = array();
-
-				$children = $this->model_catalog_category->getCategories($category['category_id']);
+				$children_data = array();
+				$children = $this->model_catalog_category->getTopCategories($category['category_id']);
 
 				foreach ($children as $child) {
 					$children_data[] = array(
 						'name'  => $child['name'],
 						'href'  => $this->url->link('product/category', 'path=' . $category['category_id'] . '_' . $child['category_id'])
 					);
-				}*/
+				}
 
 				// Level 1
 				$data['categories'][] = array(
 					'name'     => $category['name'],
 					'thumb' => $this->model_tool_image->resize(($category['image'] ? $category['image'] : 'placeholder.png'), 180, 180),
-					//'children' => $children_data,
+					'children' => $children_data,
 					//'column'   => $category['column'] ? $category['column'] : 1,
 					'active'   => (in_array($category['category_id'], $parts) ? ' class="active"' : ''),
 					'href'     => $this->url->link('product/category', 'path=' . $category['category_id'])
 				);
-			}
 		}
 
 		//$data['language'] = $this->load->controller('common/language');

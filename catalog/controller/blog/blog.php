@@ -92,7 +92,8 @@ class ControllerBlogBlog extends Controller {
 			$this->model_blog_blog->updateBlogReadCounter($this->request->get['blog_id'], $data['new_read_counter_value']);
 			$data['comment_total'] = $this->model_blog_blog->getTotalCommentsByBlogId($this->request->get['blog_id']);
 
-			if (isset($this->request->get['blog_id'])) {
+			if (isset($this->request->get['blog_id'])) 
+		{
 				
 			$data['post_date_added_status'] = $this->config->get('blogsetting_post_date_added');
 			if (empty($data['post_date_added_status'])) {
@@ -206,13 +207,18 @@ class ControllerBlogBlog extends Controller {
 			
 			$this->document->setDescription($blog_info['meta_description']);
 			$this->document->setKeywords($blog_info['meta_keyword']);
+
+			$this->document->addLink($this->url->link('blog/blog', 'blog_id=' . $this->request->get['blog_id']), 'amphtml');
+
+      		// $data['heading_title'] = $blog_info['title'];
 			
-			$this->document->addLink($this->url->link('blog/blog', 'blog_id=' . $this->request->get['blog_id']), 'canonical');
-										
-      		$data['heading_title'] = $blog_info['title'];
-			
-			$data['description'] = html_entity_decode($blog_info['description'], ENT_QUOTES, 'UTF-8');
-			
+			// $data['description'] = html_entity_decode($blog_info['description'], ENT_QUOTES, 'UTF-8');
+			// var_dump($blog_info['title']);
+			// var_dump($blog_info['description']);
+
+			$this->response->addHeader('Content-Type: application/json');
+			$this->response->setOutput(json_encode($blog_info, JSON_UNESCAPED_UNICODE));
+		
 			$img_width = $this->config->get('blogsetting_post_thumbs_w');
 			if (empty($img_width)) {
 			$img_width = 848;
@@ -338,20 +344,25 @@ class ControllerBlogBlog extends Controller {
 			$data['column_right'] = $this->load->controller('common/column_right');
 			$data['content_top'] = $this->load->controller('common/content_top');
 			$data['content_bottom'] = $this->load->controller('common/content_bottom');
-			$data['footer'] = $this->load->controller('common/footer');
-			$data['header'] = $this->load->controller('common/header');
+			$data['footer'] = $this->load->controller('common/footeramp');
+			$data['header'] = $this->load->controller('common/headeramp');
+
+		// if (isset( $this->request->get['json'])) $this->response->setOutput(json_encode($this->data));  else    
+
+		
+
+			// if ((float)VERSION >= 2.2) {
+			// 	$this->response->setOutput($this->load->view('blog/blog', $data));
+			// } else {
+			// 	if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/blog/blog.tpl')) {
+			// 		$this->response->setOutput($this->load->view($this->config->get('config_template') . '/template/blog/blog.tpl', $data));
+			// 	} else {
+			// 		$this->response->setOutput($this->load->view('default/template/blog/blog.tpl', $data));
+			// 	}
+			// }
 			
-			if ((float)VERSION >= 2.2) {
-				$this->response->setOutput($this->load->view('blog/blog', $data));
-			} else {
-				if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/blog/blog.tpl')) {
-					$this->response->setOutput($this->load->view($this->config->get('config_template') . '/template/blog/blog.tpl', $data));
-				} else {
-					$this->response->setOutput($this->load->view('default/template/blog/blog.tpl', $data));
-				}
-			}
-			
-    	} else {
+    	} 
+		else {
 			
 			$url = '';
 			

@@ -1,0 +1,51 @@
+/*
+##=====================================================================##
+## @author    : OCdevWizard                                            ##
+## @contact   : ocdevwizard@gmail.com                                  ##
+## @support   : http://help.ocdevwizard.com                            ##
+## @license   : http://license.ocdevwizard.com/Licensing_Policy.pdf    ##
+## @copyright : (с) OCdevWizard. Smart Notification Bar Pro Plus, 2017 ##
+##=====================================================================##
+*/
+@font-face {
+  font-family: 'Roboto-Medium';
+  src: url('../smart_notification_bar_pro_plus_fonts/Roboto-Medium.eot');
+  src: url('../smart_notification_bar_pro_plus_fonts/Roboto-Medium.woff') format('woff'),
+  url('../smart_notification_bar_pro_plus_fonts/Roboto-Medium.ttf') format('truetype'),
+  url('../smart_notification_bar_pro_plus_fonts/Roboto-Medium.svg') format('svg');
+}
+@font-face {
+  font-family: 'Roboto-Regular';
+  src: url('../smart_notification_bar_pro_plus_fonts/Roboto-Regular.eot');
+  src: url('../smart_notification_bar_pro_plus_fonts/Roboto-Regular.woff') format('woff'),
+  url('../smart_notification_bar_pro_plus_fonts/Roboto-Regular.ttf') format('truetype'),
+  url('../smart_notification_bar_pro_plus_fonts/Roboto-Regular.svg') format('svg');
+}
+@font-face {
+  font-family: 'Roboto-Thin';
+  src: url('../smart_notification_bar_pro_plus_fonts/Roboto-Thin.eot');
+  src: url('../smart_notification_bar_pro_plus_fonts/Roboto-Thin.woff') format('woff'),
+  url('../smart_notification_bar_pro_plus_fonts/Roboto-Thin.ttf') format('truetype'),
+  url('../smart_notification_bar_pro_plus_fonts/Roboto-Thin.svg') format('svg');
+}
+
+.smnbpp-position-top {
+  top: 0;
+}
+
+.smnbpp-position-bottom {
+  bottom: 0;
+}
+
+.smnbpp-button-close {
+  position: absolute;
+  cursor: pointer;
+}
+
+.smnbpp-button-close-position-left {
+  left: 15px;
+}
+
+.smnbpp-button-close-position-right {
+  right: 15px;
+}

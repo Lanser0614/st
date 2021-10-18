@@ -72,7 +72,35 @@ class ControllerAccountOrder extends Controller {
 
 			$ocstore_yk_onpay_info  = $this->model_extension_payment_ocstore_yk->checkLaterpay($result['order_id']);
 
+ //qiwiwpro
+        
+          $this->load->model('extension/payment/qiwiw');
+          $qiwiwpro = '';
+          $qiwiwprotext = '';
+          $qiwiwprostyle = '';
+          $qiwiwproquery = $this->model_extension_payment_qiwiw->getPaymentAcc($result['order_id']);
+          if (strpos($qiwiwproquery['payment_code'], 'iwiw') && $this->config->get($qiwiwproquery['payment_code'].'_status')){
+                if ($this->config->get($qiwiwproquery['payment_code'].'_on_status_id') == $qiwiwproquery['order_status_id']){
+                  $this->language->load('extension/payment/qiwiwpro');
+                  $this->language->load('extension/payment/'.$qiwiwproquery['payment_code']);
+                  $qiwiwprotext = $this->language->get('pay_text');
+                  $qiwiwpro = $this->model_extension_payment_qiwiw->getSecureCode($result['order_id']);
+                  if ($this->config->get($qiwiwproquery['payment_code'].'_style')) {
+                    $qiwiwprostyle = 'btn btn-info';
+                  }
+                  else{
+                    $qiwiwprostyle = 'qiwiwpro_button';
+                  }
+                }
+          }
+          //qiwiwpro END 
 			$data['orders'][] = array(
+ //qiwiwpro
+          'qiwiwpro_order'      => $qiwiwpro,
+          'qiwiwprostyle'      => $qiwiwprostyle,
+          'qiwiwprotext'      => $qiwiwprotext,
+
+          //qiwiwpro END 
 				'order_id'   => $result['order_id'],
 				'name'       => $result['firstname'] . ' ' . $result['lastname'],
 				'status'     => $result['status'],

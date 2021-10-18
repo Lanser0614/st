@@ -38,7 +38,7 @@ class Pagination {
 			if ($page - 1 === 1) {
 				$output .= '<li class="p-prev"><a href="' . str_replace(array('&amp;page={page}', '&page={page}'), '', $this->url) . '">' . $this->text_prev . '</a></li>';
 			} else {
-				$output .= '<li><a href="' . str_replace('{page}', $page - 1, $this->url) . '">' . $this->text_prev . '</a></li>';
+				$output .= '<li class="p-prev"><a href="' . str_replace('{page}', $page - 1, $this->url) . '">' . $this->text_prev . '</a></li>';
 			}
 		}
 
@@ -58,6 +58,7 @@ class Pagination {
 				if ($end > $num_pages) {
 					$start -= ($end - $num_pages);
 					$end = $num_pages;
+					$end = $end - 1;
 				}
 			}
 
@@ -74,9 +75,17 @@ class Pagination {
 			}
 		}
 
-		if ($page < $num_pages) {
+		if ($page < $num_pages && $num_pages < 9) {
 			$output .= '<li class="p-next"><a href="' . str_replace('{page}', $page + 1, $this->url) . '">' . $this->text_next . '</a></li>';
-			$output .= '<li class="p-last"><a href="' . str_replace('{page}', $num_pages, $this->url) . '">' . $this->text_last . '</a></li>';
+	
+		}else{
+		    if($page == $num_pages){
+        	$output .= '<li class="p-last"><a href="' . str_replace('{page}', $num_pages, $this->url) . '">' . $num_pages . '</a></li>';
+		    }else{
+        	$output .= '<li class="p-last"><a href="' . str_replace('{page}', $num_pages, $this->url) . '">··· ' . $num_pages . '</a></li>';
+        	$output .= '<li class="p-next"><a href="' . str_replace('{page}', $page + 1, $this->url) . '">' . $this->text_next . '</a></li>';
+		    }
+	    
 		}
 
 		$output .= '</ul>';

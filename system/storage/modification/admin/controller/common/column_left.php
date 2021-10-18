@@ -251,6 +251,36 @@ class ControllerCommonColumnLeft extends Controller {
 			}
 			
 			// Design
+
+        // start: OCdevWizard
+        $ocdevwizard = array();
+
+        // start: OCdevWizard SMNBPP
+        if (version_compare(VERSION, '3.0.0.0', '>=')) {
+          $ocdevwizard[] = array(
+            'name'     => $this->language->get('text_smart_notification_bar_pro_plus_left_menu'),
+            'href'     => $this->url->link('extension/ocdevwizard/smart_notification_bar_pro_plus', 'user_token='.$this->session->data['user_token'].'&store_id=0', true),
+            'children' => array()
+          );
+        } else {
+          $ocdevwizard[] = array(
+            'name'     => $this->language->get('text_smart_notification_bar_pro_plus_left_menu'),
+            'href'     => $this->url->link('extension/ocdevwizard/smart_notification_bar_pro_plus', 'token='.$this->session->data['token'].'&store_id=0', true),
+            'children' => array()
+          );
+        }
+        // end: OCdevWizard SMNBPP
+      
+
+        $data['menus'][] = array(
+          'id'       => 'menu-ocdevwizard',
+          'icon'     => 'fa fa-lightbulb-o fa-fw',
+          'name'     => $this->language->get('text_ocdevwizard'),
+          'href'     => '',
+          'children' => $ocdevwizard
+        );
+        // end: OCdevWizard
+      
 			$design = array();
 			
 			if ($this->user->hasPermission('access', 'design/layout')) {
@@ -331,6 +361,14 @@ class ControllerCommonColumnLeft extends Controller {
 				);	
 			}
 			
+ 
+      if ($this->user->hasPermission('access', 'extension/payment/qiwiw') || $this->user->hasPermission('access', 'extension/payment/qiwiw_card')) {
+        $sale[] = array(
+          'name'     => 'qiwiwpro',
+          'href'     => $this->url->link('extension/payment/qiwiw/status', 'token=' . $this->session->data['token'], true),
+          'children' => array()   
+        );  
+      }
 			// Voucher
 			$voucher = array();
 			
@@ -405,6 +443,32 @@ class ControllerCommonColumnLeft extends Controller {
 				);	
 			}
 			
+
+            $faq = array();
+
+			if ($this->user->hasPermission('access', 'extension/module/faq')) {
+                $faq[] = array(
+                    'name'     => $this->language->get('faq_list'),
+                    'href'     => $this->url->link('extension/module/faq', 'token=' . $this->session->data['token'], true),
+                    'children' => array()
+                );
+                $faq[] = array(
+                    'name'     => $this->language->get('faq_category'),
+                    'href'     => $this->url->link('extension/module/faq_category', 'token=' . $this->session->data['token'], true),
+                    'children' => array()
+                );
+			}
+
+            if ($faq) {
+                $data['menus'][] = array(
+                    'id' => 'faq-menu',
+                    'icon' => 'fa-comments-o',
+                    'name' => 'FAQ',
+                    'href' => '',
+                    'children' => $faq
+                );
+            }
+            
 			// Marketing
 			$marketing = array();
 			
@@ -664,6 +728,15 @@ class ControllerCommonColumnLeft extends Controller {
 				$tool[] = array(
 					'name'	   => $this->language->get('text_backup'),
 					'href'     => $this->url->link('tool/backup', 'token=' . $this->session->data['token'], true),
+					'children' => array()		
+				);
+			}
+			
+
+			if ($this->user->hasPermission('access', 'tool/export_import')) {
+				$tool[] = array(
+					'name'	   => $this->language->get('text_export_import'),
+					'href'     => $this->url->link('tool/export_import', 'token=' . $this->session->data['token'], true),
 					'children' => array()		
 				);
 			}

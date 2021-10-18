@@ -52,9 +52,13 @@ $(document).ready(function() {
 									
 									$('#modal-image').delegate('a.thumbnail', 'click', function(e) {
 										e.preventDefault();
-										
-										$(element).summernote('insertImage', $(this).attr('href'));
-																	
+										var type = $(this).data('type');
+										if(type ==='pdf'){
+											console.log('insert');
+											$(element).summernote('code','<a href="'+$(this).attr('href')+'">'+$(this).data('name')+'</a>');
+										}else{
+											$(element).summernote('insertImage', $(this).attr('href'));
+										}
 										$('#modal-image').modal('hide');
 									});
 								}

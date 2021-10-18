@@ -75,6 +75,7 @@ class ModelBlogBlog extends Model {
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "blog n LEFT JOIN " . DB_PREFIX . "blog_description nd ON (n.blog_id = nd.blog_id) LEFT JOIN " . DB_PREFIX . "blog_to_store n2s ON (n.blog_id = n2s.blog_id) LEFT JOIN " . DB_PREFIX . "blog_to_category n2c ON (n.blog_id = n2c.blog_id) WHERE nd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND n2s.store_id = '" . (int)$this->config->get('config_store_id') . "' AND n2c.blog_category_id = '" . (int)$blog_category_id . "' AND n.status = '1' AND n.sort_order <> '-1' ORDER BY n.sort_order, n.blog_id DESC LIMIT " . (int)$start . "," . (int)$limit);
 		
 		return $query->rows;
+		
 	}
 	
 	public function getTotalBlogsByBlogCategoryId($blog_category_id = 0) {

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+##=====================================================================##
+## @author    : OCdevWizard                                            ##
+## @contact   : ocdevwizard@gmail.com                                  ##
+## @support   : http://help.ocdevwizard.com                            ##
+## @license   : http://license.ocdevwizard.com/Licensing_Policy.pdf    ##
+## @copyright : (c) OCdevWizard. Smart Notification Bar Pro Plus, 2017 ##
+##=====================================================================##
+-->
+<modification>
+  <code>smart_notification_bar_pro_plus_101</code>
+  <name>Ocdevwizard: Smart Notification Bar Pro Plus</name>
+  <version>1.0.1</version>
+  <author>ocdevwizard@gmail.com</author>
+  <link>http://www.opencart.com/index.php?route=extension/extension&amp;filter_username=OCdevWizard</link>
+  <!-- admin area -->
+  <!-- sart: For 2.0.x ... 2.1.x -->
+  <file path="admin/controller/user/user_permission.php">
+    <operation error="skip">
+      <search><![CDATA[if (isset($this->request->post['permission']['access'])) {]]></search>
+      <add position="before"><![CDATA[
+        // start: OCdevWizard SMNBPP
+        if (version_compare(VERSION, '2.2.0.0', '<=') && !in_array('extension/ocdevwizard/smart_notification_bar_pro_plus', $data['permissions'])) {
+          $data['permissions'][] = 'extension/ocdevwizard/smart_notification_bar_pro_plus';
+        }
+        // end: OCdevWizard SMNBPP
+      ]]></add>
+    </operation>
+  </file>
+  <file path="admin/controller/error/permission.php">
+    <operation error="skip">
+      <search><![CDATA[$ignore = array(]]></search>
+      <add position="after"><![CDATA[
+        // start: OCdevWizard SMNBPP
+        'extension/ocdevwizard/smart_notification_bar_pro_plus',
+        // end: OCdevWizard SMNBPP
+      ]]></add>
+    </operation>
+  </file>
+  <!-- end: For 2.0.x ... 2.1.x -->
+  <!-- sart: For 2.3.x -->
+  <file path="admin/controller/startup/permission.php">
+    <operation error="skip">
+      <search><![CDATA[$ignore = array(]]></search>
+      <add position="after"><![CDATA[
+        // start: OCdevWizard SMNBPP
+        'extension/ocdevwizard/smart_notification_bar_pro_plus',
+        // end: OCdevWizard SMNBPP
+      ]]></add>
+    </operation>
+  </file>
+  <file path="admin/controller/common/column_left.php">
+    <operation error="skip">
+      <search><![CDATA[$ocdevwizard = array();]]></search>
+      <add position="after"><![CDATA[
+        // start: OCdevWizard SMNBPP
+        if (version_compare(VERSION, '3.0.0.0', '>=')) {
+          $ocdevwizard[] = array(
+            'name'     => $this->language->get('text_smart_notification_bar_pro_plus_left_menu'),
+            'href'     => $this->url->link('extension/ocdevwizard/smart_notification_bar_pro_plus', 'user_token='.$this->session->data['user_token'].'&store_id=0', true),
+            'children' => array()
+          );
+        } else {
+          $ocdevwizard[] = array(
+            'name'     => $this->language->get('text_smart_notification_bar_pro_plus_left_menu'),
+            'href'     => $this->url->link('extension/ocdevwizard/smart_notification_bar_pro_plus', 'token='.$this->session->data['token'].'&store_id=0', true),
+            'children' => array()
+          );
+        }
+        // end: OCdevWizard SMNBPP
+      ]]></add>
+    </operation>
+  </file>
+  <file path="admin/language/*/common/column_left.php">
+    <operation error="skip">
+      <search><![CDATA[<?php]]></search>
+      <add position="after"><![CDATA[
+        // start: OCdevWizard SMNBPP
+        $_['text_smart_notification_bar_pro_plus_left_menu'] = 'Smart Notification Bar Pro Plus';
+        // end: OCdevWizard SMNBPP
+      ]]></add>
+    </operation>
+  </file>
+  <!-- end: For 2.3.x -->
+  <!-- sart: For 2.2.x -->
+  <file path="admin/controller/common/menu.php">
+    <operation error="skip">
+      <search><![CDATA[$this->load->language('common/menu');]]></search>
+      <add position="after"><![CDATA[
+        // start: OCdevWizard SMNBPP
+        $data['text_smart_notification_bar_pro_plus_left_menu'] = $this->language->get('text_smart_notification_bar_pro_plus_left_menu');
+        $data['smart_notification_bar_pro_plus_link'] = $this->url->link('extension/ocdevwizard/smart_notification_bar_pro_plus', 'token='.$this->session->data['token'].'&store_id=0', 'SSL');
+        // end: OCdevWizard SMNBPP
+      ]]></add>
+    </operation>
+  </file>
+  <file path="admin/language/*/common/menu.php">
+    <operation error="skip">
+      <search><![CDATA[<?php]]></search>
+      <add position="after"><![CDATA[
+        // start: OCdevWizard SMNBPP
+        $_['text_smart_notification_bar_pro_plus_left_menu'] = 'Smart Notification Bar Pro Plus';
+        // end: OCdevWizard SMNBPP
+      ]]></add>
+    </operation>
+  </file>
+  <file path="admin/view/template/common/menu.tpl">
+    <operation error="skip">
+      <search><![CDATA[<li id="ocdevwizard"><a class="parent"><i class="fa fa-lightbulb-o fa-fw" aria-hidden="true"></i> <span><?php echo $text_ocdevwizard; ?></span></a><ul>]]></search>
+      <add position="replace"><![CDATA[
+        <li id="ocdevwizard"><a class="parent"><i class="fa fa-lightbulb-o fa-fw" aria-hidden="true"></i> <span><?php echo $text_ocdevwizard; ?></span></a><ul>
+        <li><a href="<?php echo $smart_notification_bar_pro_plus_link; ?>"><span><?php echo $text_smart_notification_bar_pro_plus_left_menu; ?></span></a></li>
+      ]]></add>
+    </operation>
+  </file>
+  <!-- end: For 2.2.x -->
+  <!-- catalog area -->
+  <file path="catalog/controller/common/footer.php">
+    <operation error="skip">
+      <search><![CDATA[public function index() {]]></search>
+      <add position="after"><![CDATA[
+        // start: OCdevWizard SMNBPP
+        $this->load->model('extension/ocdevwizard/ocdevwizard_setting');
+
+        $smnbpp_form_data = $this->model_extension_ocdevwizard_ocdevwizard_setting->getSettingData('smart_notification_bar_pro_plus_form_data', (int)$this->config->get('config_store_id'));
+
+        if (isset($smnbpp_form_data['activate']) && $smnbpp_form_data['activate']) {
+          $this->load->model('extension/ocdevwizard/smart_notification_bar_pro_plus');
+
+          $this->document->addStyle("catalog/view/theme/default/stylesheet/ocdevwizard/smart_notification_bar_pro_plus/stylesheet.css?v=".$smnbpp_form_data['front_module_version']);
+
+          $language_id = $this->model_extension_ocdevwizard_smart_notification_bar_pro_plus->getLanguageByCode($this->session->data['language']);
+          
+          if (isset($smnbpp_form_data['direction_type'][$language_id]) && $smnbpp_form_data['direction_type'][$language_id] == '2') {
+            $this->document->addStyle("catalog/view/theme/default/stylesheet/ocdevwizard/smart_notification_bar_pro_plus/stylesheet_rtl.css?v=".$smnbpp_form_data['front_module_version']);
+          }
+
+          $data['smart_notification_bar_pro_plus'] = $this->load->controller('extension/ocdevwizard/smart_notification_bar_pro_plus');
+        } else {
+          $data['smart_notification_bar_pro_plus'] = '';
+        }
+        // end: OCdevWizard SMNBPP
+      ]]></add>
+    </operation>
+  </file>
+  <file path="catalog/view/theme/*/template/common/footer.tpl">
+    <operation error="skip">
+      <search><![CDATA[</html>]]></search>
+      <add position="before"><![CDATA[<?php echo $smart_notification_bar_pro_plus; ?>]]></add>
+    </operation>
+  </file>
+  <file path="catalog/view/theme/*/template/common/footer.twig">
+    <operation error="skip">
+      <search><![CDATA[</html>]]></search>
+      <add position="before"><![CDATA[{{ smart_notification_bar_pro_plus }}]]></add>
+    </operation>
+  </file>
+</modification>

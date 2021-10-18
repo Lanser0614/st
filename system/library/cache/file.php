@@ -3,7 +3,7 @@ namespace Cache;
 class File {
 	private $expire;
 
-	public function __construct($expire = 3600) {
+	public function __construct($expire = 97200) {
 		$this->expire = $expire;
 
 		$files = glob(DIR_CACHE . 'cache.*');
@@ -22,6 +22,7 @@ class File {
 	}
 
 	public function get($key) {
+	  
 		$files = glob(DIR_CACHE . 'cache.' . preg_replace('/[^A-Z0-9\._-]/i', '', $key) . '.*');
 
 		if ($files) {

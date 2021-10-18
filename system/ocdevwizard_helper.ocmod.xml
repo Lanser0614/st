@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+##==================================================================##
+## @author    : OCdevWizard                                         ##
+## @contact   : ocdevwizard@gmail.com                               ##
+## @support   : http://help.ocdevwizard.com                         ##
+## @license   : http://license.ocdevwizard.com/Licensing_Policy.pdf ##
+## @copyright : (c) OCdevWizard. Module Helper, 2014                ##
+##==================================================================##
+-->
+
+<modification>
+  <code>ocdevwizard_helper_203</code>
+  <name>OCdevWizard: Helper for modules</name>
+  <version>2.0.3</version>
+  <author>ocdevwizard@gmail.com</author>
+  <link>http://www.opencart.com/index.php?route=extension/extension&amp;filter_username=OCdevWizard</link>
+  <!-- admin area -->
+  <file path="admin/controller/error/permission.php">
+    <operation error="skip">
+      <search><![CDATA[$ignore = array(]]></search>
+      <add position="after"><![CDATA[
+        // start: OCdevWizard OCdevWizard
+        'extension/ocdevwizard',
+        // end: OCdevWizard OCdevWizard
+      ]]></add>
+    </operation>
+  </file>
+  <file path="admin/controller/startup/permission.php">
+    <operation error="skip">
+      <search><![CDATA[$ignore = array(]]></search>
+      <add position="after"><![CDATA[
+        // start: OCdevWizard OCdevWizard
+        'extension/ocdevwizard',
+        // end: OCdevWizard OCdevWizard
+      ]]></add>
+    </operation>
+    <operation error="skip">
+      <search><![CDATA[$extension = array(]]></search>
+      <add position="after"><![CDATA[
+        // start: OCdevWizard OCdevWizard
+        'extension/ocdevwizard',
+        // end: OCdevWizard OCdevWizard
+      ]]></add>
+    </operation>
+  </file>
+  <!-- sart: For 2.3.x and higher -->
+  <file path="admin/controller/common/column_left.php">
+    <operation error="skip">
+      <search><![CDATA[$design = array();]]></search>
+      <add position="before"><![CDATA[
+        // start: OCdevWizard
+        $ocdevwizard = array();
+
+        $data['menus'][] = array(
+          'id'       => 'menu-ocdevwizard',
+          'icon'     => 'fa fa-lightbulb-o fa-fw',
+          'name'     => $this->language->get('text_ocdevwizard'),
+          'href'     => '',
+          'children' => $ocdevwizard
+        );
+        // end: OCdevWizard
+      ]]></add>
+    </operation>
+  </file>
+  <file path="admin/language/*/common/column_left.php">
+    <operation error="skip">
+      <search><![CDATA[<?php]]></search>
+      <add position="after"><![CDATA[
+        // start: OCdevWizard
+        $_['text_ocdevwizard'] = 'OCdevWizard';
+        // end: OCdevWizard
+      ]]></add>
+    </operation>
+  </file>
+  <!-- end: For 2.3.x and higher -->
+  <!-- sart: For 2.0.x ... 2.2.x -->
+  <file path="admin/controller/common/menu.php">
+     <operation error="skip">
+      <search><![CDATA[$this->load->language('common/menu');]]></search>
+      <add position="after"><![CDATA[
+        // start: OCdevWizard
+        $data['text_ocdevwizard'] = $this->language->get('text_ocdevwizard');
+        // end: OCdevWizard
+      ]]></add>
+    </operation>
+  </file>
+  <file path="admin/language/*/common/menu.php">
+     <operation error="skip">
+      <search><![CDATA[<?php]]></search>
+      <add position="after"><![CDATA[
+        // start: OCdevWizard
+        $_['text_ocdevwizard'] = 'OCdevWizard';
+        // end: OCdevWizard
+      ]]></add>
+    </operation>
+  </file>
+  <file path="admin/view/template/common/menu.tpl">
+    <operation error="skip">
+      <search><![CDATA[<li id="extension"><a class="parent"><i class="fa fa-puzzle-piece fa-fw"></i> <span><?php echo $text_extension; ?></span></a>]]></search>
+      <add position="before"><![CDATA[<li id="ocdevwizard"><a class="parent"><i class="fa fa-lightbulb-o fa-fw" aria-hidden="true"></i> <span><?php echo $text_ocdevwizard; ?></span></a><ul></ul></li>]]></add>
+    </operation>
+  </file>
+  <!-- catalog area -->
+  <file path="catalog/controller/common/header.php">
+    <operation error="skip">
+      <search><![CDATA[public function index() {]]></search>
+      <add position="before"><![CDATA[
+        // start: OCdevWizard
+        public function ocdevwizard_js_create($data) {
+          if ($data) {
+            $ocdevwizard_script  = "var ocdev_modules = [];\r\n";
+
+            if (isset($data['smca_status']) && $data['smca_status'] == 1) {
+              $ocdevwizard_script .= "ocdev_modules.push({\r\n";
+              $ocdevwizard_script .= "  src: 'index.php?route=ocdevwizard/smart_cart',\r\n";
+              $ocdevwizard_script .= "  type:'ajax'\r\n";
+              $ocdevwizard_script .= "});\r\n";
+            }
+
+            if (isset($data['smpcp_status']) && $data['smpcp_status'] == 1) {
+              $ocdevwizard_script .= "ocdev_modules.push({\r\n";
+              $ocdevwizard_script .= "  src: 'index.php?route=extension/ocdevwizard/smart_popup_cart_pro',\r\n";
+              $ocdevwizard_script .= "  type:'ajax'\r\n";
+              $ocdevwizard_script .= "});\r\n";
+            }
+
+            if (isset($data['smpcpp_status']) && $data['smpcpp_status'] == 1) {
+              $ocdevwizard_script .= "ocdev_modules.push({\r\n";
+              $ocdevwizard_script .= "  src: 'index.php?route=extension/ocdevwizard/smart_popup_cart_pro_plus',\r\n";
+              $ocdevwizard_script .= "  type:'ajax'\r\n";
+              $ocdevwizard_script .= "});\r\n";
+            }
+
+            if (isset($data['smac_status']) && $data['smac_status'] == 1 && $data['smart_abandoned_cart'] == 1) {
+              $ocdevwizard_script .= "ocdev_modules.push({\r\n";
+              $ocdevwizard_script .= "  src: 'index.php?route=ocdevwizard/smart_abandoned_cart',\r\n";
+              $ocdevwizard_script .= "  type:'ajax'\r\n";
+              $ocdevwizard_script .= "});\r\n";
+            }
+
+            if (isset($data['smchup_status']) && $data['smchup_status'] == 1) {
+              $ocdevwizard_script .= "ocdev_modules.push({\r\n";
+              $ocdevwizard_script .= "  src: 'index.php?route=extension/ocdevwizard/smart_checkout_upsell_pro',\r\n";
+              $ocdevwizard_script .= "  type:'ajax'\r\n";
+              $ocdevwizard_script .= "});\r\n";
+            }
+
+            if (isset($data['smchupp_status']) && $data['smchupp_status'] == 1) {
+              $ocdevwizard_script .= "ocdev_modules.push({\r\n";
+              $ocdevwizard_script .= "  src: 'index.php?route=extension/ocdevwizard/smart_checkout_upsell_pro_plus',\r\n";
+              $ocdevwizard_script .= "  type:'ajax'\r\n";
+              $ocdevwizard_script .= "});\r\n";
+            }
+
+            if (!file_exists(DIR_APPLICATION.'view/javascript/ocdevwizard/ocdevwizard.js')) {
+              file_put_contents(DIR_APPLICATION.'view/javascript/ocdevwizard/ocdevwizard.js', $ocdevwizard_script);
+            }
+          }
+        }
+        // end: OCdevWizard
+      ]]></add>
+    </operation>
+    <operation error="skip">
+      <search><![CDATA[public function index() {]]></search>
+      <add position="after"><![CDATA[
+        // start: OCdevWizard
+        $ocdevwizard_modules = array();
+
+        if (isset($smca_status)) {
+          $ocdevwizard_modules['smca_status'] = $smca_status;
+        }
+
+        if (isset($smpcp_status)) {
+          $ocdevwizard_modules['smpcp_status'] = $smpcp_status;
+        }
+
+        if (isset($smpcpp_status)) {
+          $ocdevwizard_modules['smpcpp_status'] = $smpcpp_status;
+        }
+
+        if (isset($smac_status)) {
+          $ocdevwizard_modules['smac_status'] = $smac_status;
+          $ocdevwizard_modules['smart_abandoned_cart'] = $smart_abandoned_cart;
+        }
+
+        if (!isset($smca_status) && !isset($smpcp_status) && !isset($smpcpp_status) && !isset($smac_status)) {
+          if (isset($smchup_status)) {
+            $ocdevwizard_modules['smchup_status'] = $smchup_status;
+          }
+
+          if (isset($smchupp_status)) {
+            $ocdevwizard_modules['smchupp_status'] = $smchupp_status;
+          }
+        }
+
+        $this->ocdevwizard_js_create($ocdevwizard_modules);
+
+        if (file_exists(DIR_APPLICATION.'view/javascript/ocdevwizard/ocdevwizard.js')) {
+          $this->document->addScript("catalog/view/javascript/ocdevwizard/ocdevwizard.js");
+        }
+        // end: OCdevWizard
+      ]]></add>
+    </operation>
+  </file>
+</modification>

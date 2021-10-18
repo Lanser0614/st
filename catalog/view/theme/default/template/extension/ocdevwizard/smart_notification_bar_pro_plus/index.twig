@@ -1,0 +1,346 @@
+<!--
+##=====================================================================##
+## @author    : OCdevWizard                                            ##
+## @contact   : ocdevwizard@gmail.com                                  ##
+## @support   : http://help.ocdevwizard.com                            ##
+## @license   : http://license.ocdevwizard.com/Licensing_Policy.pdf    ##
+## @copyright : (c) OCdevWizard. Smart Notification Bar Pro Plus, 2017 ##
+##=====================================================================##
+-->
+{% if (forms) %} 
+<script type="text/javascript">
+  {% for form in forms %} 
+    {% if (form['module_trigger'] == 1) %} 
+      $(window).load(function() {
+        {% if (form['display_frequency'] == 1) %} 
+          setTimeout(function() {
+            {% if (form['custom_js'] == 1 or form['custom_js'] == 3) %} 
+              {{ form['custom_js_code'] }} 
+            {% endif %} 
+            {% if (form['animation_type'] == 1) %} 
+              $('{{ form['insert_module'] }}').{% if (form['display_position'] == 1) %}prepend{% else %}append{% endif %}('<div class="{{ _code }}-notification-bar {% if (form['display_position'] == 1) %}{{ _code }}-position-top{% else %}{{ _code }}-position-bottom{% endif %}{% if (form['module_class']) %} {{ form['module_class'] }}{% endif %}" {% if (form['module_id_selector']) %}id="{{ form['module_id_selector'] }}"{% endif %}>{{ form['module_content'] }}{% if (form['close_button_status'] == 1) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-right" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% elseif (form['close_button_status'] == 2) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-left" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% endif %}</div>');
+              $('#{{ form['module_id_selector'] }}').slideDown({{ form['animation_duration'] }});
+            {% elseif (form['animation_type'] == 2) %} 
+              $('{{ form['insert_module'] }}').{% if (form['display_position'] == 1) %}prepend{% else %}append{% endif %}('<div class="{{ _code }}-notification-bar {% if (form['display_position'] == 1) %}{{ _code }}-position-top{% else %}{{ _code }}-position-bottom{% endif %}{% if (form['module_class']) %} {{ form['module_class'] }}{% endif %}" {% if (form['module_id_selector']) %}id="{{ form['module_id_selector'] }}"{% endif %}>{{ form['module_content'] }}{% if (form['close_button_status'] == 1) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-right" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% elseif (form['close_button_status'] == 2) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-left" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% endif %}</div>');
+              $('#{{ form['module_id_selector'] }}').fadeIn({{ form['animation_duration'] }});
+            {% else %} 
+              $('{{ form['insert_module'] }}').{% if (form['display_position'] == 1) %}prepend{% else %}append{% endif %}('<div class="{{ _code }}-notification-bar {% if (form['display_position'] == 1) %}{{ _code }}-position-top{% else %}{{ _code }}-position-bottom{% endif %}{% if (form['module_class']) %} {{ form['module_class'] }}{% endif %}" {% if (form['module_id_selector']) %}id="{{ form['module_id_selector'] }}"{% endif %}>{{ form['module_content'] }}{% if (form['close_button_status'] == 1) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-right" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% elseif (form['close_button_status'] == 2) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-left" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% endif %}</div>');
+            {% endif %} 
+          }, {{ form['show_delay'] }});
+        {% endif %} 
+
+        {% if (form['display_frequency'] == 2) %} 
+          $.ajax({
+            type: 'get',
+            url: 'index.php?route=extension/ocdevwizard/{{ _name }}/validate&form={{ _code }}_form_{{ form['form_id'] }}&type=session',
+            dataType: 'json',
+            success: function(json) {
+              if (json['status'] != 1) {
+                setTimeout(function() {
+                  {% if (form['custom_js'] == 1 or form['custom_js'] == 3) %} 
+                    {{ form['custom_js_code'] }} 
+                  {% endif %} 
+                  {% if (form['animation_type'] == 1) %} 
+                    $('{{ form['insert_module'] }}').{% if (form['display_position'] == 1) %}prepend{% else %}append{% endif %}('<div class="{{ _code }}-notification-bar {% if (form['display_position'] == 1) %}{{ _code }}-position-top{% else %}{{ _code }}-position-bottom{% endif %}{% if (form['module_class']) %} {{ form['module_class'] }}{% endif %}" {% if (form['module_id_selector']) %}id="{{ form['module_id_selector'] }}"{% endif %}>{{ form['module_content'] }}{% if (form['close_button_status'] == 1) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-right" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% elseif (form['close_button_status'] == 2) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-left" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% endif %}</div>');
+                    $('#{{ form['module_id_selector'] }}').slideDown({{ form['animation_duration'] }});
+                  {% elseif (form['animation_type'] == 2) %} 
+                    $('{{ form['insert_module'] }}').{% if (form['display_position'] == 1) %}prepend{% else %}append{% endif %}('<div class="{{ _code }}-notification-bar {% if (form['display_position'] == 1) %}{{ _code }}-position-top{% else %}{{ _code }}-position-bottom{% endif %}{% if (form['module_class']) %} {{ form['module_class'] }}{% endif %}" {% if (form['module_id_selector']) %}id="{{ form['module_id_selector'] }}"{% endif %}>{{ form['module_content'] }}{% if (form['close_button_status'] == 1) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-right" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% elseif (form['close_button_status'] == 2) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-left" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% endif %}</div>');
+                    $('#{{ form['module_id_selector'] }}').fadeIn({{ form['animation_duration'] }});
+                  {% else %} 
+                    $('{{ form['insert_module'] }}').{% if (form['display_position'] == 1) %}prepend{% else %}append{% endif %}('<div class="{{ _code }}-notification-bar {% if (form['display_position'] == 1) %}{{ _code }}-position-top{% else %}{{ _code }}-position-bottom{% endif %}{% if (form['module_class']) %} {{ form['module_class'] }}{% endif %}" {% if (form['module_id_selector']) %}id="{{ form['module_id_selector'] }}"{% endif %}>{{ form['module_content'] }}{% if (form['close_button_status'] == 1) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-right" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% elseif (form['close_button_status'] == 2) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-left" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% endif %}</div>');
+                  {% endif %} 
+                }, {{ form['show_delay'] }});
+              }
+            }
+          });
+        {% endif %} 
+
+        {% if (form['display_frequency'] == 3) %} 
+          $.ajax({
+            type: 'get',
+            url: 'index.php?route=extension/ocdevwizard/{{ _name }}/validate&form={{ _code }}_form_{{ form['form_id'] }}&type=cookie&days={{ form['display_frequency_days'] }}',
+            dataType: 'json',
+            success: function(json) {
+              if (json['status'] != 1) {
+                setTimeout(function() {
+                  {% if (form['custom_js'] == 1 or form['custom_js'] == 3) %} 
+                    {{ form['custom_js_code'] }} 
+                  {% endif %} 
+                  {% if (form['animation_type'] == 1) %} 
+                    $('{{ form['insert_module'] }}').{% if (form['display_position'] == 1) %}prepend{% else %}append{% endif %}('<div class="{{ _code }}-notification-bar {% if (form['display_position'] == 1) %}{{ _code }}-position-top{% else %}{{ _code }}-position-bottom{% endif %}{% if (form['module_class']) %} {{ form['module_class'] }}{% endif %}" {% if (form['module_id_selector']) %}id="{{ form['module_id_selector'] }}"{% endif %}>{{ form['module_content'] }}{% if (form['close_button_status'] == 1) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-right" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% elseif (form['close_button_status'] == 2) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-left" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% endif %}</div>');
+                    $('#{{ form['module_id_selector'] }}').slideDown({{ form['animation_duration'] }});
+                  {% elseif (form['animation_type'] == 2) %} 
+                    $('{{ form['insert_module'] }}').{% if (form['display_position'] == 1) %}prepend{% else %}append{% endif %}('<div class="{{ _code }}-notification-bar {% if (form['display_position'] == 1) %}{{ _code }}-position-top{% else %}{{ _code }}-position-bottom{% endif %}{% if (form['module_class']) %} {{ form['module_class'] }}{% endif %}" {% if (form['module_id_selector']) %}id="{{ form['module_id_selector'] }}"{% endif %}>{{ form['module_content'] }}{% if (form['close_button_status'] == 1) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-right" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% elseif (form['close_button_status'] == 2) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-left" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% endif %}</div>');
+                    $('#{{ form['module_id_selector'] }}').fadeIn({{ form['animation_duration'] }});
+                  {% else %} 
+                    $('{{ form['insert_module'] }}').{% if (form['display_position'] == 1) %}prepend{% else %}append{% endif %}('<div class="{{ _code }}-notification-bar {% if (form['display_position'] == 1) %}{{ _code }}-position-top{% else %}{{ _code }}-position-bottom{% endif %}{% if (form['module_class']) %} {{ form['module_class'] }}{% endif %}" {% if (form['module_id_selector']) %}id="{{ form['module_id_selector'] }}"{% endif %}>{{ form['module_content'] }}{% if (form['close_button_status'] == 1) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-right" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% elseif (form['close_button_status'] == 2) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-left" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% endif %}</div>');
+                  {% endif %} 
+                }, {{ form['show_delay'] }});
+              }
+            }
+          });
+        {% endif %} 
+      });
+    {% endif %} 
+
+    {% if (form['module_trigger'] == 2) %} 
+      $(document).ready(function() {
+        {% if (form['display_frequency'] == 1) %} 
+          setTimeout(function() {
+            {% if (form['custom_js'] == 1 or form['custom_js'] == 3) %} 
+              {{ form['custom_js_code'] }} 
+            {% endif %} 
+            {% if (form['animation_type'] == 1) %} 
+              $('{{ form['insert_module'] }}').{% if (form['display_position'] == 1) %}prepend{% else %}append{% endif %}('<div class="{{ _code }}-notification-bar {% if (form['display_position'] == 1) %}{{ _code }}-position-top{% else %}{{ _code }}-position-bottom{% endif %}{% if (form['module_class']) %} {{ form['module_class'] }}{% endif %}" {% if (form['module_id_selector']) %}id="{{ form['module_id_selector'] }}"{% endif %}>{{ form['module_content'] }}{% if (form['close_button_status'] == 1) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-right" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% elseif (form['close_button_status'] == 2) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-left" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% endif %}</div>');
+              $('#{{ form['module_id_selector'] }}').slideDown({{ form['animation_duration'] }});
+            {% elseif (form['animation_type'] == 2) %} 
+              $('{{ form['insert_module'] }}').{% if (form['display_position'] == 1) %}prepend{% else %}append{% endif %}('<div class="{{ _code }}-notification-bar {% if (form['display_position'] == 1) %}{{ _code }}-position-top{% else %}{{ _code }}-position-bottom{% endif %}{% if (form['module_class']) %} {{ form['module_class'] }}{% endif %}" {% if (form['module_id_selector']) %}id="{{ form['module_id_selector'] }}"{% endif %}>{{ form['module_content'] }}{% if (form['close_button_status'] == 1) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-right" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% elseif (form['close_button_status'] == 2) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-left" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% endif %}</div>');
+              $('#{{ form['module_id_selector'] }}').fadeIn({{ form['animation_duration'] }});
+            {% else %} 
+              $('{{ form['insert_module'] }}').{% if (form['display_position'] == 1) %}prepend{% else %}append{% endif %}('<div class="{{ _code }}-notification-bar {% if (form['display_position'] == 1) %}{{ _code }}-position-top{% else %}{{ _code }}-position-bottom{% endif %}{% if (form['module_class']) %} {{ form['module_class'] }}{% endif %}" {% if (form['module_id_selector']) %}id="{{ form['module_id_selector'] }}"{% endif %}>{{ form['module_content'] }}{% if (form['close_button_status'] == 1) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-right" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% elseif (form['close_button_status'] == 2) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-left" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% endif %}</div>');
+            {% endif %} 
+          }, {{ form['show_delay'] }});
+        {% endif %} 
+
+        {% if (form['display_frequency'] == 2) %} 
+          $.ajax({
+            type: 'get',
+            url: 'index.php?route=extension/ocdevwizard/{{ _name }}/validate&form={{ _code }}_form_{{ form['form_id'] }}&type=session',
+            dataType: 'json',
+            success: function(json) {
+              if (json['status'] != 1) {
+                setTimeout(function() {
+                  {% if (form['custom_js'] == 1 or form['custom_js'] == 3) %} 
+                    {{ form['custom_js_code'] }} 
+                  {% endif %} 
+                  {% if (form['animation_type'] == 1) %} 
+                    $('{{ form['insert_module'] }}').{% if (form['display_position'] == 1) %}prepend{% else %}append{% endif %}('<div class="{{ _code }}-notification-bar {% if (form['display_position'] == 1) %}{{ _code }}-position-top{% else %}{{ _code }}-position-bottom{% endif %}{% if (form['module_class']) %} {{ form['module_class'] }}{% endif %}" {% if (form['module_id_selector']) %}id="{{ form['module_id_selector'] }}"{% endif %}>{{ form['module_content'] }}{% if (form['close_button_status'] == 1) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-right" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% elseif (form['close_button_status'] == 2) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-left" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% endif %}</div>');
+                    $('#{{ form['module_id_selector'] }}').slideDown({{ form['animation_duration'] }});
+                  {% elseif (form['animation_type'] == 2) %} 
+                    $('{{ form['insert_module'] }}').{% if (form['display_position'] == 1) %}prepend{% else %}append{% endif %}('<div class="{{ _code }}-notification-bar {% if (form['display_position'] == 1) %}{{ _code }}-position-top{% else %}{{ _code }}-position-bottom{% endif %}{% if (form['module_class']) %} {{ form['module_class'] }}{% endif %}" {% if (form['module_id_selector']) %}id="{{ form['module_id_selector'] }}"{% endif %}>{{ form['module_content'] }}{% if (form['close_button_status'] == 1) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-right" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% elseif (form['close_button_status'] == 2) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-left" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% endif %}</div>');
+                    $('#{{ form['module_id_selector'] }}').fadeIn({{ form['animation_duration'] }});
+                  {% else %} 
+                    $('{{ form['insert_module'] }}').{% if (form['display_position'] == 1) %}prepend{% else %}append{% endif %}('<div class="{{ _code }}-notification-bar {% if (form['display_position'] == 1) %}{{ _code }}-position-top{% else %}{{ _code }}-position-bottom{% endif %}{% if (form['module_class']) %} {{ form['module_class'] }}{% endif %}" {% if (form['module_id_selector']) %}id="{{ form['module_id_selector'] }}"{% endif %}>{{ form['module_content'] }}{% if (form['close_button_status'] == 1) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-right" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% elseif (form['close_button_status'] == 2) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-left" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% endif %}</div>');
+                  {% endif %} 
+                }, {{ form['show_delay'] }});
+              }
+            }
+          });
+        {% endif %} 
+
+        {% if (form['display_frequency'] == 3) %} 
+          $.ajax({
+            type: 'get',
+            url: 'index.php?route=extension/ocdevwizard/{{ _name }}/validate&form={{ _code }}_form_{{ form['form_id'] }}&type=cookie&days={{ form['display_frequency_days'] }}',
+            dataType: 'json',
+            success: function(json) {
+              if (json['status'] != 1) {
+                setTimeout(function() {
+                  {% if (form['custom_js'] == 1 or form['custom_js'] == 3) %} 
+                    {{ form['custom_js_code'] }} 
+                  {% endif %} 
+                  {% if (form['animation_type'] == 1) %} 
+                    $('{{ form['insert_module'] }}').{% if (form['display_position'] == 1) %}prepend{% else %}append{% endif %}('<div class="{{ _code }}-notification-bar {% if (form['display_position'] == 1) %}{{ _code }}-position-top{% else %}{{ _code }}-position-bottom{% endif %}{% if (form['module_class']) %} {{ form['module_class'] }}{% endif %}" {% if (form['module_id_selector']) %}id="{{ form['module_id_selector'] }}"{% endif %}>{{ form['module_content'] }}{% if (form['close_button_status'] == 1) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-right" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% elseif (form['close_button_status'] == 2) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-left" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% endif %}</div>');
+                    $('#{{ form['module_id_selector'] }}').slideDown({{ form['animation_duration'] }});
+                  {% elseif (form['animation_type'] == 2) %} 
+                    $('{{ form['insert_module'] }}').{% if (form['display_position'] == 1) %}prepend{% else %}append{% endif %}('<div class="{{ _code }}-notification-bar {% if (form['display_position'] == 1) %}{{ _code }}-position-top{% else %}{{ _code }}-position-bottom{% endif %}{% if (form['module_class']) %} {{ form['module_class'] }}{% endif %}" {% if (form['module_id_selector']) %}id="{{ form['module_id_selector'] }}"{% endif %}>{{ form['module_content'] }}{% if (form['close_button_status'] == 1) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-right" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% elseif (form['close_button_status'] == 2) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-left" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% endif %}</div>');
+                    $('#{{ form['module_id_selector'] }}').fadeIn({{ form['animation_duration'] }});
+                  {% else %} 
+                    $('{{ form['insert_module'] }}').{% if (form['display_position'] == 1) %}prepend{% else %}append{% endif %}('<div class="{{ _code }}-notification-bar {% if (form['display_position'] == 1) %}{{ _code }}-position-top{% else %}{{ _code }}-position-bottom{% endif %}{% if (form['module_class']) %} {{ form['module_class'] }}{% endif %}" {% if (form['module_id_selector']) %}id="{{ form['module_id_selector'] }}"{% endif %}>{{ form['module_content'] }}{% if (form['close_button_status'] == 1) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-right" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% elseif (form['close_button_status'] == 2) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-left" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% endif %}</div>');
+                  {% endif %} 
+                }, {{ form['show_delay'] }});
+              }
+            }
+          });
+        {% endif %} 
+      });
+    {% endif %} 
+
+    {% if (form['module_trigger'] == 3) %} 
+      $("{{ form['module_trigger_target'] }}").on('click', function() {
+        {% if (form['display_frequency'] == 1) %} 
+          setTimeout(function() {
+            {% if (form['custom_js'] == 1 or form['custom_js'] == 3) %} 
+              {{ form['custom_js_code'] }} 
+            {% endif %} 
+            {% if (form['animation_type'] == 1) %} 
+              $('{{ form['insert_module'] }}').{% if (form['display_position'] == 1) %}prepend{% else %}append{% endif %}('<div class="{{ _code }}-notification-bar {% if (form['display_position'] == 1) %}{{ _code }}-position-top{% else %}{{ _code }}-position-bottom{% endif %}{% if (form['module_class']) %} {{ form['module_class'] }}{% endif %}" {% if (form['module_id_selector']) %}id="{{ form['module_id_selector'] }}"{% endif %}>{{ form['module_content'] }}{% if (form['close_button_status'] == 1) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-right" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% elseif (form['close_button_status'] == 2) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-left" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% endif %}</div>');
+              $('#{{ form['module_id_selector'] }}').slideDown({{ form['animation_duration'] }});
+            {% elseif (form['animation_type'] == 2) %} 
+              $('{{ form['insert_module'] }}').{% if (form['display_position'] == 1) %}prepend{% else %}append{% endif %}('<div class="{{ _code }}-notification-bar {% if (form['display_position'] == 1) %}{{ _code }}-position-top{% else %}{{ _code }}-position-bottom{% endif %}{% if (form['module_class']) %} {{ form['module_class'] }}{% endif %}" {% if (form['module_id_selector']) %}id="{{ form['module_id_selector'] }}"{% endif %}>{{ form['module_content'] }}{% if (form['close_button_status'] == 1) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-right" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% elseif (form['close_button_status'] == 2) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-left" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% endif %}</div>');
+              $('#{{ form['module_id_selector'] }}').fadeIn({{ form['animation_duration'] }});
+            {% else %} 
+              $('{{ form['insert_module'] }}').{% if (form['display_position'] == 1) %}prepend{% else %}append{% endif %}('<div class="{{ _code }}-notification-bar {% if (form['display_position'] == 1) %}{{ _code }}-position-top{% else %}{{ _code }}-position-bottom{% endif %}{% if (form['module_class']) %} {{ form['module_class'] }}{% endif %}" {% if (form['module_id_selector']) %}id="{{ form['module_id_selector'] }}"{% endif %}>{{ form['module_content'] }}{% if (form['close_button_status'] == 1) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-right" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% elseif (form['close_button_status'] == 2) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-left" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% endif %}</div>');
+            {% endif %} 
+          }, {{ form['show_delay'] }});
+        {% endif %} 
+
+        {% if (form['display_frequency'] == 2) %} 
+          $.ajax({
+            type: 'get',
+            url: 'index.php?route=extension/ocdevwizard/{{ _name }}/validate&form={{ _code }}_form_{{ form['form_id'] }}&type=session',
+            dataType: 'json',
+            success: function(json) {
+              if (json['status'] != 1) {
+                setTimeout(function() {
+                  {% if (form['custom_js'] == 1 or form['custom_js'] == 3) %} 
+                    {{ form['custom_js_code'] }} 
+                  {% endif %} 
+                  {% if (form['animation_type'] == 1) %} 
+                    $('{{ form['insert_module'] }}').{% if (form['display_position'] == 1) %}prepend{% else %}append{% endif %}('<div class="{{ _code }}-notification-bar {% if (form['display_position'] == 1) %}{{ _code }}-position-top{% else %}{{ _code }}-position-bottom{% endif %}{% if (form['module_class']) %} {{ form['module_class'] }}{% endif %}" {% if (form['module_id_selector']) %}id="{{ form['module_id_selector'] }}"{% endif %}>{{ form['module_content'] }}{% if (form['close_button_status'] == 1) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-right" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% elseif (form['close_button_status'] == 2) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-left" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% endif %}</div>');
+                    $('#{{ form['module_id_selector'] }}').slideDown({{ form['animation_duration'] }});
+                  {% elseif (form['animation_type'] == 2) %} 
+                    $('{{ form['insert_module'] }}').{% if (form['display_position'] == 1) %}prepend{% else %}append{% endif %}('<div class="{{ _code }}-notification-bar {% if (form['display_position'] == 1) %}{{ _code }}-position-top{% else %}{{ _code }}-position-bottom{% endif %}{% if (form['module_class']) %} {{ form['module_class'] }}{% endif %}" {% if (form['module_id_selector']) %}id="{{ form['module_id_selector'] }}"{% endif %}>{{ form['module_content'] }}{% if (form['close_button_status'] == 1) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-right" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% elseif (form['close_button_status'] == 2) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-left" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% endif %}</div>');
+                    $('#{{ form['module_id_selector'] }}').fadeIn({{ form['animation_duration'] }});
+                  {% else %} 
+                    $('{{ form['insert_module'] }}').{% if (form['display_position'] == 1) %}prepend{% else %}append{% endif %}('<div class="{{ _code }}-notification-bar {% if (form['display_position'] == 1) %}{{ _code }}-position-top{% else %}{{ _code }}-position-bottom{% endif %}{% if (form['module_class']) %} {{ form['module_class'] }}{% endif %}" {% if (form['module_id_selector']) %}id="{{ form['module_id_selector'] }}"{% endif %}>{{ form['module_content'] }}{% if (form['close_button_status'] == 1) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-right" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% elseif (form['close_button_status'] == 2) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-left" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% endif %}</div>');
+                  {% endif %} 
+                }, {{ form['show_delay'] }});
+              }
+            }
+          });
+        {% endif %} 
+
+        {% if (form['display_frequency'] == 3) %} 
+          $.ajax({
+            type: 'get',
+            url: 'index.php?route=extension/ocdevwizard/{{ _name }}/validate&form={{ _code }}_form_{{ form['form_id'] }}&type=cookie&days={{ form['display_frequency_days'] }}',
+            dataType: 'json',
+            success: function(json) {
+              if (json['status'] != 1) {
+                setTimeout(function() {
+                  {% if (form['custom_js'] == 1 or form['custom_js'] == 3) %} 
+                    {{ form['custom_js_code'] }} 
+                  {% endif %} 
+                  {% if (form['animation_type'] == 1) %} 
+                    $('{{ form['insert_module'] }}').{% if (form['display_position'] == 1) %}prepend{% else %}append{% endif %}('<div class="{{ _code }}-notification-bar {% if (form['display_position'] == 1) %}{{ _code }}-position-top{% else %}{{ _code }}-position-bottom{% endif %}{% if (form['module_class']) %} {{ form['module_class'] }}{% endif %}" {% if (form['module_id_selector']) %}id="{{ form['module_id_selector'] }}"{% endif %}>{{ form['module_content'] }}{% if (form['close_button_status'] == 1) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-right" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% elseif (form['close_button_status'] == 2) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-left" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% endif %}</div>');
+                    $('#{{ form['module_id_selector'] }}').slideDown({{ form['animation_duration'] }});
+                  {% elseif (form['animation_type'] == 2) %} 
+                    $('{{ form['insert_module'] }}').{% if (form['display_position'] == 1) %}prepend{% else %}append{% endif %}('<div class="{{ _code }}-notification-bar {% if (form['display_position'] == 1) %}{{ _code }}-position-top{% else %}{{ _code }}-position-bottom{% endif %}{% if (form['module_class']) %} {{ form['module_class'] }}{% endif %}" {% if (form['module_id_selector']) %}id="{{ form['module_id_selector'] }}"{% endif %}>{{ form['module_content'] }}{% if (form['close_button_status'] == 1) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-right" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% elseif (form['close_button_status'] == 2) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-left" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% endif %}</div>');
+                    $('#{{ form['module_id_selector'] }}').fadeIn({{ form['animation_duration'] }});
+                  {% else %} 
+                    $('{{ form['insert_module'] }}').{% if (form['display_position'] == 1) %}prepend{% else %}append{% endif %}('<div class="{{ _code }}-notification-bar {% if (form['display_position'] == 1) %}{{ _code }}-position-top{% else %}{{ _code }}-position-bottom{% endif %}{% if (form['module_class']) %} {{ form['module_class'] }}{% endif %}" {% if (form['module_id_selector']) %}id="{{ form['module_id_selector'] }}"{% endif %}>{{ form['module_content'] }}{% if (form['close_button_status'] == 1) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-right" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% elseif (form['close_button_status'] == 2) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-left" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% endif %}</div>');
+                  {% endif %} 
+                }, {{ form['show_delay'] }});
+              }
+            }
+          });
+        {% endif %} 
+      });
+    {% endif %} 
+
+    {% if (form['module_trigger'] == 4) %} 
+      $(window).scroll(function(e) {
+        if ($('#{{ form['module_id_selector'] }}').length <= 0) {
+          var scrollTop = $(window).scrollTop();
+          var docHeight = $(document).height();
+          var winHeight = $(window).height();
+          var scrollPercent = (scrollTop) / (docHeight - winHeight);
+          var scrollPercentRounded = Math.round(scrollPercent*100);
+          if (scrollPercentRounded >= "{{ form['module_trigger_scroll_value'] }}") {
+            {% if (form['display_frequency'] == 1) %} 
+              setTimeout(function() {
+                {% if (form['custom_js'] == 1 or form['custom_js'] == 3) %} 
+                  {{ form['custom_js_code'] }} 
+                {% endif %} 
+                {% if (form['animation_type'] == 1) %} 
+                  $('{{ form['insert_module'] }}').{% if (form['display_position'] == 1) %}prepend{% else %}append{% endif %}('<div class="{{ _code }}-notification-bar {% if (form['display_position'] == 1) %}{{ _code }}-position-top{% else %}{{ _code }}-position-bottom{% endif %}{% if (form['module_class']) %} {{ form['module_class'] }}{% endif %}" {% if (form['module_id_selector']) %}id="{{ form['module_id_selector'] }}"{% endif %}>{{ form['module_content'] }}{% if (form['close_button_status'] == 1) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-right" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% elseif (form['close_button_status'] == 2) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-left" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% endif %}</div>');
+                  $('#{{ form['module_id_selector'] }}').slideDown({{ form['animation_duration'] }});
+                {% elseif (form['animation_type'] == 2) %} 
+                  $('{{ form['insert_module'] }}').{% if (form['display_position'] == 1) %}prepend{% else %}append{% endif %}('<div class="{{ _code }}-notification-bar {% if (form['display_position'] == 1) %}{{ _code }}-position-top{% else %}{{ _code }}-position-bottom{% endif %}{% if (form['module_class']) %} {{ form['module_class'] }}{% endif %}" {% if (form['module_id_selector']) %}id="{{ form['module_id_selector'] }}"{% endif %}>{{ form['module_content'] }}{% if (form['close_button_status'] == 1) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-right" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% elseif (form['close_button_status'] == 2) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-left" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% endif %}</div>');
+                  $('#{{ form['module_id_selector'] }}').fadeIn({{ form['animation_duration'] }});
+                {% else %} 
+                  $('{{ form['insert_module'] }}').{% if (form['display_position'] == 1) %}prepend{% else %}append{% endif %}('<div class="{{ _code }}-notification-bar {% if (form['display_position'] == 1) %}{{ _code }}-position-top{% else %}{{ _code }}-position-bottom{% endif %}{% if (form['module_class']) %} {{ form['module_class'] }}{% endif %}" {% if (form['module_id_selector']) %}id="{{ form['module_id_selector'] }}"{% endif %}>{{ form['module_content'] }}{% if (form['close_button_status'] == 1) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-right" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% elseif (form['close_button_status'] == 2) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-left" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% endif %}</div>');
+                {% endif %} 
+              }, {{ form['show_delay'] }});
+            {% endif %} 
+
+            {% if (form['display_frequency'] == 2) %} 
+              $.ajax({
+                type: 'get',
+                url: 'index.php?route=extension/ocdevwizard/{{ _name }}/validate&form={{ _code }}_form_{{ form['form_id'] }}&type=session',
+                dataType: 'json',
+                success: function(json) {
+                  if (json['status'] != 1) {
+                    setTimeout(function() {
+                      {% if (form['custom_js'] == 1 or form['custom_js'] == 3) %} 
+                        {{ form['custom_js_code'] }} 
+                      {% endif %} 
+                      {% if (form['animation_type'] == 1) %} 
+                        $('{{ form['insert_module'] }}').{% if (form['display_position'] == 1) %}prepend{% else %}append{% endif %}('<div class="{{ _code }}-notification-bar {% if (form['display_position'] == 1) %}{{ _code }}-position-top{% else %}{{ _code }}-position-bottom{% endif %}{% if (form['module_class']) %} {{ form['module_class'] }}{% endif %}" {% if (form['module_id_selector']) %}id="{{ form['module_id_selector'] }}"{% endif %}>{{ form['module_content'] }}{% if (form['close_button_status'] == 1) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-right" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% elseif (form['close_button_status'] == 2) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-left" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% endif %}</div>');
+                        $('#{{ form['module_id_selector'] }}').slideDown({{ form['animation_duration'] }});
+                      {% elseif (form['animation_type'] == 2) %} 
+                        $('{{ form['insert_module'] }}').{% if (form['display_position'] == 1) %}prepend{% else %}append{% endif %}('<div class="{{ _code }}-notification-bar {% if (form['display_position'] == 1) %}{{ _code }}-position-top{% else %}{{ _code }}-position-bottom{% endif %}{% if (form['module_class']) %} {{ form['module_class'] }}{% endif %}" {% if (form['module_id_selector']) %}id="{{ form['module_id_selector'] }}"{% endif %}>{{ form['module_content'] }}{% if (form['close_button_status'] == 1) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-right" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% elseif (form['close_button_status'] == 2) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-left" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% endif %}</div>');
+                        $('#{{ form['module_id_selector'] }}').fadeIn({{ form['animation_duration'] }});
+                      {% else %} 
+                        $('{{ form['insert_module'] }}').{% if (form['display_position'] == 1) %}prepend{% else %}append{% endif %}('<div class="{{ _code }}-notification-bar {% if (form['display_position'] == 1) %}{{ _code }}-position-top{% else %}{{ _code }}-position-bottom{% endif %}{% if (form['module_class']) %} {{ form['module_class'] }}{% endif %}" {% if (form['module_id_selector']) %}id="{{ form['module_id_selector'] }}"{% endif %}>{{ form['module_content'] }}{% if (form['close_button_status'] == 1) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-right" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% elseif (form['close_button_status'] == 2) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-left" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% endif %}</div>');
+                      {% endif %} 
+                    }, {{ form['show_delay'] }});
+                  }
+                }
+              });
+            {% endif %} 
+
+            {% if (form['display_frequency'] == 3) %} 
+              $.ajax({
+                type: 'get',
+                url: 'index.php?route=extension/ocdevwizard/{{ _name }}/validate&form={{ _code }}_form_{{ form['form_id'] }}&type=cookie&days={{ form['display_frequency_days'] }}',
+                dataType: 'json',
+                success: function(json) {
+                  if (json['status'] != 1) {
+                    setTimeout(function() {
+                      {% if (form['custom_js'] == 1 or form['custom_js'] == 3) %} 
+                        {{ form['custom_js_code'] }} 
+                      {% endif %} 
+                      {% if (form['animation_type'] == 1) %} 
+                        $('{{ form['insert_module'] }}').{% if (form['display_position'] == 1) %}prepend{% else %}append{% endif %}('<div class="{{ _code }}-notification-bar {% if (form['display_position'] == 1) %}{{ _code }}-position-top{% else %}{{ _code }}-position-bottom{% endif %}{% if (form['module_class']) %} {{ form['module_class'] }}{% endif %}" {% if (form['module_id_selector']) %}id="{{ form['module_id_selector'] }}"{% endif %}>{{ form['module_content'] }}{% if (form['close_button_status'] == 1) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-right" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% elseif (form['close_button_status'] == 2) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-left" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% endif %}</div>');
+                        $('#{{ form['module_id_selector'] }}').slideDown({{ form['animation_duration'] }});
+                      {% elseif (form['animation_type'] == 2) %} 
+                        $('{{ form['insert_module'] }}').{% if (form['display_position'] == 1) %}prepend{% else %}append{% endif %}('<div class="{{ _code }}-notification-bar {% if (form['display_position'] == 1) %}{{ _code }}-position-top{% else %}{{ _code }}-position-bottom{% endif %}{% if (form['module_class']) %} {{ form['module_class'] }}{% endif %}" {% if (form['module_id_selector']) %}id="{{ form['module_id_selector'] }}"{% endif %}>{{ form['module_content'] }}{% if (form['close_button_status'] == 1) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-right" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% elseif (form['close_button_status'] == 2) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-left" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% endif %}</div>');
+                        $('#{{ form['module_id_selector'] }}').fadeIn({{ form['animation_duration'] }});
+                      {% else %} 
+                        $('{{ form['insert_module'] }}').{% if (form['display_position'] == 1) %}prepend{% else %}append{% endif %}('<div class="{{ _code }}-notification-bar {% if (form['display_position'] == 1) %}{{ _code }}-position-top{% else %}{{ _code }}-position-bottom{% endif %}{% if (form['module_class']) %} {{ form['module_class'] }}{% endif %}" {% if (form['module_id_selector']) %}id="{{ form['module_id_selector'] }}"{% endif %}>{{ form['module_content'] }}{% if (form['close_button_status'] == 1) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-right" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% elseif (form['close_button_status'] == 2) %}<span class="{{ _code }}-button-close {{ _code }}-button-close-position-left" onclick="{{ _code }}_close_bar_{{ form['form_id'] }}(this);"><i class="fa fa-times"></i></span>{% endif %}</div>');
+                      {% endif %} 
+                    }, {{ form['show_delay'] }});
+                  }
+                }
+              });
+            {% endif %} 
+          }
+        }
+      });
+    {% endif %} 
+    function {{ _code }}_close_bar_{{ form['form_id'] }}(item) {
+      $(item).parent().remove();
+      {% if (form['custom_js'] == 2 or form['custom_js'] == 3) %} 
+        {{ form['custom_js_code'] }} 
+      {% endif %} 
+    }
+  {% endfor %} 
+</script>
+<style type="text/css">
+  .{{ _code }}-notification-bar {
+    width: 100%;
+    height: auto;
+    z-index: 10000;
+    font-family: Roboto-Regular, Arial, Tahoma;
+    padding: 15px 15px 15px {% if (form['close_button_status'] == 2) %}35px{% else %}15px{% endif %};
+  }
+
+  {% for form in forms %} 
+    #{{ form['module_id_selector'] }} {
+      background-color: {{ form['background_color'] }};
+      color: {{ form['text_color'] }};
+      font-size: {{ form['font_size'] }}px;
+      border-radius: {{ form['border_radius'] }}px;
+      border: {{ form['border_width'] }}px solid {{ form['border_color'] }};
+      text-align: {{ form['text_align'] }};
+      {% if (form['animation_type'] == 1 or form['animation_type'] == 2) %}display: none;{% endif %} 
+    }
+
+    #{{ form['module_id_selector'] }}.{{ _code }}-notification-bar {
+      position: {% if (form['display_position_type'] == 1) %}relative{% else %}fixed{% endif %};
+    }
+  {% endfor %} 
+</style>
+{% endif %}

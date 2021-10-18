@@ -2,6 +2,8 @@
 // Version
 define('VERSION', '2.3.0.2');
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
 // Configuration
 if (is_file('config.php')) {
 	require_once('config.php');

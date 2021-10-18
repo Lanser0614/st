@@ -22,25 +22,33 @@ class ControllerInformationInformation extends Controller {
 
 		if ($information_info) {
 
-			if ($information_info['meta_title']) {
-				$this->document->setTitle($information_info['meta_title']);
-			} else {
-				$this->document->setTitle($information_info['title']);
-			}
+            #region Setting h1, title, meta-description
+            $randomValue = rand(0,1);
+            $randomText = ($randomValue == 1) ? ' большой выбор ' : ' широкий ассортимент ';
 
-			$this->document->setDescription($information_info['meta_description']);
+            if ($information_info['meta_h1']) {
+                $data['heading_title'] = $information_info['meta_h1'];
+            } else {
+                $data['heading_title'] = $information_info['title'];
+            }
+
+            if ($information_info['meta_title']) {
+                $this->document->setTitle($information_info['meta_title'].' – запчасти для китайских грузовиков в Москве | интернет-магазин ST-Spares');
+            } else {
+                $this->document->setTitle($information_info['title'].' – запчасти для китайских грузовиков в Москве | интернет-магазин ST-Spares');
+            }
+
+//            $this->document->setDescription($information_info['meta_description']);
+            $metaDescription = $data['heading_title'].':'.$randomText.'запчастей! 🚚 Доставляем по Москве и Московской области! Звоните ☎ +7 (495) 989-43-31 +7 (800) 775-70-72 +7 (985) 310-95-50';
+            $this->document->setDescription($metaDescription);
+            #endregion
+
 			$this->document->setKeywords($information_info['meta_keyword']);
 
 			$data['breadcrumbs'][] = array(
 				'text' => $information_info['title'],
 				'href' => $this->url->link('information/information', 'information_id=' .  $information_id)
 			);
-
-			if ($information_info['meta_h1']) {
-				$data['heading_title'] = $information_info['meta_h1'];
-			} else {
-				$data['heading_title'] = $information_info['title'];
-			}
 
 			$data['button_continue'] = $this->language->get('button_continue');
 

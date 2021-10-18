@@ -1507,7 +1507,7 @@ class ControllerCatalogProduct extends Controller {
 			);
 
 			$results = $this->model_catalog_product->getProducts($filter_data);
-
+			
 			foreach ($results as $result) {
 				$option_data = array();
 

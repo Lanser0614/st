@@ -8,7 +8,8 @@ class ControllerExtensionModuleCoolblocks extends Controller {
 
 		foreach ($setting['coolblocks'] as $coolblock) {
 			$data['coolblocks'][] = array(
-				'image'  => 'image/' . $coolblock['image'],
+//				'image'  => 'image/' . $coolblock['image'],
+                'image'=> $this->model_tool_image->resize($coolblock['image'], 40, 40),
 				'link'  => $coolblock['link'],
 				'title'  => $coolblock['title'],
 				'text' => $coolblock['text']

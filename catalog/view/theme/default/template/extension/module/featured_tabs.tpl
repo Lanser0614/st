@@ -17,7 +17,7 @@
   <?php foreach ($product['products'] as $product) { ?>
     <div class="product flyblock-parent">
       
-      <div class="image"><a href="<?php echo $product['href']; ?>"><img src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" title="<?php echo $product['name']; ?>" /></a></div>
+      <div class="image"><a href="<?php echo $product['href']; ?>"><img src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" class="lazyload" title="<?php echo $product['name']; ?>" /></a></div>
       
       <h4><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a></h4>
       
@@ -40,9 +40,12 @@
       <div class="wishlist icon" onclick="wishlist.add('<?php echo $product['product_id']; ?>');"><span><?php echo $button_wishlist; ?></span></div>
       <div class="compare icon" onclick="compare.add('<?php echo $product['product_id']; ?>');"><span><?php echo $button_compare; ?></span></div>
       <div class="quickview flyblock" onclick="quickview('<?php echo $product['href']; ?>');"><span><?php echo $button_quickview; ?></span></div>
-      
+      <?php if($product['min_price_analog'] > 0 ) { ?>
+         <div class="my-clearfix"></div>
+         <div class=""><a href="<?php echo $product['href']; ?>#wrapper" class="btn my-btn">аналоги от <?=$product['min_price_analog']?></br>ПОДРОБНЕЕ</a></div>
+      <?php }else{ ?>
       <div class="more flyblock"><a href="<?php echo $product['href']; ?>" class="btn"><?php echo $button_more; ?></a></div>
-
+      <?php } ?>
     </div>
   <?php } ?>
   </div>

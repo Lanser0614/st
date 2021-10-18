@@ -1,0 +1,69 @@
+<!--
+##=====================================================================##
+## @author    : OCdevWizard                                            ##
+## @contact   : ocdevwizard@gmail.com                                  ##
+## @support   : http://help.ocdevwizard.com                            ##
+## @license   : http://license.ocdevwizard.com/Licensing_Policy.pdf    ##
+## @copyright : (c) OCdevWizard. Smart Notification Bar Pro Plus, 2017 ##
+##=====================================================================##
+-->
+
+{% if (histories) %} 
+  <div class="btn-group">
+    <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+      <i class="fa fa-trash-o"></i> {{ button_delete_menu }} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <li><a onclick="delete_all('2','form');">{{ button_delete_all }}</a></li>
+      <li><a onclick="delete_all_selected('2','form');">{{ button_delete_selected }}</a></li>
+    </ul>
+  </div>
+{% endif %} 
+<button type="button" onclick="$('a[href=#form-constructor-block]').click();" class="btn btn-primary"><i class="fa fa-refresh"></i> {{ button_update }}</button>
+<button type="button" onclick="open_form();" class="btn btn-primary"><i class="fa fa-plus-circle"></i> {{ button_add_form }}</button>
+<div class="special-margin"></div>
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <td width="1" style="text-align: center;"><input type="checkbox" onclick="$('#history-form input[name*=\'selected\']').attr('checked', this.checked);" /></td>
+        <td class="text-left" width="15%">{{ column_form_heading }}</td>
+        <td class="text-left">{{ column_form_date }}</td>
+        <td class="text-left">{{ column_form_status }}</td>
+        <td class="text-left">{{ column_form_action }}</td>
+      </tr>
+    </thead>
+    <tbody>
+    {% if (histories) %} 
+      {% for history in histories %} 
+      <tr>
+        <td style="text-align: center;"><input type="checkbox" name="selected[]" value="{{ history['form_id'] }}" /></td>
+        <td class="text-left">{{ history['heading'] }}</td>
+        <td class="text-left">
+          <p><strong>{{ text_date_added }}</strong> {{ history['date_added'] }}</p>
+          {% if (history['date_modified'] != '0000-00-00 00:00:00') %} 
+          <p><strong>{{ text_date_modified }}</strong> {{ history['date_modified'] }}</p>
+          {% endif %} 
+        </td>
+        <td class="text-left">{{ history['status'] }}</td>
+        <td class="text-center">
+          <button type="button" class="btn btn-primary" onclick="open_form({id: '{{ history['form_id'] }}'});" data-toggle="tooltip" title="" data-original-title="{{ button_edit }}"><i class="fa fa-pencil"></i></button>
+          <a onclick="confirm('{{ text_are_you_sure }}') ? delete_selected('2','form',{{ history['form_id'] }}) : false;" data-toggle="tooltip" title="" class="btn btn-warning" data-original-title="{{ button_delete }}"><i class="fa fa-trash-o"></i></a>
+          <button type="button" class="btn btn-default" onclick="confirm('{{ text_are_you_sure }}') ? copy_selected({{ history['form_id'] }}) : false;" data-toggle="tooltip" title="" data-original-title="{{ button_copy }}"><i class="fa fa-copy"></i></button>
+        </td>
+      </tr>
+      {% endfor %} 
+      {% else %} 
+        <tr>
+          <td class="text-center" colspan="5">{{ text_no_results }}</td>
+        </tr>
+      {% endif %} 
+    </tbody>
+  </table>
+</div>
+{% if (histories) %} 
+<div class="row">
+  <div class="col-sm-6 text-left">{{ pagination }}</div>
+  <div class="col-sm-6 text-right">{{ results }}</div>
+</div>
+{% endif %}

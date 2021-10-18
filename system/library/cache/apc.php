@@ -10,6 +10,7 @@ class APC {
 	}
 
 	public function get($key) {
+
 		return $this->active ? apc_fetch(CACHE_PREFIX . $key) : false;
 	}
 

@@ -150,20 +150,31 @@ class ControllerProductManufacturer extends Controller {
 				'href' => $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $this->request->get['manufacturer_id'] . $url)
 			);
 
-			if ($manufacturer_info['meta_title']) {
-				$this->document->setTitle($manufacturer_info['meta_title']);
-			} else {
-				$this->document->setTitle($manufacturer_info['name']);
-			}
+            #region Setting h1, title, meta-description
+            $randomValue = rand(0,1);
+            $randomText = ($randomValue == 1) ? ' большой выбор ' : ' широкий ассортимент ';
 
-			$this->document->setDescription($manufacturer_info['meta_description']);
+            if ($manufacturer_info['meta_h1']) {
+                $data['heading_title'] = $manufacturer_info['meta_h1'];
+            } else {
+                $data['heading_title'] = $manufacturer_info['name'];
+            }
+
+            if ($manufacturer_info['meta_title']) {
+//                $this->document->setTitle($manufacturer_info['meta_title']);
+                $metaTitle = 'Запчасти '.$manufacturer_info['name'].' купить у официального дилера в Москве по выгодным ценам в интернет-магазине ST-Spares';
+                $this->document->setTitle($metaTitle);
+            } else {
+                $metaTitle = 'Запчасти '.$manufacturer_info['name'].' купить у официального дилера в Москве по выгодным ценам в интернет-магазине ST-Spares';
+                $this->document->setTitle($metaTitle);
+            }
+
+//            $this->document->setDescription($manufacturer_info['meta_description']);
+            $metaDescription = 'Запчасти '.$manufacturer_info['name'].': официальный дилер, 💰 выгодные цены,'.$randomText.'запчастей! 🚚 Доставляем по Москве и Московской области! Звоните ☎ +7 (495) 989-43-31 +7 (800) 775-70-72 +7 (985) 310-95-50';
+            $this->document->setDescription($metaDescription);
+            #endregion
+
 			$this->document->setKeywords($manufacturer_info['meta_keyword']);
-
-			if ($manufacturer_info['meta_h1']) {
-				$data['heading_title'] = $manufacturer_info['meta_h1'];
-			} else {
-				$data['heading_title'] = $manufacturer_info['name'];
-			}
 
 			if ($manufacturer_info['image']) {
 				$data['thumb'] = $this->model_tool_image->resize($manufacturer_info['image'], $this->config->get($this->config->get('config_theme') . '_image_category_width'), $this->config->get($this->config->get('config_theme') . '_image_category_height'));

@@ -5,4 +5,7 @@ class ModelCatalogUrlAlias extends Model {
 
 		return $query->row;
 	}
+	public function setUrlAlias($model_name,$model_id,$alias){
+        $this->db->query("INSERT INTO " . DB_PREFIX . "url_alias SET query = ''.$model_name.'=" . (int)$model_id . "', keyword = '" . $this->db->escape($alias) . "'");
+    }
 }

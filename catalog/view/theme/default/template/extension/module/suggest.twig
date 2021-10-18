@@ -1,0 +1,112 @@
+{% if module_suggest_status %}
+<script>
+var token = "{{ module_suggest_api }}";
+
+{% for suggest_fio in module_suggest_fio %} 
+{% for suggest_data in suggest_fio.data|sort %}
+{% if suggest_data.status|json_encode(constant('JSON_PRETTY_PRINT'))|slice(1,1) > 0 %}
+$({{ suggest_data.name|json_encode(constant('JSON_PRETTY_PRINT')) }}).suggestions({
+  token: token,
+  type: "NAME",
+  partner: "OPENCART.56879",
+  count: "{{ module_suggest_tips }}",
+  params: {
+    parts: {{ suggest_data.parts|json_encode(constant('JSON_PRETTY_PRINT')) }}
+  }
+});
+{% endif %}
+{% endfor %}
+{% endfor %}
+
+{% for suggest_email in module_suggest_email %} 
+{% for suggest_data in suggest_email.data|sort %}
+{% if suggest_data.status|json_encode(constant('JSON_PRETTY_PRINT'))|slice(1,1) > 0 %}
+$({{ suggest_data.name|json_encode(constant('JSON_PRETTY_PRINT')) }}).suggestions({
+  token: token,
+  type: "EMAIL",
+  partner: "OPENCART.56879",
+  count: "{{ module_suggest_tips }}",
+  suggest_local: false,
+  onSelect: function(suggestion) {
+    console.log(suggestion);
+  }
+});
+{% endif %}
+{% endfor %}
+{% endfor %}
+
+function join(arr /*, separator */) {
+  var separator = arguments.length > 1 ? arguments[1] : ", ";
+  return arr.filter(function(n){return n}).join(separator);
+}
+
+function formatCity(suggestion) {
+  var address = suggestion.data;
+  if (address.city_with_type === address.region_with_type) {
+      return address.settlement_with_type || "";
+    } else {
+      return join([
+        address.city_with_type,
+        address.settlement_with_type]);
+    }
+}
+
+{% for suggest_address in module_suggest_address %} 
+{% for suggest_data in suggest_address.data|sort %}
+{% if suggest_data.status|json_encode(constant('JSON_PRETTY_PRINT'))|slice(1,1) > 0 %}
+{% set suggest_bounds = suggest_data.parts_suggest|json_encode(constant('JSON_PRETTY_PRINT'))|replace({'[': ""})|replace({']': ""})|trim|replace({'"': ""}) %}
+var ${% if suggest_bounds == "region-area" %}region{% endif %}{% if suggest_bounds == "city-settlement" %}city{% endif %}{% if suggest_bounds == "street" %}street{% endif %}{% if suggest_bounds == "house" %}house{% endif %} = $({{ suggest_data.name|json_encode(constant('JSON_PRETTY_PRINT')) }});
+{% endif %}
+{% endfor %}
+{% endfor %}
+
+
+
+{% for suggest_address in module_suggest_address_one %} 
+{% for suggest_data in suggest_address.data|sort %}
+{% if suggest_data.status|json_encode(constant('JSON_PRETTY_PRINT'))|slice(1,1) > 0 %}
+{% set suggest_bounds = suggest_data.name|json_encode(constant('JSON_PRETTY_PRINT'))|replace({'[': ""})|replace({']': ""})|trim|replace({'"': ""}) %}
+var $address = $("{{ suggest_bounds }}");
+$address.suggestions({
+  token: token,
+  type: "ADDRESS",
+  partner: "OPENCART.56879",
+  count: "{{ module_suggest_tips }}",
+  onSelect: function(suggestion) {
+    console.log(suggestion);
+  }
+});
+{% endif %}
+{% endfor %}
+{% endfor %}
+
+
+
+
+
+{% for suggest_address in module_suggest_address %} 
+{% for suggest_data in suggest_address.data|sort %}
+{% if suggest_data.status|json_encode(constant('JSON_PRETTY_PRINT'))|slice(1,1) > 0 %}
+{% set suggest_bounds = suggest_data.parts_suggest|json_encode(constant('JSON_PRETTY_PRINT'))|replace({'[': ""})|replace({']': ""})|trim|replace({'"': ""}) %}
+${% if suggest_bounds == "region-area" %}region{% endif %}{% if suggest_bounds == "city-settlement" %}city{% endif %}{% if suggest_bounds == "street" %}street{% endif %}{% if suggest_bounds == "house" %}house{% endif %}.suggestions({
+  token: token,
+  type: "ADDRESS",
+  partner: "OPENCART.56879",
+  hint: false,
+  bounds: "{{ suggest_bounds }}",
+  {% if suggest_bounds == "city-settlement" %}constraints: $region,{% endif %}
+  {% if suggest_bounds == "street" %}constraints: $city,{% endif %}
+  {% if suggest_bounds == "house" %}constraints: $street,{% endif %}  
+  {% if suggest_bounds == "city-settlement" %}formatSelected: formatCity,{% endif %}
+  {% if suggest_bounds == "house" %}noSuggestionsHint: false,{% endif %}
+  
+  count: "{{ module_suggest_tips }}"
+});
+{% endif %}
+{% endfor %}
+{% endfor %}
+
+console.log($house.suggestions())
+
+</script>
+{% endif %}

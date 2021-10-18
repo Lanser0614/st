@@ -191,8 +191,7 @@ class ControllerBlogBlog extends Controller {
 	
 		$results = $this->model_blog_blog->getBlogs($filter_data);
  
-    	foreach ($results as $result) {
-									
+    	foreach ($results as $result) {	
 			$data['blogs'][] = array(
 				'blog_id' => $result['blog_id'],
 				'title'      => $result['title'],

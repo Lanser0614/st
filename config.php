@@ -1,30 +1,29 @@
 <?php
 // HTTP
-define('HTTP_SERVER', 'https://st-spares.ru/');
+define('HTTP_SERVER', 'http://localhost/st-spares-current.ru/');
 
 // HTTPS
-define('HTTPS_SERVER', 'https://st-spares.ru/');
+define('HTTPS_SERVER', 'http://localhost/st-spares-current.ru/');
 
 // DIR
-define('DIR_APPLICATION', 'catalog/');
-define('DIR_SYSTEM', 'system/');
-define('DIR_IMAGE', 'image/');
-define('DIR_LANGUAGE', 'catalog/language/');
-define('DIR_TEMPLATE', 'catalog/view/theme/');
-define('DIR_CONFIG', 'system/config/');
-define('DIR_CACHE', 'system/storage/cache/');
-define('DIR_DOWNLOAD', 'system/storage/download/');
-define('DIR_LOGS', 'system/storage/logs/');
-define('DIR_MODIFICATION', 'system/storage/modification/');
-define('DIR_UPLOAD', 'system/storage/upload/');
-
-
+define('DIR_APPLICATION', '/opt/lampp/htdocs/st-spares-current.ru/catalog/');
+define('DIR_SYSTEM', '/opt/lampp/htdocs/st-spares-current.ru/system/');
+define('DIR_IMAGE', '/opt/lampp/htdocs/st-spares-current.ru/image/');
+define('DIR_LANGUAGE', '/opt/lampp/htdocs/st-spares-current.ru/catalog/language/');
+define('DIR_TEMPLATE', '/opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/');
+define('DIR_CONFIG', '/opt/lampp/htdocs/st-spares-current.ru/system/config/');
+define('DIR_CACHE', '/opt/lampp/htdocs/st-spares-current.ru/system/storage/cache/');
+define('DIR_DOWNLOAD', '/opt/lampp/htdocs/st-spares-current.ru/system/storage/download/');
+define('DIR_LOGS', '/opt/lampp/htdocs/st-spares-current.ru/system/storage/logs/');
+define('DIR_MODIFICATION', '/opt/lampp/htdocs/st-spares-current.ru/system/storage/modification/');
+define('DIR_UPLOAD', '/opt/lampp/htdocs/st-spares-current.ru/system/storage/upload/');
+define('DIR_COMPONENTS', '/opt/lampp/htdocs/st-spares-current.ru/catalog/components/');
 
 // DB
 define('DB_DRIVER', 'mysqli');
-define('DB_HOSTNAME', 'mysql');
-define('DB_USERNAME', 'user');
-define('DB_PASSWORD', 'password');
-define('DB_DATABASE', 'db');
+define('DB_HOSTNAME', 'localhost');
+define('DB_USERNAME', 'root');
+define('DB_PASSWORD', '');
+define('DB_DATABASE', 'salom');
 define('DB_PORT', '3306');
 define('DB_PREFIX', '');

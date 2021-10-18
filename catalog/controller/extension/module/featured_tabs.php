@@ -47,17 +47,24 @@ public function index() {
 				} else {
 					$special = false;
 				}
-
-				
+                $price2 = $this->currency->format($product_info['min_price_analog'], $this->session->data['currency']);
+                if($product_info['stock_status_id'] == 7){
+                                $stock = '<span class="instock">' . $product_info['stock_status'] . '</span>';
+                            }elseif($product_info['stock_status_id'] == 9){
+                                $stock = '<span class="instock">' . $product_info['stock_status'] . '</span>';
+                            }else{
+                                $stock = '<span class="nostock">' . $product_info['stock_status'] . '</span>';
+                            }
 				$products[] = array(
 					'product_id'  => $product_info['product_id'],
 					'thumb'       => $image,
 					'name'        => $product_info['name'],
+					'min_price_analog' => $price2,
 					//'description' => utf8_substr(strip_tags(html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8')), 0, $this->config->get($this->config->get('config_theme') . '_product_description_length')) . '..',
 					'price'       => $price,
 					'special'     => $special,
 					//'stock'       => ($result['quantity'] <= 0 ? '<span class="nostock">'.$result['stock_status'].'</span>' : '<span class="instock">'.$this->language->get('text_instock').'</span>'),
-					'stock' => '<span class="'.($product_info['stock_status_id'] == 7 ? 'instock' : 'nostock').'">'.$product_info['stock_status'].'</span>',
+					'stock' => $stock,
 					'minimum'     => ($product_info['minimum'] > 0) ? $product_info['minimum'] : 1,
 					'href'        => $this->url->link('product/product', 'product_id=' . $product_info['product_id'])
 				);

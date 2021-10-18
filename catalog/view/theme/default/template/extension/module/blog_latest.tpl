@@ -16,15 +16,11 @@
   <?php foreach ($category['posts'] as $post) { ?>
     <div class="product blog_item">
       
-      <?php if($post['image'] && $thumb){ ?>
-      <div class="image">
-				<a href="<?php echo $post['href']; ?>"><img src="<?php echo $post['image']; ?>" alt="<?php echo $post['title']; ?>" title="<?php echo $post['title']; ?>" /></a>
-      </div>
-			<?php } ?>
+
       
       <?php if($date_added_status){ ?><span class="date"><?php echo $post['date_added_full']; ?></span><?php } ?>
       
-      <h4><a href="<?php echo $post['href']; ?>"><?php echo $post['title']; ?></a></h4>
+      <h4><a href="<?php echo $post['href']; ?>/amp/"><?php echo $post['title']; ?></a></h4>
 
     </div>
   <?php } ?>

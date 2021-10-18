@@ -31,14 +31,16 @@ class ControllerStartupSeoPro extends Controller {
 
 		// Decode URL
 		if (!isset($this->request->get['_route_'])) {
+    
 			$this->validate();
 		} else {
+
 			$route_ = $route = $this->request->get['_route_'];
 			unset($this->request->get['_route_']);
 			$parts = explode('/', trim(utf8_strtolower($route), '/'));
 			list($last_part) = explode('.', array_pop($parts));
 			array_push($parts, $last_part);
-
+          
 			$rows = array();
 			foreach ($parts as $keyword) {
 				if (isset($this->cache_data['keywords'][$keyword])) {
@@ -84,16 +86,31 @@ class ControllerStartupSeoPro extends Controller {
 					if ($path) $this->request->get['path'] = $path;
 				}
 			} elseif (isset($this->request->get['path'])) {
-				$this->request->get['route'] = 'product/category';
+				if(isset($this->request->get['search_template'])){
+		
+					$this->request->get['route'] = 'product/search';
+				}else{
+					$this->request->get['route'] = 'product/category';
+				}
 			} elseif (isset($this->request->get['manufacturer_id'])) {
 				$this->request->get['route'] = 'product/manufacturer/info';
 			} elseif (isset($this->request->get['information_id'])) {
 				$this->request->get['route'] = 'information/information';
+
+			} elseif (isset($this->request->get['blog_id'])&&isset($this->request->get['page'])) {
+				$this->request->get['route'] = 'blog/blog/comment';
+			} elseif (isset($this->request->get['blog_id'])) {
+				$this->request->get['route'] = 'blog/blog';
+			} elseif (isset($this->request->get['blog_category_id'])) {
+				$this->request->get['route'] = 'blog/category';
+				$this->request->get['blogpath'] = $this->request->get['blog_category_id'];
+				unset($this->request->get['blog_category_id']);
+
 			} elseif (isset($this->request->get['news_id'])) {
-        $this->request->get['route'] = 'information/news/info';
+				$this->request->get['route'] = 'information/news/info';
 			} elseif(isset($this->cache_data['queries'][$route_]) && isset($this->request->server['SERVER_PROTOCOL'])) {
-					header($this->request->server['SERVER_PROTOCOL'] . ' 301 Moved Permanently');
-					$this->response->redirect($this->cache_data['queries'][$route_], 301);
+				header($this->request->server['SERVER_PROTOCOL'] . ' 301 Moved Permanently');
+				$this->response->redirect($this->cache_data['queries'][$route_], 301);
 			} else {
 				if (isset($queries[$parts[0]])) {
 					$this->request->get['route'] = $queries[$parts[0]];
@@ -103,6 +120,7 @@ class ControllerStartupSeoPro extends Controller {
 			$this->validate();
 
 			if (isset($this->request->get['route'])) {
+			   
 				return new Action($this->request->get['route']);
 			}
 		}
@@ -122,6 +140,85 @@ class ControllerStartupSeoPro extends Controller {
 		unset($data['route']);
 
 		switch ($route) {
+			case 'product/manufacturer/info':
+				if (isset($data['manufacturer_id'])) {
+					// Whitelist GET parameters
+					$tmp = $data;
+					$data = array();
+					if ($this->config->get('config_seo_url_include_path')) {
+						$data['manufacturer_id'] = $this->getPathByManufacturer($tmp['manufacturer_id']);
+						if (!$data['manufacturer_id']) return $link;
+					}
+					$seo_pro_utm = preg_replace('~\r?\n~', "\n", $this->config->get('config_seo_pro_utm'));
+					$allowed_parameters = explode("\n", $seo_pro_utm);
+					foreach($allowed_parameters as $ap) {
+						if (isset($tmp[trim($ap)])) {
+							$data[trim($ap)] = $tmp[trim($ap)];
+						}
+					}
+				}
+				break;
+			case 'blog/blog':
+				if (isset($data['blog_id'])) {
+					// Whitelist GET parameters
+					$tmp = $data;
+					$data = array();
+					if ($this->config->get('config_seo_url_include_path')) {
+						$data['blog_category_id'] = $this->getPathByBlog($tmp['blog_id']);
+						if (!$data['blog_category_id']) return $link;
+					}
+
+					$allowed_parameters = array(
+						'blog_id', 'tracking',
+						// Compatibility with "OCJ Merchandising Reports" module.
+						// Save and pass-thru module specific GET parameters.
+						'uri', 'list_type',
+						// Compatibility with Google Analytics
+						'gclid', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content',
+						'type', 'source', 'block', 'position', 'keyword',
+						// Compatibility with Yandex Metrics, Yandex Market
+						'yclid', 'ymclid', 'openstat', 'frommarket',
+						'openstat_service', 'openstat_campaign', 'openstat_ad', 'openstat_source',
+						// Compatibility with Themeforest Rgen templates (popup with product preview)
+						'urltype'
+					);
+					foreach($allowed_parameters as $ap) {
+						if (isset($tmp[$ap])) {
+							$data[$ap] = $tmp[$ap];
+						}
+					}
+				}
+				break;
+
+			case 'blog/category':
+				if (isset($data['blog_category_id'])) {
+					$category = explode('_', $data['blog_category_id']);
+					$category = end($category);
+					$data['blog_category_id'] = $this->getPathByBlogCategory($category);
+					if (!$data['blog_category_id']) return $link;
+
+					$allowed_parameters = array(
+						'blogpath', 'blog_category_id', 'tracking',
+						// Compatibility with "OCJ Merchandising Reports" module.
+						// Save and pass-thru module specific GET parameters.
+						'uri', 'list_type',
+						// Compatibility with Google Analytics
+						'gclid', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content',
+						'type', 'source', 'block', 'position', 'keyword',
+						// Compatibility with Yandex Metrics, Yandex Market
+						'yclid', 'ymclid', 'openstat', 'frommarket',
+						'openstat_service', 'openstat_campaign', 'openstat_ad', 'openstat_source',
+						// Compatibility with Themeforest Rgen templates (popup with product preview)
+						'urltype'
+					);
+					foreach($allowed_parameters as $ap) {
+						if (isset($tmp[$ap])) {
+							$data[$ap] = $tmp[$ap];
+						}
+					}
+				}
+				break;
+
 			case 'product/product':
 				if (isset($data['product_id'])) {
 					$tmp = $data;
@@ -143,12 +240,16 @@ class ControllerStartupSeoPro extends Controller {
 
 			case 'product/category':
 				if (isset($data['path'])) {
+				   
 					$category = explode('_', $data['path']);
 					$category = end($category);
 					$data['path'] = $this->getPathByCategory($category);
 					if (!$data['path']) return $link;
 				}
 				break;
+
+
+			case 'blog/blog/comment':
 
 			case 'product/product/review':
 			case 'information/information/agree':
@@ -177,13 +278,33 @@ class ControllerStartupSeoPro extends Controller {
 			switch ($key) {
 				case 'product_id':
 				case 'manufacturer_id':
+					$queries[] = $key . '=' . $value;
+					unset($data[$key]);
+					$postfix = 1;
+					break;
 				case 'category_id':
 				case 'information_id':
 				case 'news_id':
 				case 'order_id':
+
+				case 'blog_id':
+
 					$queries[] = $key . '=' . $value;
 					unset($data[$key]);
 					$postfix = 1;
+					break;
+
+
+				case 'blog_category_id':
+				case 'blogpath':
+					$category_path = explode('_', $value);
+					$category_id = end($category_path);
+					$categories = $this->getPathByBlogCategory($category_id);
+					$categories = explode('_', $categories);
+					foreach ($categories as $category) {
+						$queries[] = 'blog_category_id=' . $category;
+					}
+					unset($data[$key]);
 					break;
 
 				case 'path':
@@ -248,6 +369,82 @@ class ControllerStartupSeoPro extends Controller {
 		return $seo_url;
 	}
 
+	private function getPathByManufacturer($manufacturer_id) {
+		$manufacturer_id = (int)$manufacturer_id;
+		if ($manufacturer_id < 1) return false;
+
+		static $path = null;
+		if (!is_array($path)) {
+			$path = $this->cache->get('manufacturer.seopath');
+
+			if (!is_array($path)) $path = array();
+		}
+
+		if (!isset($path[$manufacturer_id])) {
+			$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "manufacturer m LEFT JOIN " . DB_PREFIX . "manufacturer_to_store m2s ON (m.manufacturer_id = m2s.manufacturer_id) WHERE m.manufacturer_id = '" . (int)$manufacturer_id . "' AND m2s.store_id = '" . (int)$this->config->get('config_store_id') . "'");
+
+			$path[$manufacturer_id] = $query->row['manufacturer_id'];
+
+			$this->cache->set('manufacturer.seopath', $path);
+		}
+
+		return $path[$manufacturer_id];
+	}
+
+	private function getPathByBlog($blog_id) {
+		$blog_id = (int)$blog_id;
+		if ($blog_id < 1) return false;
+
+		static $path = null;
+		if (!is_array($path)) {
+			$path = $this->cache->get('blog.seopath');
+			if (!is_array($path)) $path = array();
+		}
+
+		if (!isset($path[$blog_id])) {
+			$query = $this->db->query("SELECT blog_category_id FROM " . DB_PREFIX . "blog_to_category WHERE blog_id = '" . $blog_id . "' LIMIT 1");
+
+			$path[$blog_id] = $this->getPathByBlogCategory($query->num_rows ? (int)$query->row['blog_category_id'] : 0);
+
+			$this->cache->set('blog.seopath', $path);
+		}
+
+		return $path[$blog_id];
+	}
+
+	private function getPathByBlogCategory($category_id) {
+		$category_id = (int)$category_id;
+		if ($category_id < 1) return false;
+
+		static $path = null;
+		if (!is_array($path)) {
+			$path = $this->cache->get('blog_category.seopath');
+			if (!is_array($path)) $path = array();
+		}
+
+		if (!isset($path[$category_id])) {
+			$max_level = 10;
+
+			$sql = "SELECT CONCAT_WS('_'";
+			for ($i = $max_level-1; $i >= 0; --$i) {
+				$sql .= ",t$i.blog_category_id";
+			}
+			$sql .= ") AS blogpath FROM " . DB_PREFIX . "blog_category t0";
+			for ($i = 1; $i < $max_level; ++$i) {
+				$sql .= " LEFT JOIN " . DB_PREFIX . "blog_category t$i ON (t$i.blog_category_id = t" . ($i-1) . ".parent_id)";
+			}
+			$sql .= " WHERE t0.blog_category_id = '" . $category_id . "'";
+
+			$query = $this->db->query($sql);
+
+			$path[$category_id] = $query->num_rows ? $query->row['blogpath'] : false;
+
+			$this->cache->set('blog_category.seopath', $path);
+		}
+
+		return $path[$category_id];
+	}
+
 	private function getPathByProduct($product_id) {
 		$product_id = (int)$product_id;
 		if ($product_id < 1) return false;
@@ -309,7 +506,7 @@ class ControllerStartupSeoPro extends Controller {
 		if(empty($this->request->get['route'])) {
 			$this->request->get['route'] = 'common/home';
 		}
-
+       
 		if (isset($this->request->server['HTTP_X_REQUESTED_WITH']) && strtolower($this->request->server['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
 			return;
 		}
@@ -326,7 +523,7 @@ class ControllerStartupSeoPro extends Controller {
 
 		if (rawurldecode($url) != rawurldecode($seo) && isset($this->request->server['SERVER_PROTOCOL'])) {
 			header($this->request->server['SERVER_PROTOCOL'] . ' 301 Moved Permanently');
-
+		
 			$this->response->redirect($seo, 301);
 		}
 	}
@@ -348,9 +545,9 @@ class ControllerStartupSeoPro extends Controller {
 	private function getQueryString($exclude = array()) {
 		if (!is_array($exclude)) {
 			$exclude = array();
-			}
-
-		return urldecode(http_build_query(array_diff_key($this->request->get, array_flip($exclude))));
 		}
+		
+		return urldecode(http_build_query(array_diff_key($this->request->get, array_flip($exclude))));
 	}
+}
 ?>

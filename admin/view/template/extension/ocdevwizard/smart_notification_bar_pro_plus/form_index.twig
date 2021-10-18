@@ -1,0 +1,939 @@
+<!--
+##=====================================================================##
+## @author    : OCdevWizard                                            ##
+## @contact   : ocdevwizard@gmail.com                                  ##
+## @support   : http://help.ocdevwizard.com                            ##
+## @license   : http://license.ocdevwizard.com/Licensing_Policy.pdf    ##
+## @copyright : (c) OCdevWizard. Smart Notification Bar Pro Plus, 2017 ##
+##=====================================================================##
+-->
+<div class="modal-content" id="modal-form-constructor-content">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span>&times;</span></button>
+    <h4 class="modal-title" id="myModalLabel">{{ text_form }}</h4>
+  </div>
+  <div class="modal-body">
+    <div id="content" class="row" style="padding-bottom: 0;">
+      <div class="panel-body" style="padding-top: 0;padding-bottom: 0;">
+        <ul class="nav nav-tabs" id="modal-setting-tabs">
+          <li class="active dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-cog"></i> {{ tab_control_panel }} <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#modal-general-block" data-toggle="tab"><i class="fa fa-cogs"></i> {{ tab_general_setting }}</a></li>
+              <li><a href="#modal-layout-block" data-toggle="tab"><i class="fa fa-eye"></i> {{ tab_layout_setting }}</a></li>
+              <li><a href="#modal-marketing-tools-block" data-toggle="tab"><i class="fa fa-cog" aria-hidden="true"></i> {{ tab_marketing_tools_setting }}</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-language"></i> {{ tab_language_setting }} <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#modal-language-block" data-toggle="tab"><i class="fa fa-flag-o"></i> {{ tab_basic_language_setting }}</a></li>
+            </ul>
+          </li>
+        </ul>
+        <form method="post" enctype="multipart/form-data" id="modal-form" class="form-horizontal">
+          <input type="hidden" style="display:none;" name="form_id" value="{{ form_id }}" />
+          <div class="tab-content">
+            <!-- TAB Modal General block -->
+            <div class="tab-pane fade active in" role="tabpanel" id="modal-general-block">
+              <div class="form-group">
+                <label class="col-sm-3 control-label" for="input-status">{{ text_activate_module }}</label>
+                <div class="col-sm-9">
+                  <select name="status" id="input-status" class="form-control">
+                    {% if (status) %} 
+                    <option value="1" selected="selected">{{ text_enabled }}</option>
+                    <option value="0">{{ text_disabled }}</option>
+                    {% else %} 
+                    <option value="1">{{ text_enabled }}</option>
+                    <option value="0" selected="selected">{{ text_disabled }}</option>
+                    {% endif %} 
+                  </select>
+                </div>
+              </div>
+              <div class="form-group required">
+                <label class="col-sm-3 control-label" for="input-heading">{{ text_module_heading }}</label>
+                <div class="col-sm-9">
+                  <input value="{{ heading }}" type="text" name="heading" class="form-control"/>
+                  <div class="modal-error-block" id="modal-error-heading"></div>
+                </div>
+              </div>
+              <div class="form-group required">
+                <label class="col-sm-3 control-label">{{ text_stores }}</label>
+                <div class="col-sm-9">
+                  {% set row_height = 55 %} {% set row = 0 %} {% for store in all_stores %} 
+                  {% if (row < 5) %} {% set row_height = row_height*1.26 %} {% endif %} {% set row = row + 1 %} 
+                  {% endfor %} 
+                  <div class="well well-sm" style="height: {{ row_height }}px; overflow: auto;">
+                    {% for store in all_stores %} 
+                    <div class="checkbox">
+                      <label>
+                        <input
+                          type="checkbox"
+                          name="stores[]"
+                          value="{{ store['store_id'] }}" {{ stores is not empty and store['store_id'] in stores ? 'checked' : '' }} 
+                        /> {{ store['name'] }} 
+                      </label>
+                    </div>
+                    {% endfor %} 
+                  </div>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-default btn-xs" onclick="$(this).parent().parent().find(':checkbox').trigger('click').attr('checked', true);">{{ text_select_all }}</button>
+                    <button type="button" class="btn btn-default btn-xs" onclick="$(this).parent().parent().find(':checkbox').attr('checked', false);">{{ text_unselect_all }}</button>
+                  </div>
+                  <div class="modal-error-block" id="modal-error-stores"></div>
+                  <div class="alert alert-info" role="alert"><i class="fa fa-info-circle"></i> {{ text_stores_faq }}</div>
+                </div>
+              </div>
+              <div class="form-group required">
+                <label class="col-sm-3 control-label">{{ text_customer_groups }}</label>
+                <div class="col-sm-9">
+                  {% set row_height = 55 %} {% set row = 0 %} {% for customer_group in all_customer_groups %} 
+                  {% if (row < 5) %} {% set row_height = row_height*1.26 %} {% endif %} {% set row = row + 1 %} 
+                  {% endfor %} 
+                  <div class="well well-sm" style="height: {{ row_height }}px; overflow: auto;">
+                    {% for customer_group in all_customer_groups %} 
+                    <div class="checkbox">
+                      <label>
+                        <input
+                          type="checkbox"
+                          name="customer_groups[]"
+                          value="{{ customer_group['customer_group_id'] }}" {{ customer_groups is not empty and customer_group['customer_group_id'] in customer_groups ? 'checked' : '' }} 
+                        /> {{ customer_group['name'] }} 
+                      </label>
+                    </div>
+                    {% endfor %} 
+                  </div>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-default btn-xs" onclick="$(this).parent().parent().find(':checkbox').trigger('click').attr('checked', true);">{{ text_select_all }}</button>
+                    <button type="button" class="btn btn-default btn-xs" onclick="$(this).parent().parent().find(':checkbox').attr('checked', false);">{{ text_unselect_all }}</button>
+                  </div>
+                  <div class="modal-error-block" id="modal-error-customer-groups"></div>
+                  <div class="alert alert-info" role="alert"><i class="fa fa-info-circle"></i> {{ text_customer_groups_faq }}</div>
+                </div>
+              </div>
+              <div class="form-group required">
+                <label class="col-sm-3 control-label">{{ text_layouts }}</label>
+                <div class="col-sm-9">
+                  {% set row_height = 55 %} {% set row = 0 %} {% for layout in all_layouts %} 
+                  {% if (row < 5) %} {% set row_height = row_height*1.26 %} {% endif %} {% set row = row + 1 %} 
+                  {% endfor %} 
+                  <div class="well well-sm" style="height: {{ row_height }}px; overflow: auto;">
+                    {% for layout in all_layouts %} 
+                    <div class="checkbox">
+                      <label>
+                        <input
+                          type="checkbox"
+                          name="layouts[]"
+                          value="{{ layout['layout_id'] }}" {{ layouts is not empty and layout['layout_id'] in layouts ? 'checked' : '' }} 
+                        /> {{ layout['name'] }} 
+                      </label>
+                    </div>
+                    {% endfor %} 
+                  </div>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-default btn-xs" onclick="$(this).parent().parent().find(':checkbox').trigger('click').attr('checked', true);">{{ text_select_all }}</button>
+                    <button type="button" class="btn btn-default btn-xs" onclick="$(this).parent().parent().find(':checkbox').attr('checked', false);">{{ text_unselect_all }}</button>
+                  </div>
+                  <div class="modal-error-block" id="modal-error-layouts"></div>
+                  <div class="alert alert-info" role="alert"><i class="fa fa-info-circle"></i> {{ text_layouts_faq }}</div>
+                </div>
+              </div>
+              <div class="form-group pro-block">
+                <label class="col-sm-3 control-label">{{ text_improved_selection }}</label>
+                <div class="col-sm-9">
+                  <select name="mixed_data_type" class="form-control">
+                    {% if (mixed_data_type == 1) %} 
+                      <option value="0">{{ text_disabled }}</option>
+                      <option value="1" selected="selected">{{ text_improved_selection_1 }}</option>
+                      <option value="2">{{ text_improved_selection_2 }}</option>
+                      <option value="3">{{ text_improved_selection_3 }}</option>
+                      <option value="4">{{ text_improved_selection_4 }}</option>
+                    {% elseif (mixed_data_type == 2) %} 
+                      <option value="0">{{ text_disabled }}</option>
+                      <option value="1">{{ text_improved_selection_1 }}</option>
+                      <option value="2" selected="selected">{{ text_improved_selection_2 }}</option>
+                      <option value="3">{{ text_improved_selection_3 }}</option>
+                      <option value="4">{{ text_improved_selection_4 }}</option>
+                    {% elseif (mixed_data_type == 3) %} 
+                      <option value="0">{{ text_disabled }}</option>
+                      <option value="1">{{ text_improved_selection_1 }}</option>
+                      <option value="2">{{ text_improved_selection_2 }}</option>
+                      <option value="3" selected="selected">{{ text_improved_selection_3 }}</option>
+                      <option value="4">{{ text_improved_selection_4 }}</option>
+                    {% elseif (mixed_data_type == 4) %} 
+                      <option value="0">{{ text_disabled }}</option>
+                      <option value="1">{{ text_improved_selection_1 }}</option>
+                      <option value="2">{{ text_improved_selection_2 }}</option>
+                      <option value="3">{{ text_improved_selection_3 }}</option>
+                      <option value="4" selected="selected">{{ text_improved_selection_4 }}</option>
+                    {% else %} 
+                      <option value="0" selected="selected">{{ text_disabled }}</option>
+                      <option value="1">{{ text_improved_selection_1 }}</option>
+                      <option value="2">{{ text_improved_selection_2 }}</option>
+                      <option value="3">{{ text_improved_selection_3 }}</option>
+                      <option value="4">{{ text_improved_selection_4 }}</option>
+                    {% endif %} 
+                  </select>
+                  <div class="alert alert-info" role="alert"><i class="fa fa-info-circle"></i> {{ text_improved_selection_faq }}</div>
+                </div>
+              </div>
+              <div class="form-group mixed-data-type-1">
+                <label class="col-sm-3 control-label" for="input-product">{{ text_show_in_products }}</label>
+                <div class="col-sm-9">
+                  <input type="text" name="product" value="" placeholder="{{ text_product_ph }}" id="input-product" class="form-control" />
+                  <div id="product-filter" class="well well-sm" style="height: 150px; overflow: auto;">
+                    {% for product in all_products %} 
+                    <div id="product-filter{{ product['product_id'] }}"><i class="fa fa-minus-circle"></i> {{ product['name'] }} 
+                      <input type="hidden" name="mixed_data_products[]" value="{{ product['product_id'] }}" />
+                    </div>
+                    {% endfor %} 
+                  </div>
+                </div>
+              </div>
+              <div class="form-group mixed-data-type-2">
+                <label class="col-sm-3 control-label" for="input-category">{{ text_show_in_categories }}</label>
+                <div class="col-sm-9">
+                  <input type="text" name="category" value="" placeholder="{{ text_category_ph }}" id="input-category" class="form-control" />
+                  <div id="category-filter" class="well well-sm" style="height: 150px; overflow: auto;">
+                    {% for category in all_categories %} 
+                    <div id="category-filter{{ category['category_id'] }}"><i class="fa fa-minus-circle"></i> {{ category['name'] }} 
+                      <input type="hidden" name="mixed_data_categories[]" value="{{ category['category_id'] }}" />
+                    </div>
+                    {% endfor %} 
+                  </div>
+                </div>
+              </div>
+              <div class="form-group mixed-data-type-3">
+                <label class="col-sm-3 control-label" for="input-manufacturer">{{ text_show_in_brands }}</label>
+                <div class="col-sm-9">
+                  <input type="text" name="manufacturer" value="" placeholder="{{ text_brand_ph }}" id="input-manufacturer" class="form-control" />
+                  <div id="manufacturer-filter" class="well well-sm" style="height: 150px; overflow: auto;">
+                    {% for manufacturer in all_manufacturers %} 
+                    <div id="manufacturer-filter{{ manufacturer['manufacturer_id'] }}"><i class="fa fa-minus-circle"></i> {{ manufacturer['name'] }} 
+                      <input type="hidden" name="mixed_data_manufacturers[]" value="{{ manufacturer['manufacturer_id'] }}" />
+                    </div>
+                    {% endfor %} 
+                  </div>
+                </div>
+              </div>
+              <div class="form-group mixed-data-type-4">
+                <label class="col-sm-3 control-label" for="input-information">{{ text_show_in_informations }}</label>
+                <div class="col-sm-9">
+                  <input type="text" name="information" value="" placeholder="{{ text_information_ph }}" id="input-information" class="form-control" />
+                  <div id="information-filter" class="well well-sm" style="height: 150px; overflow: auto;">
+                    {% for information in all_informations %} 
+                    <div id="information-filter{{ information['information_id'] }}"><i class="fa fa-minus-circle"></i> {{ information['title'] }} 
+                      <input type="hidden" name="mixed_data_informations[]" value="{{ information['information_id'] }}" />
+                    </div>
+                    {% endfor %} 
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">{{ text_display_frequency }}</label>
+                <div class="col-sm-9">
+                  <select name="display_frequency" class="form-control">
+                    {% if (display_frequency == 1) %} 
+                      <option value="1" selected="selected">{{ text_display_frequency_1 }}</option>
+                      <option value="2">{{ text_display_frequency_2 }}</option>
+                      <option value="3">{{ text_display_frequency_3 }}</option>
+                    {% elseif (display_frequency == 2) %} 
+                      <option value="1">{{ text_display_frequency_1 }}</option>
+                      <option value="2" selected="selected">{{ text_display_frequency_2 }}</option>
+                      <option value="3">{{ text_display_frequency_3 }}</option>
+                    {% else %} 
+                      <option value="1">{{ text_display_frequency_1 }}</option>
+                      <option value="2">{{ text_display_frequency_2 }}</option>
+                      <option value="3" selected="selected">{{ text_display_frequency_3 }}</option>
+                    {% endif %} 
+                  </select>
+                </div>
+              </div>
+              <div class="form-group required display-frequency-3">
+                <label class="col-sm-3 control-label" for="input-display_frequency_days">{{ text_display_frequency_days }}</label>
+                <div class="col-sm-9">
+                  <div class="input-group">
+                    <input value="{{ display_frequency_days }}" type="text" name="display_frequency_days" class="form-control" id="input-display_frequency_days" />
+                    <span class="input-group-addon">{{ text_days_indicator }}</span>
+                  </div>
+                  <div class="modal-error-block" id="modal-error-display-frequency-days"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label" for="input-date_status">{{ text_date_status }}</label>
+                <div class="col-sm-9">
+                  <select name="date_status" id="input-date_status" class="form-control">
+                    {% if (date_status) %} 
+                    <option value="1" selected="selected">{{ text_enabled }}</option>
+                    <option value="0">{{ text_disabled }}</option>
+                    {% else %} 
+                    <option value="1">{{ text_enabled }}</option>
+                    <option value="0" selected="selected">{{ text_disabled }}</option>
+                    {% endif %} 
+                  </select>
+                </div>
+              </div>
+              <div class="form-group date-period-status">
+                <label class="col-sm-3 control-label">{{ text_date_period }}</label>
+                <div class="col-sm-9">
+                  <div class="input-group datetime">
+                    <input type="text" name="date_period_start" value="{{ date_period_start }}" class="form-control" />
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button"><i class="fa fa-calendar"></i></button>
+                    </span>
+                  </div>
+                  <div class="modal-error-block" id="modal-error-date-period-start"></div>
+                  <div class="input-group datetime" style="margin-top:10px;">
+                    <input type="text" name="date_period_end" value="{{ date_period_end }}" class="form-control" />
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button"><i class="fa fa-calendar"></i></button>
+                    </span>
+                  </div>
+                  <div class="modal-error-block" id="modal-error-date-period-end"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">{{ text_module_trigger }}</label>
+                <div class="col-sm-9">
+                  <select name="module_trigger" class="form-control">
+                    {% if (module_trigger == 1) %} 
+                      <option value="1" selected="selected">{{ text_module_trigger_1 }}</option>
+                      <option value="2">{{ text_module_trigger_2 }}</option>
+                      <option value="3">{{ text_module_trigger_3 }}</option>
+                      <option value="4">{{ text_module_trigger_4 }}</option>
+                    {% elseif (module_trigger == 2) %} 
+                      <option value="1">{{ text_module_trigger_1 }}</option>
+                      <option value="2" selected="selected">{{ text_module_trigger_2 }}</option>
+                      <option value="3">{{ text_module_trigger_3 }}</option>
+                      <option value="4">{{ text_module_trigger_4 }}</option>
+                    {% elseif (module_trigger == 3) %} 
+                      <option value="1">{{ text_module_trigger_1 }}</option>
+                      <option value="2">{{ text_module_trigger_2 }}</option>
+                      <option value="3" selected="selected">{{ text_module_trigger_3 }}</option>
+                      <option value="4">{{ text_module_trigger_4 }}</option>
+                    {% else %} 
+                      <option value="1">{{ text_module_trigger_1 }}</option>
+                      <option value="2">{{ text_module_trigger_2 }}</option>
+                      <option value="3">{{ text_module_trigger_3 }}</option>
+                      <option value="4" selected="selected">{{ text_module_trigger_4 }}</option>
+                    {% endif %} 
+                  </select>
+                  <div class="alert alert-info module-trigger-1" role="alert"><i class="fa fa-info-circle"></i> {{ text_module_trigger_faq_1 }}</div>
+                  <div class="alert alert-info module-trigger-2" role="alert"><i class="fa fa-info-circle"></i> {{ text_module_trigger_faq_2 }}</div>
+                  <div class="alert alert-info module-trigger-3" role="alert"><i class="fa fa-info-circle"></i> {{ text_module_trigger_faq_3 }}</div>
+                  <div class="alert alert-info module-trigger-4" role="alert"><i class="fa fa-info-circle"></i> {{ text_module_trigger_faq_4 }}</div>
+                </div>
+              </div>
+              <div class="form-group required module-trigger-3">
+                <label class="col-sm-3 control-label" for="input-module_trigger_target">{{ text_module_trigger_target }}</label>
+                <div class="col-sm-9">
+                  <div class="input-group">
+                    <span class="input-group-addon">{{ text_mixed_indicator }}</span>
+                    <input value="{{ module_trigger_target }}" type="text" name="module_trigger_target" class="form-control" id="input-module_trigger_target" />
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button" data-faq-target="faq_1" data-toggle="tooltip" title="{{ text_open_example }}"><i class="fa fa-info-circle"></i></button>
+                    </span>
+                  </div>
+                  <div class="modal-error-block" id="modal-error-module-trigger-target"></div>
+                  <div class="alert alert-info" role="alert"><i class="fa fa-info-circle"></i> {{ text_module_trigger_target_faq }}</div>
+                </div>
+              </div>
+              <div class="form-group required module-trigger-4">
+                <label class="col-sm-3 control-label" for="input-module_trigger_scroll_value">{{ text_module_trigger_scroll_value }}</label>
+                <div class="col-sm-9">
+                  <div class="input-group">
+                    <input value="{{ module_trigger_scroll_value }}" type="text" name="module_trigger_scroll_value" class="form-control" id="input-module_trigger_scroll_value" />
+                    <span class="input-group-addon">{{ text_percent_indicator }}</span>
+                  </div>
+                  <div class="modal-error-block" id="modal-error-module-trigger-scroll-value"></div>
+                </div>
+              </div>
+              <div class="form-group required">
+                <label class="col-sm-3 control-label" for="input-insert_module">{{ text_insert_module }}</label>
+                <div class="col-sm-9">
+                  <div class="input-group">
+                    <span class="input-group-addon">{{ text_mixed_indicator }}</span>
+                    <input value="{{ insert_module }}" type="text" name="insert_module" class="form-control" id="input-insert_module" />
+                  </div>
+                  <div class="modal-error-block" id="modal-error-insert-module"></div>
+                  <div class="alert alert-info" role="alert"><i class="fa fa-info-circle"></i> {{ text_insert_module_faq }}</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label" for="input-module_class">{{ text_module_class }}</label>
+                <div class="col-sm-9">
+                  <div class="input-group">
+                    <span class="input-group-addon">{{ text_css_class_indicator }}</span>
+                    <input value="{{ module_class }}" type="text" name="module_class" class="form-control" />
+                  </div>
+                  <div class="alert alert-info" role="alert"><i class="fa fa-info-circle" aria-hidden="true"></i> {{ text_module_class_faq }}</div>
+                </div>
+              </div>
+              <div class="form-group required">
+                <label class="col-sm-3 control-label" for="input-show_delay">{{ text_show_delay }}</label>
+                <div class="col-sm-9">
+                  <div class="input-group">
+                    <input value="{{ show_delay }}" type="text" name="show_delay" class="form-control" id="input-show_delay" />
+                    <span class="input-group-addon">{{ text_seconds_indicator }}</span>
+                  </div>
+                  <div class="modal-error-block" id="modal-error-show-delay"></div>
+                  <div class="alert alert-info" role="alert"><i class="fa fa-info-circle"></i> {{ text_show_delay_faq }}</div>
+                </div>
+              </div>
+              <div class="form-group required" {% if (not form_id) %}style="display: none;"{% endif %}>
+                <label class="col-sm-3 control-label" for="input-module_id_selector">{{ text_module_id_selector }}</label>
+                <div class="col-sm-9">
+                  <div class="input-group">
+                    <span class="input-group-addon">{{ text_css_id_indicator }}</span>
+                    <input value="{{ module_id_selector }}" type="text" name="module_id_selector" class="form-control" readonly/>
+                  </div>
+                  <div class="modal-error-block" id="modal-error-module-id-selector"></div>
+                  <div class="alert alert-info" role="alert"><i class="fa fa-info-circle" aria-hidden="true"></i> {{ text_module_id_selector_faq }}</div>
+                </div>
+              </div>
+              <div class="form-group pro-block">
+                <label class="col-sm-3 control-label">{{ text_custom_js }}</label>
+                <div class="col-sm-9">
+                  <select name="custom_js" class="form-control">
+                    {% if (custom_js == 1) %} 
+                      <option value="0">{{ text_disabled }}</option>
+                      <option value="1" selected="selected">{{ text_custom_js_1 }}</option>
+                      <option value="2">{{ text_custom_js_2 }}</option>
+                      <option value="3">{{ text_custom_js_3 }}</option>
+                    {% elseif (custom_js == 2) %} 
+                      <option value="0">{{ text_disabled }}</option>
+                      <option value="1">{{ text_custom_js_1 }}</option>
+                      <option value="2" selected="selected">{{ text_custom_js_2 }}</option>
+                      <option value="3">{{ text_custom_js_3 }}</option>
+                    {% elseif (custom_js == 3) %} 
+                      <option value="0">{{ text_disabled }}</option>
+                      <option value="1">{{ text_custom_js_1 }}</option>
+                      <option value="2">{{ text_custom_js_2 }}</option>
+                      <option value="3" selected="selected">{{ text_custom_js_3 }}</option>
+                    {% else %} 
+                      <option value="0" selected="selected">{{ text_disabled }}</option>
+                      <option value="1">{{ text_custom_js_1 }}</option>
+                      <option value="2">{{ text_custom_js_2 }}</option>
+                      <option value="3">{{ text_custom_js_3 }}</option>
+                    {% endif %} 
+                  </select>
+                </div>
+              </div>
+              <div class="form-group required custom-js pro-block">
+                <label class="col-sm-3 control-label" for="textarea-custom_js_code">{{ text_custom_js_code }}</label>
+                <div class="col-sm-9">
+                  <div class="input-group">
+                    <span class="input-group-addon">{{ text_js_indicator }}</span>
+                    <textarea style="min-height:70px;" name="custom_js_code" class="form-control" id="textarea-custom_js_code">{{ custom_js_code }}</textarea>
+                  </div>
+                  <div class="modal-error-block" id="modal-error-custom-js-code"></div>
+                  <div class="alert alert-info" role="alert"><i class="fa fa-info-circle"></i> {{ text_custom_js_code_faq }}</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label" for="input-sort_order">{{ text_sort_order }}</label>
+                <div class="col-sm-9">
+                  <input value="{{ sort_order }}" type="text" name="sort_order" class="form-control" />
+                  <div class="modal-error-block" id="modal-error-sort-order"></div>
+                  <div class="alert alert-info" role="alert"><i class="fa fa-info-circle" aria-hidden="true"></i> {{ text_sort_order_faq }}</div>
+                </div>
+              </div>
+            </div>
+            <!-- TAB Modal Layout block -->
+            <div class="tab-pane fade" role="tabpanel" id="modal-layout-block">
+              <div class="form-group">
+                <label class="col-sm-3 control-label">{{ text_display_position }}</label>
+                <div class="col-sm-9">
+                  <select name="display_position" class="form-control">
+                    {% if (display_position == 1) %} 
+                      <option value="1" selected="selected">{{ text_display_position_1 }}</option>
+                      <option value="2">{{ text_display_position_2 }}</option>
+                    {% else %} 
+                      <option value="1">{{ text_display_position_1 }}</option>
+                      <option value="2" selected="selected">{{ text_display_position_2 }}</option>
+                    {% endif %} 
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">{{ text_display_position_type }}</label>
+                <div class="col-sm-9">
+                  <select name="display_position_type" class="form-control">
+                    {% if (display_position_type == 1) %} 
+                      <option value="1" selected="selected">{{ text_display_position_type_1 }}</option>
+                      <option value="2">{{ text_display_position_type_2 }}</option>
+                    {% else %} 
+                      <option value="1">{{ text_display_position_type_1 }}</option>
+                      <option value="2" selected="selected">{{ text_display_position_type_2 }}</option>
+                    {% endif %} 
+                  </select>
+                  <div class="alert alert-info" role="alert"><i class="fa fa-info-circle" aria-hidden="true"></i> {{ text_display_position_type_faq }}</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">{{ text_animation_type }}</label>
+                <div class="col-sm-9">
+                  <select name="animation_type" class="form-control">
+                    {% if (animation_type == 1) %} 
+                      <option value="0">{{ text_animation_type_1 }}</option>
+                      <option value="1" selected="selected">{{ text_animation_type_2 }}</option>
+                      <option value="2">{{ text_animation_type_3 }}</option>
+                    {% elseif (animation_type == 2) %} 
+                      <option value="0">{{ text_animation_type_1 }}</option>
+                      <option value="1">{{ text_animation_type_2 }}</option>
+                      <option value="2" selected="selected">{{ text_animation_type_3 }}</option>
+                    {% else %} 
+                      <option value="0" selected="selected">{{ text_animation_type_1 }}</option>
+                      <option value="1">{{ text_animation_type_2 }}</option>
+                      <option value="2">{{ text_animation_type_3 }}</option>
+                    {% endif %} 
+                  </select>
+                </div>
+              </div>
+              <div class="form-group required">
+                <label class="col-sm-3 control-label" for="input-animation_duration">{{ text_animation_duration }}</label>
+                <div class="col-sm-9">
+                  <div class="input-group">
+                    <input value="{{ animation_duration }}" type="text" name="animation_duration" class="form-control" id="input-animation_duration" />
+                    <span class="input-group-addon">{{ text_seconds_indicator }}</span>
+                  </div>
+                  <div class="modal-error-block" id="modal-error-animation-duration"></div>
+                  <div class="alert alert-info" role="alert"><i class="fa fa-info-circle"></i> {{ text_animation_duration_faq }}</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">{{ text_close_button_status }}</label>
+                <div class="col-sm-9">
+                  <select name="close_button_status" class="form-control">
+                    {% if (close_button_status == 1) %} 
+                      <option value="0">{{ text_close_button_status_1 }}</option>
+                      <option value="1" selected="selected">{{ text_close_button_status_2 }}</option>
+                      <option value="2">{{ text_close_button_status_3 }}</option>
+                    {% elseif (close_button_status == 2) %} 
+                      <option value="0">{{ text_close_button_status_1 }}</option>
+                      <option value="1">{{ text_close_button_status_2 }}</option>
+                      <option value="2" selected="selected">{{ text_close_button_status_3 }}</option>
+                    {% else %} 
+                      <option value="0" selected="selected">{{ text_close_button_status_1 }}</option>
+                      <option value="1">{{ text_close_button_status_2 }}</option>
+                      <option value="2">{{ text_close_button_status_3 }}</option>
+                    {% endif %} 
+                  </select>
+                </div>
+              </div>
+              <div class="form-group required">
+                <label class="col-sm-3 control-label" for="input-background-color">{{ text_background_color }}</label>
+                <div class="col-sm-9">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="colorpicker-block" {{ background_color ? 'style="background:' ~ background_color ~ '"' : '' }}></i></span>
+                    <input value="{{ background_color }}" type="text" name="background_color" class="form-control" />
+                  </div>
+                  <div class="modal-error-block" id="modal-error-background-color"></div>
+                </div>
+              </div>
+              <div class="form-group required">
+                <label class="col-sm-3 control-label" for="input-text-color">{{ text_text_color }}</label>
+                <div class="col-sm-9">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="colorpicker-block" {{ text_color ? 'style="background:' ~ text_color ~ '"' : '' }}></i></span>
+                    <input value="{{ text_color }}" type="text" name="text_color" class="form-control" />
+                  </div>
+                  <div class="modal-error-block" id="modal-error-text-color"></div>
+                </div>
+              </div>
+              <div class="form-group required">
+                <label class="col-sm-3 control-label" for="input-font_size">{{ text_font_size }}</label>
+                <div class="col-sm-9">
+                  <div class="input-group">
+                    <input value="{{ font_size }}" type="text" name="font_size" class="form-control" id="input-font_size" />
+                    <span class="input-group-addon">{{ text_px_indicator }}</span>
+                  </div>
+                  <div class="modal-error-block" id="modal-error-font-size"></div>
+                </div>
+              </div>
+              <div class="form-group required">
+                <label class="col-sm-3 control-label" for="input-border_radius">{{ text_border_radius }}</label>
+                <div class="col-sm-9">
+                  <div class="input-group">
+                    <input value="{{ border_radius }}" type="text" name="border_radius" class="form-control" id="input-border_radius" />
+                    <span class="input-group-addon">{{ text_px_indicator }}</span>
+                  </div>
+                  <div class="modal-error-block" id="modal-error-border-radius"></div>
+                </div>
+              </div>
+              <div class="form-group required">
+                <label class="col-sm-3 control-label" for="input-border_width">{{ text_border_width }}</label>
+                <div class="col-sm-9">
+                  <div class="input-group">
+                    <input value="{{ border_width }}" type="text" name="border_width" class="form-control" id="input-border_width" />
+                    <span class="input-group-addon">{{ text_px_indicator }}</span>
+                  </div>
+                  <div class="modal-error-block" id="modal-error-border-width"></div>
+                </div>
+              </div>
+              <div class="form-group required">
+                <label class="col-sm-3 control-label" for="input-border-color">{{ text_border_color }}</label>
+                <div class="col-sm-9">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="colorpicker-block" {{ border_color ? 'style="background:' ~ border_color ~ '"' : '' }}></i></span>
+                    <input value="{{ border_color }}" type="text" name="border_color" class="form-control" />
+                  </div>
+                  <div class="modal-error-block" id="modal-error-border-color"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">{{ text_text_align }}</label>
+                <div class="col-sm-9">
+                  <select name="text_align" class="form-control">
+                    {% if (text_align == 'left') %} 
+                      <option value="left" selected="selected">{{ text_text_align_1 }}</option>
+                      <option value="right">{{ text_text_align_2 }}</option>
+                      <option value="center">{{ text_text_align_3 }}</option>
+                      <option value="justify">{{ text_text_align_4 }}</option>
+                    {% elseif (text_align == 'right') %} 
+                      <option value="left">{{ text_text_align_1 }}</option>
+                      <option value="right" selected="selected">{{ text_text_align_2 }}</option>
+                      <option value="center">{{ text_text_align_3 }}</option>
+                      <option value="justify">{{ text_text_align_4 }}</option>
+                    {% elseif (text_align == 'center') %} 
+                      <option value="left">{{ text_text_align_1 }}</option>
+                      <option value="right">{{ text_text_align_2 }}</option>
+                      <option value="center" selected="selected">{{ text_text_align_3 }}</option>
+                      <option value="justify">{{ text_text_align_4 }}</option>
+                    {% else %} 
+                      <option value="left">{{ text_text_align_1 }}</option>
+                      <option value="right">{{ text_text_align_2 }}</option>
+                      <option value="center">{{ text_text_align_3 }}</option>
+                      <option value="justify" selected="selected">{{ text_text_align_4 }}</option>
+                    {% endif %} 
+                  </select>
+                </div>
+              </div>
+            </div>
+            <!-- TAB Modal Language block -->
+            <div class="tab-pane fade" role="tabpanel" id="modal-marketing-tools-block">
+              <div class="form-group">
+                <label class="col-sm-3 control-label">{{ text_select_gift_coupon }}</label>
+                <div class="col-sm-9">
+                  <select name="gift_coupon" class="form-control">
+                    <option value="">{{ text_make_a_choice }}</option>
+                    {% for coupon in all_coupons %} 
+                      {% if (coupon['coupon_id'] == gift_coupon) %} 
+                        <option value="{{ coupon['coupon_id'] }}" selected="selected">{{ coupon['name'] }}</option>
+                      {% else %} 
+                        <option value="{{ coupon['coupon_id'] }}">{{ coupon['name'] }}</option>
+                      {% endif %} 
+                    {% endfor %} 
+                  </select>
+                  <div class="alert alert-info" role="alert"><i class="fa fa-info-circle" aria-hidden="true"></i> {{ text_select_gift_coupon_faq }}</div>
+                </div>
+              </div>
+            </div>
+            <!-- TAB Modal Language block -->
+            <div class="tab-pane fade" role="tabpanel" id="modal-language-block">
+              <div class="form-group required">
+                <label class="col-sm-3 control-label">{{ text_module_content }}</label>
+                <div class="col-sm-9">
+                  {% for language in languages %} 
+                  <div class="input-group" style="margin-bottom: 5px;">
+                    <span class="input-group-addon"><img src="{{ language['image'] }}" title="{{ language['name'] }}" /></span>
+                    <textarea name="form_description[{{ language['language_id'] }}][module_content]" id="module_content{{ language['language_id'] }}" class="form-control">{{ form_description[language['language_id']] is defined ? form_description[language['language_id']]['module_content'] : '' }}</textarea>
+                  </div>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-default btn-xs" onclick="texteditor_action({id: '#module_content{{ language['language_id'] }}'});">{{ text_open_texteditor }}</button>
+                    <button type="button" class="btn btn-default btn-xs" onclick="texteditor_action({id: '#module_content{{ language['language_id'] }}', start: false, destroy: true});" style="display: none;">{{ text_save_texteditor }}</button>
+                  </div>
+                  <div class="modal-error-block" id="modal-error-form-description-language-module-content-{{ language['language_id'] }}"></div>
+                  {% endfor %} 
+                  <div class="alert alert-info" role="alert" style="margin-bottom:10px;"><i class="fa fa-info-circle"></i> {{ text_module_content_faq }}</div>
+                  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse-module-content-sub" aria-expanded="false" aria-controls="collapse-module-content-sub">{{ button_view_shortcodes }}</button>
+                </div>
+              </div>
+              <div class="collapse" id="collapse-module-content-sub">
+                <div class="form-group" style="margin-bottom: 0px;">
+                  <div class="col-sm-3"></div>
+                  <div class="col-sm-9">
+                    <div class="well">
+                      {{ text_result_email_sub_h1 }}<br/>
+                      {{ text_result_email_sub_c1 }}<br/><br/>
+                      {{ text_result_email_sub_h2 }}<br/>
+                      {{ text_result_email_sub_c2 }}<br/><br/>
+                      {{ text_result_email_sub_h3 }}<br/>
+                      {{ text_result_email_sub_c3 }}<br/><br/>
+                      {{ text_result_email_sub_h4 }}<br/>
+                      {{ text_result_email_sub_c4 }}<br/><br/>
+                      {{ text_result_email_sub_h5 }}<br/>
+                      {{ text_result_email_sub_c5 }}<br/><br/>
+                      {{ text_result_email_sub_h6 }}<br/>
+                      {{ text_result_email_sub_c6 }}<br/><br/>
+                      {{ text_result_email_sub_h7 }}<br/>
+                      {{ text_result_email_sub_c7 }}<br/><br/>
+                      {{ text_result_email_sub_h8 }}<br/>
+                      {{ text_result_email_sub_c8 }} 
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-info" onclick="submit_form(this, {% if (form_id) %}'edit'{% else %}'add'{% endif %});">{{ button_submit }}</button>
+    <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close" {% if (not form_id) %}style="display: none;"{% endif %}>{{ button_close }}</button>
+  </div>
+</div>
+<!-- start: code for ColorPicker -->
+<script type="text/javascript">
+$('.colorpicker-block').each(function() {
+  var self = $(this);
+  $(this).ColorPicker({
+    onShow: function (colpkr) {
+      $(colpkr).fadeIn(500);
+      return false;
+    },
+    onHide: function (colpkr) {
+      $(colpkr).fadeOut(500);
+      return false;
+    },
+    onChange: function (hsb, hex, rgb) {
+      self.css('background', '#' + hex);
+      self.parent().next().val('#' + hex);
+    }
+  });
+});  
+</script>
+<!-- end: code for ColorPicker -->
+<!-- start: code for DateTimePicker -->
+<script type="text/javascript">
+$('.datetime').datetimepicker({
+  format: 'YYYY-MM-DD HH:mm:ss',
+  pickDate: true,
+  pickTime: true
+});  
+</script>
+<!-- end: code for DateTimePicker -->
+<!-- start: code for tab General setting -->
+<script type="text/javascript">
+$('select[name=mixed_data_type]').change(function() {
+  var val = $(this).val();
+
+  if (val == 1) {
+    $('.mixed-data-type-1').show();
+    $('.mixed-data-type-2').hide();
+    $('.mixed-data-type-3').hide();
+    $('.mixed-data-type-4').hide();
+  } else if (val == 2) {
+    $('.mixed-data-type-1').hide();
+    $('.mixed-data-type-2').show();
+    $('.mixed-data-type-3').hide();
+    $('.mixed-data-type-4').hide();
+  } else if (val == 3) {
+    $('.mixed-data-type-1').hide();
+    $('.mixed-data-type-2').hide();
+    $('.mixed-data-type-3').show();
+    $('.mixed-data-type-4').hide();
+  } else if (val == 4) {
+    $('.mixed-data-type-1').hide();
+    $('.mixed-data-type-2').hide();
+    $('.mixed-data-type-3').hide();
+    $('.mixed-data-type-4').show();
+  } else {
+    $('.mixed-data-type-1').hide();
+    $('.mixed-data-type-2').hide();
+    $('.mixed-data-type-3').hide();
+    $('.mixed-data-type-4').hide();
+  }
+});
+
+$('select[name=mixed_data_type]').trigger('change');
+
+$('select[name=display_frequency]').change(function() {
+  var val = $(this).val();
+
+  if (val == 3) {
+    $('.display-frequency-3').show();
+  } else {
+    $('.display-frequency-3').hide();
+  }
+});
+
+$('select[name=display_frequency]').trigger('change');
+
+$('select[name=date_status]').change(function() {
+  var val = $(this).val();
+
+  if (val == 1) {
+    $('.date-period-status').show();
+  } else {
+    $('.date-period-status').hide();
+  }
+});
+
+$('select[name=date_status]').trigger('change');
+
+$('select[name=module_trigger]').change(function() {
+  var val = $(this).val();
+
+  if (val == 1) {
+    $('.module-trigger-1').show();
+    $('.module-trigger-2').hide();
+    $('.module-trigger-3').hide();
+    $('.module-trigger-4').hide();
+  } else if (val == 2) {
+    $('.module-trigger-1').hide();
+    $('.module-trigger-2').show();
+    $('.module-trigger-3').hide();
+    $('.module-trigger-4').hide();
+  } else if (val == 3) {
+    $('.module-trigger-1').hide();
+    $('.module-trigger-2').hide();
+    $('.module-trigger-3').show();
+    $('.module-trigger-4').hide();
+  } else {
+    $('.module-trigger-1').hide();
+    $('.module-trigger-2').hide();
+    $('.module-trigger-3').hide();
+    $('.module-trigger-4').show();
+  }
+});
+
+$('select[name=module_trigger]').trigger('change');
+
+$('select[name=custom_js]').change(function() {
+  var val = $(this).val();
+
+  if (val > 0) {
+    $('.custom-js').show();
+  } else {
+    $('.custom-js').hide();
+  }
+});
+
+$('select[name=custom_js]').trigger('change');
+
+$('input[name=\'manufacturer\']').autocomplete({
+  source: function(request, response) {
+    $.ajax({
+      url: 'index.php?route=catalog/manufacturer/autocomplete&{{ token }}&filter_name='+ encodeURIComponent(request),
+      dataType: 'json',
+      success: function(json) {
+        response($.map(json, function(item) {
+          return {
+            label: item['name'],
+            value: item['manufacturer_id']
+          }
+        }));
+      }
+    });
+  },
+  select: function(item) {
+    $('input[name=\'manufacturer\']').val('');
+
+    $('#manufacturer-filter'+item['value']).remove();
+
+    $('#manufacturer-filter').append('<div id="manufacturer-filter'+item['value']+'"><i class="fa fa-minus-circle"></i> '+item['label']+'<input type="hidden" name="mixed_data_manufacturers[]" value="'+item['value']+'" /></div>');
+  }
+});
+
+$('#manufacturer-filter').delegate('.fa-minus-circle', 'click', function() {
+  $(this).parent().remove();
+});
+
+$('input[name=\'category\']').autocomplete({
+  source: function(request, response) {
+    $.ajax({
+      url: 'index.php?route=catalog/category/autocomplete&{{ token }}&filter_name='+ encodeURIComponent(request),
+      dataType: 'json',
+      success: function(json) {
+        response($.map(json, function(item) {
+          return {
+            label: item['name'],
+            value: item['category_id']
+          }
+        }));
+      }
+    });
+  },
+  select: function(item) {
+    $('input[name=\'category\']').val('');
+
+    $('#category-filter'+item['value']).remove();
+
+    $('#category-filter').append('<div id="category-filter'+item['value']+'"><i class="fa fa-minus-circle"></i> '+item['label']+'<input type="hidden" name="mixed_data_categories[]" value="'+item['value']+'" /></div>');
+  }
+});
+
+$('#category-filter').delegate('.fa-minus-circle', 'click', function() {
+  $(this).parent().remove();
+});
+
+$('input[name=\'product\']').autocomplete({
+  source: function(request, response) {
+    $.ajax({
+      url: 'index.php?route=catalog/product/autocomplete&{{ token }}&filter_name='+ encodeURIComponent(request),
+      dataType: 'json',
+      success: function(json) {
+        response($.map(json, function(item) {
+          return {
+            label: item['name'],
+            value: item['product_id']
+          }
+        }));
+      }
+    });
+  },
+  select: function(item) {
+    $('input[name=\'product\']').val('');
+    $('#product-filter'+item['value']).remove();
+    $('#product-filter').append('<div id="product-filter'+item['value']+'"><i class="fa fa-minus-circle"></i> '+item['label']+'<input type="hidden" name="mixed_data_products[]" value="'+item['value']+'" /></div>');
+  }
+});
+
+$('#product-filter').delegate('.fa-minus-circle', 'click', function() {
+  $(this).parent().remove();
+});
+
+$('input[name=\'information\']').autocomplete({
+  source: function(request, response) {
+    $.ajax({
+      url: 'index.php?route=extension/ocdevwizard/{{ _name }}/autocomplete_information&{{ token }}&filter_title='+ encodeURIComponent(request),
+      dataType: 'json',
+      success: function(json) {
+        response($.map(json, function(item) {
+          return {
+            label: item['title'],
+            value: item['information_id']
+          }
+        }));
+      }
+    });
+  },
+  select: function(item) {
+    $('input[name=\'information\']').val('');
+    $('#information-filter'+item['value']).remove();
+    $('#information-filter').append('<div id="information-filter'+item['value']+'"><i class="fa fa-minus-circle"></i> '+item['label']+'<input type="hidden" name="mixed_data_informations[]" value="'+item['value']+'" /></div>');
+  }
+});
+
+$('#information-filter').delegate('.fa-minus-circle', 'click', function() {
+  $(this).parent().remove();
+});
+</script>
+<!-- end: code for tab General setting -->
+<!-- start: code for module usability -->
+<script type="text/javascript">
+if ($('#modal-form-constructor-content .pro-block').length) {
+  $('#modal-form-constructor-content .pro-block').each(function(index) {
+    $(this).find('.control-label').append('<div class="clear"></div><div class="label label-info" style="text-transform: uppercase;">{{ text_exclusive }}</div>');
+    // $(this).find('input[type=\'radio\'], input[type=\'checkbox\'], select, button').attr('disabled', true);
+    // $(this).find('input[type=\'text\'], textarea').on('focus', function(){ alert('{{ text_exclusive }}'); });
+    // $(this).find('label').addClass('disabled');
+    // $(this).addClass('pro-version-only');
+  });
+}
+</script>
+<!-- end: code for module usability -->
+</div>

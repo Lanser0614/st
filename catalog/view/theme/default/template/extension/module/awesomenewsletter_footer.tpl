@@ -8,6 +8,7 @@
 				  <input type="text" id="input-newsletter-email" placeholder="<?php echo $entry_email_placeholder; ?>" value="" name="email"/>
 				  <a id="button-subsribe" class="btn"><?php echo $button_subscribe; ?></a>
 			<?php } else{ ?>
+		  		  <label for="input-newsletter-email" class="hide-tag">.</label>
 				  <input type="text" id="input-newsletter-email" placeholder="<?php echo $entry_email_placeholder; ?>" value="" name="email"/>
 					<a id="button-subsribe" class="btn"><?php echo $button_subscribe; ?></a>
 			<?php } ?>

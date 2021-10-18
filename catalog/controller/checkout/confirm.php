@@ -33,10 +33,10 @@ class ControllerCheckoutConfirm extends Controller {
 		if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
 			$redirect = $this->url->link('checkout/cart');
 		}
-
+        $analogs = $this->cart->getAnalogProducts();
 		// Validate minimum quantity requirements.
 		$products = $this->cart->getProducts();
-
+        $analog_total = $product_total;
 		foreach ($products as $product) {
 			$product_total = 0;
 
@@ -325,7 +325,7 @@ class ControllerCheckoutConfirm extends Controller {
 
 			$this->load->model('checkout/order');
 
-			$this->session->data['order_id'] = $this->model_checkout_order->addOrder($order_data);
+			$this->session->data['order_id'] = Сум$order_data);
 
 			$data['text_recurring_item'] = $this->language->get('text_recurring_item');
 			$data['text_payment_recurring'] = $this->language->get('text_payment_recurring');

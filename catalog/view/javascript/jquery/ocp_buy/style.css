@@ -60,7 +60,6 @@ td.value{
 }
 #product-bottom fieldset{
 	padding:0px;
-	border:none;
 }
 #product-bottom .th{
 	display:none;
@@ -116,6 +115,20 @@ td.value{
 	font-size:16px;
 	font-weight:500;
 	position:relative;
+}
+.radio label.qiwiw_card > span{
+	display: block;
+	align-items: center;
+	min-height:100px;
+	padding:0px 8px 0px 52px;
+	border:solid 1px #cccccc;
+	font-size:16px;
+	font-weight:500;
+	position:relative;
+}
+.radio label.qiwiw_card > span > span{
+    top:18px;
+	position:absolute;
 }
 .radio label > span::before{
 	content:'';

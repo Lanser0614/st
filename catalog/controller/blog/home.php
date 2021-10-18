@@ -181,8 +181,8 @@ class ControllerBlogHome extends Controller {
 		$data['column_right'] = $this->load->controller('common/column_right');
 		$data['content_top'] = $this->load->controller('common/content_top');
 		$data['content_bottom'] = $this->load->controller('common/content_bottom');
-		$data['footer'] = $this->load->controller('common/footer');
-		$data['header'] = $this->load->controller('common/header');
+		$data['footer'] = $this->load->controller('common/footeramp');
+		$data['header'] = $this->load->controller('common/headeramp');
 		
 		if ((float)VERSION >= 2.2) {
 				$this->response->setOutput($this->load->view('blog/blog_home', $data));

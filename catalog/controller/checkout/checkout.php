@@ -12,6 +12,16 @@ class ControllerCheckoutCheckout extends Controller {
 		}
 
 		// Validate minimum quantity requirements.
+        $product_analogs = $this->cart->getAnalogProducts();
+        foreach ($product_analogs as $product) {
+            $product_total = 0;
+            foreach ($product_analogs as $product_2) {
+                if ($product_2['product_id'] == $product['product_id']) {
+                    $product_total += $product_2['quantity'];
+                }
+            }
+        }
+
 		$products = $this->cart->getProducts();
 
 		foreach ($products as $product) {

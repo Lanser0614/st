@@ -492,6 +492,14 @@ class ControllerCatalogCategory extends Controller {
 			$data['image'] = '';
 		}
 
+        if (isset($this->request->post['image2'])) {
+            $data['image2'] = $this->request->post['image2'];
+        } elseif (!empty($category_info)) {
+            $data['image2'] = $category_info['image2'];
+        } else {
+            $data['image2'] = '';
+        }
+
 		$this->load->model('tool/image');
 
 		if (isset($this->request->post['image']) && is_file(DIR_IMAGE . $this->request->post['image'])) {
@@ -501,7 +509,13 @@ class ControllerCatalogCategory extends Controller {
 		} else {
 			$data['thumb'] = $this->model_tool_image->resize('no_image.png', 100, 100);
 		}
-
+        if (isset($this->request->post['image2']) && is_file(DIR_IMAGE . $this->request->post['image2'])) {
+            $data['thumb2'] = $this->model_tool_image->resize($this->request->post['image2'], 100, 100);
+        } elseif (!empty($category_info) && is_file(DIR_IMAGE . $category_info['image2'])) {
+            $data['thumb2'] = $this->model_tool_image->resize($category_info['image2'], 100, 100);
+        } else {
+            $data['thumb2'] = $this->model_tool_image->resize('no_image.png', 100, 100);
+        }
 		$data['placeholder'] = $this->model_tool_image->resize('no_image.png', 100, 100);
 
 		if (isset($this->request->post['top'])) {
@@ -511,7 +525,13 @@ class ControllerCatalogCategory extends Controller {
 		} else {
 			$data['top'] = 0;
 		}
-
+        if (isset($this->request->post['catalog'])) {
+            $data['catalog'] = $this->request->post['catalog'];
+        } elseif (!empty($category_info)) {
+            $data['catalog'] = $category_info['catalog'];
+        } else {
+            $data['catalog'] = 0;
+        }
 		if (isset($this->request->post['column'])) {
 			$data['column'] = $this->request->post['column'];
 		} elseif (!empty($category_info)) {
@@ -755,4 +775,32 @@ class ControllerCatalogCategory extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
+    public function autocompleteBlog() {
+        $json = array();
+
+        if (isset($this->request->get['filter_name'])) {
+            $this->load->model('blog/blog_category');
+
+            $results = $this->model_blog_blog_category->getBlogCategories(0);
+
+            foreach ($results as $result) {
+                $json[] = array(
+                    'category_id' => $result['blog_category_id'],
+                    'name'        => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8'))
+                );
+            }
+        }
+
+        $sort_order = array();
+
+        foreach ($json as $key => $value) {
+            $sort_order[$key] = $value['name'];
+        }
+
+        array_multisort($sort_order, SORT_ASC, $json);
+
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
+    }
 }

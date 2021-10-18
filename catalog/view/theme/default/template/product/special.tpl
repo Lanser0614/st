@@ -10,7 +10,7 @@
   <h1><?php echo $heading_title; ?></h1>
   
   <?php if ($products) { ?>
-  <div class="product-filter">        
+  <div class="product-filter">
     <div class="sort">
       <?php foreach ($sorts as $sorts) { if ($sorts['value'] == $sort . '-' . $order) { ?>
        <a class="active" href="<?php echo $sorts['href']; ?>"><?php echo $sorts['text']; ?></a>

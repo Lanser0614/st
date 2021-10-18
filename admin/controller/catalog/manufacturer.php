@@ -21,7 +21,6 @@ class ControllerCatalogManufacturer extends Controller {
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
 			$this->model_catalog_manufacturer->addManufacturer($this->request->post);
-
 			$this->session->data['success'] = $this->language->get('text_success');
 
 			$url = '';
@@ -436,12 +435,10 @@ class ControllerCatalogManufacturer extends Controller {
 				$this->error['name'][$language_id] = $this->language->get('error_name');
 			}
 		}
-
 		if (utf8_strlen($this->request->post['keyword']) > 0) {
 			$this->load->model('catalog/url_alias');
 
 			$url_alias_info = $this->model_catalog_url_alias->getUrlAlias($this->request->post['keyword']);
-
 			if ($url_alias_info && isset($this->request->get['manufacturer_id']) && $url_alias_info['query'] != 'manufacturer_id=' . $this->request->get['manufacturer_id']) {
 				$this->error['keyword'] = sprintf($this->language->get('error_keyword'));
 			}

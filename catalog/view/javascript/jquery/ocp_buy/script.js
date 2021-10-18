@@ -1,9 +1,10 @@
 $(document).ready(function() {
 
   $('#checkout-form select[name=\'country_id\']').on('change', function () {
+      console.log('zone');
         getZones();
   });
-
+    console.log('change');
   $('#checkout-form select[name=\'country_id\']').trigger('change');
 	
 	
@@ -307,12 +308,14 @@ $(document).ready(function() {
 
 
 function updateMethods() {
+    console.log('qwe');
     var country_id = ($('#checkout-form select[name=\'country_id\'] option:selected').length) ? $('#checkout-form select[name=\'country_id\'] option:selected').val() : '';
     var zone_id = ($('#checkout-form select[name=\'zone_id\'] option:selected').length) ? $('#checkout-form select[name=\'zone_id\'] option:selected').val() : '';
     var city = ($('#checkout-form input[name=\'city\']').length) ? $('#checkout-form input[name=\'city\']').val() : '';
     var postcode = ($('#checkout-form input[name=\'postcode\']').length) ? $('#checkout-form input[name=\'postcode\']').val() : '';
 
 	if(ocpb_params['shipping_select']){
+	    console.log('shipping select');
         $.ajax({
             url: 'index.php?route='+ocpb_params['module_address']+'/getShippingMethods',
             type: 'post',
@@ -328,6 +331,7 @@ function updateMethods() {
         });
     }else{
         selectShipping();
+          console.log('shipping select');
     }
     if(ocpb_params['payment_select']) {
         $.ajax({
@@ -411,6 +415,7 @@ function addError(el, text) {
 function selectShipping(){
     if($('#shipping-methods').length && $('#shipping-methods').html().length){
         var t_url = 'index.php?route='+ocpb_params['module_address']+'/selectShipping';
+         
     }else{
         var t_url = 'index.php?route='+ocpb_params['module_address']+'/getTotals';
     }
@@ -538,6 +543,7 @@ function getZones(){
             $('#checkout-form #payment-zone .form-control-feedback').remove();
         },
         success: function (json) {
+            console.log(json);
             if (json['postcode_required'] == '1') {
                 $('#checkout-form input[name=\'postcode\']').parent().addClass('required');
             } else {
@@ -561,12 +567,14 @@ function getZones(){
             } else {
                 html += '<option value="0" selected="selected">--none--</option>';
             }
-
+          
             $('#checkout-form select[name=\'zone_id\']').html(html);
+          
             var zone_id = $('#checkout-form select[name=\'zone_id\']').val();
-            if (zone_id) {
+         
+            // if (zone_id) {
                 updateMethods();
-            }
+            // }
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);

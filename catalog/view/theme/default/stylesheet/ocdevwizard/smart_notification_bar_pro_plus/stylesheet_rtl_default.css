@@ -1,0 +1,19 @@
+/*
+##=====================================================================##
+## @author    : OCdevWizard                                            ##
+## @contact   : ocdevwizard@gmail.com                                  ##
+## @support   : http://help.ocdevwizard.com                            ##
+## @license   : http://license.ocdevwizard.com/Licensing_Policy.pdf    ##
+## @copyright : (с) OCdevWizard. Smart Notification Bar Pro Plus, 2017 ##
+##=====================================================================##
+*/
+
+.smnbpp-notification-bar {
+  direction: rtl;
+  text-align: right !important;
+}
+
+.smnbpp-button-close {
+ 	left: 15px !important; 
+ 	right: auto;
+}

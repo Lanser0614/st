@@ -70,7 +70,7 @@ class ControllerCommonFileManager extends Controller {
 			}
 
 			// Get files
-			$files = glob($directory . '/' . $filter_name . '*.{jpg,jpeg,png,gif,JPG,JPEG,PNG,GIF}', GLOB_BRACE);
+			$files = glob($directory . '/' . $filter_name . '*.{jpg,jpeg,png,gif,pdf,JPG,JPEG,PNG,GIF,PDF}', GLOB_BRACE);
 
 			if (!$files) {
 				$files = array();
@@ -253,7 +253,6 @@ class ControllerCommonFileManager extends Controller {
 
 	public function upload() {
 		$this->load->language('common/filemanager');
-
 		$json = array();
 
 		// Check user has permission
@@ -304,7 +303,8 @@ class ControllerCommonFileManager extends Controller {
 						'jpg',
 						'jpeg',
 						'gif',
-						'png'
+						'png',
+                        'pdf'
 					);
 	
 					if (!in_array(utf8_strtolower(utf8_substr(strrchr($filename, '.'), 1)), $allowed)) {
@@ -317,7 +317,8 @@ class ControllerCommonFileManager extends Controller {
 						'image/pjpeg',
 						'image/png',
 						'image/x-png',
-						'image/gif'
+						'image/gif',
+                        'application/pdf'
 					);
 	
 					if (!in_array($file['type'], $allowed)) {

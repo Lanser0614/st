@@ -1,0 +1,1056 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="pull-right">
+         <button type="submit" form="form" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+      <h1>{{ heading_title }}</h1>
+      <ul class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+        <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+	<div class="container-fluid">
+    {% if error_warning %}
+    <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% endif %}
+            <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
+      </div>
+                <div class="panel-body">
+                    <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-module" class="form-horizontal">
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a href="#tab-general" data-toggle="tab">Основные настройки</a>
+                            </li>
+                            <li>
+                                <a href="#off-pole" data-toggle="tab">Отключение полей</a>
+                            </li>
+                            <li>
+                                <a href="#tab-fields" data-toggle="tab">Настройки полей</a>
+                            </li>
+                        </ul>
+<style>
+a.newapi {
+  display: inline-block;
+  font-family: arial,sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  color: rgb(68,68,68);
+  text-decoration: none;
+  user-select: none;
+  padding: .2em 1.2em;
+  outline: none;
+  border: 1px solid rgba(0,0,0,.1);
+  border-radius: 2px;
+  background: rgb(245,245,245) linear-gradient(#f4f4f4, #f1f1f1);
+  transition: all .218s ease 0s;
+}
+a.newapi:hover {
+  color: rgb(24,24,24);
+  border: 1px solid rgb(198,198,198);
+  background: #f7f7f7 linear-gradient(#f7f7f7, #f1f1f1);
+  box-shadow: 0 1px 2px rgba(0,0,0,.1);
+}
+a.newapi:active {
+  color: rgb(51,51,51);
+  border: 1px solid rgb(204,204,204);
+  background: rgb(238,238,238) linear-gradient(rgb(238,238,238), rgb(224,224,224));
+  box-shadow: 0 1px 2px rgba(0,0,0,.1) inset;
+}
+</style>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab-general">
+                                <div class="form-group required">
+                                    <label class="col-sm-2 control-label" for="module_suggest_api">
+                                        {{ entry_api }}
+                                        <a href="http://dadata.ru/profile/#info" class="newapi" target="_blank">Получить ключ</a>
+                                    </label>
+                                    <div class="col-sm-10">
+                                    <label for="module_suggest_tips">
+                                        API-ключ из личного кабинета DaData.ru
+                                    </label>
+                                        <input type="hidden" name="module_suggest_version" value="{{ version }}"/>
+                                        <input type="text" id="module_suggest_api" class="form-control" name="module_suggest_api"
+                                               value="{{ module_suggest_api }}"/>
+										{% if (error_api is defined) %} 
+                                            <span class="error">{{ error_api }}</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="module_suggest_tips">
+                                        {{ entry_tips }}
+                                    </label>
+                                    <div class="col-sm-10">
+                                     <label for="module_suggest_tips">
+                                        Введите число от 1 до 20 (по умолчанию - 5)
+                                    </label>
+                                        <input type="number" class="form-control" id="module_suggest_tips" name="module_suggest_tips"
+                                               value="{{ module_suggest_tips }}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="module_suggest_geo">
+                                        {{ entry_geo }}
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control" id="module_suggest_geo" name="module_suggest_geo">
+                                            {% if module_suggest_geo %}
+                                                <option value="1" selected="selected">{{ text_yes }}</option>
+                                                <option value="0">{{ text_no }}</option>
+                                             {% else %}
+                                                <option value="1">{{ text_yes }}</option>
+                                                <option value="0" selected="selected">{{ text_no }}</option>
+                                            {% endif %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="module_suggest_status">
+                                        {{ entry_status }} 
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control" id="module_suggest_status" name="module_suggest_status">
+                                            {% if module_suggest_status %} 
+                                                <option value="1"
+                                                        selected="selected">{{ text_enabled }}</option>
+                                                <option value="0">{{ text_disabled }}</option>
+                                            {% else %} 
+                                                <option value="1">{{ text_enabled }}</option>
+                                                <option value="0"
+                                                        selected="selected">{{ text_disabled }}</option>
+                                            {% endif %} 
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                            
+                            
+                            
+                            
+                            <div class="tab-pane" id="off-pole">
+                                <div class="form-group">
+
+<div class="col-md-6">
+     <h4>Поля адреса доставки</h4>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Название поля</th>
+      <th>Активность поля</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Имя, Отчество</td>
+      <td>
+{% if module_suggest_firstoff == '1' %} 
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-success active">
+    <input type="radio" value="1" name="module_suggest_firstoff" id="module_suggest_firstoff" autocomplete="off" checked> Вкл.
+  </label>
+  <label class="btn btn-danger">
+    <input type="radio" value="0" name="module_suggest_firstoff" id="module_suggest_firstoff" autocomplete="off"> Выкл.
+  </label>
+</div>
+{% else %}
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-success">
+    <input type="radio" value="1" name="module_suggest_firstoff" id="module_suggest_firstoff" autocomplete="off"> Вкл.
+  </label>
+  <label class="btn btn-danger active">
+    <input type="radio" value="0" name="module_suggest_firstoff" id="module_suggest_firstoff" autocomplete="off" checked> Выкл.
+  </label>
+</div>
+{% endif %}
+      </td>
+    </tr>
+    <tr>
+      <td>Фамилия</td>
+      <td>
+{% if module_suggest_lastoff == '1' %} 
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-success active">
+    <input type="radio" value="1" name="module_suggest_lastoff" id="module_suggest_lastoff" autocomplete="off" checked> Вкл.
+  </label>
+  <label class="btn btn-danger">
+    <input type="radio" value="0" name="module_suggest_lastoff" id="module_suggest_lastoff" autocomplete="off"> Выкл.
+  </label>
+</div>
+{% else %}
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-success">
+    <input type="radio" value="1" name="module_suggest_lastoff" id="module_suggest_lastoff" autocomplete="off"> Вкл.
+  </label>
+  <label class="btn btn-danger active">
+    <input type="radio" value="0" name="module_suggest_lastoff" id="module_suggest_lastoff" autocomplete="off" checked> Выкл.
+  </label>
+</div>
+{% endif %}
+      </td>
+    </tr>
+    <tr>
+      <td>Компания</td>
+      <td>
+{% if module_suggest_compoff == '1' %} 
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-success active">
+    <input type="radio" value="1" name="module_suggest_compoff" id="module_suggest_compoff" autocomplete="off" checked> Вкл.
+  </label>
+  <label class="btn btn-danger">
+    <input type="radio" value="0" name="module_suggest_compoff" id="module_suggest_compoff" autocomplete="off"> Выкл.
+  </label>
+</div>
+{% else %}
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-success">
+    <input type="radio" value="1" name="module_suggest_compoff" id="module_suggest_compoff" autocomplete="off"> Вкл.
+  </label>
+  <label class="btn btn-danger active">
+    <input type="radio" value="0" name="module_suggest_compoff" id="module_suggest_compoff" autocomplete="off" checked> Выкл.
+  </label>
+</div>
+{% endif %}
+      </td>
+    </tr>
+    <tr>
+      <td>Адрес 1</td>
+      <td>
+{% if module_suggest_address1off == '1' %} 
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-success active">
+    <input type="radio" value="1" name="module_suggest_address1off" id="module_suggest_address1off" autocomplete="off" checked> Вкл.
+  </label>
+  <label class="btn btn-danger">
+    <input type="radio" value="0" name="module_suggest_address1off" id="module_suggest_address1off" autocomplete="off"> Выкл.
+  </label>
+</div>
+{% else %}
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-success">
+    <input type="radio" value="1" name="module_suggest_address1off" id="module_suggest_address1off" autocomplete="off"> Вкл.
+  </label>
+  <label class="btn btn-danger active">
+    <input type="radio" value="0" name="module_suggest_address1off" id="module_suggest_address1off" autocomplete="off" checked> Выкл.
+  </label>
+</div>
+{% endif %}
+      </td>
+    </tr>
+    <tr>
+      <td>Адрес 2</td>
+      <td>
+{% if module_suggest_address2off == '1' %} 
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-success active">
+    <input type="radio" value="1" name="module_suggest_address2off" id="module_suggest_address2off" autocomplete="off" checked> Вкл.
+  </label>
+  <label class="btn btn-danger">
+    <input type="radio" value="0" name="module_suggest_address2off" id="module_suggest_address2off" autocomplete="off"> Выкл.
+  </label>
+</div>
+{% else %}
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-success">
+    <input type="radio" value="1" name="module_suggest_address2off" id="module_suggest_address2off" autocomplete="off"> Вкл.
+  </label>
+  <label class="btn btn-danger active">
+    <input type="radio" value="0" name="module_suggest_address2off" id="module_suggest_address2off" autocomplete="off" checked> Выкл.
+  </label>
+</div>
+{% endif %}
+      </td>
+    </tr>
+    <tr>
+      <td>Город</td>
+      <td>
+{% if module_suggest_cityoff == '1' %} 
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-success active">
+    <input type="radio" value="1" name="module_suggest_cityoff" id="module_suggest_cityoff" autocomplete="off" checked> Вкл.
+  </label>
+  <label class="btn btn-danger">
+    <input type="radio" value="0" name="module_suggest_cityoff" id="module_suggest_cityoff" autocomplete="off"> Выкл.
+  </label>
+</div>
+{% else %}
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-success">
+    <input type="radio" value="1" name="module_suggest_cityoff" id="module_suggest_cityoff" autocomplete="off"> Вкл.
+  </label>
+  <label class="btn btn-danger active">
+    <input type="radio" value="0" name="module_suggest_cityoff" id="module_suggest_cityoff" autocomplete="off" checked> Выкл.
+  </label>
+</div>
+{% endif %}
+      </td>
+    </tr>
+    <tr>
+      <td>Почтовый индекс</td>
+      <td>
+{% if module_suggest_postoff == '1' %} 
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-success active">
+    <input type="radio" value="1" name="module_suggest_postoff" id="module_suggest_postoff" autocomplete="off" checked> Вкл.
+  </label>
+  <label class="btn btn-danger">
+    <input type="radio" value="0" name="module_suggest_postoff" id="module_suggest_postoff" autocomplete="off"> Выкл.
+  </label>
+</div>
+{% else %}
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-success">
+    <input type="radio" value="1" name="module_suggest_postoff" id="module_suggest_postoff" autocomplete="off"> Вкл.
+  </label>
+  <label class="btn btn-danger active">
+    <input type="radio" value="0" name="module_suggest_postoff" id="module_suggest_postoff" autocomplete="off" checked> Выкл.
+  </label>
+</div>
+{% endif %}
+      </td>
+    </tr>
+    <tr>
+      <td>Страна</td>
+      <td>
+{% if module_suggest_countryoff == '1' %} 
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-success active">
+    <input type="radio" value="1" name="module_suggest_countryoff" id="module_suggest_countryoff" autocomplete="off" checked> Вкл.
+  </label>
+  <label class="btn btn-danger">
+    <input type="radio" value="0" name="module_suggest_countryoff" id="module_suggest_countryoff" autocomplete="off"> Выкл.
+  </label>
+</div>
+{% else %}
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-success">
+    <input type="radio" value="1" name="module_suggest_countryoff" id="module_suggest_countryoff" autocomplete="off"> Вкл.
+  </label>
+  <label class="btn btn-danger active">
+    <input type="radio" value="0" name="module_suggest_countryoff" id="module_suggest_countryoff" autocomplete="off" checked> Выкл.
+  </label>
+</div>
+{% endif %}
+      </td>
+    </tr>
+    <tr>
+      <td>Регион/Область</td>
+      <td>
+{% if module_suggest_zoneoff == '1' %} 
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-success active">
+    <input type="radio" value="1" name="module_suggest_zoneoff" id="module_suggest_zoneoff" autocomplete="off" checked> Вкл.
+  </label>
+  <label class="btn btn-danger">
+    <input type="radio" value="0" name="module_suggest_zoneoff" id="module_suggest_zoneoff" autocomplete="off"> Выкл.
+  </label>
+</div>
+{% else %}
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-success">
+    <input type="radio" value="1" name="module_suggest_zoneoff" id="module_suggest_zoneoff" autocomplete="off"> Вкл.
+  </label>
+  <label class="btn btn-danger active">
+    <input type="radio" value="0" name="module_suggest_zoneoff" id="module_suggest_zoneoff" autocomplete="off" checked> Выкл.
+  </label>
+</div>
+{% endif %}
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+                                </div>
+                            </div>
+                            
+                            
+                            
+                            
+                            
+                            
+                            <div class="tab-pane" id="tab-fields">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <ul class="nav nav-pills nav-stacked">
+                                            <li class="active">
+                                                <a href="#tab-fio-fields" data-toggle="tab">ФИО</a>
+                                            </li>
+                                            <li>
+                                                <a href="#tab-address-one-fields" data-toggle="tab">Адрес (Одной строкой)</a>
+                                            </li>
+                                            <li>
+                                                <a href="#tab-address-fields" data-toggle="tab">Адрес (Отдельными полями)</a>
+                                            </li>
+                                            <li>
+                                                <a href="#tab-email-fields" data-toggle="tab">E-mail</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <div class="tab-content">
+                                            <div id="tab-fio-fields" class="tab-pane active">
+                                                 {% set fio_group_key = 0 %}
+ {% if (fio_groups is not empty) %}
+ {% for fio_group_key,fio_group in fio_groups %} 
+ 
+                                                        <div id="module_suggest_fio-group_{{ fio_group_key }}">
+                                                            <div class="heading"><h3 class="dadata-heading">
+                                                                    <span>Группа {{ address_group_key + 1 }}</span>
+                                                                </h3></div>
+                                                            <table id="address-field-values" class="table table-bordered">
+                                                                <thead>
+                                                                <tr>
+                                                                    <td class="left">{{ "Имя поля" }}</td>
+                                                                    <td class="left">{{ "Что подсказывать" }}</td>
+                                                                    <td class="left">{{ "Статус" }}</td>
+                                                                    <td></td>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td class="left">
+                                                                        <span class="help">html идентификатор поля <br>(id # или class .)</span>
+                                                                    </td>
+                                                                    <td class="left">
+                                                                        <span class="help">Для выбора нескольких значений используйте ctrl+клик.</span>
+                                                                    </td>
+                                                                    <td class="left">
+                                                                        <span class="help">Активность подсказок.</span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span class="help">Действия.</span>
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                                 {% set fio_field_key = 0 %}
+ {% if (fio_group['data'] is defined and fio_group['data'] is not empty) %}
+ {% for fio_field_key,fio_field in fio_group['data'] %} 
+ 
+                                                                        <tbody
+                                                                            id="fio-field-value-row_{{ fio_group_key }}_{{ fio_field_key }}">
+                                                                        <tr>
+                                                                            <td class="left"><input type="text" class="form-control"
+                                                                                                    name="module_suggest_fio[{{ fio_group_key }}][data][{{ fio_field_key }}][name]"
+                                                                                                    value="{{ fio_field['name'] }}"
+                                                                                                    size="40"/></td>
+                                                                            <td class="left"><select style="height:76px;" class="form-control" multiple
+                                                                                                     name="module_suggest_fio[{{ fio_group_key }}][data][{{ fio_field_key }}][parts][]">
+                                                                                    {% if (fio_field_parts_data is defined) %} 
+                                                                                        {% for fio_field_part_data in fio_field_parts_data %} 
+                                                                                             {% set fio_part_selected_trigger = 0 %}
+ {% for fio_field_saved_part in fio_field['parts'] %} 
+ {% if (fio_field_saved_part == fio_field_part_data['value']) %}
+ 
+                                                                                                    <option
+                                                                                                        value="{{ fio_field_part_data['value'] }}"
+                                                                                                        selected="selected">{{ fio_field_part_data['name'] }}</option>
+                                                                                                     {% set fio_part_selected_trigger = 1 %}
+ 
+ {% endif %}
+ {% endfor %}
+ 
+                                                                                            {% if (fio_part_selected_trigger == 0) %} 
+                                                                                                <option
+                                                                                                    value="{{ fio_field_part_data['value'] }}">{{ fio_field_part_data['name'] }}</option>
+                                                                                            {% endif %} 
+                                                                                        {% endfor %} 
+                                                                                    {% endif %} 
+                                                                                </select>
+                                                                            </td>
+
+                                                                            <td class="left">
+                                                                                <select  class="form-control"
+                                                                                    name="module_suggest_fio[{{ fio_group_key }}][data][{{ fio_field_key }}][status]">
+                                                                                    {% if (fio_field['status']) %} 
+                                                                                        <option value="1"
+                                                                                                selected="selected">{{ text_enabled }}</option>
+                                                                                        <option
+                                                                                            value="0">{{ text_disabled }}</option>
+                                                                                    {% else %} 
+                                                                                        <option
+                                                                                            value="1">{{ text_enabled }}</option>
+                                                                                        <option value="0"
+                                                                                                selected="selected">{{ text_disabled }}</option>
+                                                                                    {% endif %} 
+                                                                                </select>
+                                                                            </td>
+                                                                            <td class="left"><a
+                                                                                    onclick="$('#fio-field-value-row_{{ fio_group_key }}_{{ fio_field_key }}').remove();"
+                                                                                    class="btn btn-danger">{{ button_remove }}</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                        </tbody>
+                                                                    {% endfor %} 
+                                                                <tfoot>
+                                                                <tr>
+                                                                    <td colspan="3" class="left"><a
+                                                                            onclick="addFioFieldValue({{ fio_group_key }}{% endif %});"
+                                                                            class="btn btn-success">{{ "Добавить поле" }}</a>
+                                                                    </td>
+                                                                    <td class="left"><a
+                                                                            onclick="$('#module_suggest_fio-group_{{ fio_group_key }}').remove();"
+                                                                            class="btn btn-warning">{{ "Удалить группу" }}</a>
+                                                                    </td>
+                                                                </tr>
+                                                                </tfoot>
+                                                            </table>
+                                                        </div>
+                                                         {% endfor %}
+ {% endif %} 
+                                                <a onclick="addFioGroup();" id="addFioGroup" class="btn btn-success">Добавить
+                                                    группу</a>
+                                            </div>
+                                            
+                                            <div id="tab-address-one-fields" class="tab-pane">
+                                                 {% set address_one_group_key = 0 %}
+ {% if (address_one_groups is not empty) %}
+ {% for address_one_group_key,address_one_group in address_one_groups %} 
+ 
+                                                        <div id="module_suggest_address_one-group_{{ address_one_group_key }}">
+                                                            <div class="heading"><h3 class="dadata-heading">
+                                                                    <span>Группа {{ address_one_group_key + 1 }}</span>
+                                                                </h3></div>
+                                                            <table id="address-one-field-values" class="table table-bordered">
+                                                                <thead>
+                                                                <tr>
+                                                                    <td class="left">{{ "Имя поля" }}</td>
+                                                                    <td class="left">{{ "Статус" }}</td>
+                                                                    <td></td>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td class="left">
+                                                                        <span class="help">html идентификатор поля (id # или class .)</span>
+                                                                    </td>
+                                                                    <td class="left">
+                                                                        <span class="help">Активность подсказок.</span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span class="help">Действия.</span>
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                                 {% set address_one_field_key = 0 %}
+ {% if (address_one_group['data'] is defined and address_one_group['data'] is not empty) %}
+ {% for address_one_field_key,address_one_field in address_one_group['data'] %} 
+ 
+                                                                        <tbody
+                                                                            id="address-one-field-value-row_{{ address_one_group_key }}_{{ address_one_field_key }}">
+                                                                        <tr>
+                                                                            <td class="left"><input class="form-control" type="text"
+                                                                                                    name="module_suggest_address_one[{{ address_one_group_key }}][data][{{ address_one_field_key }}][name]"
+                                                                                                    value="{{ address_one_field['name'] }}"
+                                                                                                    size="40"/></td>
+                                                                            <td class="left">
+                                                                                <select class="form-control"
+                                                                                    name="module_suggest_address_one[{{ address_one_group_key }}][data][{{ address_one_field_key }}][status]">
+                                                                                    {% if (address_one_field['status']) %} 
+                                                                                        <option value="1"
+                                                                                                selected="selected">{{ text_enabled }}</option>
+                                                                                        <option
+                                                                                            value="0">{{ text_disabled }}</option>
+                                                                                    {% else %} 
+                                                                                        <option
+                                                                                            value="1">{{ text_enabled }}</option>
+                                                                                        <option value="0"
+                                                                                                selected="selected">{{ text_disabled }}</option>
+                                                                                    {% endif %} 
+                                                                                </select>
+                                                                            </td>
+                                                                            <td class="left"><a
+                                                                                    onclick="$('#address-one-field-value-row_{{ address_one_group_key }}_{{ address_one_field_key }}').remove();"
+                                                                                    class="btn btn-danger">{{ button_remove }}</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                        </tbody>
+                                                                    {% endfor %} 
+                                                                <tfoot>
+                                                                <tr>
+                                                                    <td colspan="2" class="left"><a
+                                                                            onclick="addAddressOneFieldValue({{ address_one_group_key }}{% endif %});"
+                                                                            class="btn btn-success">{{ "Добавить поле" }}</a>
+                                                                    </td>
+                                                                    <td class="left"><a
+                                                                            onclick="$('#module_suggest_address_one-group_{{ address_one_group_key }}').remove();"
+                                                                            class="btn btn-warning">{{ "Удалить группу" }}</a>
+                                                                    </td>
+                                                                </tr>
+                                                                </tfoot>
+                                                            </table>
+                                                        </div>
+                                                         {% endfor %}
+ {% endif %} 
+                                                <a onclick="addAddressOneGroup();" id="addAddressOneGroup" class="btn btn-success">Добавить
+                                                    группу</a>
+                                            </div>
+                                            
+                                            <div id="tab-address-fields" class="tab-pane">
+                                                 {% set address_group_key = 0 %}
+ {% if (address_groups is not empty) %}
+ {% for address_group_key,address_group in address_groups %} 
+ 
+                                                        <div id="module_suggest_address-group_{{ address_group_key }}">
+                                                            <div class="heading"><h3 class="dadata-heading">
+                                                                    <span>Группа {{ address_group_key + 1 }}</span>
+                                                                </h3></div>
+                                                            <table id="address-field-values" class="table table-bordered">
+                                                                <thead>
+                                                                <tr>
+                                                                    <td class="left">{{ "Имя поля" }}</td>
+                                                                    <td class="left">{{ "Что подсказывать/чем заполнять" }}</td>
+                                                                    <td class="left">{{ "Статус" }}</td>
+                                                                    <td></td>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td class="left">
+                                                                        <span class="help">html идентификатор поля (id # или class .)</span>
+                                                                    </td>
+                                                                    <td class="left">
+                                                                        <span class="help">Выберите данные для подсказок</span>
+                                                                    </td>
+                                                                    <td class="left">
+                                                                        <span class="help">Активность подсказок.</span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span class="help">Действия.</span>
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                                 {% set address_field_key = 0 %}
+ {% if (address_group['data'] is defined and address_group['data'] is not empty) %}
+ {% for address_field_key,address_field in address_group['data'] %} 
+ 
+                                                                        <tbody
+                                                                            id="address-field-value-row_{{ address_group_key }}_{{ address_field_key }}">
+                                                                        <tr>
+                                                                            <td class="left"><input class="form-control" type="text"
+                                                                                                    name="module_suggest_address[{{ address_group_key }}][data][{{ address_field_key }}][name]"
+                                                                                                    value="{{ address_field['name'] }}"
+                                                                                                    size="40"/></td>
+                                                                            <td class="left"><select class="form-control"
+                                                                                                     name="module_suggest_address[{{ address_group_key }}][data][{{ address_field_key }}][parts_suggest][]"
+                                                                                                     size="4">
+                                                                                     {% if (address_field_parts_data is defined) %}
+ 
+                                                                                        {% for address_field_part_data in address_field_parts_data %} 
+                                                                                             {% set address_part_selected_trigger = 0 %}
+ {% for address_field_saved_part in address_field['parts_suggest'] %} 
+ {% if (address_field_saved_part == address_field_part_data['value']) %}
+ 
+                                                                                                    <option
+                                                                                                        value="{{ address_field_part_data['value'] }}"
+                                                                                                        selected="selected">{{ address_field_part_data['name'] }}</option>
+                                                                                                     {% set address_part_selected_trigger = 1 %}
+ 
+ {% endif %}
+ {% endfor %}
+ 
+                                                                                            {% if (address_part_selected_trigger == 0) %} 
+                                                                                                <option
+                                                                                                    value="{{ address_field_part_data['value'] }}">{{ address_field_part_data['name'] }}</option>
+                                                                                            {% endif %} 
+                                                                                        {% endfor %} 
+                                                                                    {% endif %} 
+                                                                                </select>
+                                                                            </td>
+                                                                            <td class="left">
+                                                                                <select class="form-control"
+                                                                                    name="module_suggest_address[{{ address_group_key }}][data][{{ address_field_key }}][status]">
+                                                                                    {% if (address_field['status']) %} 
+                                                                                        <option value="1"
+                                                                                                selected="selected">{{ text_enabled }}</option>
+                                                                                        <option
+                                                                                            value="0">{{ text_disabled }}</option>
+                                                                                    {% else %} 
+                                                                                        <option
+                                                                                            value="1">{{ text_enabled }}</option>
+                                                                                        <option value="0"
+                                                                                                selected="selected">{{ text_disabled }}</option>
+                                                                                    {% endif %} 
+                                                                                </select>
+                                                                            </td>
+                                                                            <td class="left"><a
+                                                                                    onclick="$('#address-field-value-row_{{ address_group_key }}_{{ address_field_key }}').remove();"
+                                                                                    class="btn btn-danger">{{ button_remove }}</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                        </tbody>
+                                                                    {% endfor %} 
+                                                                <tfoot>
+                                                                <tr>
+                                                                    <td colspan="3" class="left"><a
+                                                                            onclick="addAddressFieldValue({{ address_group_key }}{% endif %});"
+                                                                            class="btn btn-success">{{ "Добавить поле" }}</a>
+                                                                    </td>
+                                                                    <td class="left"><a
+                                                                            onclick="$('#module_suggest_address-group_{{ address_group_key }}').remove();"
+                                                                            class="btn btn-warning">{{ "Удалить группу" }}</a>
+                                                                    </td>
+                                                                </tr>
+                                                                </tfoot>
+                                                            </table>
+                                                        </div>
+                                                         {% endfor %}
+ {% endif %} 
+                                                <a onclick="addAddressGroup();" id="addAddressGroup" class="btn btn-success">Добавить
+                                                    группу</a>
+                                            </div>
+                                            <div id="tab-email-fields" class="tab-pane">
+                                                 {% set email_group_key = 0 %}
+ {% if (email_groups is not empty) %}
+ {% for email_group_key,email_group in email_groups %} 
+ 
+                                                        <div id="module_suggest_email-group_{{ email_group_key }}">
+                                                            <div class="heading"><h3 class="dadata-heading">
+                                                                    <span>Группа {{ email_group_key + 1 }}</span>
+                                                                </h3></div>
+                                                            
+                                                            <table id="email-field-values" class="table table-bordered">
+                                                                <thead>
+                                                                <tr>
+                                                                    <td class="left">{{ "Имя поля:" }}</td>
+                                                                    <td class="left">{{ "Статус:" }}</td>
+                                                                    <td></td>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td class="left">
+                                                    <span
+                                                        class="help">html идентификатор поля (id # или class .)</span>
+                                                                    </td>
+
+                                                                    <td class="left">
+                                                                        <span class="help">Активность подсказок.</span>
+                                                                    </td>
+                                                                    <td class="left">
+                                                                        <span class="help">Действия.</span>
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                                 {% set email_field_key = 0 %}
+ {% if (email_group['data'] is defined and email_group['data'] is not empty) %}
+ {% for email_field_key,email_field in email_group['data'] %} 
+ 
+                                                                        <tbody
+                                                                            id="email-field-value-row_{{ email_group_key }}_{{ email_field_key }}">
+                                                                        <tr>
+                                                                            <td class="left">
+                                                                                <input size="40" class="form-control"
+                                                                                       name="module_suggest_email[{{ email_group_key }}][data][{{ email_field_key }}][name]"
+                                                                                       value="{{ email_field['name'] is defined ? email_field['name'] : '' }}"/>
+                                                                            </td>
+                                                                            <td class="left">
+                                                                                <select class="form-control"
+                                                                                    name="module_suggest_email[{{ email_group_key }}][data][{{ email_field_key }}][status]">
+                                                                                    {% if (email_field['status'] is defined and email_field['status']) %} 
+                                                                                        <option value="1"
+                                                                                                selected="selected">{{ text_enabled }}</option>
+                                                                                        <option
+                                                                                            value="0">{{ text_disabled }}</option>
+                                                                                    {% else %} 
+                                                                                        <option
+                                                                                            value="1">{{ text_enabled }}</option>
+                                                                                        <option value="0"
+                                                                                                selected="selected">{{ text_disabled }}</option>
+                                                                                    {% endif %} 
+                                                                                </select>
+                                                                            </td>
+                                                                            <td class="left"><a
+                                                                                    onclick="$('#email-field-value-row_{{ email_group_key }}_{{ email_field_key }}').remove();"
+                                                                                    class="btn btn-danger">{{ button_remove }}</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                        </tbody>
+                                                                    {% endfor %} 
+                                                                <tfoot>
+                                                                <tr>
+                                                                    <td colspan="2" class="left"><a
+                                                                            onclick="addEmailFieldValue({{ email_group_key }}{% endif %});"
+                                                                            class="btn btn-success">{{ "Добавить поле" }}</a>
+                                                                    </td>
+                                                                    <td class="left"><a
+                                                                            onclick="$('#module_suggest_email-group_{{ email_group_key }}').remove();"
+                                                                            class="btn btn-warning">{{ "Удалить группу" }}</a>
+                                                                    </td>
+                                                                </tr>
+                                                                </tfoot>
+                                                            </table>
+                                                        </div>
+                                                    {% endfor %}
+ {% endif %} 
+                                                <a onclick="addEmailGroup();" id="addEmailGroup" class="btn btn-success">Добавить
+                                                    группу</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="help"
+                         style="text-align: center;clear:both;">Автор модуля: Stvalyur.<br/> E-mail: <a
+                            href="mailto:stvalyur@gmail.com">stvalyur@gmail.com</a><br/>Все права защищены.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <script type="text/javascript">
+            //   $("#tabs a").tabs();
+            // $('#tab-fields .vtabs a').tabs();
+        </script>
+        <script type="text/javascript"><!--
+            var fio_group_keys = [];
+            {% if (fio_groups is not empty) %}
+ {% for fio_group_key,fio_group in fio_groups %} 
+ {% set fio_fields_count = 0 %}
+ {% if (fio_group['data'] is defined and fio_group['data'] is not empty) %}
+ {% set fio_fields_count = fio_group['data']|length %}
+ {% endif %} 
+            fio_group_keys[{{ fio_group_key }}] ={{ fio_fields_count }};
+            {% endfor %}
+ {% endif %} 
+            var address_group_keys = [];
+            {% if (address_groups is not empty) %}
+ {% for address_group_key,address_group in address_groups %} 
+ {% set address_fields_count = 0 %}
+ {% if (address_group['data'] is defined and address_group['data'] is not empty) %}
+ {% set address_fields_count = address_group['data']|length %}
+ {% endif %} 
+            address_group_keys[{{ address_group_key }}] ={{ address_fields_count }};
+            {% endfor %}
+ {% endif %} 
+             var address_one_group_keys = [];
+            {% if (address_one_groups is not empty) %}
+ {% for address_one_group_key,address_one_group in address_one_groups %} 
+ {% set address_one_fields_count = 0 %}
+ {% if (address_one_group['data'] is defined and address_one_group['data'] is not empty) %}
+ {% set address_one_fields_count = address_one_group['data']|length %}
+ {% endif %} 
+            address_one_group_keys[{{ address_one_group_key }}] ={{ address_one_fields_count }};
+            {% endfor %}
+ {% endif %} 
+            var email_group_keys = [];
+            {% if (email_groups is not empty) %}
+ {% for email_group_key,email_group in email_groups %} 
+ {% set email_fields_count = 0 %}
+ {% if (email_group['data'] is defined and email_group['data'] is not empty) %}
+ {% set email_fields_count = email_group['data']|length %}
+ {% endif %} 
+            email_group_keys[{{ email_group_key }}] ={{ email_fields_count }};
+            {% endfor %}
+ {% endif %} 
+
+            var fio_groups_count ={{ fio_groups|length }};
+            var address_groups_count ={{ address_groups|length }};
+            var address_one_groups_count ={{ address_one_groups|length }};
+            var email_groups_count ={{ email_groups|length }};
+
+            function addFioGroup() {
+                var group_key = 0;
+                var new_group_index = fio_group_keys.length;
+                if (fio_groups_count > 0) {
+                    group_key = fio_groups_count;
+                }
+                group_key++;
+
+                html = '<div id="module_suggest_fio-group_' + new_group_index + '">';
+                html += '<div class="heading"><h3 class="dadata-heading"><span>Группа ' + group_key + '</span></h3></div>';
+                html += '<table id="fio-field-values" class="table table-bordered"><thead><tr>';
+                html += '<td class="left">Имя поля</td>';
+                html += '<td class="left">Что подсказывать</td>';
+                html += '<td class="left">Статус</td>';
+                html += '<td></td></tr></thead>';
+                html += '<tbody><tr>';
+                html += '<td class="left"><span class="help">html идентификатор поля <br>(id # или class .)</span></td>';
+                html += '<td class="left"><span class="help">Для выбора нескольких значений используйте ctrl+клик.</span></td>';
+                html += '<td class="left"><span class="help">Активность подсказок.</span></td>';
+                html += '<td><span class="help">Действия.</span></td>';
+                html += '</tr></tbody>';
+                html += '<tfoot><tr>';
+                html += '<td colspan="3" class="left"><a onclick="addFioFieldValue(' + new_group_index + ');" class="btn btn-success">Добавить поле</a></td>';
+                html += '<td class="left"><a onclick=\'$("#module_suggest_fio-group_' + new_group_index + '").remove();\' class="btn btn-warning">Удалить группу</a></td>';
+                html += '</tr></tfoot></table></div>';
+                $('#addFioGroup').before(html);
+                fio_groups_count++;
+                fio_group_keys[new_group_index] = 0;
+
+            }
+
+            function addAddressOneGroup() {
+                var group_key = 0;
+                var new_group_index = address_one_group_keys.length;
+                if (address_one_groups_count > 0) {
+                    group_key = address_one_groups_count;
+                }
+                group_key++;
+
+                html = '<div id="module_suggest_address_one-group_' + new_group_index + '">';
+                html += '<div class="heading"><h3 class="dadata-heading"><span>Группа ' + group_key + '</span></h3></div>';
+                html += '<table id="address-one-field-values" class="table table-bordered"><thead><tr>';
+                html += '<td class="left">Имя поля</td>';
+                html += '<td class="left">Статус</td>';
+                html += '<td></td></tr></thead>';
+                html += '<tbody><tr>';
+                html += '<td class="left"><span class="help">html идентификатор поля (id # или class .)</span></td>';
+                html += '<td class="left"><span class="help">Активность подсказок.</span></td>';
+                html += '<td><span class="help">Действия.</span></td>';
+                html += '</tr></tbody>';
+                html += '<tfoot><tr>';
+                html += '<td colspan="2" class="left"><a onclick="addAddressOneFieldValue(' + new_group_index + ');" class="btn btn-success">Добавить поле</a></td>';
+                html += '<td class="left"><a onclick=\'$("#module_suggest_address_one-group_' + new_group_index + '").remove();\' class="btn btn-warning">Удалить группу</a></td>';
+                html += '</tr></tfoot></table></div>';
+                $('#addAddressOneGroup').before(html);
+                address_one_groups_count++;
+                address_one_group_keys[new_group_index] = 0;
+            }
+
+            function addAddressGroup() {
+                var group_key = 0;
+                var new_group_index = address_group_keys.length;
+                if (address_groups_count > 0) {
+                    group_key = address_groups_count;
+                }
+                group_key++;
+
+                html = '<div id="module_suggest_address-group_' + new_group_index + '">';
+                html += '<div class="heading"><h3 class="dadata-heading"><span>Группа ' + group_key + '</span></h3></div>';
+                html += '<table id="address-field-values" class="table table-bordered"><thead><tr>';
+                html += '<td class="left">Имя поля</td>';
+                html += '<td class="left">Что подсказывать/чем заполнять</td>';
+                html += '<td class="left">Статус</td>';
+                html += '<td></td></tr></thead>';
+                html += '<tbody><tr>';
+                html += '<td class="left"><span class="help">html идентификатор поля (id # или class .)</span></td>';
+                html += '<td class="left"><span class="help">Выберите данные для подсказок</span></td>';
+                html += '<td class="left"><span class="help">Активность подсказок.</span></td>';
+                html += '<td><span class="help">Действия.</span></td>';
+                html += '</tr></tbody>';
+                html += '<tfoot><tr>';
+                html += '<td colspan="3" class="left"><a onclick="addAddressFieldValue(' + new_group_index + ');" class="btn btn-success">Добавить поле</a></td>';
+                html += '<td class="left"><a onclick=\'$("#module_suggest_address-group_' + new_group_index + '").remove();\' class="btn btn-warning">Удалить группу</a></td>';
+                html += '</tr></tfoot></table></div>';
+                $('#addAddressGroup').before(html);
+                address_groups_count++;
+                address_group_keys[new_group_index] = 0;
+            }
+
+            function addEmailGroup() {
+                var group_key = 0;
+                var new_group_index = email_group_keys.length;
+                if (email_groups_count > 0) {
+                    group_key = email_groups_count;
+                }
+                group_key++;
+
+                html = '<div id="module_suggest_email-group_' + new_group_index + '">';
+                html += '<div class="heading"><h3 class="dadata-heading"><span>Группа ' + group_key + '</span></h3></div>';
+                html += '<table id="email-field-values" class="table table-bordered"><thead><tr>';
+                html += '<td class="left">Имя поля</td>';
+                html += '<td class="left">Статус</td>';
+                html += '<td></td></tr></thead>';
+                html += '<tbody><tr>';
+                html += '<td class="left"><span class="help">html идентификатор поля (id # или class .)</span></td>';
+                html += '<td class="left"><span class="help">Активность подсказок.</span></td>';
+                html += '<td><span class="help">Действия.</span></td>';
+                html += '</tr></tbody>';
+                html += '<tfoot><tr>';
+                html += '<td colspan="2" class="left"><a onclick="addEmailFieldValue(' + new_group_index + ');" class="btn btn-success">Добавить поле</a></td>';
+                html += '<td class="left"><a onclick=\'$("#module_suggest_email-group_' + new_group_index + '").remove();\' class="btn btn-warning">Удалить группу</a></td>';
+                html += '</tr></tfoot></table></div>';
+                $('#addEmailGroup').before(html);
+                email_groups_count++;
+                email_group_keys[new_group_index] = 0;
+            }
+
+            function addFioFieldValue(current_fio_group_key) {
+                html = '<tbody id="fio-field-value-row_' + current_fio_group_key + '_' + fio_group_keys[current_fio_group_key] + '">';
+                html += '<tr>';
+                html += '<td class="left"><input type="text" class="form-control" name="module_suggest_fio[' + current_fio_group_key + '][data][' + fio_group_keys[current_fio_group_key] + '][name]" size="40" /></td>';
+                html += '<td class="left"><select style="height:76px;" multiple class="form-control" name="module_suggest_fio[' + current_fio_group_key + '][data][' + fio_group_keys[current_fio_group_key] + '][parts][]">';
+                {% if (fio_field_parts_data is defined) %} 
+                {% for fio_field_part_data in fio_field_parts_data %} 
+                html += '<option value="{{ fio_field_part_data['value'] }}">{{ fio_field_part_data['name'] }}</option>';
+                {% endfor %}
+ {% endif %} 
+                html += '</select></td>';
+                html += '<td class="left"><select class="form-control" name="module_suggest_fio[' + current_fio_group_key + '][data][' + fio_group_keys[current_fio_group_key] + '][status]">';
+                html += '<option value="0">{{ text_disabled }}</option>';
+                html += '<option value="1">{{ text_enabled }}</option>'
+                html += '</select></td>';
+                html += '<td class="left"><a onclick="$(\'#fio-field-value-row_' + current_fio_group_key + '_' + fio_group_keys[current_fio_group_key] + '\').remove();" class="btn btn-danger">{{ button_remove }}</a></td>';
+                html += '  </tr>';
+                html += '</tbody>';
+                fio_group_keys[current_fio_group_key]++;
+                $('#module_suggest_fio-group_' + current_fio_group_key + ' tfoot').before(html);
+            }
+
+            function addAddressOneFieldValue(current_address_one_group_key) {
+                html = '<tbody id="address-one-field-value-row_' + current_address_one_group_key + '_' + address_one_group_keys[current_address_one_group_key] + '">';
+                html += '<tr>';
+                html += '<td class="left"><input type="text" class="form-control" name="module_suggest_address_one[' + current_address_one_group_key + '][data][' + address_one_group_keys[current_address_one_group_key] + '][name]" size="40" /></td>';
+                html += '<td class="left"><select class="form-control" name="module_suggest_address_one[' + current_address_one_group_key + '][data][' + address_one_group_keys[current_address_one_group_key] + '][status]">';
+                html += '<option value="0">{{ text_disabled }}</option>';
+                html += '<option value="1">{{ text_enabled }}</option>'
+                html += '</select></td>';
+                html += '<td class="left"><a onclick="$(\'#address-one-field-value-row_' + current_address_one_group_key + '_' + address_one_group_keys[current_address_one_group_key] + '\').remove();" class="btn btn-danger">{{ button_remove }}</a></td>';
+                html += '  </tr>';
+                html += '</tbody>';
+                address_one_group_keys[current_address_one_group_key]++;
+                $('#module_suggest_address_one-group_' + current_address_one_group_key + ' tfoot').before(html);
+            }
+            
+            function addAddressFieldValue(current_address_group_key) {
+                html = '<tbody id="address-field-value-row_' + current_address_group_key + '_' + address_group_keys[current_address_group_key] + '">';
+                html += '<tr>';
+                html += '<td class="left"><input type="text" class="form-control" name="module_suggest_address[' + current_address_group_key + '][data][' + address_group_keys[current_address_group_key] + '][name]" size="40" /></td>';
+                html += '<td><select multiple class="form-control" name="module_suggest_address[' + current_address_group_key + '][data][' + address_group_keys[current_address_group_key] + '][parts_suggest][]" size="4">';
+                {% if (address_field_parts_data is defined) %} 
+                {% for address_field_part_data in address_field_parts_data %} 
+                html += '<option value="{{ address_field_part_data['value'] }}">{{ address_field_part_data['name'] }}</option>';
+                {% endfor %}
+ {% endif %} 
+                html += '</select></td>';
+                html += '<td class="left"><select class="form-control" name="module_suggest_address[' + current_address_group_key + '][data][' + address_group_keys[current_address_group_key] + '][status]">';
+                html += '<option value="0">{{ text_disabled }}</option>';
+                html += '<option value="1">{{ text_enabled }}</option>'
+                html += '</select></td>';
+                html += '<td class="left"><a onclick="$(\'#address-field-value-row_' + current_address_group_key + '_' + address_group_keys[current_address_group_key] + '\').remove();" class="btn btn-danger">{{ button_remove }}</a></td>';
+                html += '  </tr>';
+                html += '</tbody>';
+                address_group_keys[current_address_group_key]++;
+                $('#module_suggest_address-group_' + current_address_group_key + ' tfoot').before(html);
+            }
+
+            function addEmailFieldValue(current_email_group_key) {
+                html = '<tbody id="email-field-value-row_' + current_email_group_key + '_' + email_group_keys[current_email_group_key] + '">';
+                html += '<tr>';
+                html += '<td class="left"><input type="text" class="form-control" name="module_suggest_email[' + current_email_group_key + '][data][' + email_group_keys[current_email_group_key] + '][name]" size="40" /></td>';
+                html += '<td class="left"><select class="form-control" name="module_suggest_email[' + current_email_group_key + '][data][' + email_group_keys[current_email_group_key] + '][status]">';
+                html += '<option value="0">{{ text_disabled }}</option>';
+                html += '<option value="1">{{ text_enabled }}</option>'
+                html += '</select></td>';
+                html += '<td class="left"><a onclick="$(\'#email-field-value-row_' + current_email_group_key + '_' + email_group_keys[current_email_group_key] + '\').remove();" class="btn btn-danger">{{ button_remove }}</a></td>';
+                html += '  </tr>';
+                html += '</tbody>';
+                email_group_keys[current_email_group_key]++;
+                $('#module_suggest_email-group_' + current_email_group_key + ' tfoot').before(html);
+            }
+            //--></script>
+    </div>
+{{ footer }}

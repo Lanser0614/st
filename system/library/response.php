@@ -9,6 +9,8 @@ class Response {
 	}
 
 	public function redirect($url, $status = 302) {
+	    $url = mb_convert_encoding($url,"UTF-8"); 
+        header("HTTP/1.1 301 Moved Permanently");
 		header('Location: ' . str_replace(array('&amp;', "\n", "\r"), array('&', '', ''), $url), true, $status);
 		exit();
 	}

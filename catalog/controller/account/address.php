@@ -15,6 +15,8 @@ class ControllerAccountAddress extends Controller {
 
 		$this->load->model('account/address');
 
+$this->load->model('setting/setting');
+			
 		$this->getList();
 	}
 
@@ -36,6 +38,8 @@ class ControllerAccountAddress extends Controller {
 
 		$this->load->model('account/address');
 
+$this->load->model('setting/setting');
+			
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
 			$this->model_account_address->addAddress($this->request->post);
 			
@@ -76,6 +80,8 @@ class ControllerAccountAddress extends Controller {
 
 		$this->load->model('account/address');
 		
+$this->load->model('setting/setting');
+			
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
 			$this->model_account_address->editAddress($this->request->get['address_id'], $this->request->post);
 
@@ -128,6 +134,8 @@ class ControllerAccountAddress extends Controller {
 
 		$this->load->model('account/address');
 
+$this->load->model('setting/setting');
+			
 		if (isset($this->request->get['address_id']) && $this->validateDelete()) {
 			$this->model_account_address->deleteAddress($this->request->get['address_id']);
 
@@ -371,6 +379,54 @@ class ControllerAccountAddress extends Controller {
 			$data['action'] = $this->url->link('account/address/edit', 'address_id=' . $this->request->get['address_id'], true);
 		}
 
+				$poleoff = $this->model_setting_setting->getSetting('module_suggest');
+				if (!empty($poleoff)&&isset($paleoff['module_suggest_firstoff'])) {
+					$data['module_suggest_firstoff'] = $poleoff['module_suggest_firstoff'];
+				} else {
+					$data['module_suggest_firstoff'] = '1';
+				}
+				if (!empty($poleoff)&&isset($paleoff['module_suggest_lastoff'])) {
+					$data['module_suggest_lastoff'] = $poleoff['module_suggest_lastoff'];
+				} else {
+					$data['module_suggest_lastoff'] = '1';
+				}
+				if (!empty($poleoff)&&isset($paleoff['module_suggest_compoff'])) {
+					$data['module_suggest_compoff'] = $poleoff['module_suggest_compoff'];
+				} else {
+					$data['module_suggest_compoff'] = '1';
+				}
+				if (!empty($poleoff)&&isset($paleoff['module_suggest_address1off'])) {
+					$data['module_suggest_address1off'] = $poleoff['module_suggest_address1off'];
+				} else {
+					$data['module_suggest_address1off'] = '1';
+				}
+				if (!empty($poleoff)&&isset($paleoff['module_suggest_address2off'])) {
+					$data['module_suggest_address2off'] = $poleoff['module_suggest_address2off'];
+				} else {
+					$data['module_suggest_address2off'] = '1';
+				}
+				if (!empty($poleoff)&&isset($paleoff['module_suggest_cityoff'])) {
+					$data['module_suggest_cityoff'] = $poleoff['module_suggest_cityoff'];
+				} else {
+					$data['module_suggest_cityoff'] = '1';
+				}
+				if (!empty($poleoff)&&isset($paleoff['module_suggest_postoff'])) {
+					$data['module_suggest_postoff'] = $poleoff['module_suggest_postoff'];
+				} else {
+					$data['module_suggest_postoff'] = '1';
+				}
+				if (!empty($poleoff)&&isset($paleoff['module_suggest_countryoff'])) {
+					$data['module_suggest_countryoff'] = $poleoff['module_suggest_countryoff'];
+				} else {
+					$data['module_suggest_countryoff'] = '1';
+				}
+				if (!empty($poleoff)&&isset($paleoff['module_suggest_zoneoff'])) {
+					$data['module_suggest_zoneoff'] = $poleoff['module_suggest_zoneoff'];
+				} else {
+					$data['module_suggest_zoneoff'] = '1';
+				}
+			
+
 		if (isset($this->request->get['address_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
 			$address_info = $this->model_account_address->getAddress($this->request->get['address_id']);
 		}
@@ -486,38 +542,103 @@ class ControllerAccountAddress extends Controller {
 	}
 
 	protected function validateForm() {
-		if ((utf8_strlen(trim($this->request->post['firstname'])) < 1) || (utf8_strlen(trim($this->request->post['firstname'])) > 32)) {
+		 
+				$poleoff = $this->model_setting_setting->getSetting('module_suggest');
+				if (!empty($poleoff)&&isset($poleoff['module_suggest_firstoff'])) {
+					$data['module_suggest_firstoff'] = $poleoff['module_suggest_firstoff'];
+				} else {
+					$data['module_suggest_firstoff'] = '1';
+				}
+				if (!empty($poleoff)&&isset($poleoff['module_suggest_lastoff'])) {
+					$data['module_suggest_lastoff'] = $poleoff['module_suggest_lastoff'];
+				} else {
+					$data['module_suggest_lastoff'] = '1';
+				}
+				if (!empty($poleoff)&&isset($poleoff['module_suggest_address1off'])) {
+					$data['module_suggest_address1off'] = $poleoff['module_suggest_address1off'];
+				} else {
+					$data['module_suggest_address1off'] = '1';
+				}
+				if (!empty($poleoff)&&isset($poleoff['module_suggest_cityoff'])) {
+					$data['module_suggest_cityoff'] = $poleoff['module_suggest_cityoff'];
+				} else {
+					$data['module_suggest_cityoff'] = '1';
+				}
+				if (!empty($poleoff)&&isset($poleoff['module_suggest_postoff'])) {
+					$data['module_suggest_postoff'] = $poleoff['module_suggest_postoff'];
+				} else {
+					$data['module_suggest_postoff'] = '1';
+				}
+				if (!empty($poleoff)&&isset($poleoff['module_suggest_countryoff'])) {
+					$data['module_suggest_countryoff'] = $poleoff['module_suggest_countryoff'];
+				} else {
+					$data['module_suggest_countryoff'] = '1';
+				}
+				if (!empty($poleoff)&&isset($poleoff['module_suggest_zoneoff'])) {
+					$data['module_suggest_zoneoff'] = $poleoff['module_suggest_zoneoff'];
+				} else {
+					$data['module_suggest_zoneoff'] = '1';
+				}
+				if ($data['module_suggest_firstoff'] == '1') {
+				if ((utf8_strlen(trim($this->request->post['firstname'])) < 1) || (utf8_strlen(trim($this->request->post['firstname'])) > 32)) { 
 			$this->error['firstname'] = $this->language->get('error_firstname');
 		}
+ 
+				}
+				if ($data['module_suggest_lastoff'] == '1') {
+			
 
 		if ((utf8_strlen(trim($this->request->post['lastname'])) < 1) || (utf8_strlen(trim($this->request->post['lastname'])) > 32)) {
 			$this->error['lastname'] = $this->language->get('error_lastname');
 		}
+ 
+				}
+				if ($data['module_suggest_address1off'] == '1') {
+			
 
 		if ((utf8_strlen(trim($this->request->post['address_1'])) < 3) || (utf8_strlen(trim($this->request->post['address_1'])) > 128)) {
 			$this->error['address_1'] = $this->language->get('error_address_1');
 		}
+ 
+				}
+				if ($data['module_suggest_cityoff'] == '1') {
+			
 
 		if ((utf8_strlen(trim($this->request->post['city'])) < 2) || (utf8_strlen(trim($this->request->post['city'])) > 128)) {
 			$this->error['city'] = $this->language->get('error_city');
 		}
+ 
+				}
+			
 
 		$this->load->model('localisation/country');
+ 
+				if ($data['module_suggest_postoff'] == '1') {
+			
 
 		$country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
 
 		if ($country_info && $country_info['postcode_required'] && (utf8_strlen(trim($this->request->post['postcode'])) < 2 || utf8_strlen(trim($this->request->post['postcode'])) > 10)) {
 			$this->error['postcode'] = $this->language->get('error_postcode');
 		}
+ 
+				}
+				if ($data['module_suggest_countryoff'] == '1') {
+			
 
 		if ($this->request->post['country_id'] == '' || !is_numeric($this->request->post['country_id'])) {
 			$this->error['country'] = $this->language->get('error_country');
 		}
+ 
+				}
+				if ($data['module_suggest_zoneoff'] == '1') {
+			
 
 		if (!isset($this->request->post['zone_id']) || $this->request->post['zone_id'] == '' || !is_numeric($this->request->post['zone_id'])) {
 			$this->error['zone'] = $this->language->get('error_zone');
 		}
 
+ } 
 		// Custom field validation
 		$this->load->model('account/custom_field');
 

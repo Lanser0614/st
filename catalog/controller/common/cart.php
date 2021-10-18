@@ -1,4 +1,5 @@
 <?php
+include (DIR_COMPONENTS.'AutopiterUIDComponents.php');
 class ControllerCommonCart extends Controller {
 	public function index() {
 		$this->load->language('common/cart');
@@ -9,21 +10,21 @@ class ControllerCommonCart extends Controller {
 		$totals = array();
 		$taxes = $this->cart->getTaxes();
 		$total = 0;
-
 		// Because __call can not keep var references so we put them into an array.
 		$total_data = array(
 			'totals' => &$totals,
 			'taxes'  => &$taxes,
 			'total'  => &$total
 		);
-			
+
+
 		// Display prices
 		if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
 			$sort_order = array();
 
 			$results = $this->model_extension_extension->getExtensions('total');
 
-			foreach ($results as $key => $value) {
+            foreach ($results as $key => $value) {
 				$sort_order[$key] = $this->config->get($value['code'] . '_sort_order');
 			}
 
@@ -60,60 +61,124 @@ class ControllerCommonCart extends Controller {
 		$this->load->model('tool/upload');
 
 		$data['products'] = array();
-
+		$data['analogs'] = array();
 		foreach ($this->cart->getProducts() as $product) {
-			if ($product['image']) {
-				$image = $this->model_tool_image->resize($product['image'], $this->config->get($this->config->get('config_theme') . '_image_cart_width'), $this->config->get($this->config->get('config_theme') . '_image_cart_height'));
-			} else {
-				$image = '';
-			}
+            if ($product['image']) {
+                $image = $this->model_tool_image->resize($product['image'], $this->config->get($this->config->get('config_theme') . '_image_cart_width'), $this->config->get($this->config->get('config_theme') . '_image_cart_height'));
+            } else {
+                $image = '';
+            }
 
-			$option_data = array();
+            $option_data = array();
 
-			foreach ($product['option'] as $option) {
-				if ($option['type'] != 'file') {
-					$value = $option['value'];
-				} else {
-					$upload_info = $this->model_tool_upload->getUploadByCode($option['value']);
+            foreach ($product['option'] as $option) {
+                if ($option['type'] != 'file') {
+                    $value = $option['value'];
+                } else {
+                    $upload_info = $this->model_tool_upload->getUploadByCode($option['value']);
 
-					if ($upload_info) {
-						$value = $upload_info['name'];
-					} else {
-						$value = '';
-					}
-				}
+                    if ($upload_info) {
+                        $value = $upload_info['name'];
+                    } else {
+                        $value = '';
+                    }
+                }
 
-				$option_data[] = array(
-					'name'  => $option['name'],
-					'value' => (utf8_strlen($value) > 20 ? utf8_substr($value, 0, 20) . '..' : $value),
-					'type'  => $option['type']
-				);
-			}
+                $option_data[] = array(
+                    'name'  => $option['name'],
+                    'value' => (utf8_strlen($value) > 20 ? utf8_substr($value, 0, 20) . '..' : $value),
+                    'type'  => $option['type']
+                );
+            }
 
-			// Display prices
-			if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
-				$unit_price = $this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax'));
-				
-				$price = $this->currency->format($unit_price, $this->session->data['currency']);
-				$total = $this->currency->format($unit_price * $product['quantity'], $this->session->data['currency']);
-			} else {
-				$price = false;
-				$total = false;
-			}
+            // Display prices
+            if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
+                $unit_price = $this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax'));
 
-			$data['products'][] = array(
-				'cart_id'   => $product['cart_id'],
-				'thumb'     => $image,
-				'name'      => $product['name'],
-				'model'     => $product['model'],
-				'option'    => $option_data,
-				'recurring' => ($product['recurring'] ? $product['recurring']['name'] : ''),
-				'quantity'  => $product['quantity'],
-				'price'     => $price,
-				'total'     => $total,
-				'href'      => $this->url->link('product/product', 'product_id=' . $product['product_id'])
-			);
-		}
+                $price = $this->currency->format($unit_price, $this->session->data['currency']);
+                $total = $this->currency->format($unit_price * $product['quantity'], $this->session->data['currency']);
+            } else {
+                $price = false;
+                $total = false;
+            }
+
+            $data['products'][] = array(
+                'cart_id'   => $product['cart_id'],
+                'thumb'     => $image,
+                'name'      => $product['name'],
+                'model'     => $product['model'],
+                'option'    => $option_data,
+                'recurring' => ($product['recurring'] ? $product['recurring']['name'] : ''),
+                'quantity'  => $product['quantity'],
+                'price'     => $price,
+                'total'     => $total,
+                'href'      => $this->url->link('product/product', 'product_id=' . $product['product_id'])
+            );
+        }
+        foreach ($this->cart->getAnalogProducts() as $product) {
+            if ($product['image']) {
+                $image = $this->model_tool_image->resize($product['image'], $this->config->get($this->config->get('config_theme') . '_image_cart_width'), $this->config->get($this->config->get('config_theme') . '_image_cart_height'));
+            } else {
+                $image = '';
+            }
+
+            $option_data = array();
+
+            foreach ($product['option'] as $option) {
+                if ($option['type'] != 'file') {
+                    $value = $option['value'];
+                } else {
+                    $upload_info = $this->model_tool_upload->getUploadByCode($option['value']);
+
+                    if ($upload_info) {
+                        $value = $upload_info['name'];
+                    } else {
+                        $value = '';
+                    }
+                }
+
+                $option_data[] = array(
+                    'name'  => $option['name'],
+                    'value' => (utf8_strlen($value) > 20 ? utf8_substr($value, 0, 20) . '..' : $value),
+                    'type'  => $option['type']
+                );
+            }
+
+
+            // Display prices
+            if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
+                $unit_price = $this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax'));
+//                $autopiter = new AutopiterUIDComponents($product['article_id']);
+//                $product_information = $autopiter->getInfoPrice();
+//                if(!isset($product_information['price']) && empty($product_information['price'])){
+//                    $price = $unit_price;
+//                }else{
+//                    $price = $product_information['price'];
+//                }
+//                if(!isset($product_information['name']) && empty($product_information['price'])){
+//                    $name = $product['name'];
+//                }else{
+//                    $name = $product_information['name'];
+//                }
+                $price = $this->currency->format($unit_price, $this->session->data['currency']);
+                $total = $this->currency->format($unit_price * $product['quantity'], $this->session->data['currency']);
+            } else {
+                $price = false;
+                $total = false;
+            }
+            $data['analogs'][] = array(
+                'cart_id'   => $product['cart_id'],
+                'thumb'     => $image,
+                'name'      => $product['name'],
+                'model'     => $product['model'],
+                'option'    => $option_data,
+                'recurring' => ($product['recurring'] ? $product['recurring']['name'] : ''),
+                'quantity'  => $product['quantity'],
+                'price'     => $price,
+                'total'     => $total,
+                'href'      => $this->url->link('product/product', 'product_id=' . $product['product_id'])
+            );
+        }
 
 		// Gift Voucher
 		$data['vouchers'] = array();

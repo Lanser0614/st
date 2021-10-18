@@ -1,8 +1,10 @@
 <?php
 
-class ControllerCheckoutBuy extends Controller {
+class ControllerCheckoutBuy extends Controller
+{
 
-    public function index() {
+    public function index()
+    {
 
         $data = array();
         $data = array_merge($data, $this->load->language('checkout/buy'));
@@ -12,7 +14,7 @@ class ControllerCheckoutBuy extends Controller {
 
         /* Language */
         $lang = $this->session->data['language'];
-        $lang_postfix = '_'.$lang;
+        $lang_postfix = '_' . $lang;
         $data['lang'] = $lang_postfix;
         $data['buy_field_lang'] = isset($data['settings']['buy_field_lang'][$lang]) ? $data['settings']['buy_field_lang'][$lang] : $data['settings']['buy_field_lang'][key($data['settings']['buy_field_lang'])];
         $data['buy_lang'] = isset($data['settings']['buy_lang'][$lang]) ? $data['settings']['buy_lang'][$lang] : $data['settings']['buy_lang'][key($data['settings']['buy_lang'])];
@@ -20,11 +22,11 @@ class ControllerCheckoutBuy extends Controller {
         /* END Language */
 
         /* Scripts & styles */
-        if($data['settings']['buy_telephone_mask']) {
+        if ($data['settings']['buy_telephone_mask']) {
             $this->document->addScript('catalog/view/javascript/jquery/ocp_buy/jquery.maskedinput.min.js');
         }
         $this->document->addScript('catalog/view/javascript/jquery/ocp_buy/script.js');
-        if($data['settings']['buy_bootstrap']) {
+        if ($data['settings']['buy_bootstrap']) {
             $this->document->addStyle('catalog/view/javascript/jquery/ocp_buy/bootstrap.css');
         }
         $this->document->addStyle('catalog/view/javascript/jquery/ocp_buy/style.css');
@@ -81,9 +83,99 @@ class ControllerCheckoutBuy extends Controller {
             $this->load->model('tool/upload');
 
             $data['products'] = array();
+            $data['analogs'] = array();
+            $analogs = $this->cart->getAnalogProducts();
+            $product_total = 0;
+            $analog_total = 0;
+            foreach ($analogs as $product) {
+                $analog_total = 0;
 
+                foreach ($analogs as $product_2) {
+                    if ($product_2['product_id'] == $product['product_id']) {
+                        $analog_total += $product_2['quantity'];
+                    }
+                }
+
+
+                if ($product['image']) {
+                    $image = $this->model_tool_image->resize($product['image'], $this->config->get($this->config->get('config_theme') . '_image_cart_width'), $this->config->get($this->config->get('config_theme') . '_image_cart_height'));
+                } else {
+                    $image = '';
+                }
+
+                $option_data = array();
+
+                foreach ($product['option'] as $option) {
+                    if ($option['type'] != 'file') {
+                        $value = $option['value'];
+                    } else {
+                        $upload_info = $this->model_tool_upload->getUploadByCode($option['value']);
+
+                        if ($upload_info) {
+                            $value = $upload_info['name'];
+                        } else {
+                            $value = '';
+                        }
+                    }
+
+                    $option_data[] = array(
+                        'name' => $option['name'],
+                        'value' => (utf8_strlen($value) > 20 ? utf8_substr($value, 0, 20) . '..' : $value)
+                    );
+                }
+
+                // Display prices
+                if (($this->config->get('config_customer_price') && $this->customer->isLogged()) || !$this->config->get('config_customer_price')) {
+                    $price = $this->currency->format($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+                } else {
+                    $price = false;
+                }
+
+                // Display prices
+                if (($this->config->get('config_customer_price') && $this->customer->isLogged()) || !$this->config->get('config_customer_price')) {
+                    $total = $this->currency->format($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax')) * $product['quantity'], $this->session->data['currency']);
+                } else {
+                    $total = false;
+                }
+
+                $recurring = '';
+
+                if ($product['recurring']) {
+                    $frequencies = array(
+                        'day' => $this->language->get('text_day'),
+                        'week' => $this->language->get('text_week'),
+                        'semi_month' => $this->language->get('text_semi_month'),
+                        'month' => $this->language->get('text_month'),
+                        'year' => $this->language->get('text_year'),
+                    );
+
+                    if ($product['recurring']['trial']) {
+                        $recurring = sprintf($this->language->get('text_trial_description'), $this->currency->format($this->tax->calculate($product['recurring']['trial_price'] * $product['quantity'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']), $product['recurring']['trial_cycle'], $frequencies[$product['recurring']['trial_frequency']], $product['recurring']['trial_duration']) . ' ';
+                    }
+
+                    if ($product['recurring']['duration']) {
+                        $recurring .= sprintf($this->language->get('text_payment_description'), $this->currency->format($this->tax->calculate($product['recurring']['price'] * $product['quantity'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']), $product['recurring']['cycle'], $frequencies[$product['recurring']['frequency']], $product['recurring']['duration']);
+                    } else {
+                        $recurring .= sprintf($this->language->get('text_payment_until_canceled_description'), $this->currency->format($this->tax->calculate($product['recurring']['price'] * $product['quantity'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']), $product['recurring']['cycle'], $frequencies[$product['recurring']['frequency']], $product['recurring']['duration']);
+                    }
+                }
+
+                $data['analogs'][] = array(
+                    'cart_id' => $product['cart_id'],
+                    'thumb' => $image,
+                    'name' => $product['name'],
+                    'model' => $product['model'],
+                    'option' => $option_data,
+                    'recurring' => $recurring,
+                    'quantity' => $product['quantity'],
+                    'stock' => $product['stock'] ? true : !(!$this->config->get('config_stock_checkout') || $this->config->get('config_stock_warning')),
+                    'reward' => ($product['reward'] ? sprintf($this->language->get('text_points'), $product['reward']) : ''),
+                    'price' => $price,
+                    'total' => $total,
+                    'href' => $this->url->link('product/product', 'product_id=' . $product['product_id'])
+                );
+            }
             $products = $this->cart->getProducts();
-
             foreach ($products as $product) {
                 $product_total = 0;
 
@@ -175,11 +267,11 @@ class ControllerCheckoutBuy extends Controller {
                     'href' => $this->url->link('product/product', 'product_id=' . $product['product_id'])
                 );
             }
-						
-						
-						//
-						$data['producttotal'] = $product_total;
-						//
+
+
+            //
+            $data['producttotal'] = $product_total + $analog_total;
+            //
 
             // Gift Voucher
             $data['vouchers'] = array();
@@ -223,14 +315,14 @@ class ControllerCheckoutBuy extends Controller {
 
             if (isset($this->session->data['guest']['customer_group_id'])) {
                 $data['customer_group_id'] = $this->session->data['guest']['customer_group_id'];
-            } else if($this->customer->isLogged()) {
+            } else if ($this->customer->isLogged()) {
                 $data['customer_group_id'] = $this->customer->getGroupId();
             } else {
                 $data['customer_group_id'] = $this->config->get('config_customer_group_id');
             }
             if (isset($this->session->data['guest']['firstname'])) {
                 $data['firstname'] = $this->session->data['guest']['firstname'];
-            } else if($this->customer->isLogged()) {
+            } else if ($this->customer->isLogged()) {
                 $data['firstname'] = $this->customer->getFirstname();
             } else {
                 $data['firstname'] = '';
@@ -238,7 +330,7 @@ class ControllerCheckoutBuy extends Controller {
 
             if (isset($this->session->data['guest']['lastname'])) {
                 $data['lastname'] = $this->session->data['guest']['lastname'];
-            } else if($this->customer->isLogged()) {
+            } else if ($this->customer->isLogged()) {
                 $data['lastname'] = $this->customer->getLastname();
             } else {
                 $data['lastname'] = '';
@@ -246,7 +338,7 @@ class ControllerCheckoutBuy extends Controller {
 
             if (isset($this->session->data['guest']['email'])) {
                 $data['email'] = $this->session->data['guest']['email'];
-            } else if($this->customer->isLogged()) {
+            } else if ($this->customer->isLogged()) {
                 $data['email'] = $this->customer->getEmail();
             } else {
                 $data['email'] = '';
@@ -255,7 +347,7 @@ class ControllerCheckoutBuy extends Controller {
 
             if (isset($this->session->data['guest']['telephone'])) {
                 $data['telephone'] = $this->session->data['guest']['telephone'];
-            } else if($this->customer->isLogged()) {
+            } else if ($this->customer->isLogged()) {
                 $data['telephone'] = $this->customer->getTelephone();
             } else {
                 $data['telephone'] = '';
@@ -263,21 +355,21 @@ class ControllerCheckoutBuy extends Controller {
 
             if (isset($this->session->data['guest']['fax'])) {
                 $data['fax'] = $this->session->data['guest']['fax'];
-            } else if($this->customer->isLogged()) {
+            } else if ($this->customer->isLogged()) {
                 $data['fax'] = $this->customer->getFax();
             } else {
                 $data['fax'] = '';
             }
 
             $address = array();
-            if($this->customer->isLogged()){
+            if ($this->customer->isLogged()) {
                 $this->load->model('account/address');
                 $address = $this->model_account_address->getAddress($this->customer->getAddressId());
             }
 
             if (isset($this->session->data['payment_address']['company'])) {
                 $data['company'] = $this->session->data['payment_address']['company'];
-            } else if($address) {
+            } else if ($address) {
                 $data['company'] = $address['company'];
             } else {
                 $data['company'] = '';
@@ -285,7 +377,7 @@ class ControllerCheckoutBuy extends Controller {
 
             if (isset($this->session->data['payment_address']['address_1'])) {
                 $data['address_1'] = $this->session->data['payment_address']['address_1'];
-            } else if($address) {
+            } else if ($address) {
                 $data['address_1'] = $address['address_1'];
             } else {
                 $data['address_1'] = '';
@@ -293,7 +385,7 @@ class ControllerCheckoutBuy extends Controller {
 
             if (isset($this->session->data['payment_address']['address_2'])) {
                 $data['address_2'] = $this->session->data['payment_address']['address_2'];
-            } else if($address) {
+            } else if ($address) {
                 $data['address_2'] = $address['address_2'];
             } else {
                 $data['address_2'] = '';
@@ -303,7 +395,7 @@ class ControllerCheckoutBuy extends Controller {
                 $data['postcode'] = $this->session->data['payment_address']['postcode'];
             } elseif (isset($this->session->data['shipping_address']['postcode'])) {
                 $data['postcode'] = $this->session->data['shipping_address']['postcode'];
-            } else if($address) {
+            } else if ($address) {
                 $data['postcode'] = $address['postcode'];
             } else {
                 $data['postcode'] = '';
@@ -311,7 +403,7 @@ class ControllerCheckoutBuy extends Controller {
 
             if (isset($this->session->data['payment_address']['city'])) {
                 $data['city'] = $this->session->data['payment_address']['city'];
-            } else if($address) {
+            } else if ($address) {
                 $data['city'] = $address['city'];
             } else {
                 $data['city'] = '';
@@ -321,7 +413,7 @@ class ControllerCheckoutBuy extends Controller {
                 $data['country_id'] = $this->session->data['payment_address']['country_id'];
             } elseif (isset($this->session->data['shipping_address']['country_id'])) {
                 $data['country_id'] = $this->session->data['shipping_address']['country_id'];
-            } else if($address) {
+            } else if ($address) {
                 $data['country_id'] = $address['country_id'];
             } else {
                 $data['country_id'] = $this->config->get('config_country_id');
@@ -331,7 +423,7 @@ class ControllerCheckoutBuy extends Controller {
                 $data['zone_id'] = $this->session->data['payment_address']['zone_id'];
             } elseif (isset($this->session->data['shipping_address']['zone_id'])) {
                 $data['zone_id'] = $this->session->data['shipping_address']['zone_id'];
-            } else if($address) {
+            } else if ($address) {
                 $data['zone_id'] = $address['zone_id'];
             } else {
                 $data['zone_id'] = $this->config->get('config_zone_id');
@@ -346,9 +438,9 @@ class ControllerCheckoutBuy extends Controller {
 
             $data['custom_fields'] = $this->model_account_custom_field->getCustomFields($this->config->get('config_customer_group_id'));
             $required_custom_fields = array();
-            if($data['custom_fields']){
-                foreach ($data['custom_fields'] as $cf){
-                    if($cf['required']) {
+            if ($data['custom_fields']) {
+                foreach ($data['custom_fields'] as $cf) {
+                    if ($cf['required']) {
                         $required_custom_fields[] = $cf['custom_field_id'];
                     }
                 }
@@ -356,7 +448,7 @@ class ControllerCheckoutBuy extends Controller {
             $data['required_custom_fields'] = implode(',', $required_custom_fields);
 
             $custom_fields = array();
-            if($this->customer->isLogged()){
+            if ($this->customer->isLogged()) {
                 $this->load->model('account/customer');
                 $this->load->model('account/address');
                 $customer_info = $this->model_account_customer->getCustomer($this->customer->getId());
@@ -366,7 +458,7 @@ class ControllerCheckoutBuy extends Controller {
 
             if (isset($this->session->data['guest']['custom_field'])) {
                 $data['guest_custom_field'] = $this->session->data['guest']['custom_field'] + $this->session->data['payment_address']['custom_field'];
-            } else if($this->customer->isLogged()) {
+            } else if ($this->customer->isLogged()) {
                 $data['guest_custom_field'] = $custom_fields;
             } else {
                 $data['guest_custom_field'] = array();
@@ -392,7 +484,7 @@ class ControllerCheckoutBuy extends Controller {
                 $data['register'] = false;
             }
 
-            if(!isset($this->session->data['payment_methods'])){
+            if (!isset($this->session->data['payment_methods'])) {
                 if (isset($this->session->data['payment_address'])) {
                     $payment_address = $this->session->data['payment_address'];
                 } else {
@@ -404,7 +496,7 @@ class ControllerCheckoutBuy extends Controller {
                 $this->updatePaymentMethods($payment_address);
             }
 
-            if(!isset($this->session->data['shipping_methods'])){
+            if (!isset($this->session->data['shipping_methods'])) {
                 if (isset($this->session->data['shipping_address'])) {
                     $shipping_address = $this->session->data['shipping_address'];
                 } else {
@@ -423,7 +515,7 @@ class ControllerCheckoutBuy extends Controller {
                 $information_info = $this->model_catalog_information->getInformation($this->config->get('config_checkout_id'));
 
                 if ($information_info) {
-                    $data['text_agree'] = $data['buy_lang']['agree_text'] . ' <a href="'.$this->url->link('information/information', 'information_id=' . $this->config->get('config_checkout_id'), 'SSL').'" target="_blank">'.$information_info['title'].'</a>';
+                    $data['text_agree'] = $data['buy_lang']['agree_text'] . ' <a href="' . $this->url->link('information/information', 'information_id=' . $this->config->get('config_checkout_id'), 'SSL') . '" target="_blank">' . $information_info['title'] . '</a>';
                 } else {
                     $data['text_agree'] = '';
                 }
@@ -440,7 +532,7 @@ class ControllerCheckoutBuy extends Controller {
 
             $data['customer_logged'] = $this->customer->isLogged();
             $data['login_action'] = $this->url->link('account/login');
-            $data['login_redirect'] = $this->url->link('checkout/buy').'#checkout-f';
+            $data['login_redirect'] = $this->url->link('checkout/buy') . '#checkout-f';
             $data['forgotten_link'] = $this->url->link('account/forgotten');
 
             $data['product_image_width'] = $this->config->get($this->config->get('config_theme') . '_image_cart_width');
@@ -475,7 +567,8 @@ class ControllerCheckoutBuy extends Controller {
         }
     }
 
-    public function edit() {
+    public function edit()
+    {
         $this->load->language('checkout/buy');
 
         $json = array();
@@ -493,8 +586,8 @@ class ControllerCheckoutBuy extends Controller {
             unset($this->session->data['reward']);
 
             $totals = $this->totals();
-            
-            if(!isset($this->session->data['payment_methods'])){
+
+            if (!isset($this->session->data['payment_methods'])) {
                 if (isset($this->session->data['payment_address'])) {
                     $payment_address = $this->session->data['payment_address'];
                 } else {
@@ -506,7 +599,7 @@ class ControllerCheckoutBuy extends Controller {
                 $this->updatePaymentMethods($payment_address);
             }
 
-            if(!isset($this->session->data['shipping_methods'])){
+            if (!isset($this->session->data['shipping_methods'])) {
                 if (isset($this->session->data['shipping_address'])) {
                     $shipping_address = $this->session->data['shipping_address'];
                 } else {
@@ -517,21 +610,21 @@ class ControllerCheckoutBuy extends Controller {
 
                 $this->updateShippingMethods($shipping_address);
             }
-            
+
             $stock = true;
             $cart_products = $this->cart->getProducts();
             $json['products'] = array();
-            foreach($cart_products as $product){
+            foreach ($cart_products as $product) {
                 $json['products'][$product['cart_id']] = array(
                     'price' => $this->currency->format($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']),
                     'total' => $this->currency->format($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax')) * $product['quantity'], $this->session->data['currency']),
                     'stock' => $product['stock'] ? 1 : !(!$this->config->get('config_stock_checkout') || $this->config->get('config_stock_warning'))
                 );
-                if(!$json['products'][$product['cart_id']]['stock']){
+                if (!$json['products'][$product['cart_id']]['stock']) {
                     $stock = false;
                 }
             }
-            
+
             foreach ($cart_products as $product) {
                 $product_total = 0;
 
@@ -547,8 +640,8 @@ class ControllerCheckoutBuy extends Controller {
                     break;
                 }
             }
-            
-            if(!$stock){
+
+            if (!$stock) {
                 $json['warning'] = $this->language->get('error_stock');
             }
 
@@ -560,7 +653,8 @@ class ControllerCheckoutBuy extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
-    public function remove() {
+    public function remove()
+    {
         $this->load->language('checkout/buy');
 
         $json = array();
@@ -588,48 +682,48 @@ class ControllerCheckoutBuy extends Controller {
 
             // Because __call can not keep var references so we put them into an array.
             $total_data = array(
-                    'totals' => &$totals,
-                    'taxes'  => &$taxes,
-                    'total'  => &$total
+                'totals' => &$totals,
+                'taxes' => &$taxes,
+                'total' => &$total
             );
 
             // Display prices
             if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
-                    $sort_order = array();
+                $sort_order = array();
 
-                    $results = $this->model_extension_extension->getExtensions('total');
+                $results = $this->model_extension_extension->getExtensions('total');
 
-                    foreach ($results as $key => $value) {
-                            $sort_order[$key] = $this->config->get($value['code'] . '_sort_order');
+                foreach ($results as $key => $value) {
+                    $sort_order[$key] = $this->config->get($value['code'] . '_sort_order');
+                }
+
+                array_multisort($sort_order, SORT_ASC, $results);
+
+                foreach ($results as $result) {
+                    if ($this->config->get($result['code'] . '_status')) {
+                        $this->load->model('extension/total/' . $result['code']);
+
+                        // We have to put the totals in an array so that they pass by reference.
+                        $this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
                     }
+                }
 
-                    array_multisort($sort_order, SORT_ASC, $results);
+                $sort_order = array();
 
-                    foreach ($results as $result) {
-                            if ($this->config->get($result['code'] . '_status')) {
-                                    $this->load->model('extension/total/' . $result['code']);
+                foreach ($totals as $key => $value) {
+                    $sort_order[$key] = $value['sort_order'];
+                }
 
-                                    // We have to put the totals in an array so that they pass by reference.
-                                    $this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
-                            }
-                    }
-
-                    $sort_order = array();
-
-                    foreach ($totals as $key => $value) {
-                            $sort_order[$key] = $value['sort_order'];
-                    }
-
-                    array_multisort($sort_order, SORT_ASC, $totals);
+                array_multisort($sort_order, SORT_ASC, $totals);
             }
 
             $data['totals'] = array();
 
             foreach ($totals as $total) {
-                    $data['totals'][] = array(
-                            'title' => $total['title'],
-                            'text'  => $this->currency->format($total['value'], $this->session->data['currency'])
-                    );
+                $data['totals'][] = array(
+                    'title' => $total['title'],
+                    'text' => $this->currency->format($total['value'], $this->session->data['currency'])
+                );
             }
 
             $json['total'] = sprintf($this->language->get('text_items'), $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0), $this->currency->format($total, $this->session->data['currency']));
@@ -639,7 +733,8 @@ class ControllerCheckoutBuy extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
-    public function save() {
+    public function save()
+    {
         $this->load->language('checkout/buy');
         $this->load->model('setting/setting');
         $settings = $this->model_setting_setting->getSetting('buy');
@@ -672,13 +767,13 @@ class ControllerCheckoutBuy extends Controller {
 
         // Save temp data
         $allowed_fields = array('firstname', 'lastname', 'email', 'telephone', 'fax', 'company', 'country_id', 'zone_id', 'city', 'address_1', 'address_2', 'postcode', 'comment', 'register');
-        foreach($this->request->post as $field_name => $value){
-            if(in_array($field_name, $allowed_fields)){
+        foreach ($this->request->post as $field_name => $value) {
+            if (in_array($field_name, $allowed_fields)) {
                 $this->session->data['guest'][$field_name] = htmlentities(strip_tags($value), ENT_QUOTES, 'UTF-8');
                 $this->session->data['payment_address'][$field_name] = htmlentities(strip_tags($value), ENT_QUOTES, 'UTF-8');
             }
         }
-        if(!isset($this->request->post['register']) && isset($this->session->data['guest']['register'])){
+        if (!isset($this->request->post['register']) && isset($this->session->data['guest']['register'])) {
             unset($this->session->data['guest']['register']);
         }
 
@@ -690,33 +785,33 @@ class ControllerCheckoutBuy extends Controller {
             if ($settings['buy_lastname_status'] && $settings['buy_lastname_required'] && (!isset($this->request->post['lastname']) || utf8_strlen(trim($this->request->post['lastname'])) < 1 || utf8_strlen(trim($this->request->post['lastname'])) > 32)) {
                 $json['error']['lastname'] = $this->language->get('error_lastname');
             }
-            
-            if(!$this->customer->isLogged() && $settings['buy_register_status'] && $settings['buy_register_required']){
+
+            if (!$this->customer->isLogged() && $settings['buy_register_status'] && $settings['buy_register_required']) {
                 $settings['buy_email_required'] = true;
-                
-                if(!isset($this->request->post['password1']) || empty($this->request->post['password1'])){
+
+                if (!isset($this->request->post['password1']) || empty($this->request->post['password1'])) {
                     $json['error']['password_empty'] = $this->language->get('error_password1');
                 }
-                if(!isset($this->request->post['password2']) || empty($this->request->post['password2'])){
+                if (!isset($this->request->post['password2']) || empty($this->request->post['password2'])) {
                     $json['error']['password_empty'] = $this->language->get('error_password2');
                 }
-                if(isset($this->request->post['password1']) && isset($this->request->post['password2']) && $this->request->post['password1'] !== $this->request->post['password2']) {
+                if (isset($this->request->post['password1']) && isset($this->request->post['password2']) && $this->request->post['password1'] !== $this->request->post['password2']) {
                     $json['error']['password_equal'] = $this->language->get('error_password_equal');
                 }
                 if ((utf8_strlen($this->request->post['password1']) < 4) || (utf8_strlen($this->request->post['password1']) > 20)) {
                     $json['error']['password_empty'] = $this->language->get('error_password');
-		}
-            }else if($settings['buy_register_status'] && isset($this->request->post['register'])) {
+                }
+            } else if ($settings['buy_register_status'] && isset($this->request->post['register'])) {
                 $settings['buy_email_required'] = true;
-                if(!isset($this->request->post['password1']) || !isset($this->request->post['password2']) || empty($this->request->post['password1']) || empty($this->request->post['password2'])){
+                if (!isset($this->request->post['password1']) || !isset($this->request->post['password2']) || empty($this->request->post['password1']) || empty($this->request->post['password2'])) {
                     $json['error']['password_empty'] = $this->language->get('error_password_empty');
-                }else if($this->request->post['password1'] !== $this->request->post['password2']) {
+                } else if ($this->request->post['password1'] !== $this->request->post['password2']) {
                     $json['error']['password_equal'] = $this->language->get('error_password_equal');
-                }else if ((utf8_strlen($this->request->post['password1']) < 4) || (utf8_strlen($this->request->post['password1']) > 20)) {
+                } else if ((utf8_strlen($this->request->post['password1']) < 4) || (utf8_strlen($this->request->post['password1']) > 20)) {
                     $json['error']['password_empty'] = $this->language->get('error_password');
-		}
+                }
             }
-            
+
             $this->load->model('account/customer');
             if (isset($this->request->post['register']) && $this->model_account_customer->getTotalCustomersByEmail($this->request->post['email'])) {
                 $json['error']['warning'] = $this->language->get('error_email_exists');
@@ -725,8 +820,7 @@ class ControllerCheckoutBuy extends Controller {
             if ($settings['buy_email_status'] && $settings['buy_email_required'] && (!isset($this->request->post['email']) || utf8_strlen($this->request->post['email']) > 96 || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['email']))) {
                 $json['error']['email'] = $this->language->get('error_email');
             }
-            
-            
+
 
             if ($settings['buy_telephone_status'] && $settings['buy_telephone_required'] && (!isset($this->request->post['telephone']) || utf8_strlen($this->request->post['telephone']) < 3 || utf8_strlen($this->request->post['telephone']) > 32)) {
                 $json['error']['telephone'] = $this->language->get('error_telephone');
@@ -814,13 +908,13 @@ class ControllerCheckoutBuy extends Controller {
             $empty = '';
 
             $this->session->data['guest']['customer_group_id'] = $customer_group_id;
-            $this->session->data['guest']['firstname'] = isset($this->request->post['firstname'])?$this->request->post['firstname']:$empty;
-            $this->session->data['guest']['lastname'] = isset($this->request->post['lastname'])?$this->request->post['lastname']:$empty;
-            $this->session->data['guest']['email'] = isset($this->request->post['email'])?$this->request->post['email']:$empty;
-            $this->session->data['guest']['telephone'] = isset($this->request->post['telephone'])?$this->request->post['telephone']:$empty;
-            $this->session->data['guest']['fax'] = isset($this->request->post['fax'])?$this->request->post['fax']:$empty;
-            $this->session->data['guest']['register'] = isset($this->request->post['register'])?$this->request->post['register']:$empty;
-            $this->session->data['guest']['password'] = isset($this->request->post['password1'])?$this->request->post['password1']:$empty;
+            $this->session->data['guest']['firstname'] = isset($this->request->post['firstname']) ? $this->request->post['firstname'] : $empty;
+            $this->session->data['guest']['lastname'] = isset($this->request->post['lastname']) ? $this->request->post['lastname'] : $empty;
+            $this->session->data['guest']['email'] = isset($this->request->post['email']) ? $this->request->post['email'] : $empty;
+            $this->session->data['guest']['telephone'] = isset($this->request->post['telephone']) ? $this->request->post['telephone'] : $empty;
+            $this->session->data['guest']['fax'] = isset($this->request->post['fax']) ? $this->request->post['fax'] : $empty;
+            $this->session->data['guest']['register'] = isset($this->request->post['register']) ? $this->request->post['register'] : $empty;
+            $this->session->data['guest']['password'] = isset($this->request->post['password1']) ? $this->request->post['password1'] : $empty;
 
             if (isset($this->request->post['custom_field']['account'])) {
                 $this->session->data['guest']['custom_field'] = $this->request->post['custom_field']['account'];
@@ -828,15 +922,15 @@ class ControllerCheckoutBuy extends Controller {
                 $this->session->data['guest']['custom_field'] = array();
             }
 
-            $this->session->data['payment_address']['firstname'] = isset($this->request->post['firstname'])?$this->request->post['firstname']:$empty;
-            $this->session->data['payment_address']['lastname'] = isset($this->request->post['lastname'])?$this->request->post['lastname']:$empty;
-            $this->session->data['payment_address']['company'] = isset($this->request->post['company'])?$this->request->post['company']:$empty;
-            $this->session->data['payment_address']['address_1'] = isset($this->request->post['address_1'])?$this->request->post['address_1']:$empty;
-            $this->session->data['payment_address']['address_2'] = isset($this->request->post['address_2'])?$this->request->post['address_2']:$empty;
-            $this->session->data['payment_address']['postcode'] = isset($this->request->post['postcode'])?$this->request->post['postcode']:$empty;
-            $this->session->data['payment_address']['city'] = isset($this->request->post['city'])?$this->request->post['city']:$empty;
-            $this->session->data['payment_address']['country_id'] = isset($this->request->post['country_id'])?$this->request->post['country_id']:$empty;
-            $this->session->data['payment_address']['zone_id'] = isset($this->request->post['zone_id'])?$this->request->post['zone_id']:$empty;
+            $this->session->data['payment_address']['firstname'] = isset($this->request->post['firstname']) ? $this->request->post['firstname'] : $empty;
+            $this->session->data['payment_address']['lastname'] = isset($this->request->post['lastname']) ? $this->request->post['lastname'] : $empty;
+            $this->session->data['payment_address']['company'] = isset($this->request->post['company']) ? $this->request->post['company'] : $empty;
+            $this->session->data['payment_address']['address_1'] = isset($this->request->post['address_1']) ? $this->request->post['address_1'] : $empty;
+            $this->session->data['payment_address']['address_2'] = isset($this->request->post['address_2']) ? $this->request->post['address_2'] : $empty;
+            $this->session->data['payment_address']['postcode'] = isset($this->request->post['postcode']) ? $this->request->post['postcode'] : $empty;
+            $this->session->data['payment_address']['city'] = isset($this->request->post['city']) ? $this->request->post['city'] : $empty;
+            $this->session->data['payment_address']['country_id'] = isset($this->request->post['country_id']) ? $this->request->post['country_id'] : $empty;
+            $this->session->data['payment_address']['zone_id'] = isset($this->request->post['zone_id']) ? $this->request->post['zone_id'] : $empty;
 
             $this->load->model('localisation/country');
 
@@ -876,15 +970,15 @@ class ControllerCheckoutBuy extends Controller {
 
             // Default Payment Address
             if ($this->session->data['guest']['shipping_address']) {
-                $this->session->data['shipping_address']['firstname'] = isset($this->request->post['firstname'])?$this->request->post['firstname']:$empty;
-                $this->session->data['shipping_address']['lastname'] = isset($this->request->post['lastname'])?$this->request->post['lastname']:$empty;
-                $this->session->data['shipping_address']['company'] = isset($this->request->post['company'])?$this->request->post['company']:$empty;
-                $this->session->data['shipping_address']['address_1'] = isset($this->request->post['address_1'])?$this->request->post['address_1']:$empty;
-                $this->session->data['shipping_address']['address_2'] = isset($this->request->post['address_2'])?$this->request->post['address_2']:$empty;
-                $this->session->data['shipping_address']['postcode'] = isset($this->request->post['postcode'])?$this->request->post['postcode']:$empty;
-                $this->session->data['shipping_address']['city'] = isset($this->request->post['city'])?$this->request->post['city']:$empty;
-                $this->session->data['shipping_address']['country_id'] = isset($this->request->post['country_id'])?$this->request->post['country_id']:$empty;
-                $this->session->data['shipping_address']['zone_id'] = isset($this->request->post['zone_id'])?$this->request->post['zone_id']:$empty;
+                $this->session->data['shipping_address']['firstname'] = isset($this->request->post['firstname']) ? $this->request->post['firstname'] : $empty;
+                $this->session->data['shipping_address']['lastname'] = isset($this->request->post['lastname']) ? $this->request->post['lastname'] : $empty;
+                $this->session->data['shipping_address']['company'] = isset($this->request->post['company']) ? $this->request->post['company'] : $empty;
+                $this->session->data['shipping_address']['address_1'] = isset($this->request->post['address_1']) ? $this->request->post['address_1'] : $empty;
+                $this->session->data['shipping_address']['address_2'] = isset($this->request->post['address_2']) ? $this->request->post['address_2'] : $empty;
+                $this->session->data['shipping_address']['postcode'] = isset($this->request->post['postcode']) ? $this->request->post['postcode'] : $empty;
+                $this->session->data['shipping_address']['city'] = isset($this->request->post['city']) ? $this->request->post['city'] : $empty;
+                $this->session->data['shipping_address']['country_id'] = isset($this->request->post['country_id']) ? $this->request->post['country_id'] : $empty;
+                $this->session->data['shipping_address']['zone_id'] = isset($this->request->post['zone_id']) ? $this->request->post['zone_id'] : $empty;
 
                 if ($country_info) {
                     $this->session->data['shipping_address']['country'] = $country_info['name'];
@@ -915,7 +1009,7 @@ class ControllerCheckoutBuy extends Controller {
 
             $this->session->data['shipping_method'] = $this->session->data['shipping_methods'][$shipping[0]]['quote'][$shipping[1]];
             $this->session->data['payment_method'] = $this->session->data['payment_methods'][$this->request->post['payment_method']];
-            $this->session->data['comment']= isset($this->request->post['comment'])?$this->request->post['comment']:'';
+            $this->session->data['comment'] = isset($this->request->post['comment']) ? $this->request->post['comment'] : '';
 
         }
 
@@ -923,7 +1017,8 @@ class ControllerCheckoutBuy extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
-    public function getShippingMethods() {
+    public function getShippingMethods()
+    {
         $this->load->language('checkout/buy');
 
         $lang = $this->session->data['language'];
@@ -933,16 +1028,16 @@ class ControllerCheckoutBuy extends Controller {
 
         if (isset($this->session->data['shipping_address'])) {
             $shipping_address = $this->session->data['shipping_address'];
-            if(!isset($shipping_address['country_id']) || empty($shipping_address['country_id'])){
+            if (!isset($shipping_address['country_id']) || empty($shipping_address['country_id'])) {
                 $shipping_address['country_id'] = isset($this->request->post['country_id']) ? $this->request->post['country_id'] : $this->config->get('config_country_id');
             }
-            if(!isset($shipping_address['zone_id']) || empty($shipping_address['zone_id'])){
+            if (!isset($shipping_address['zone_id']) || empty($shipping_address['zone_id'])) {
                 $shipping_address['zone_id'] = isset($this->request->post['zone_id']) ? $this->request->post['zone_id'] : $this->config->get('zone_id');
             }
-            if(!isset($shipping_address['city']) || empty($shipping_address['city'])){
+            if (!isset($shipping_address['city']) || empty($shipping_address['city'])) {
                 $shipping_address['city'] = isset($this->request->post['city']) ? $this->request->post['city'] : '';
             }
-            if(!isset($shipping_address['postcode']) || empty($shipping_address['postcode'])){
+            if (!isset($shipping_address['postcode']) || empty($shipping_address['postcode'])) {
                 $shipping_address['postcode'] = isset($this->request->post['postcode']) ? $this->request->post['postcode'] : '';
             }
         } else {
@@ -979,7 +1074,8 @@ class ControllerCheckoutBuy extends Controller {
         $this->response->setOutput($this->load->view('checkout/buy_shipping_method', $data));
     }
 
-    public function getPaymentMethods() {
+    public function getPaymentMethods()
+    {
         $this->load->language('checkout/buy');
 
         $lang = $this->session->data['language'];
@@ -989,16 +1085,16 @@ class ControllerCheckoutBuy extends Controller {
 
         if (isset($this->session->data['shipping_address'])) {
             $payment_address = $this->session->data['shipping_address'];
-            if(!isset($payment_address['country_id']) || empty($payment_address['country_id'])){
+            if (!isset($payment_address['country_id']) || empty($payment_address['country_id'])) {
                 $payment_address['country_id'] = isset($this->request->post['country_id']) ? $this->request->post['country_id'] : $this->config->get('config_country_id');
             }
-            if(!isset($payment_address['zone_id']) || empty($payment_address['zone_id'])){
+            if (!isset($payment_address['zone_id']) || empty($payment_address['zone_id'])) {
                 $payment_address['zone_id'] = isset($this->request->post['zone_id']) ? $this->request->post['zone_id'] : $this->config->get('zone_id');
             }
-            if(!isset($payment_address['city']) || empty($payment_address['city'])){
+            if (!isset($payment_address['city']) || empty($payment_address['city'])) {
                 $payment_address['city'] = isset($this->request->post['city']) ? $this->request->post['city'] : '';
             }
-            if(!isset($payment_address['postcode']) || empty($payment_address['postcode'])){
+            if (!isset($payment_address['postcode']) || empty($payment_address['postcode'])) {
                 $payment_address['postcode'] = isset($this->request->post['postcode']) ? $this->request->post['postcode'] : '';
             }
         } else {
@@ -1056,10 +1152,11 @@ class ControllerCheckoutBuy extends Controller {
             $data['agree'] = '';
         }
 
-            $this->response->setOutput($this->load->view('checkout/buy_payment_method', $data));
+        $this->response->setOutput($this->load->view('checkout/buy_payment_method', $data));
     }
 
-    function getPaymentForm() {
+    function getPaymentForm()
+    {
         if (isset($this->session->data['payment_methods'])) {
             $this->session->data['payment_method'] = $this->session->data['payment_methods'][$this->request->post['payment_method']];
             if (isset($this->request->post['code'])) {
@@ -1071,7 +1168,8 @@ class ControllerCheckoutBuy extends Controller {
         }
     }
 
-    public function confirm() {
+    public function confirm()
+    {
         $redirect = '';
         $reason = '';
 
@@ -1113,7 +1211,6 @@ class ControllerCheckoutBuy extends Controller {
 
         // Validate minimum quantity requirements.
         $products = $this->cart->getProducts();
-
         foreach ($products as $product) {
             $product_total = 0;
 
@@ -1274,7 +1371,37 @@ class ControllerCheckoutBuy extends Controller {
                     'reward' => $product['reward']
                 );
             }
+            foreach ($this->cart->getAnalogProducts() as $product) {
+                $option_data = array();
 
+                foreach ($product['option'] as $option) {
+                    $option_data[] = array(
+                        'product_option_id' => $option['product_option_id'],
+                        'product_option_value_id' => $option['product_option_value_id'],
+                        'option_id' => $option['option_id'],
+                        'option_value_id' => $option['option_value_id'],
+                        'name' => $option['name'],
+                        'value' => $option['value'],
+                        'type' => $option['type']
+                    );
+                }
+
+                $order_data['products'][] = array(
+                    'product_id' => $product['product_id'],
+                    'name' => $product['name'],
+                    'model' => $product['model'],
+                    'article_id' => $product['article_id'],
+                    'article' => $product['article'],
+                    'option' => $option_data,
+                    'download' => $product['download'],
+                    'quantity' => $product['quantity'],
+                    'subtract' => $product['subtract'],
+                    'price' => $product['price'],
+                    'total' => $product['total'],
+                    'tax' => $this->tax->getTax($product['price'], $product['tax_class_id']),
+                    'reward' => $product['reward']
+                );
+            }
             // Gift Voucher
             $order_data['vouchers'] = array();
 
@@ -1358,8 +1485,8 @@ class ControllerCheckoutBuy extends Controller {
             } else {
                 $order_data['accept_language'] = '';
             }
-            
-            if(!$this->customer->isLogged() && isset($this->session->data['guest']['register']) && $this->session->data['guest']['register'] == '1' && isset($order_data['password']) && !empty($order_data['password'])){
+
+            if (!$this->customer->isLogged() && isset($this->session->data['guest']['register']) && $this->session->data['guest']['register'] == '1' && isset($order_data['password']) && !empty($order_data['password'])) {
                 $this->load->model('account/customer');
                 $custom_field = array();
                 $custom_field['account'] = isset($order_data['custom_field']) ? $order_data['custom_field'] : array();
@@ -1396,8 +1523,8 @@ class ControllerCheckoutBuy extends Controller {
                     $this->load->model('account/activity');
 
                     $activity_data = array(
-                            'customer_id' => $customer_id,
-                            'name'        => $order_data['firstname'] . ' ' . $order_data['lastname']
+                        'customer_id' => $customer_id,
+                        'name' => $order_data['firstname'] . ' ' . $order_data['lastname']
                     );
 
                     $this->model_account_activity->addActivity('register', $activity_data);
@@ -1417,14 +1544,15 @@ class ControllerCheckoutBuy extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
-    public function selectShipping() {
+    public function selectShipping()
+    {
 
-        if(isset($this->request->post['code']) && isset($this->session->data['shipping_methods'])){
+        if (isset($this->request->post['code']) && isset($this->session->data['shipping_methods'])) {
             $code = explode('.', $this->request->post['code']);
 
-            if(isset($code[1]) && isset($this->session->data['shipping_methods'][$code[0]]['quote'][$code[1]])){
+            if (isset($code[1]) && isset($this->session->data['shipping_methods'][$code[0]]['quote'][$code[1]])) {
                 $this->session->data['shipping_method'] = $this->session->data['shipping_methods'][$code[0]]['quote'][$code[1]];
-                
+
                 $totals = $this->totals();
 
                 $this->language->load('checkout/buy');
@@ -1435,7 +1563,7 @@ class ControllerCheckoutBuy extends Controller {
                 foreach ($totals as $total) {
                     $json['totals'][] = array(
                         'title' => $total['title'],
-												'code' => $total['code'],
+                        'code' => $total['code'],
                         'total' => $this->currency->format($total['value'], $this->session->data['currency']),
                     );
                     $i++;
@@ -1446,29 +1574,32 @@ class ControllerCheckoutBuy extends Controller {
             }
         }
     }
-    
-    public function clear(){
+
+    public function clear()
+    {
         $this->cart->clear();
     }
-    
-    public function getTotals(){
+
+    public function getTotals()
+    {
         $json = array();
-        
+
         $json['totals'] = $this->totals();
 
         $this->response->setOutput(json_encode($json));
     }
-    
-    private function totals(){
+
+    private function totals()
+    {
         $totals = array();
         $taxes = $this->cart->getTaxes();
         $total = 0;
 
         // Because __call can not keep var references so we put them into an array.
         $total_data = array(
-                'totals' => &$totals,
-                'taxes'  => &$taxes,
-                'total'  => &$total
+            'totals' => &$totals,
+            'taxes' => &$taxes,
+            'total' => &$total
         );
 
         $this->load->model('extension/extension');
@@ -1514,11 +1645,12 @@ class ControllerCheckoutBuy extends Controller {
                 'text' => $this->currency->format($total['value'], $this->session->data['currency']),
             );
         }
-        
+
         return $totals_arr;
     }
-    
-    private function updatePaymentMethods($payment_address){
+
+    private function updatePaymentMethods($payment_address)
+    {
         // Selected payment methods should be from cart sub total not total!
         $total = $this->cart->getSubTotal();
 
@@ -1560,8 +1692,9 @@ class ControllerCheckoutBuy extends Controller {
 
         $this->session->data['payment_methods'] = $method_data;
     }
-    
-    private function updateShippingMethods($shipping_address){
+
+    private function updateShippingMethods($shipping_address)
+    {
         // Shipping Methods
         $method_data = array();
 
@@ -1597,10 +1730,11 @@ class ControllerCheckoutBuy extends Controller {
         $this->session->data['shipping_methods'] = $method_data;
     }
 
-    public function oneclick() {
+    public function oneclick()
+    {
         $this->load->model('setting/setting');
         $settings = $this->model_setting_setting->getSetting('buy');
-        if($settings['buy_oneclick']) {
+        if ($settings['buy_oneclick']) {
             $json = array();
 
             $this->load->model('catalog/product');
@@ -1704,8 +1838,8 @@ class ControllerCheckoutBuy extends Controller {
                 // Because __call can not keep var references so we put them into an array.
                 $total_data = array(
                     'totals' => &$totals,
-                    'taxes'  => &$taxes,
-                    'total'  => &$total
+                    'taxes' => &$taxes,
+                    'total' => &$total
                 );
 
                 $sort_order = array();
@@ -1826,8 +1960,8 @@ class ControllerCheckoutBuy extends Controller {
         }
     }
 
-    private function send_email($order_id, $order_status_id) {
-
+    private function send_email($order_id, $order_status_id)
+    {
 
 
         $this->load->model('checkout/order');
@@ -1836,11 +1970,11 @@ class ControllerCheckoutBuy extends Controller {
         // Check for any downloadable products
         $download_status = false;
 
-        $order_product_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_product WHERE order_id = '" . (int) $order_id . "'");
+        $order_product_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_product WHERE order_id = '" . (int)$order_id . "'");
 
         foreach ($order_product_query->rows as $order_product) {
             // Check if there are any linked downloads
-            $product_download_query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "product_to_download` WHERE product_id = '" . (int) $order_product['product_id'] . "'");
+            $product_download_query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "product_to_download` WHERE product_id = '" . (int)$order_product['product_id'] . "'");
 
             if ($product_download_query->row['total']) {
                 $download_status = true;
@@ -1852,7 +1986,7 @@ class ControllerCheckoutBuy extends Controller {
         $language->load($order_info['language_code']);
         $language->load('mail/order');
 
-        $order_status_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_status WHERE order_status_id = '" . (int) $order_status_id . "' AND language_id = '" . (int) $order_info['language_id'] . "'");
+        $order_status_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_status WHERE order_status_id = '" . (int)$order_status_id . "' AND language_id = '" . (int)$order_info['language_id'] . "'");
 
         if ($order_status_query->num_rows) {
             $order_status = $order_status_query->row['name'];
@@ -1864,7 +1998,6 @@ class ControllerCheckoutBuy extends Controller {
 
         // HTML Mail
         $data = array();
-
 
 
         $data['title'] = sprintf($language->get('text_new_subject'), html_entity_decode($order_info['store_name'], ENT_QUOTES, 'UTF-8'), $order_id);
@@ -1989,7 +2122,7 @@ class ControllerCheckoutBuy extends Controller {
         foreach ($order_product_query->rows as $product) {
             $option_data = array();
 
-            $order_option_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_option WHERE order_id = '" . (int) $order_id . "' AND order_product_id = '" . (int) $product['order_product_id'] . "'");
+            $order_option_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_option WHERE order_id = '" . (int)$order_id . "' AND order_product_id = '" . (int)$product['order_product_id'] . "'");
 
             foreach ($order_option_query->rows as $option) {
                 if ($option['type'] != 'file') {
@@ -2023,7 +2156,7 @@ class ControllerCheckoutBuy extends Controller {
         // Vouchers
         $data['vouchers'] = array();
 
-        $order_voucher_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_voucher WHERE order_id = '" . (int) $order_id . "'");
+        $order_voucher_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_voucher WHERE order_id = '" . (int)$order_id . "'");
 
         foreach ($order_voucher_query->rows as $voucher) {
             $data['vouchers'][] = array(
@@ -2033,9 +2166,8 @@ class ControllerCheckoutBuy extends Controller {
         }
 
 
-
         // Order Totals
-        $order_total_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_total` WHERE order_id = '" . (int) $order_id . "' ORDER BY sort_order ASC");
+        $order_total_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_total` WHERE order_id = '" . (int)$order_id . "' ORDER BY sort_order ASC");
 
         foreach ($order_total_query->rows as $total) {
             $data['totals'][] = array(
@@ -2059,7 +2191,7 @@ class ControllerCheckoutBuy extends Controller {
         foreach ($order_product_query->rows as $product) {
             $text .= $product['quantity'] . 'x ' . $product['name'] . ' (' . $product['model'] . ') ' . html_entity_decode($this->currency->format($product['total'] + ($this->config->get('config_tax') ? ($product['tax'] * $product['quantity']) : 0), $order_info['currency_code'], $order_info['currency_value']), ENT_NOQUOTES, 'UTF-8') . "\n";
 
-            $order_option_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_option WHERE order_id = '" . (int) $order_id . "' AND order_product_id = '" . $product['order_product_id'] . "'");
+            $order_option_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_option WHERE order_id = '" . (int)$order_id . "' AND order_product_id = '" . $product['order_product_id'] . "'");
 
             foreach ($order_option_query->rows as $option) {
                 if ($option['type'] != 'file') {
@@ -2077,7 +2209,6 @@ class ControllerCheckoutBuy extends Controller {
                 $text .= chr(9) . '-' . $option['name'] . ' ' . (utf8_strlen($value) > 20 ? utf8_substr($value, 0, 20) . '..' : $value) . "\n";
             }
         }
-
 
 
         foreach ($order_voucher_query->rows as $voucher) {
@@ -2112,7 +2243,7 @@ class ControllerCheckoutBuy extends Controller {
 
         $text .= $language->get('text_new_footer') . "\n\n";
 
-        if(!empty($order_info['email'])){
+        if (!empty($order_info['email'])) {
             $mail = new Mail();
             $mail->protocol = $this->config->get('config_mail_protocol');
             $mail->parameter = $this->config->get('config_mail_parameter');
@@ -2165,7 +2296,7 @@ class ControllerCheckoutBuy extends Controller {
             foreach ($order_product_query->rows as $product) {
                 $text .= $product['quantity'] . 'x ' . $product['name'] . ' (' . $product['model'] . ') ' . html_entity_decode($this->currency->format($product['total'] + ($this->config->get('config_tax') ? ($product['tax'] * $product['quantity']) : 0), $order_info['currency_code'], $order_info['currency_value']), ENT_NOQUOTES, 'UTF-8') . "\n";
 
-                $order_option_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_option WHERE order_id = '" . (int) $order_id . "' AND order_product_id = '" . $product['order_product_id'] . "'");
+                $order_option_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_option WHERE order_id = '" . (int)$order_id . "' AND order_product_id = '" . $product['order_product_id'] . "'");
 
                 foreach ($order_option_query->rows as $option) {
                     if ($option['type'] != 'file') {
@@ -2198,7 +2329,6 @@ class ControllerCheckoutBuy extends Controller {
             }
 
 
-
             $mail = new Mail();
             $mail->protocol = $this->config->get('config_mail_protocol');
             $mail->parameter = $this->config->get('config_mail_parameter');
@@ -2218,9 +2348,9 @@ class ControllerCheckoutBuy extends Controller {
             $mail->send();
 
             // Send to additional alert emails
-            if (version_compare(preg_replace("/[^\d.]/","",VERSION), '2.3.0.0', '<')) {
+            if (version_compare(preg_replace("/[^\d.]/", "", VERSION), '2.3.0.0', '<')) {
                 $emails = explode(',', $this->config->get('config_mail_alert'));
-            }else{
+            } else {
                 $emails = explode(',', $this->config->get('config_mail_alert_email'));
             }
 

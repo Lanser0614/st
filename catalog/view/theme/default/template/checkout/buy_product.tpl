@@ -24,7 +24,7 @@
 
 
 
-<?php if($settings['buy_clear_show'] && $i==0 && count($products) > 1){ ?>
+<?php if($settings['buy_clear_show'] && $i==0 && (count($analogs)>1 || count($products)>1)){ ?>
   <div class="pull-left"><span onclick="cart_clear();" class="btn btn-alert btn-clear"><?php echo $text_cart_clear; ?></span>
 <?php } ?>
 

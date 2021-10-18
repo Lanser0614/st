@@ -8,6 +8,8 @@ class ControllerBlogCategory extends Controller {
 	$this->load->model('blog/blog_category');
 	
 	$this->load->model('blog/blog');
+
+	
 	
 	// Fall back values
 	$limit = $this->config->get('blogsetting_blogs_per_page');
@@ -25,10 +27,10 @@ class ControllerBlogCategory extends Controller {
 	$img_height = 424;
 	}
 	
-	$data['date_added_status'] = $this->config->get('blogsetting_date_added');
-	if (empty($data['date_added_status'])) {
-	$data['date_added_status'] = 0;
-	}
+	// $data['date_added_status'] = $this->config->get('blogsetting_date_added');
+	// if (empty($data['date_added_status'])) {
+	// $data['date_added_status'] = 0;
+	// }
 	
 	$data['comments_count_status'] = $this->config->get('blogsetting_comments_count');
 	if (empty($data['comments_count_status'])) {
@@ -95,38 +97,38 @@ class ControllerBlogCategory extends Controller {
 		
 		if ($blog_category_info) {
 			
-			if ($blog_category_info['page_title']) {
-			$this->document->setTitle($blog_category_info['page_title']);
-			} else {
-			$this->document->setTitle($blog_category_info['name']);
-			}
+			// if ($blog_category_info['page_title']) {
+			// $this->document->setTitle($blog_category_info['page_title']);
+			// } else {
+			// $this->document->setTitle($blog_category_info['name']);
+			// }
 			
-			$this->document->setDescription($blog_category_info['meta_description']);
-			$this->document->setKeywords($blog_category_info['meta_keywords']);
+			// $this->document->setDescription($blog_category_info['meta_description']);
+			// $this->document->setKeywords($blog_category_info['meta_keywords']);
 			
-			$data['heading_title'] = $blog_category_info['name'];
+			// $data['heading_title'] = $blog_category_info['name'];
 			
-			if ($blog_category_info['description'] == '&lt;p&gt;&lt;br&gt;&lt;/p&gt;') {
-			$data['blog_category_description'] = '';
-			} else {
-			$data['blog_category_description'] = html_entity_decode($blog_category_info['description']);
-			}
+			// if ($blog_category_info['description'] == '&lt;p&gt;&lt;br&gt;&lt;/p&gt;') {
+			// $data['blog_category_description'] = '';
+			// } else {
+			// $data['blog_category_description'] = html_entity_decode($blog_category_info['description']);
+			// }
 			
-      		$data['text_posted_on'] = $this->language->get('text_posted_on');
-			$data['text_read'] = $this->language->get('text_read');
-			$data['text_posted_by'] = $this->language->get('text_posted_by');
-			$data['text_comments'] = $this->language->get('text_comments');
-			$data['text_posted_on'] = $this->language->get('text_posted_on');
+      		// $data['text_posted_on'] = $this->language->get('text_posted_on');
+			// $data['text_read'] = $this->language->get('text_read');
+			// $data['text_posted_by'] = $this->language->get('text_posted_by');
+			// $data['text_comments'] = $this->language->get('text_comments');
+			// $data['text_posted_on'] = $this->language->get('text_posted_on');
 			
-      		$data['text_no_results'] = $this->language->get('text_no_results');
-         	$data['text_read_more'] = $this->language->get('text_read_more');
+      		// $data['text_no_results'] = $this->language->get('text_no_results');
+         	// $data['text_read_more'] = $this->language->get('text_read_more');
 
-			$blog_description = $blog_category_info['description'];
-			if (empty($blog_description) || ($blog_description == '&lt;p&gt;&lt;br&gt;&lt;/p&gt;')) {
-			$data['description'] = false;
-			} else {
-			$data['description'] = html_entity_decode($blog_category_info['description'], ENT_QUOTES, 'UTF-8');
-			}
+			// $blog_description = $blog_category_info['description'];
+			// if (empty($blog_description) || ($blog_description == '&lt;p&gt;&lt;br&gt;&lt;/p&gt;')) {
+			// $data['description'] = false;
+			// } else {
+			// $data['description'] = html_entity_decode($blog_category_info['description'], ENT_QUOTES, 'UTF-8');
+			// }
 			
 			if (isset($this->request->get['page'])) {
 				$page = $this->request->get['page'];
@@ -147,13 +149,13 @@ class ControllerBlogCategory extends Controller {
 				'start' => ($page - 1) * $limit,
 				'limit' => $limit,
 			);
-			        		
+			        
 			$results = $this->model_blog_blog->getBlogsByBlogCategoryId($blog_category_id, $pagefix, $limit);
-						
+			
 			foreach ($results as $result) {
-      		
 			$data['blogs'][] = array(
-				'count_read' => $result['count_read'],
+				'id' => $result['blog_id'],
+				 'count_read' => $result['count_read'],
         		'title' => $result['title'],
 				'author' => $result['author'],
 				'comment_total' => $this->model_blog_blog->getTotalCommentsByBlogId($result['blog_id']),
@@ -163,8 +165,11 @@ class ControllerBlogCategory extends Controller {
         		'image' => $this->model_tool_image->resize($result['image'], $img_width, $img_height),
 				'href'  => $this->url->link('blog/blog', 'blogpath=' . $this->request->get['blogpath'] . '&blog_id=' . $result['blog_id'])
 				
-      		);
+      		 );
     		}
+			// $this->response->addHeader('Content-Type: application/json');
+			// $this->response->setOutput(json_encode($data, JSON_UNESCAPED_UNICODE));
+		
 					
 			$blog_total = $this->model_blog_blog->getTotalBlogsByBlogCategoryId($blog_category_id);
 			
@@ -180,24 +185,30 @@ class ControllerBlogCategory extends Controller {
 			
 			$data['results'] = sprintf($this->language->get('text_pagination'), ($blog_total) ? ($pagefix) + 1 : 0, ((($page - 1) * $limit) > ($blog_total - $limit)) ? $blog_total : (($pagefix) + $limit), $blog_total, ceil($blog_total / $limit));
 			
-			$data['column_left'] = $this->load->controller('common/column_left');
-			$data['column_right'] = $this->load->controller('common/column_right');
-			$data['content_top'] = $this->load->controller('common/content_top');
-			$data['content_bottom'] = $this->load->controller('common/content_bottom');
-			$data['footer'] = $this->load->controller('common/footer');
-			$data['header'] = $this->load->controller('common/header');
+			$this->response->addHeader('Content-Type: application/json');
+			$this->response->setOutput(json_encode($data, JSON_UNESCAPED_UNICODE));
+			// $data['column_left'] = $this->load->controller('common/column_left');
+			// $data['column_right'] = $this->load->controller('common/column_right');
+			// $data['content_top'] = $this->load->controller('common/content_top');
+			// $data['content_bottom'] = $this->load->controller('common/content_bottom');
+			// $data['footer'] = $this->load->controller('common/footer');
+			// $data['header'] = $this->load->controller('common/header');
 			
-			if ((float)VERSION >= 2.2) {
-				$this->response->setOutput($this->load->view('blog/blog_category', $data));
-			} else {
-				if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/blog/blog_category.tpl')) {
-					$this->response->setOutput($this->load->view($this->config->get('config_template') . '/template/blog/blog_category.tpl', $data));
-				} else {
-					$this->response->setOutput($this->load->view('default/template/blog/blog_category.tpl', $data));
-				}
-			}
+			
+			// if ((float)VERSION >= 2.2) {
+			// 	$this->response->setOutput($this->load->view('blog/blog_category', $data));
+			// } 
+			// else {
+			// 	if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/blog/blog_category.tpl')) {
+			// 		$this->response->setOutput($this->load->view($this->config->get('config_template') . '/template/blog/blog_category.tpl', $data));
+			// 	} else {
+			// 		$this->response->setOutput($this->load->view('default/template/blog/blog_category.tpl', $data));
+			// 	}
+			// }
 
-		} else {
+		} 
+		else 
+		{
 		
 			$this->language->load('error/not_found');
 			
@@ -232,6 +243,7 @@ class ControllerBlogCategory extends Controller {
 			$data['content_bottom'] = $this->load->controller('common/content_bottom');
 			$data['footer'] = $this->load->controller('common/footer');
 			$data['header'] = $this->load->controller('common/header');
+
 			
 			if ((float)VERSION >= 2.2) {
 				$this->response->setOutput($this->load->view('error/not_found', $data));
@@ -242,7 +254,7 @@ class ControllerBlogCategory extends Controller {
 				$this->response->setOutput($this->load->view('default/template/error/not_found.tpl', $data));
 				}
 			}
-		}
+		 }
 	}
 	
 }

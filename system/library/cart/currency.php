@@ -1,9 +1,13 @@
 <?php
+
 namespace Cart;
-class Currency {
+
+class Currency
+{
 	private $currencies = array();
 
-	public function __construct($registry) {
+	public function __construct($registry)
+	{
 		$this->db = $registry->get('db');
 		$this->language = $registry->get('language');
 
@@ -21,7 +25,8 @@ class Currency {
 		}
 	}
 
-	public function format($number, $currency, $value = '', $format = true) {
+	public function format($number, $currency, $value = '', $format = true)
+	{
 		$symbol_left = $this->currencies[$currency]['symbol_left'];
 		$symbol_right = $this->currencies[$currency]['symbol_right'];
 		$decimal_place = $this->currencies[$currency]['decimal_place'];
@@ -31,9 +36,9 @@ class Currency {
 		}
 
 		$amount = $value ? (float)$number * $value : (float)$number;
-		
+
 		$amount = round($amount, (int)$decimal_place);
-		
+
 		if (!$format) {
 			return $amount;
 		}
@@ -53,7 +58,8 @@ class Currency {
 		return $string;
 	}
 
-	public function convert($value, $from, $to) {
+	public function convert($value, $from, $to)
+	{
 		if (isset($this->currencies[$from])) {
 			$from = $this->currencies[$from]['value'];
 		} else {
@@ -68,8 +74,9 @@ class Currency {
 
 		return $value * ($to / $from);
 	}
-	
-	public function getId($currency) {
+
+	public function getId($currency)
+	{
 		if (isset($this->currencies[$currency])) {
 			return $this->currencies[$currency]['currency_id'];
 		} else {
@@ -77,7 +84,8 @@ class Currency {
 		}
 	}
 
-	public function getSymbolLeft($currency) {
+	public function getSymbolLeft($currency)
+	{
 		if (isset($this->currencies[$currency])) {
 			return $this->currencies[$currency]['symbol_left'];
 		} else {
@@ -85,7 +93,8 @@ class Currency {
 		}
 	}
 
-	public function getSymbolRight($currency) {
+	public function getSymbolRight($currency)
+	{
 		if (isset($this->currencies[$currency])) {
 			return $this->currencies[$currency]['symbol_right'];
 		} else {
@@ -93,7 +102,8 @@ class Currency {
 		}
 	}
 
-	public function getDecimalPlace($currency) {
+	public function getDecimalPlace($currency)
+	{
 		if (isset($this->currencies[$currency])) {
 			return $this->currencies[$currency]['decimal_place'];
 		} else {
@@ -101,7 +111,8 @@ class Currency {
 		}
 	}
 
-	public function getValue($currency) {
+	public function getValue($currency)
+	{
 		if (isset($this->currencies[$currency])) {
 			return $this->currencies[$currency]['value'];
 		} else {
@@ -109,7 +120,20 @@ class Currency {
 		}
 	}
 
-	public function has($currency) {
+	
+	public $restCurrencyCode;
+
+	public function setRestCurrencyCode($code)
+	{
+		$this->restCurrencyCode = $code;
+	}
+	public function getRestCurrencyCode()
+	{
+		return $this->restCurrencyCode;
+	}
+
+	public function has($currency)
+	{
 		return isset($this->currencies[$currency]);
 	}
 }

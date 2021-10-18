@@ -25,6 +25,13 @@
 <?php } ?>
 <script type="text/javascript">
     $('input[name=\'shipping_method\'').change(function(){
-        selectShipping();
+      if($('input[name="shipping_method"]:checked').val() == 'pickup.pickup'){
+        $('#form-shipping').hide();
+        $('#head-payment span').text('3');
+      }else{
+        $('#form-shipping').show();
+        $('#head-payment span').text('4');
+      }
+      selectShipping();
     });
 </script>

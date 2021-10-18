@@ -92,7 +92,6 @@ class ControllerBlogBlogCategory extends Controller {
 		$results = $this->model_blog_blog_category->getBlogCategories(0);
 
 		foreach ($results as $result) {
-
 			$data['blog_categories'][] = array(
 				'blog_category_id' => $result['blog_category_id'],
 				'name'        => $result['name'],
