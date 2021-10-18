@@ -807,7 +807,7 @@ class ControllerFeedRestApi extends RestController
                     'original_image' => $original_image,
                     'filters' => $this->getCategoryFilters($category['category_id']),
                     'categories' => $this->loadCatTree($category['category_id'], $level),
-                   // 'alias' => $this->model_catalog_category->getAlias($category['category_id']),
+                    'alias' => $this->model_catalog_category->getAlias($category['category_id']),
                 );
             }
         }
@@ -882,6 +882,7 @@ class ControllerFeedRestApi extends RestController
 
         $data['categories'] = array();
 
+
         $categories = $this->model_catalog_category->getAllCategories($parameters, 0);
         $total = $this->model_catalog_category->getAllCategories($parameters, 1);
 
@@ -890,7 +891,11 @@ class ControllerFeedRestApi extends RestController
             foreach ($categories as $category) {
 
                 $categoryDetails = $this->model_catalog_category->getCategory($category['category_id']);
-
+                
+                
+                
+                // $slugAlias = $this->model_catalog_category->getAlias($category['category_id']);
+                // var_dump($slugAlias);
 
                 if (isset($categoryDetails['category_id'])) {
 
@@ -902,6 +907,7 @@ class ControllerFeedRestApi extends RestController
                         $original_image = $this->urlPrefix . 'image/no_image.png';
                     }
 
+                   
                     $info = array(
                         'id' => (int)$categoryDetails['category_id'],
                         'name' => $categoryDetails['name'],
@@ -910,6 +916,7 @@ class ControllerFeedRestApi extends RestController
                         'original_image' => $original_image,
                         'status' => $categoryDetails['status'],
                         'parent_id' => (int)$categoryDetails['parent_id'],
+                      //  'alias' => $this->model_catalog_category->getAlias($categoryDetails['category_id']),
                         'filters' => $this->getCategoryFilters($categoryDetails['category_id']),
                     );
                 }

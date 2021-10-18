@@ -60,6 +60,7 @@ class ModelCatalogProduct extends Model
             return false;
         }
     }
+    
     public function getProductsTotal($data = array(), $customer, $onlycount = true)
     {
         if ($customer->isLogged()) {
