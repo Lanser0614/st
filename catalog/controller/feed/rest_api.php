@@ -175,6 +175,7 @@ class ControllerFeedRestApi extends RestController
 
         $this->load->model('tool/image');
         $this->load->model('catalog/category');
+        
 
         //product image
         if (isset($product['image']) && !empty($product['image']) && file_exists(DIR_IMAGE . $product['image'])) {
@@ -276,7 +277,8 @@ class ControllerFeedRestApi extends RestController
                             'product_option_value_id' => (int)$option_value['product_option_value_id'],
                             'option_value_id' => (int)$option_value['option_value_id'],
                             'name' => $option_value['name'],
-                            'quantity' => !empty($option_value['quantity']) ? $option_value['quantity'] : 0
+                            'quantity' => !empty($option_value['quantity']) ? $option_value['quantity'] : 0,
+                           
                         );
                     }
                 }
@@ -335,6 +337,7 @@ class ControllerFeedRestApi extends RestController
             'id' => (int)$product['product_id'],
             'product_id' => (int)$product['product_id'],
             'name' => $product['name'],
+            'alias' => $this->model_catalog_product->getAlias((int)$product['product_id']),
             'manufacturer' => $product['manufacturer'],
             'sku' => (!empty($product['sku']) ? $product['sku'] : ""),
             'model' => $product['model'],

@@ -60,6 +60,20 @@ class ModelCatalogProduct extends Model
             return false;
         }
     }
+
+    public function getAlias($product_id){ //
+		//$alias = $this->db->query("SELECT  url_alias.keyword, url_alias.query, category.category_id FROM url_alias LEFT JOIN category ON url_alias.query = CONCAT('category_id=', category.category_id) LIMIT 30");
+		//$alias = $this->db->query("SELECT  url_alias.keyword category.category_id FROM url_alias LEFT JOIN category ON url_alias.query = 'category_id= 'category.category_id");
+		 $alias = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "url_alias WHERE query LIKE '%product_id=$product_id%'");
+		foreach($alias->rows as $url){
+			return 	$url['keyword'];	
+		}
+		// var_dump($alias->rows);
+		//var_dump($alias->keyword);
+		 //return $alias->rows;
+		//$alias = $this->db->query("SELECT url_alias.keyword, url_alias.query, category.category_id FROM url_alias LEFT JOIN category ON url_alias.query = CONCAT('category_id=', category.category_id) LIMIT 30");
+		//var_dump($alias->row);
+	}
     
     public function getProductsTotal($data = array(), $customer, $onlycount = true)
     {
@@ -88,6 +102,7 @@ class ModelCatalogProduct extends Model
         $query = $this->db->query($sql);
         return $query->row['total'];
     }
+
     private function filterSql($data, $onlycount = false)
     {
         $sql = "";
@@ -231,6 +246,7 @@ class ModelCatalogProduct extends Model
         });
         return array('specialIds' => $specialIds, 'product_data' => $product_data);
     }
+
     public function getProductsData($data = array(), $customer)
     {
         if ($customer->isLogged()) {
@@ -262,6 +278,7 @@ class ModelCatalogProduct extends Model
         }
         return $this->getProductsByIds(array_keys($product_data), $customer, $sortSql);
     }
+    
     public function getProductsByIds($product_ids, $customer, $sortSql = "ORDER BY p.product_id ASC")
     {
         if (count($product_ids) == 0) {
@@ -329,6 +346,7 @@ class ModelCatalogProduct extends Model
             return $stock_status_data;
         }
     }
+    
     public function getLengthClasses($data = array())
     {
         if ($data) {
