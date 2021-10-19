@@ -5,11 +5,100 @@ $(document).ready(function () {
     $('body').append('<div id="fastblock"></div>');
 
 
-    var fastorder_html = '<form onsubmit="return false;"><div class="title"></div><div class="elem"><input type="text" name="name" value="" placeholder="Ваше имя" class="requir"/></div><div class="elem"><input type="text" name="phone" value="" placeholder="Телефон *" class="requir" /></div><div class="elem"><textarea class="requir" rows="2" name="info" placeholder="Комментарий к заказу"></textarea></div><div class="sbmt"><span class="btn goform">Отправить</span></div><label class="privacy-policy"><input type="checkbox" checked="checked" /><span>Согласен на обработку персональных данных</span></label><input type="hidden" name="data_url" value="" /><input type="hidden" name="product" value="" /><input type="hidden" name="title" value="" /><input type="hidden" name="dopinfo" value="" /></form>';
+    var fastorder_html = '<form onsubmit="return false;"><div class="title"></div><div class="elem"><input type="text" name="name" value="" placeholder="Ваше имя" class="requir"/></div><div class="elem"><input type="text" name="phone" value="" placeholder="Телефон *" class="requir" /></div><div class="elem"><textarea class="requir" rows="2" name="info" placeholder="Комментарий к заказу"></textarea></div><div class="sbmt"><span class="btn">Отправить</span></div><label class="privacy-policy"><input type="checkbox" checked="checked" /><span>Согласен на обработку персональных данных</span></label><input type="hidden" name="data_url" value="" /><input type="hidden" name="product" value="" /><input type="hidden" name="title" value="" /><input type="hidden" name="dopinfo" value="" /></form>';
 
     var callme_html = '<form onsubmit="return false;"><div class="title">Заказать звонок</div><div class="elem"><input type="text" name="name" value="" placeholder="Ваше имя" /></div><div class="elem"><input type="text" name="phone" value="" placeholder="Телефон *" class="requir" /></div><div class="sbmt"><span class="btn goform">Отправить</span></div><label class="privacy-policy"><input type="checkbox" checked="checked" /><span>Согласен на обработку персональных данных</span></label><input type="hidden" name="title" value="Заказ звонка" /></form>';
 
-
+	var login_html = '<form class="auth_phone_form"><input type="hidden" name="route" value="tool/auth/phone"/><div class="title">Войдите или зарегистрируйтесь,<br> чтобы продолжить</div><div class="elem"><input type="text" name="phone" value="" placeholder="Телефон *" class="requir" /></div><div class="sbmt"><button class="btn">Получить код</button></div><br/><p style="text-align:center"><a href="#" class="auth_email_link">Войти через email</a></p></form>';
+	var login_html_email = '<form class="auth_email_form"><input type="hidden" name="route" value="tool/auth/email"/><div class="title">Войдите или зарегистрируйтесь,<br> чтобы продолжить</div><div class="elem"><input type="email" name="email" value="" placeholder="Email *" class="requir" /></div><div class="sbmt"><button class="btn">Получить код</button></div><br/><p style="text-align:center"><a href="#" class="auth_phone_link">Войти через SMS</a></p></form>';
+	var login_html_code = '<form class="auth_code_form"><input type="hidden" name="route" value="tool/auth/code"/><div class="title">Введите код</div><div class="elem"><input type="text" name="code" value="" placeholder="Код *" class="requir" /></div><div class="sbmt"><button class="btn">Подтвердить</button></div></form>';
+	
+	$(document).on("submit", ".auth_phone_form", function(e) {
+		e.preventDefault();
+		let request = $(this).serialize();
+		console.log(request);
+		$.ajax({
+			method: "GET",
+			url:'/',
+			data: request,
+			success: function(response) {
+				if( response.result == 'wait' ) {
+					alert('Время ожидания еще не истекло, отправьте запрос позднее');
+				} else {
+					$('#fastblock').html(login_html_code);
+					ShowImage();
+				}
+			},
+			error: function() {
+				alert('Произошла ошибка, попробуйте отправить запрос позднее');
+			}
+		});
+	});
+	
+	$(document).on("submit", ".auth_email_form", function(e) {
+		e.preventDefault();
+		let request = $(this).serialize();
+		
+		$.ajax({
+			method: "GET",
+			url:'/index.php',
+			data: request,
+			success: function(response) {
+				if( response.result == 'wait' ) {
+					alert('Время ожидания еще не истекло, отправьте запрос позднее');
+				} else {
+					$('#fastblock').html(login_html_code);
+					ShowImage();
+				}
+			},
+			error: function() {
+				alert('Произошла ошибка, попробуйте отправить запрос позднее');
+			}
+		});
+	});
+	
+	let phone_tries = 3;
+	$(document).on("submit", ".auth_code_form", function(e) {
+		e.preventDefault();
+		let request = $(this).serialize();
+		
+		$.ajax({
+			method: "GET",
+			url:'/index.php',
+			data: request,
+			success: function(response) {
+				if( response.result == 'fail' ) {
+					--phone_tries;
+					if( phone_tries > 0 )
+						alert('Введен неверный код. Осталось попыток: ' + phone_tries);
+					else {
+						alert('Истрачены все попытки, отправьте код заново');
+						phone_tries = 3;
+						$('#fastblock').html(login_html);
+						ShowImage();
+					}
+				} else {
+					document.location.reload();
+				}
+			},
+			error: function() {
+				alert('Произошла ошибка, попробуйте отправить запрос позднее');
+			}
+		});
+	});
+	
+	$(document).on('click', '.auth_phone_link', function (e) {
+        e.preventDefault();
+		$('#fastblock').html(login_html);
+        ShowImage();
+    });
+	
+	$(document).on('click', '.auth_email_link', function (e) {
+		e.preventDefault();
+        $('#fastblock').html(login_html_email);
+        ShowImage();
+    });
+	
     $(document).on('click', '.fastorder', function (e) {
         var url = $(this).attr('data-url');
         var name = $(this).attr('data-name');
@@ -165,4 +254,3 @@ function ShowImage() {
     }
 
 }
-

@@ -97,8 +97,8 @@
                 <a class="phone icon" href="tel:<?php echo $phone2; ?>"><?php echo $phone; ?></a>
                 <?php } ?>
             </div>
-            <a class="welcome icon"
-               href="<?php if ($logged) echo $account; else echo $login; ?>"><?php echo $text_account; ?></a>
+            <a class="welcome icon <?php if (!$logged) echo 'auth_phone_link'; ?>"
+               href="<?php if ($logged) echo $account; else echo '#'; ?>"><?php echo $text_account; ?></a>
         </div>
     </div>
     <div id="header">
