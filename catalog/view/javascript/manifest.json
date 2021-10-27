@@ -6,7 +6,7 @@
   "orientation": "landscape",
   "display": "standalone",
   "scope": "/",
-  "start_url": "https://st-spares.ru/",
+  "start_url": "http://localhost/st-spares-current.ru/",
   "lang": "ru",
   "icons": [
     {

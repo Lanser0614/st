@@ -18,6 +18,8 @@ define('DIR_LOGS', '/opt/lampp/htdocs/st-spares-current.ru/system/storage/logs/'
 define('DIR_MODIFICATION', '/opt/lampp/htdocs/st-spares-current.ru/system/storage/modification/');
 define('DIR_UPLOAD', '/opt/lampp/htdocs/st-spares-current.ru/system/storage/upload/');
 define('DIR_COMPONENTS', '/opt/lampp/htdocs/st-spares-current.ru/catalog/components/');
+define('AUTOPITER_LOGIN','498591');
+define('AUTOPITER_PASSWORD','2217838');
 
 // DB
 define('DB_DRIVER', 'mysqli');

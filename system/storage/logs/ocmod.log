@@ -4995,3 +4995,2124 @@ FILE: catalog/controller/information/contact.php
 CODE: $this->response->redirect($this->url->link('information/contact/success'));
 NOT FOUND - OPERATIONS ABORTED!
 ----------------------------------------------------------------
+2021-10-22 13:11:01 - MOD: Modification Default
+
+FILE: system/engine/action.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 41
+
+FILE: system/engine/loader.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 49
+LINE: 108
+LINE: 120
+LINE: 165
+
+FILE: system/library/config.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 23
+
+FILE: system/library/language.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 38
+LINE: 40
+LINE: 49
+LINE: 51
+LINE: 60
+LINE: 62
+
+FILE: system/library/template/php.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 18
+
+FILE: system/library/template/tiwg.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 24
+----------------------------------------------------------------
+MOD: OCdevWizard: Helper for modules
+
+FILE: admin/controller/error/permission.php
+CODE: $ignore = array(
+NOT FOUND - OPERATION SKIPPED!
+
+FILE: admin/controller/startup/permission.php
+CODE: $ignore = array(
+LINE: 41
+CODE: $extension = array(
+LINE: 22
+
+FILE: admin/controller/common/column_left.php
+CODE: $design = array();
+LINE: 223
+
+FILE: admin/language/en-gb/common/column_left.php
+CODE: <?php
+LINE: 5
+
+FILE: admin/language/ru-ru/common/column_left.php
+CODE: <?php
+LINE: 5
+
+FILE: catalog/controller/common/header.php
+CODE: public function index() {
+LINE: 57
+CODE: public function index() {
+LINE: 95
+----------------------------------------------------------------
+MOD: Ocdevwizard: Smart Notification Bar Pro Plus
+
+FILE: admin/controller/user/user_permission.php
+CODE: if (isset($this->request->post['permission']['access'])) {
+LINE: 414
+CODE: $ignore = array(
+NOT FOUND - OPERATION SKIPPED!
+CODE: $ignore = array(
+LINE: 46
+CODE: $ocdevwizard = array();
+LINE: 229
+CODE: <?php
+LINE: 5
+CODE: <?php
+LINE: 5
+
+FILE: catalog/controller/common/footer.php
+CODE: public function index() {
+LINE: 25
+
+FILE: catalog/view/theme/default/template/common/footer.tpl
+CODE: </html>
+LINE: 148
+----------------------------------------------------------------
+MOD: OcStore 2.3.x track number
+
+FILE: admin/controller/sale/order.php
+CODE: $data['shipping_method'] = $order_info['shipping_method'];
+LINE: 575
+LINE: 951
+CODE: public function history() {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: admin/model/sale/order.php
+CODE: $order_query->row['order_id'],
+LINE: 96
+
+FILE: catalog/model/checkout/order.php
+CODE: $order_query->row['order_id'],
+LINE: 310
+
+FILE: admin/view/template/sale/order_info.tpl
+CODE: <td><?php echo $text_reward; ?></td>
+LINE: 140
+CODE: <?php echo $footer; ?>
+LINE: 765
+CODE: $order_query->row['order_id'],
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: catalog/model/account/order.php
+CODE: $order_query->row['order_id'],
+LINE: 52
+
+FILE: catalog/controller/account/order.php
+CODE: if ($order_info['invoice_no']) {
+LINE: 211
+
+FILE: catalog/view/theme/default/template/account/order_info.tpl
+CODE: <b><?php echo $text_shipping_method; ?></b> <?php echo $shipping_method; ?>
+LINE: 40
+----------------------------------------------------------------
+MOD: Blog
+CODE: $extension = array();
+LINE: 200
+
+FILE: catalog/controller/startup/seo_url.php
+CODE: if ($query->row['query'] && $url[0]
+LINE: 55
+CODE: != 'category_id' && $url[0]
+LINE: 55
+CODE: $this->request->get['route'] = 'product/product';
+LINE: 77
+CODE: $this->request->get['route'] = 'product/category';
+LINE: 83
+CODE: ($data['route'] == 'information/information' && $key == 'information_id'))
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: catalog/controller/startup/seo_pro.php
+CODE: $this->request->get['route'] = 'information/information';
+LINE: 107
+CODE: case 'product/product':
+LINE: 293
+CODE: case 'product/product/review':
+LINE: 328
+CODE: case 'order_id':
+LINE: 365
+CODE: case 'path':
+LINE: 400
+CODE: private function getPathByProduct($product_id) {
+LINE: 593
+
+FILE: catalog/controller/extension/feed/google_sitemap.php
+CODE: $output .= '</urlset>';
+LINE: 98
+
+FILE: catalog/controller/information/sitemap.php
+CODE: $this->load->model('catalog/information');
+LINE: 119
+
+FILE: catalog/view/theme/default/template/information/sitemap.tpl
+CODE: <?php echo $content_bottom; ?>
+LINE: 121
+
+FILE: catalog/controller/common/content_top.php
+CODE: $layout_id = 0;
+LINE: 17
+
+FILE: catalog/controller/common/content_bottom.php
+CODE: $layout_id = 0;
+LINE: 17
+
+FILE: catalog/controller/common/column_left.php
+CODE: $layout_id = 0;
+LINE: 17
+
+FILE: catalog/controller/common/column_right.php
+CODE: $layout_id = 0;
+LINE: 17
+----------------------------------------------------------------
+MOD: Export/Import Tool (V3.20) for Ocstore 2.x
+CODE: if ($this->user->hasPermission('access', 'tool/log')) {
+LINE: 709
+CODE: $_['text_backup']
+LINE: 19
+CODE: $_['text_backup']
+LINE: 19
+----------------------------------------------------------------
+MOD: FAQ Для Алексей
+CODE: // Marketing
+LINE: 463
+CODE: $_['text_paypal_search']             = 'Search';
+LINE: 116
+CODE: // Text
+LINE: 15
+CODE: <?php foreach ($informations as $information) { ?>
+NOT FOUND - OPERATIONS ABORTED!
+CODE: $data['informations'] = array();
+NOT FOUND - OPERATIONS ABORTED!
+----------------------------------------------------------------
+MOD: FX Manufacturers AddOn
+
+FILE: catalog/controller/product/category.php
+CODE: $data['sort'] = $sort;
+LINE: 457
+CODE: if (isset($this->request->get['filter'])) {
+LINE: 23
+LINE: 194
+LINE: 346
+LINE: 396
+LINE: 431
+LINE: 520
+----------------------------------------------------------------
+MOD: FX Yandex noindex addon
+
+FILE: admin/view/template/extension/module/fx.tpl
+CODE: if (!$fx_noindex_addon)
+LINE: 945
+----------------------------------------------------------------
+MOD: Google SC Bug Fix: site.com/fx-sitemap/
+
+FILE: catalog/controller/extension/feed/fx_sitemap.php
+CODE: $host . 'index.php?route=extension/feed/fx_sitemap&amp;part=
+LINE: 184
+LINE: 208
+CODE: protected function goSitemap($url){
+LINE: 763
+CODE: href="../
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: admin/view/template/extension/module/fx_sitemap.tpl
+CODE: <?php echo $footer; ?>
+LINE: 1036
+----------------------------------------------------------------
+MOD: Newsletter Subscribe
+
+FILE: catalog/model/account/customer.php
+CODE: $customer_id = $this->db->getLastId();
+LINE: 91
+CODE: public function editNewsletter($newsletter) {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: admin/model/catalog/product.php
+CODE: 'p.sort_order'
+LINE: 409
+----------------------------------------------------------------
+MOD: Opencart Shopping Cart REST API
+CODE: class ModelAccountCustomer extends Model {
+NOT FOUND - OPERATIONS ABORTED!
+CODE: class ModelAccountOrder extends Model {
+LINE: 272
+
+FILE: catalog/model/catalog/product.php
+CODE: class ModelCatalogProduct extends Model {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: catalog/model/catalog/category.php
+CODE: public function getCategory($category_id) {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: system/library/cart/currency.php
+CODE: public function has($currency) {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: system/library/session.php
+CODE: if ($this->adaptor && !session_id()) {
+NOT FOUND - OPERATIONS ABORTED!
+----------------------------------------------------------------
+MOD: qiwiwpro
+
+FILE: catalog/view/theme/default/template/account/order_list.tpl
+CODE: <?php foreach ($orders as $order) { ?>
+LINE: 35
+CODE: $data['orders'][] = array(
+LINE: 96
+CODE: $data['orders'][] = array(
+LINE: 102
+CODE: // Voucher
+LINE: 371
+CODE: $this->response->setOutput($this->load->view('sale/order_info', $data));
+LINE: 1374
+CODE: <div id="history"></div>
+LINE: 294
+CODE: $order_info = $this->getOrder($order_id);
+LINE: 476
+----------------------------------------------------------------
+MOD: Запрос менеджеру
+
+FILE: admin/controller/common/header.php
+CODE: $data['logout'] = $this->url->link('common/logout', 'token=' . $this->session->data['token'], true);
+LINE: 59
+
+FILE: admin/view/template/common/header.tpl
+CODE: <ul class="nav pull-right">
+LINE: 45
+
+FILE: catalog/controller/information/contact.php
+CODE: $this->response->redirect($this->url->link('information/contact/success'));
+NOT FOUND - OPERATIONS ABORTED!
+----------------------------------------------------------------
+2021-10-22 13:12:18 - MOD: Modification Default
+
+FILE: system/engine/action.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 41
+
+FILE: system/engine/loader.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 49
+LINE: 108
+LINE: 120
+LINE: 165
+
+FILE: system/library/config.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 23
+
+FILE: system/library/language.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 38
+LINE: 40
+LINE: 49
+LINE: 51
+LINE: 60
+LINE: 62
+
+FILE: system/library/template/php.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 18
+
+FILE: system/library/template/tiwg.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 24
+----------------------------------------------------------------
+MOD: OCdevWizard: Helper for modules
+
+FILE: admin/controller/error/permission.php
+CODE: $ignore = array(
+NOT FOUND - OPERATION SKIPPED!
+
+FILE: admin/controller/startup/permission.php
+CODE: $ignore = array(
+LINE: 41
+CODE: $extension = array(
+LINE: 22
+
+FILE: admin/controller/common/column_left.php
+CODE: $design = array();
+LINE: 223
+
+FILE: admin/language/en-gb/common/column_left.php
+CODE: <?php
+LINE: 5
+
+FILE: admin/language/ru-ru/common/column_left.php
+CODE: <?php
+LINE: 5
+
+FILE: catalog/controller/common/header.php
+CODE: public function index() {
+LINE: 57
+CODE: public function index() {
+LINE: 95
+----------------------------------------------------------------
+MOD: Ocdevwizard: Smart Notification Bar Pro Plus
+
+FILE: admin/controller/user/user_permission.php
+CODE: if (isset($this->request->post['permission']['access'])) {
+LINE: 414
+CODE: $ignore = array(
+NOT FOUND - OPERATION SKIPPED!
+CODE: $ignore = array(
+LINE: 46
+CODE: $ocdevwizard = array();
+LINE: 229
+CODE: <?php
+LINE: 5
+CODE: <?php
+LINE: 5
+
+FILE: catalog/controller/common/footer.php
+CODE: public function index() {
+LINE: 25
+
+FILE: catalog/view/theme/default/template/common/footer.tpl
+CODE: </html>
+LINE: 148
+----------------------------------------------------------------
+MOD: OcStore 2.3.x track number
+
+FILE: admin/controller/sale/order.php
+CODE: $data['shipping_method'] = $order_info['shipping_method'];
+LINE: 575
+LINE: 951
+CODE: public function history() {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: admin/model/sale/order.php
+CODE: $order_query->row['order_id'],
+LINE: 96
+
+FILE: catalog/model/checkout/order.php
+CODE: $order_query->row['order_id'],
+LINE: 310
+
+FILE: admin/view/template/sale/order_info.tpl
+CODE: <td><?php echo $text_reward; ?></td>
+LINE: 140
+CODE: <?php echo $footer; ?>
+LINE: 765
+CODE: $order_query->row['order_id'],
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: catalog/model/account/order.php
+CODE: $order_query->row['order_id'],
+LINE: 52
+
+FILE: catalog/controller/account/order.php
+CODE: if ($order_info['invoice_no']) {
+LINE: 211
+
+FILE: catalog/view/theme/default/template/account/order_info.tpl
+CODE: <b><?php echo $text_shipping_method; ?></b> <?php echo $shipping_method; ?>
+LINE: 40
+----------------------------------------------------------------
+MOD: Blog
+CODE: $extension = array();
+LINE: 200
+
+FILE: catalog/controller/startup/seo_url.php
+CODE: if ($query->row['query'] && $url[0]
+LINE: 55
+CODE: != 'category_id' && $url[0]
+LINE: 55
+CODE: $this->request->get['route'] = 'product/product';
+LINE: 77
+CODE: $this->request->get['route'] = 'product/category';
+LINE: 83
+CODE: ($data['route'] == 'information/information' && $key == 'information_id'))
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: catalog/controller/startup/seo_pro.php
+CODE: $this->request->get['route'] = 'information/information';
+LINE: 107
+CODE: case 'product/product':
+LINE: 293
+CODE: case 'product/product/review':
+LINE: 328
+CODE: case 'order_id':
+LINE: 365
+CODE: case 'path':
+LINE: 400
+CODE: private function getPathByProduct($product_id) {
+LINE: 593
+
+FILE: catalog/controller/extension/feed/google_sitemap.php
+CODE: $output .= '</urlset>';
+LINE: 98
+
+FILE: catalog/controller/information/sitemap.php
+CODE: $this->load->model('catalog/information');
+LINE: 119
+
+FILE: catalog/view/theme/default/template/information/sitemap.tpl
+CODE: <?php echo $content_bottom; ?>
+LINE: 121
+
+FILE: catalog/controller/common/content_top.php
+CODE: $layout_id = 0;
+LINE: 17
+
+FILE: catalog/controller/common/content_bottom.php
+CODE: $layout_id = 0;
+LINE: 17
+
+FILE: catalog/controller/common/column_left.php
+CODE: $layout_id = 0;
+LINE: 17
+
+FILE: catalog/controller/common/column_right.php
+CODE: $layout_id = 0;
+LINE: 17
+----------------------------------------------------------------
+MOD: Export/Import Tool (V3.20) for Ocstore 2.x
+CODE: if ($this->user->hasPermission('access', 'tool/log')) {
+LINE: 709
+CODE: $_['text_backup']
+LINE: 19
+CODE: $_['text_backup']
+LINE: 19
+----------------------------------------------------------------
+MOD: FAQ Для Алексей
+CODE: // Marketing
+LINE: 463
+CODE: $_['text_paypal_search']             = 'Search';
+LINE: 116
+CODE: // Text
+LINE: 15
+CODE: <?php foreach ($informations as $information) { ?>
+NOT FOUND - OPERATIONS ABORTED!
+CODE: $data['informations'] = array();
+NOT FOUND - OPERATIONS ABORTED!
+----------------------------------------------------------------
+MOD: FX Manufacturers AddOn
+
+FILE: catalog/controller/product/category.php
+CODE: $data['sort'] = $sort;
+LINE: 457
+CODE: if (isset($this->request->get['filter'])) {
+LINE: 23
+LINE: 194
+LINE: 346
+LINE: 396
+LINE: 431
+LINE: 520
+----------------------------------------------------------------
+MOD: FX Yandex noindex addon
+
+FILE: admin/view/template/extension/module/fx.tpl
+CODE: if (!$fx_noindex_addon)
+LINE: 945
+----------------------------------------------------------------
+MOD: Google SC Bug Fix: site.com/fx-sitemap/
+
+FILE: catalog/controller/extension/feed/fx_sitemap.php
+CODE: $host . 'index.php?route=extension/feed/fx_sitemap&amp;part=
+LINE: 184
+LINE: 208
+CODE: protected function goSitemap($url){
+LINE: 763
+CODE: href="../
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: admin/view/template/extension/module/fx_sitemap.tpl
+CODE: <?php echo $footer; ?>
+LINE: 1036
+----------------------------------------------------------------
+MOD: Newsletter Subscribe
+
+FILE: catalog/model/account/customer.php
+CODE: $customer_id = $this->db->getLastId();
+LINE: 91
+CODE: public function editNewsletter($newsletter) {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: admin/model/catalog/product.php
+CODE: 'p.sort_order'
+LINE: 409
+----------------------------------------------------------------
+MOD: Opencart Shopping Cart REST API
+CODE: class ModelAccountCustomer extends Model {
+NOT FOUND - OPERATIONS ABORTED!
+CODE: class ModelAccountOrder extends Model {
+LINE: 272
+
+FILE: catalog/model/catalog/product.php
+CODE: class ModelCatalogProduct extends Model {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: catalog/model/catalog/category.php
+CODE: public function getCategory($category_id) {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: system/library/cart/currency.php
+CODE: public function has($currency) {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: system/library/session.php
+CODE: if ($this->adaptor && !session_id()) {
+NOT FOUND - OPERATIONS ABORTED!
+----------------------------------------------------------------
+MOD: qiwiwpro
+
+FILE: catalog/view/theme/default/template/account/order_list.tpl
+CODE: <?php foreach ($orders as $order) { ?>
+LINE: 35
+CODE: $data['orders'][] = array(
+LINE: 96
+CODE: $data['orders'][] = array(
+LINE: 102
+CODE: // Voucher
+LINE: 371
+CODE: $this->response->setOutput($this->load->view('sale/order_info', $data));
+LINE: 1374
+CODE: <div id="history"></div>
+LINE: 294
+CODE: $order_info = $this->getOrder($order_id);
+LINE: 476
+----------------------------------------------------------------
+MOD: Запрос менеджеру
+
+FILE: admin/controller/common/header.php
+CODE: $data['logout'] = $this->url->link('common/logout', 'token=' . $this->session->data['token'], true);
+LINE: 59
+
+FILE: admin/view/template/common/header.tpl
+CODE: <ul class="nav pull-right">
+LINE: 45
+
+FILE: catalog/controller/information/contact.php
+CODE: $this->response->redirect($this->url->link('information/contact/success'));
+NOT FOUND - OPERATIONS ABORTED!
+----------------------------------------------------------------
+2021-10-25 13:53:40 - MOD: Modification Default
+
+FILE: system/engine/action.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 41
+
+FILE: system/engine/loader.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 49
+LINE: 108
+LINE: 120
+LINE: 165
+
+FILE: system/library/config.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 23
+
+FILE: system/library/language.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 38
+LINE: 40
+LINE: 49
+LINE: 51
+LINE: 60
+LINE: 62
+
+FILE: system/library/template/php.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 18
+
+FILE: system/library/template/tiwg.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 24
+----------------------------------------------------------------
+MOD: OCdevWizard: Helper for modules
+
+FILE: admin/controller/error/permission.php
+CODE: $ignore = array(
+NOT FOUND - OPERATION SKIPPED!
+
+FILE: admin/controller/startup/permission.php
+CODE: $ignore = array(
+LINE: 41
+CODE: $extension = array(
+LINE: 22
+
+FILE: admin/controller/common/column_left.php
+CODE: $design = array();
+LINE: 223
+
+FILE: admin/language/en-gb/common/column_left.php
+CODE: <?php
+LINE: 5
+
+FILE: admin/language/ru-ru/common/column_left.php
+CODE: <?php
+LINE: 5
+
+FILE: catalog/controller/common/header.php
+CODE: public function index() {
+LINE: 57
+CODE: public function index() {
+LINE: 95
+----------------------------------------------------------------
+MOD: Ocdevwizard: Smart Notification Bar Pro Plus
+
+FILE: admin/controller/user/user_permission.php
+CODE: if (isset($this->request->post['permission']['access'])) {
+LINE: 414
+CODE: $ignore = array(
+NOT FOUND - OPERATION SKIPPED!
+CODE: $ignore = array(
+LINE: 46
+CODE: $ocdevwizard = array();
+LINE: 229
+CODE: <?php
+LINE: 5
+CODE: <?php
+LINE: 5
+
+FILE: catalog/controller/common/footer.php
+CODE: public function index() {
+LINE: 25
+
+FILE: catalog/view/theme/default/template/common/footer.tpl
+CODE: </html>
+LINE: 148
+----------------------------------------------------------------
+MOD: OcStore 2.3.x track number
+
+FILE: admin/controller/sale/order.php
+CODE: $data['shipping_method'] = $order_info['shipping_method'];
+LINE: 575
+LINE: 951
+CODE: public function history() {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: admin/model/sale/order.php
+CODE: $order_query->row['order_id'],
+LINE: 96
+
+FILE: catalog/model/checkout/order.php
+CODE: $order_query->row['order_id'],
+LINE: 310
+
+FILE: admin/view/template/sale/order_info.tpl
+CODE: <td><?php echo $text_reward; ?></td>
+LINE: 140
+CODE: <?php echo $footer; ?>
+LINE: 765
+CODE: $order_query->row['order_id'],
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: catalog/model/account/order.php
+CODE: $order_query->row['order_id'],
+LINE: 52
+
+FILE: catalog/controller/account/order.php
+CODE: if ($order_info['invoice_no']) {
+LINE: 211
+
+FILE: catalog/view/theme/default/template/account/order_info.tpl
+CODE: <b><?php echo $text_shipping_method; ?></b> <?php echo $shipping_method; ?>
+LINE: 40
+----------------------------------------------------------------
+MOD: Blog
+CODE: $extension = array();
+LINE: 200
+
+FILE: catalog/controller/startup/seo_url.php
+CODE: if ($query->row['query'] && $url[0]
+LINE: 55
+CODE: != 'category_id' && $url[0]
+LINE: 55
+CODE: $this->request->get['route'] = 'product/product';
+LINE: 77
+CODE: $this->request->get['route'] = 'product/category';
+LINE: 83
+CODE: ($data['route'] == 'information/information' && $key == 'information_id'))
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: catalog/controller/startup/seo_pro.php
+CODE: $this->request->get['route'] = 'information/information';
+LINE: 107
+CODE: case 'product/product':
+LINE: 293
+CODE: case 'product/product/review':
+LINE: 328
+CODE: case 'order_id':
+LINE: 365
+CODE: case 'path':
+LINE: 400
+CODE: private function getPathByProduct($product_id) {
+LINE: 593
+
+FILE: catalog/controller/extension/feed/google_sitemap.php
+CODE: $output .= '</urlset>';
+LINE: 98
+
+FILE: catalog/controller/information/sitemap.php
+CODE: $this->load->model('catalog/information');
+LINE: 119
+
+FILE: catalog/view/theme/default/template/information/sitemap.tpl
+CODE: <?php echo $content_bottom; ?>
+LINE: 121
+
+FILE: catalog/controller/common/content_top.php
+CODE: $layout_id = 0;
+LINE: 17
+
+FILE: catalog/controller/common/content_bottom.php
+CODE: $layout_id = 0;
+LINE: 17
+
+FILE: catalog/controller/common/column_left.php
+CODE: $layout_id = 0;
+LINE: 17
+
+FILE: catalog/controller/common/column_right.php
+CODE: $layout_id = 0;
+LINE: 17
+----------------------------------------------------------------
+MOD: Export/Import Tool (V3.20) for Ocstore 2.x
+CODE: if ($this->user->hasPermission('access', 'tool/log')) {
+LINE: 709
+CODE: $_['text_backup']
+LINE: 19
+CODE: $_['text_backup']
+LINE: 19
+----------------------------------------------------------------
+MOD: FAQ Для Алексей
+CODE: // Marketing
+LINE: 463
+CODE: $_['text_paypal_search']             = 'Search';
+LINE: 116
+CODE: // Text
+LINE: 15
+CODE: <?php foreach ($informations as $information) { ?>
+NOT FOUND - OPERATIONS ABORTED!
+CODE: $data['informations'] = array();
+NOT FOUND - OPERATIONS ABORTED!
+----------------------------------------------------------------
+MOD: FX Manufacturers AddOn
+
+FILE: catalog/controller/product/category.php
+CODE: $data['sort'] = $sort;
+LINE: 456
+CODE: if (isset($this->request->get['filter'])) {
+LINE: 23
+LINE: 194
+LINE: 345
+LINE: 395
+LINE: 430
+LINE: 519
+----------------------------------------------------------------
+MOD: FX Yandex noindex addon
+
+FILE: admin/view/template/extension/module/fx.tpl
+CODE: if (!$fx_noindex_addon)
+LINE: 945
+----------------------------------------------------------------
+MOD: Google SC Bug Fix: site.com/fx-sitemap/
+
+FILE: catalog/controller/extension/feed/fx_sitemap.php
+CODE: $host . 'index.php?route=extension/feed/fx_sitemap&amp;part=
+LINE: 184
+LINE: 208
+CODE: protected function goSitemap($url){
+LINE: 763
+CODE: href="../
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: admin/view/template/extension/module/fx_sitemap.tpl
+CODE: <?php echo $footer; ?>
+LINE: 1036
+----------------------------------------------------------------
+MOD: Newsletter Subscribe
+
+FILE: catalog/model/account/customer.php
+CODE: $customer_id = $this->db->getLastId();
+LINE: 91
+CODE: public function editNewsletter($newsletter) {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: admin/model/catalog/product.php
+CODE: 'p.sort_order'
+LINE: 409
+----------------------------------------------------------------
+MOD: Opencart Shopping Cart REST API
+CODE: class ModelAccountCustomer extends Model {
+NOT FOUND - OPERATIONS ABORTED!
+CODE: class ModelAccountOrder extends Model {
+LINE: 272
+
+FILE: catalog/model/catalog/product.php
+CODE: class ModelCatalogProduct extends Model {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: catalog/model/catalog/category.php
+CODE: public function getCategory($category_id) {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: system/library/cart/currency.php
+CODE: public function has($currency) {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: system/library/session.php
+CODE: if ($this->adaptor && !session_id()) {
+NOT FOUND - OPERATIONS ABORTED!
+----------------------------------------------------------------
+MOD: qiwiwpro
+
+FILE: catalog/view/theme/default/template/account/order_list.tpl
+CODE: <?php foreach ($orders as $order) { ?>
+LINE: 35
+CODE: $data['orders'][] = array(
+LINE: 96
+CODE: $data['orders'][] = array(
+LINE: 102
+CODE: // Voucher
+LINE: 371
+CODE: $this->response->setOutput($this->load->view('sale/order_info', $data));
+LINE: 1374
+CODE: <div id="history"></div>
+LINE: 294
+CODE: $order_info = $this->getOrder($order_id);
+LINE: 476
+----------------------------------------------------------------
+MOD: Запрос менеджеру
+
+FILE: admin/controller/common/header.php
+CODE: $data['logout'] = $this->url->link('common/logout', 'token=' . $this->session->data['token'], true);
+LINE: 59
+
+FILE: admin/view/template/common/header.tpl
+CODE: <ul class="nav pull-right">
+LINE: 45
+
+FILE: catalog/controller/information/contact.php
+CODE: $this->response->redirect($this->url->link('information/contact/success'));
+NOT FOUND - OPERATIONS ABORTED!
+----------------------------------------------------------------
+2021-10-25 13:53:44 - MOD: Modification Default
+
+FILE: system/engine/action.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 41
+
+FILE: system/engine/loader.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 49
+LINE: 108
+LINE: 120
+LINE: 165
+
+FILE: system/library/config.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 23
+
+FILE: system/library/language.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 38
+LINE: 40
+LINE: 49
+LINE: 51
+LINE: 60
+LINE: 62
+
+FILE: system/library/template/php.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 18
+
+FILE: system/library/template/tiwg.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 24
+----------------------------------------------------------------
+MOD: OCdevWizard: Helper for modules
+
+FILE: admin/controller/error/permission.php
+CODE: $ignore = array(
+NOT FOUND - OPERATION SKIPPED!
+
+FILE: admin/controller/startup/permission.php
+CODE: $ignore = array(
+LINE: 41
+CODE: $extension = array(
+LINE: 22
+
+FILE: admin/controller/common/column_left.php
+CODE: $design = array();
+LINE: 223
+
+FILE: admin/language/en-gb/common/column_left.php
+CODE: <?php
+LINE: 5
+
+FILE: admin/language/ru-ru/common/column_left.php
+CODE: <?php
+LINE: 5
+
+FILE: catalog/controller/common/header.php
+CODE: public function index() {
+LINE: 57
+CODE: public function index() {
+LINE: 95
+----------------------------------------------------------------
+MOD: Ocdevwizard: Smart Notification Bar Pro Plus
+
+FILE: admin/controller/user/user_permission.php
+CODE: if (isset($this->request->post['permission']['access'])) {
+LINE: 414
+CODE: $ignore = array(
+NOT FOUND - OPERATION SKIPPED!
+CODE: $ignore = array(
+LINE: 46
+CODE: $ocdevwizard = array();
+LINE: 229
+CODE: <?php
+LINE: 5
+CODE: <?php
+LINE: 5
+
+FILE: catalog/controller/common/footer.php
+CODE: public function index() {
+LINE: 25
+
+FILE: catalog/view/theme/default/template/common/footer.tpl
+CODE: </html>
+LINE: 148
+----------------------------------------------------------------
+MOD: OcStore 2.3.x track number
+
+FILE: admin/controller/sale/order.php
+CODE: $data['shipping_method'] = $order_info['shipping_method'];
+LINE: 575
+LINE: 951
+CODE: public function history() {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: admin/model/sale/order.php
+CODE: $order_query->row['order_id'],
+LINE: 96
+
+FILE: catalog/model/checkout/order.php
+CODE: $order_query->row['order_id'],
+LINE: 310
+
+FILE: admin/view/template/sale/order_info.tpl
+CODE: <td><?php echo $text_reward; ?></td>
+LINE: 140
+CODE: <?php echo $footer; ?>
+LINE: 765
+CODE: $order_query->row['order_id'],
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: catalog/model/account/order.php
+CODE: $order_query->row['order_id'],
+LINE: 52
+
+FILE: catalog/controller/account/order.php
+CODE: if ($order_info['invoice_no']) {
+LINE: 211
+
+FILE: catalog/view/theme/default/template/account/order_info.tpl
+CODE: <b><?php echo $text_shipping_method; ?></b> <?php echo $shipping_method; ?>
+LINE: 40
+----------------------------------------------------------------
+MOD: Blog
+CODE: $extension = array();
+LINE: 200
+
+FILE: catalog/controller/startup/seo_url.php
+CODE: if ($query->row['query'] && $url[0]
+LINE: 55
+CODE: != 'category_id' && $url[0]
+LINE: 55
+CODE: $this->request->get['route'] = 'product/product';
+LINE: 77
+CODE: $this->request->get['route'] = 'product/category';
+LINE: 83
+CODE: ($data['route'] == 'information/information' && $key == 'information_id'))
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: catalog/controller/startup/seo_pro.php
+CODE: $this->request->get['route'] = 'information/information';
+LINE: 107
+CODE: case 'product/product':
+LINE: 293
+CODE: case 'product/product/review':
+LINE: 328
+CODE: case 'order_id':
+LINE: 365
+CODE: case 'path':
+LINE: 400
+CODE: private function getPathByProduct($product_id) {
+LINE: 593
+
+FILE: catalog/controller/extension/feed/google_sitemap.php
+CODE: $output .= '</urlset>';
+LINE: 98
+
+FILE: catalog/controller/information/sitemap.php
+CODE: $this->load->model('catalog/information');
+LINE: 119
+
+FILE: catalog/view/theme/default/template/information/sitemap.tpl
+CODE: <?php echo $content_bottom; ?>
+LINE: 121
+
+FILE: catalog/controller/common/content_top.php
+CODE: $layout_id = 0;
+LINE: 17
+
+FILE: catalog/controller/common/content_bottom.php
+CODE: $layout_id = 0;
+LINE: 17
+
+FILE: catalog/controller/common/column_left.php
+CODE: $layout_id = 0;
+LINE: 17
+
+FILE: catalog/controller/common/column_right.php
+CODE: $layout_id = 0;
+LINE: 17
+----------------------------------------------------------------
+MOD: Export/Import Tool (V3.20) for Ocstore 2.x
+CODE: if ($this->user->hasPermission('access', 'tool/log')) {
+LINE: 709
+CODE: $_['text_backup']
+LINE: 19
+CODE: $_['text_backup']
+LINE: 19
+----------------------------------------------------------------
+MOD: FAQ Для Алексей
+CODE: // Marketing
+LINE: 463
+CODE: $_['text_paypal_search']             = 'Search';
+LINE: 116
+CODE: // Text
+LINE: 15
+CODE: <?php foreach ($informations as $information) { ?>
+NOT FOUND - OPERATIONS ABORTED!
+CODE: $data['informations'] = array();
+NOT FOUND - OPERATIONS ABORTED!
+----------------------------------------------------------------
+MOD: FX Manufacturers AddOn
+
+FILE: catalog/controller/product/category.php
+CODE: $data['sort'] = $sort;
+LINE: 456
+CODE: if (isset($this->request->get['filter'])) {
+LINE: 23
+LINE: 194
+LINE: 345
+LINE: 395
+LINE: 430
+LINE: 519
+----------------------------------------------------------------
+MOD: FX Yandex noindex addon
+
+FILE: admin/view/template/extension/module/fx.tpl
+CODE: if (!$fx_noindex_addon)
+LINE: 945
+----------------------------------------------------------------
+MOD: Google SC Bug Fix: site.com/fx-sitemap/
+
+FILE: catalog/controller/extension/feed/fx_sitemap.php
+CODE: $host . 'index.php?route=extension/feed/fx_sitemap&amp;part=
+LINE: 184
+LINE: 208
+CODE: protected function goSitemap($url){
+LINE: 763
+CODE: href="../
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: admin/view/template/extension/module/fx_sitemap.tpl
+CODE: <?php echo $footer; ?>
+LINE: 1036
+----------------------------------------------------------------
+MOD: Newsletter Subscribe
+
+FILE: catalog/model/account/customer.php
+CODE: $customer_id = $this->db->getLastId();
+LINE: 91
+CODE: public function editNewsletter($newsletter) {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: admin/model/catalog/product.php
+CODE: 'p.sort_order'
+LINE: 409
+----------------------------------------------------------------
+MOD: Opencart Shopping Cart REST API
+CODE: class ModelAccountCustomer extends Model {
+NOT FOUND - OPERATIONS ABORTED!
+CODE: class ModelAccountOrder extends Model {
+LINE: 272
+
+FILE: catalog/model/catalog/product.php
+CODE: class ModelCatalogProduct extends Model {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: catalog/model/catalog/category.php
+CODE: public function getCategory($category_id) {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: system/library/cart/currency.php
+CODE: public function has($currency) {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: system/library/session.php
+CODE: if ($this->adaptor && !session_id()) {
+NOT FOUND - OPERATIONS ABORTED!
+----------------------------------------------------------------
+MOD: qiwiwpro
+
+FILE: catalog/view/theme/default/template/account/order_list.tpl
+CODE: <?php foreach ($orders as $order) { ?>
+LINE: 35
+CODE: $data['orders'][] = array(
+LINE: 96
+CODE: $data['orders'][] = array(
+LINE: 102
+CODE: // Voucher
+LINE: 371
+CODE: $this->response->setOutput($this->load->view('sale/order_info', $data));
+LINE: 1374
+CODE: <div id="history"></div>
+LINE: 294
+CODE: $order_info = $this->getOrder($order_id);
+LINE: 476
+----------------------------------------------------------------
+MOD: Запрос менеджеру
+
+FILE: admin/controller/common/header.php
+CODE: $data['logout'] = $this->url->link('common/logout', 'token=' . $this->session->data['token'], true);
+LINE: 59
+
+FILE: admin/view/template/common/header.tpl
+CODE: <ul class="nav pull-right">
+LINE: 45
+
+FILE: catalog/controller/information/contact.php
+CODE: $this->response->redirect($this->url->link('information/contact/success'));
+NOT FOUND - OPERATIONS ABORTED!
+----------------------------------------------------------------
+2021-10-26 8:45:15 - MOD: Modification Default
+
+FILE: system/engine/action.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 41
+
+FILE: system/engine/loader.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 49
+LINE: 108
+LINE: 120
+LINE: 165
+
+FILE: system/library/config.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 23
+
+FILE: system/library/language.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 38
+LINE: 40
+LINE: 49
+LINE: 51
+LINE: 60
+LINE: 62
+
+FILE: system/library/template/php.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 18
+
+FILE: system/library/template/tiwg.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 24
+----------------------------------------------------------------
+MOD: OCdevWizard: Helper for modules
+
+FILE: admin/controller/error/permission.php
+CODE: $ignore = array(
+NOT FOUND - OPERATION SKIPPED!
+
+FILE: admin/controller/startup/permission.php
+CODE: $ignore = array(
+LINE: 41
+CODE: $extension = array(
+LINE: 22
+
+FILE: admin/controller/common/column_left.php
+CODE: $design = array();
+LINE: 223
+
+FILE: admin/language/en-gb/common/column_left.php
+CODE: <?php
+LINE: 5
+
+FILE: admin/language/ru-ru/common/column_left.php
+CODE: <?php
+LINE: 5
+
+FILE: catalog/controller/common/header.php
+CODE: public function index() {
+LINE: 57
+CODE: public function index() {
+LINE: 95
+----------------------------------------------------------------
+MOD: Ocdevwizard: Smart Notification Bar Pro Plus
+
+FILE: admin/controller/user/user_permission.php
+CODE: if (isset($this->request->post['permission']['access'])) {
+LINE: 414
+CODE: $ignore = array(
+NOT FOUND - OPERATION SKIPPED!
+CODE: $ignore = array(
+LINE: 46
+CODE: $ocdevwizard = array();
+LINE: 229
+CODE: <?php
+LINE: 5
+CODE: <?php
+LINE: 5
+
+FILE: catalog/controller/common/footer.php
+CODE: public function index() {
+LINE: 25
+
+FILE: catalog/view/theme/default/template/common/footer.tpl
+CODE: </html>
+LINE: 148
+----------------------------------------------------------------
+MOD: OcStore 2.3.x track number
+
+FILE: admin/controller/sale/order.php
+CODE: $data['shipping_method'] = $order_info['shipping_method'];
+LINE: 575
+LINE: 951
+CODE: public function history() {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: admin/model/sale/order.php
+CODE: $order_query->row['order_id'],
+LINE: 96
+
+FILE: catalog/model/checkout/order.php
+CODE: $order_query->row['order_id'],
+LINE: 310
+
+FILE: admin/view/template/sale/order_info.tpl
+CODE: <td><?php echo $text_reward; ?></td>
+LINE: 140
+CODE: <?php echo $footer; ?>
+LINE: 765
+CODE: $order_query->row['order_id'],
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: catalog/model/account/order.php
+CODE: $order_query->row['order_id'],
+LINE: 52
+
+FILE: catalog/controller/account/order.php
+CODE: if ($order_info['invoice_no']) {
+LINE: 211
+
+FILE: catalog/view/theme/default/template/account/order_info.tpl
+CODE: <b><?php echo $text_shipping_method; ?></b> <?php echo $shipping_method; ?>
+LINE: 40
+----------------------------------------------------------------
+MOD: Blog
+CODE: $extension = array();
+LINE: 200
+
+FILE: catalog/controller/startup/seo_url.php
+CODE: if ($query->row['query'] && $url[0]
+LINE: 55
+CODE: != 'category_id' && $url[0]
+LINE: 55
+CODE: $this->request->get['route'] = 'product/product';
+LINE: 77
+CODE: $this->request->get['route'] = 'product/category';
+LINE: 83
+CODE: ($data['route'] == 'information/information' && $key == 'information_id'))
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: catalog/controller/startup/seo_pro.php
+CODE: $this->request->get['route'] = 'information/information';
+LINE: 107
+CODE: case 'product/product':
+LINE: 293
+CODE: case 'product/product/review':
+LINE: 328
+CODE: case 'order_id':
+LINE: 365
+CODE: case 'path':
+LINE: 400
+CODE: private function getPathByProduct($product_id) {
+LINE: 593
+
+FILE: catalog/controller/extension/feed/google_sitemap.php
+CODE: $output .= '</urlset>';
+LINE: 98
+
+FILE: catalog/controller/information/sitemap.php
+CODE: $this->load->model('catalog/information');
+LINE: 119
+
+FILE: catalog/view/theme/default/template/information/sitemap.tpl
+CODE: <?php echo $content_bottom; ?>
+LINE: 121
+
+FILE: catalog/controller/common/content_top.php
+CODE: $layout_id = 0;
+LINE: 17
+
+FILE: catalog/controller/common/content_bottom.php
+CODE: $layout_id = 0;
+LINE: 17
+
+FILE: catalog/controller/common/column_left.php
+CODE: $layout_id = 0;
+LINE: 17
+
+FILE: catalog/controller/common/column_right.php
+CODE: $layout_id = 0;
+LINE: 17
+----------------------------------------------------------------
+MOD: Export/Import Tool (V3.20) for Ocstore 2.x
+CODE: if ($this->user->hasPermission('access', 'tool/log')) {
+LINE: 709
+CODE: $_['text_backup']
+LINE: 19
+CODE: $_['text_backup']
+LINE: 19
+----------------------------------------------------------------
+MOD: FAQ Для Алексей
+CODE: // Marketing
+LINE: 463
+CODE: $_['text_paypal_search']             = 'Search';
+LINE: 116
+CODE: // Text
+LINE: 15
+CODE: <?php foreach ($informations as $information) { ?>
+NOT FOUND - OPERATIONS ABORTED!
+CODE: $data['informations'] = array();
+NOT FOUND - OPERATIONS ABORTED!
+----------------------------------------------------------------
+MOD: FX Manufacturers AddOn
+
+FILE: catalog/controller/product/category.php
+CODE: $data['sort'] = $sort;
+LINE: 457
+CODE: if (isset($this->request->get['filter'])) {
+LINE: 23
+LINE: 195
+LINE: 346
+LINE: 396
+LINE: 431
+LINE: 520
+----------------------------------------------------------------
+MOD: FX Yandex noindex addon
+
+FILE: admin/view/template/extension/module/fx.tpl
+CODE: if (!$fx_noindex_addon)
+LINE: 945
+----------------------------------------------------------------
+MOD: Google SC Bug Fix: site.com/fx-sitemap/
+
+FILE: catalog/controller/extension/feed/fx_sitemap.php
+CODE: $host . 'index.php?route=extension/feed/fx_sitemap&amp;part=
+LINE: 184
+LINE: 208
+CODE: protected function goSitemap($url){
+LINE: 763
+CODE: href="../
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: admin/view/template/extension/module/fx_sitemap.tpl
+CODE: <?php echo $footer; ?>
+LINE: 1036
+----------------------------------------------------------------
+MOD: Newsletter Subscribe
+
+FILE: catalog/model/account/customer.php
+CODE: $customer_id = $this->db->getLastId();
+LINE: 91
+CODE: public function editNewsletter($newsletter) {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: admin/model/catalog/product.php
+CODE: 'p.sort_order'
+LINE: 409
+----------------------------------------------------------------
+MOD: Opencart Shopping Cart REST API
+CODE: class ModelAccountCustomer extends Model {
+NOT FOUND - OPERATIONS ABORTED!
+CODE: class ModelAccountOrder extends Model {
+LINE: 272
+
+FILE: catalog/model/catalog/product.php
+CODE: class ModelCatalogProduct extends Model {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: catalog/model/catalog/category.php
+CODE: public function getCategory($category_id) {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: system/library/cart/currency.php
+CODE: public function has($currency) {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: system/library/session.php
+CODE: if ($this->adaptor && !session_id()) {
+NOT FOUND - OPERATIONS ABORTED!
+----------------------------------------------------------------
+MOD: qiwiwpro
+
+FILE: catalog/view/theme/default/template/account/order_list.tpl
+CODE: <?php foreach ($orders as $order) { ?>
+LINE: 35
+CODE: $data['orders'][] = array(
+LINE: 96
+CODE: $data['orders'][] = array(
+LINE: 102
+CODE: // Voucher
+LINE: 371
+CODE: $this->response->setOutput($this->load->view('sale/order_info', $data));
+LINE: 1374
+CODE: <div id="history"></div>
+LINE: 294
+CODE: $order_info = $this->getOrder($order_id);
+LINE: 476
+----------------------------------------------------------------
+MOD: Запрос менеджеру
+
+FILE: admin/controller/common/header.php
+CODE: $data['logout'] = $this->url->link('common/logout', 'token=' . $this->session->data['token'], true);
+LINE: 59
+
+FILE: admin/view/template/common/header.tpl
+CODE: <ul class="nav pull-right">
+LINE: 45
+
+FILE: catalog/controller/information/contact.php
+CODE: $this->response->redirect($this->url->link('information/contact/success'));
+NOT FOUND - OPERATIONS ABORTED!
+----------------------------------------------------------------
+2021-10-26 8:45:21 - MOD: Modification Default
+
+FILE: system/engine/action.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 41
+
+FILE: system/engine/loader.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 49
+LINE: 108
+LINE: 120
+LINE: 165
+
+FILE: system/library/config.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 23
+
+FILE: system/library/language.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 38
+LINE: 40
+LINE: 49
+LINE: 51
+LINE: 60
+LINE: 62
+
+FILE: system/library/template/php.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 18
+
+FILE: system/library/template/tiwg.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 24
+----------------------------------------------------------------
+MOD: OCdevWizard: Helper for modules
+
+FILE: admin/controller/error/permission.php
+CODE: $ignore = array(
+NOT FOUND - OPERATION SKIPPED!
+
+FILE: admin/controller/startup/permission.php
+CODE: $ignore = array(
+LINE: 41
+CODE: $extension = array(
+LINE: 22
+
+FILE: admin/controller/common/column_left.php
+CODE: $design = array();
+LINE: 223
+
+FILE: admin/language/en-gb/common/column_left.php
+CODE: <?php
+LINE: 5
+
+FILE: admin/language/ru-ru/common/column_left.php
+CODE: <?php
+LINE: 5
+
+FILE: catalog/controller/common/header.php
+CODE: public function index() {
+LINE: 57
+CODE: public function index() {
+LINE: 95
+----------------------------------------------------------------
+MOD: Ocdevwizard: Smart Notification Bar Pro Plus
+
+FILE: admin/controller/user/user_permission.php
+CODE: if (isset($this->request->post['permission']['access'])) {
+LINE: 414
+CODE: $ignore = array(
+NOT FOUND - OPERATION SKIPPED!
+CODE: $ignore = array(
+LINE: 46
+CODE: $ocdevwizard = array();
+LINE: 229
+CODE: <?php
+LINE: 5
+CODE: <?php
+LINE: 5
+
+FILE: catalog/controller/common/footer.php
+CODE: public function index() {
+LINE: 25
+
+FILE: catalog/view/theme/default/template/common/footer.tpl
+CODE: </html>
+LINE: 148
+----------------------------------------------------------------
+MOD: OcStore 2.3.x track number
+
+FILE: admin/controller/sale/order.php
+CODE: $data['shipping_method'] = $order_info['shipping_method'];
+LINE: 575
+LINE: 951
+CODE: public function history() {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: admin/model/sale/order.php
+CODE: $order_query->row['order_id'],
+LINE: 96
+
+FILE: catalog/model/checkout/order.php
+CODE: $order_query->row['order_id'],
+LINE: 310
+
+FILE: admin/view/template/sale/order_info.tpl
+CODE: <td><?php echo $text_reward; ?></td>
+LINE: 140
+CODE: <?php echo $footer; ?>
+LINE: 765
+CODE: $order_query->row['order_id'],
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: catalog/model/account/order.php
+CODE: $order_query->row['order_id'],
+LINE: 52
+
+FILE: catalog/controller/account/order.php
+CODE: if ($order_info['invoice_no']) {
+LINE: 211
+
+FILE: catalog/view/theme/default/template/account/order_info.tpl
+CODE: <b><?php echo $text_shipping_method; ?></b> <?php echo $shipping_method; ?>
+LINE: 40
+----------------------------------------------------------------
+MOD: Blog
+CODE: $extension = array();
+LINE: 200
+
+FILE: catalog/controller/startup/seo_url.php
+CODE: if ($query->row['query'] && $url[0]
+LINE: 55
+CODE: != 'category_id' && $url[0]
+LINE: 55
+CODE: $this->request->get['route'] = 'product/product';
+LINE: 77
+CODE: $this->request->get['route'] = 'product/category';
+LINE: 83
+CODE: ($data['route'] == 'information/information' && $key == 'information_id'))
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: catalog/controller/startup/seo_pro.php
+CODE: $this->request->get['route'] = 'information/information';
+LINE: 107
+CODE: case 'product/product':
+LINE: 293
+CODE: case 'product/product/review':
+LINE: 328
+CODE: case 'order_id':
+LINE: 365
+CODE: case 'path':
+LINE: 400
+CODE: private function getPathByProduct($product_id) {
+LINE: 593
+
+FILE: catalog/controller/extension/feed/google_sitemap.php
+CODE: $output .= '</urlset>';
+LINE: 98
+
+FILE: catalog/controller/information/sitemap.php
+CODE: $this->load->model('catalog/information');
+LINE: 119
+
+FILE: catalog/view/theme/default/template/information/sitemap.tpl
+CODE: <?php echo $content_bottom; ?>
+LINE: 121
+
+FILE: catalog/controller/common/content_top.php
+CODE: $layout_id = 0;
+LINE: 17
+
+FILE: catalog/controller/common/content_bottom.php
+CODE: $layout_id = 0;
+LINE: 17
+
+FILE: catalog/controller/common/column_left.php
+CODE: $layout_id = 0;
+LINE: 17
+
+FILE: catalog/controller/common/column_right.php
+CODE: $layout_id = 0;
+LINE: 17
+----------------------------------------------------------------
+MOD: Export/Import Tool (V3.20) for Ocstore 2.x
+CODE: if ($this->user->hasPermission('access', 'tool/log')) {
+LINE: 709
+CODE: $_['text_backup']
+LINE: 19
+CODE: $_['text_backup']
+LINE: 19
+----------------------------------------------------------------
+MOD: FAQ Для Алексей
+CODE: // Marketing
+LINE: 463
+CODE: $_['text_paypal_search']             = 'Search';
+LINE: 116
+CODE: // Text
+LINE: 15
+CODE: <?php foreach ($informations as $information) { ?>
+NOT FOUND - OPERATIONS ABORTED!
+CODE: $data['informations'] = array();
+NOT FOUND - OPERATIONS ABORTED!
+----------------------------------------------------------------
+MOD: FX Manufacturers AddOn
+
+FILE: catalog/controller/product/category.php
+CODE: $data['sort'] = $sort;
+LINE: 457
+CODE: if (isset($this->request->get['filter'])) {
+LINE: 23
+LINE: 195
+LINE: 346
+LINE: 396
+LINE: 431
+LINE: 520
+----------------------------------------------------------------
+MOD: FX Yandex noindex addon
+
+FILE: admin/view/template/extension/module/fx.tpl
+CODE: if (!$fx_noindex_addon)
+LINE: 945
+----------------------------------------------------------------
+MOD: Google SC Bug Fix: site.com/fx-sitemap/
+
+FILE: catalog/controller/extension/feed/fx_sitemap.php
+CODE: $host . 'index.php?route=extension/feed/fx_sitemap&amp;part=
+LINE: 184
+LINE: 208
+CODE: protected function goSitemap($url){
+LINE: 763
+CODE: href="../
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: admin/view/template/extension/module/fx_sitemap.tpl
+CODE: <?php echo $footer; ?>
+LINE: 1036
+----------------------------------------------------------------
+MOD: Newsletter Subscribe
+
+FILE: catalog/model/account/customer.php
+CODE: $customer_id = $this->db->getLastId();
+LINE: 91
+CODE: public function editNewsletter($newsletter) {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: admin/model/catalog/product.php
+CODE: 'p.sort_order'
+LINE: 409
+----------------------------------------------------------------
+MOD: Opencart Shopping Cart REST API
+CODE: class ModelAccountCustomer extends Model {
+NOT FOUND - OPERATIONS ABORTED!
+CODE: class ModelAccountOrder extends Model {
+LINE: 272
+
+FILE: catalog/model/catalog/product.php
+CODE: class ModelCatalogProduct extends Model {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: catalog/model/catalog/category.php
+CODE: public function getCategory($category_id) {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: system/library/cart/currency.php
+CODE: public function has($currency) {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: system/library/session.php
+CODE: if ($this->adaptor && !session_id()) {
+NOT FOUND - OPERATIONS ABORTED!
+----------------------------------------------------------------
+MOD: qiwiwpro
+
+FILE: catalog/view/theme/default/template/account/order_list.tpl
+CODE: <?php foreach ($orders as $order) { ?>
+LINE: 35
+CODE: $data['orders'][] = array(
+LINE: 96
+CODE: $data['orders'][] = array(
+LINE: 102
+CODE: // Voucher
+LINE: 371
+CODE: $this->response->setOutput($this->load->view('sale/order_info', $data));
+LINE: 1374
+CODE: <div id="history"></div>
+LINE: 294
+CODE: $order_info = $this->getOrder($order_id);
+LINE: 476
+----------------------------------------------------------------
+MOD: Запрос менеджеру
+
+FILE: admin/controller/common/header.php
+CODE: $data['logout'] = $this->url->link('common/logout', 'token=' . $this->session->data['token'], true);
+LINE: 59
+
+FILE: admin/view/template/common/header.tpl
+CODE: <ul class="nav pull-right">
+LINE: 45
+
+FILE: catalog/controller/information/contact.php
+CODE: $this->response->redirect($this->url->link('information/contact/success'));
+NOT FOUND - OPERATIONS ABORTED!
+----------------------------------------------------------------
+2021-10-26 8:53:20 - MOD: Modification Default
+
+FILE: system/engine/action.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 41
+
+FILE: system/engine/loader.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 49
+LINE: 108
+LINE: 120
+LINE: 165
+
+FILE: system/library/config.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 23
+
+FILE: system/library/language.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 38
+LINE: 40
+LINE: 49
+LINE: 51
+LINE: 60
+LINE: 62
+
+FILE: system/library/template/php.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 18
+
+FILE: system/library/template/tiwg.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 24
+----------------------------------------------------------------
+MOD: OCdevWizard: Helper for modules
+
+FILE: admin/controller/error/permission.php
+CODE: $ignore = array(
+NOT FOUND - OPERATION SKIPPED!
+
+FILE: admin/controller/startup/permission.php
+CODE: $ignore = array(
+LINE: 41
+CODE: $extension = array(
+LINE: 22
+
+FILE: admin/controller/common/column_left.php
+CODE: $design = array();
+LINE: 223
+
+FILE: admin/language/en-gb/common/column_left.php
+CODE: <?php
+LINE: 5
+
+FILE: admin/language/ru-ru/common/column_left.php
+CODE: <?php
+LINE: 5
+
+FILE: catalog/controller/common/header.php
+CODE: public function index() {
+LINE: 57
+CODE: public function index() {
+LINE: 95
+----------------------------------------------------------------
+MOD: Ocdevwizard: Smart Notification Bar Pro Plus
+
+FILE: admin/controller/user/user_permission.php
+CODE: if (isset($this->request->post['permission']['access'])) {
+LINE: 414
+CODE: $ignore = array(
+NOT FOUND - OPERATION SKIPPED!
+CODE: $ignore = array(
+LINE: 46
+CODE: $ocdevwizard = array();
+LINE: 229
+CODE: <?php
+LINE: 5
+CODE: <?php
+LINE: 5
+
+FILE: catalog/controller/common/footer.php
+CODE: public function index() {
+LINE: 25
+
+FILE: catalog/view/theme/default/template/common/footer.tpl
+CODE: </html>
+LINE: 148
+----------------------------------------------------------------
+MOD: OcStore 2.3.x track number
+
+FILE: admin/controller/sale/order.php
+CODE: $data['shipping_method'] = $order_info['shipping_method'];
+LINE: 575
+LINE: 951
+CODE: public function history() {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: admin/model/sale/order.php
+CODE: $order_query->row['order_id'],
+LINE: 96
+
+FILE: catalog/model/checkout/order.php
+CODE: $order_query->row['order_id'],
+LINE: 310
+
+FILE: admin/view/template/sale/order_info.tpl
+CODE: <td><?php echo $text_reward; ?></td>
+LINE: 140
+CODE: <?php echo $footer; ?>
+LINE: 765
+CODE: $order_query->row['order_id'],
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: catalog/model/account/order.php
+CODE: $order_query->row['order_id'],
+LINE: 52
+
+FILE: catalog/controller/account/order.php
+CODE: if ($order_info['invoice_no']) {
+LINE: 211
+
+FILE: catalog/view/theme/default/template/account/order_info.tpl
+CODE: <b><?php echo $text_shipping_method; ?></b> <?php echo $shipping_method; ?>
+LINE: 40
+----------------------------------------------------------------
+MOD: Blog
+CODE: $extension = array();
+LINE: 200
+
+FILE: catalog/controller/startup/seo_url.php
+CODE: if ($query->row['query'] && $url[0]
+LINE: 55
+CODE: != 'category_id' && $url[0]
+LINE: 55
+CODE: $this->request->get['route'] = 'product/product';
+LINE: 77
+CODE: $this->request->get['route'] = 'product/category';
+LINE: 83
+CODE: ($data['route'] == 'information/information' && $key == 'information_id'))
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: catalog/controller/startup/seo_pro.php
+CODE: $this->request->get['route'] = 'information/information';
+LINE: 107
+CODE: case 'product/product':
+LINE: 293
+CODE: case 'product/product/review':
+LINE: 328
+CODE: case 'order_id':
+LINE: 365
+CODE: case 'path':
+LINE: 400
+CODE: private function getPathByProduct($product_id) {
+LINE: 593
+
+FILE: catalog/controller/extension/feed/google_sitemap.php
+CODE: $output .= '</urlset>';
+LINE: 98
+
+FILE: catalog/controller/information/sitemap.php
+CODE: $this->load->model('catalog/information');
+LINE: 119
+
+FILE: catalog/view/theme/default/template/information/sitemap.tpl
+CODE: <?php echo $content_bottom; ?>
+LINE: 121
+
+FILE: catalog/controller/common/content_top.php
+CODE: $layout_id = 0;
+LINE: 17
+
+FILE: catalog/controller/common/content_bottom.php
+CODE: $layout_id = 0;
+LINE: 17
+
+FILE: catalog/controller/common/column_left.php
+CODE: $layout_id = 0;
+LINE: 17
+
+FILE: catalog/controller/common/column_right.php
+CODE: $layout_id = 0;
+LINE: 17
+----------------------------------------------------------------
+MOD: Export/Import Tool (V3.20) for Ocstore 2.x
+CODE: if ($this->user->hasPermission('access', 'tool/log')) {
+LINE: 709
+CODE: $_['text_backup']
+LINE: 19
+CODE: $_['text_backup']
+LINE: 19
+----------------------------------------------------------------
+MOD: FAQ Для Алексей
+CODE: // Marketing
+LINE: 463
+CODE: $_['text_paypal_search']             = 'Search';
+LINE: 116
+CODE: // Text
+LINE: 15
+CODE: <?php foreach ($informations as $information) { ?>
+NOT FOUND - OPERATIONS ABORTED!
+CODE: $data['informations'] = array();
+NOT FOUND - OPERATIONS ABORTED!
+----------------------------------------------------------------
+MOD: FX Manufacturers AddOn
+
+FILE: catalog/controller/product/category.php
+CODE: $data['sort'] = $sort;
+LINE: 457
+CODE: if (isset($this->request->get['filter'])) {
+LINE: 23
+LINE: 195
+LINE: 346
+LINE: 396
+LINE: 431
+LINE: 520
+----------------------------------------------------------------
+MOD: FX Yandex noindex addon
+
+FILE: admin/view/template/extension/module/fx.tpl
+CODE: if (!$fx_noindex_addon)
+LINE: 945
+----------------------------------------------------------------
+MOD: Google SC Bug Fix: site.com/fx-sitemap/
+
+FILE: catalog/controller/extension/feed/fx_sitemap.php
+CODE: $host . 'index.php?route=extension/feed/fx_sitemap&amp;part=
+LINE: 184
+LINE: 208
+CODE: protected function goSitemap($url){
+LINE: 763
+CODE: href="../
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: admin/view/template/extension/module/fx_sitemap.tpl
+CODE: <?php echo $footer; ?>
+LINE: 1036
+----------------------------------------------------------------
+MOD: Newsletter Subscribe
+
+FILE: catalog/model/account/customer.php
+CODE: $customer_id = $this->db->getLastId();
+LINE: 91
+CODE: public function editNewsletter($newsletter) {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: admin/model/catalog/product.php
+CODE: 'p.sort_order'
+LINE: 409
+----------------------------------------------------------------
+MOD: Opencart Shopping Cart REST API
+CODE: class ModelAccountCustomer extends Model {
+NOT FOUND - OPERATIONS ABORTED!
+CODE: class ModelAccountOrder extends Model {
+LINE: 272
+
+FILE: catalog/model/catalog/product.php
+CODE: class ModelCatalogProduct extends Model {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: catalog/model/catalog/category.php
+CODE: public function getCategory($category_id) {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: system/library/cart/currency.php
+CODE: public function has($currency) {
+NOT FOUND - OPERATIONS ABORTED!
+
+FILE: system/library/session.php
+CODE: if ($this->adaptor && !session_id()) {
+NOT FOUND - OPERATIONS ABORTED!
+----------------------------------------------------------------
+MOD: qiwiwpro
+
+FILE: catalog/view/theme/default/template/account/order_list.tpl
+CODE: <?php foreach ($orders as $order) { ?>
+LINE: 35
+CODE: $data['orders'][] = array(
+LINE: 96
+CODE: $data['orders'][] = array(
+LINE: 102
+CODE: // Voucher
+LINE: 371
+CODE: $this->response->setOutput($this->load->view('sale/order_info', $data));
+LINE: 1374
+CODE: <div id="history"></div>
+LINE: 294
+CODE: $order_info = $this->getOrder($order_id);
+LINE: 476
+----------------------------------------------------------------
+MOD: Запрос менеджеру
+
+FILE: admin/controller/common/header.php
+CODE: $data['logout'] = $this->url->link('common/logout', 'token=' . $this->session->data['token'], true);
+LINE: 59
+
+FILE: admin/view/template/common/header.tpl
+CODE: <ul class="nav pull-right">
+LINE: 45
+
+FILE: catalog/controller/information/contact.php
+CODE: $this->response->redirect($this->url->link('information/contact/success'));
+NOT FOUND - OPERATIONS ABORTED!
+----------------------------------------------------------------

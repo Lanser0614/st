@@ -149,4 +149,10 @@ class ModelCatalogCategory extends Model
 
 		return $query->row['total'];
 	}
+
+	public function getProtoParent($category_id){
+		$query = $this->db->query("SELECT path_id FROM " . DB_PREFIX . "category_path WHERE category_id = '" . (int)$category_id . "' AND level = 0");
+
+		return $query->row['path_id'];
+	}
 }

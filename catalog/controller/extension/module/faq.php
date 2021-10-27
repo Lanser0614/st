@@ -32,7 +32,7 @@ class ControllerExtensionModuleFaq extends Controller
 
         $data['cat_answers'] = $this->model_extension_module_faq->getCatAnswers();
         $data['answers'] = $this->model_extension_module_faq->getNoCatAnswer();
-
+       // var_dump($data);
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['column_right'] = $this->load->controller('common/column_right');
         $data['content_top'] = $this->load->controller('common/content_top');

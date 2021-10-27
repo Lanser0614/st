@@ -201,8 +201,11 @@ class ControllerProductProduct extends Controller
         } catch (SoapFault $message) {
             if ($this->cache->get('autopiter.' . $product_info['model'])) { //проверяем, если ли закешированные данные
                 $data['articles'] = $this->cache->get('autopiter.' . $product_info['model']); //забираем в массив уже готовые данные и не делаем запросов
+            
             }
         }
+   //  var_dump($autopiter);
+       //return json_decode($data['articles']);
 //        }
 
         if ($product_info) {
@@ -661,7 +664,9 @@ class ControllerProductProduct extends Controller
             $data['header'] = $this->load->controller('common/header');
 
             $this->response->setOutput($this->load->view('product/product', $data));
-        } else {
+        } 
+        else 
+        {
             $url = '';
 
             if (isset($this->request->get['path'])) {
@@ -741,13 +746,14 @@ class ControllerProductProduct extends Controller
             $limit = 6;
             $filter_data = array(
                 'filter_category_id' => $category_id,
-//                'filter_filter' => $filter,
-                'filter_sub_category' => 1,
-//                'sort' => $sort,
+                'filter_sub_category' => true,
+//                 'filter_filter' => $filter,
+                 'filter_sub_category' => 1,
+//                 'sort' => $sort,
 //                'order' => $order,
 //                'start' => ($page - 1) * $limit,
-                'start' => 0,
-                'limit' => $limit
+                 'start' => 0,
+                 'limit' => $limit
             );
 
             $filter_data = $this->load->controller('extension/module/fx/m_filter', $filter_data); // Full IndeX

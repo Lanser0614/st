@@ -207,7 +207,7 @@ class ControllerProductSearch extends Controller
                 'filter_tag' => $tag,
                 'filter_description' => $description,
                 'filter_category_id' => $category_id,
-                'filter_sub_category' => $sub_category,
+                'filter_sub_category' => true,
                 'sort' => $sort,
                 'order' => $order,
                 'start' => ($page - 1) * $limit,

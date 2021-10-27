@@ -58,6 +58,8 @@ class AutoPiterComponent
             $this->many($items);
         }
         return $this->results;
+      // return json_decode($this->results);
+    //   var_dump($this->results);
     }
 
     public function many($items)
@@ -92,13 +94,18 @@ class AutoPiterComponent
             $this->groups($count_Response);
         }
     }
-
+    
     public function getItems()
     {
+       
         $this->results = $this->findCatalog();
         if (empty($this->results)) {
             return '';
         }
+        //var_dump($this->results);
+       // return json_encode($this->results, JSON_UNESCAPED_UNICODE);
+    //    $this->response->addHeader('Content-Type: application/json');
+    //    $this->response->setOutput(json_encode($this->results, JSON_UNESCAPED_UNICODE));
         $this->sort();
         return $this->getHtml();
     }
@@ -296,7 +303,7 @@ class AutoPiterComponent
         $html = '';
         $html .= "<tr id='" . $price . "' data-article='" . $this->article_id . "' class='" . $class . "' data-id='" . $item->DetailUid . "' data-price='" . $price . "'  data-days='" . $item->NumberOfDaysSupply . "'  data-brand='" . $item->CatalogName . "' data-name='" . $item->Name . "'>";
         $html .= "<td>" . $item->CatalogName . "</td>";
-//            $html.="<td>" . $item->ShotNumber . "</td>";
+      // $html.="<td>" . $item->ShotNumber . "</td>";
         $html .= "<td>" . $item->Name . "</td>";
         $html .= "<td class='ofAval'>" . (($item->NumberOfAvailable) ? $item->NumberOfAvailable : '<span class="glyphicon glyphicon-ok"></span>') . "</td>";
         $html .= "<td>" . $price . " ₽</td>";
@@ -368,6 +375,8 @@ class AutoPiterComponent
         $html .= "<td class='td-order nowrap'>" . $count . " предложений</td>";
         $html .= "</tr>";
         return $html;
+
+        
     }
 
     protected function all_counts($item, $count)
@@ -387,6 +396,7 @@ class AutoPiterComponent
         $html .= "<td class='td-order nowrap'></td>";
         $html .= "</tr>";
         return $html;
+      
     }
 
     protected function brandsCheckbox(&$html, $brand, $price)

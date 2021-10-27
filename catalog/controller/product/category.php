@@ -82,6 +82,7 @@ class ControllerProductCategory extends Controller
                 $category_info = $this->model_catalog_category->getCategory($path_id);
 
                 if ($category_info) {
+                    
                     $data['breadcrumbs'][] = array(
                         'text' => $category_info['name'],
                         'href' => $this->url->link('product/category', 'path=' . $path . $url)
@@ -261,8 +262,8 @@ class ControllerProductCategory extends Controller
             $data['products'] = array();
             $filter_data = array(
                 'filter_category_id' => $category_id,
+                'filter_sub_category' => true,
                 'filter_filter' => $filter,
-                'filter_sub_category' => 1,
                 'sort' => $sort,
                 'order' => $order,
                 'start' => ($page - 1) * $limit,

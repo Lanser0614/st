@@ -88,6 +88,8 @@ class ControllerProductCategory extends Controller {
 		}
 
 		$category_info = $this->model_catalog_category->getCategory($category_id);
+		
+		//$data['parents_category_id'] = $category_id;
 
 		if ($category_info) {
 			$this->document->setTitle($category_info['meta_title']);
@@ -168,6 +170,7 @@ class ControllerProductCategory extends Controller {
 
 			$filter_data = array(
 				'filter_category_id' => $category_id,
+				'filter_sub_category' => true,
 				'filter_filter'      => $filter,
 				'sort'               => $sort,
 				'order'              => $order,

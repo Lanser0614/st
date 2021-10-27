@@ -23,7 +23,8 @@ class ControllerFeedRestApi extends RestController
     public function getToken()
     {
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+         if ($_SERVER['REQUEST_METHOD'] === 'POST')
+     {
 
             /*check rest api is enabled*/
             if (!$this->config->get('rest_api_status')) {
@@ -100,6 +101,157 @@ class ControllerFeedRestApi extends RestController
         return $this->sendResponse();
     }
 
+        /*Get sms */
+        // private function send($phone,$sms) {
+        //     $ch = curl_init("http://sms.ru/sms/send");
+        //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+        //     curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        //     curl_setopt($ch, CURLOPT_POSTFIELDS, array(
+        //         "api_id"		=>	'D0E13900-A03C-38AC-D6C9-E1D4C34EE107',
+        //         "to"			=>	$phone,
+        //         "partner_id"	=>	"6583",
+        //         "text"			=>	$sms
+        //     ));
+        //     $body = curl_exec($ch);
+        //     curl_close($ch); 
+        //     return false;
+        // }
+        
+        // public function phone() {
+            
+        //     $result = '';
+        //     if( $phone = $this->request->get['phone'] ) {
+                
+        //         $phone = preg_replace('/[^\d]/', '', $phone);
+        //         $phone = '8' . substr($phone, -10, 10);
+                
+        //         if(!empty($_COOKIE['stime'])){
+        //             $last_time = base64_decode($_COOKIE['stime']);
+        //             if((time()-$last_time)<60){
+        //                 $result = 'wait';
+        //             } else {					
+        //                 $result = 'ok';					
+        //             }
+        //         } else {			
+        //             $result = 'ok';			
+        //         }
+                
+        //         if($result=='ok'){
+                
+        //             $code = mt_rand(1000, 9999);
+    
+        //             //$code = 3535;
+        //             $_SESSION['auth']['phone'] = $phone;
+        //             $_SESSION['auth']['code'] = (string)$code;
+        //             $_SESSION['auth']['tries'] = 2;
+        //             $this->send($phone, "Ваш код авторизации: ".$code);
+        //             setcookie('stime', base64_encode(time()), time()+60*60*24*365,'/');
+        //         }
+                
+        //     }
+        //     $this->response->addHeader('Content-Type: application/json');
+        //     $this->response->setOutput(json_encode(['result'=>$result]));
+        // }
+        
+        // public function code() {
+            
+        //     if( $code = $this->request->get['code'] ) {
+                
+        //         $_SESSION['auth']['tries'] -= 1;
+                
+        //         if( (int)$code == $_SESSION['auth']['code'] ) {
+                    
+        //             $this->load->model('account/customer');
+                    
+        //             if( !empty($_SESSION['auth']['phone']) ) {
+        //                 $customer_info = $this->model_account_customer->getCustomerByPhone($_SESSION['auth']['phone']);
+                        
+        //                 if( empty($customer_info) ) {
+        //                     $customer_id = $this->model_account_customer->addCustomer(['telephone' => $_SESSION['auth']['phone'], 'firstname'=>'', 'lastname'=>'', 'email'=>'', 'fax'=>'', 'password'=>'', 'company'=>'', 'address_1'=>'', 'address_2'=>'', 'city'=>'', 'postcode'=>'', 'country_id'=>0, 'zone_id'=>0]);
+        //                 } else {
+        //                     $customer_id = $customer_info['customer_id'];
+        //                 }
+                        
+        //             } elseif( !empty($_SESSION['auth']['email']) ) {
+        //                 $customer_info = $this->model_account_customer->getCustomerByEmail($_SESSION['auth']['email']);
+                        
+        //                 if( empty($customer_info) ) {
+        //                     $customer_id = $this->model_account_customer->addCustomer(['email' => $_SESSION['auth']['email'], 'telephone'=> '', 'firstname'=>'', 'lastname'=>'', 'fax'=>'', 'password'=>'', 'company'=>'', 'address_1'=>'', 'address_2'=>'', 'city'=>'', 'postcode'=>'', 'country_id'=>0, 'zone_id'=>0]);
+        //                 } else {
+        //                     $customer_id = $customer_info['customer_id'];
+        //                 }
+        //             }
+                    
+        //             $this->session->data['customer_id'] = $customer_id;
+                    
+        //             unset($_SESSION['auth']);
+        //             $result = 'ok';
+                    
+        //         } else {
+                    
+        //             if( $_SESSION['auth']['tries'] > 0 ) {
+        //                 $result = 'fail';
+        //             } else {
+        //                 unset($_SESSION['auth']);
+        //                 $result = 'reset';
+        //             }
+        //         }
+                
+        //     }
+            
+        //     $this->response->addHeader('Content-Type: application/json');
+        //     $this->response->setOutput(json_encode(['result'=>$result]));
+        // }
+        
+        // public function email() {
+        //     if( $email = $this->request->get['email'] ) {
+                
+        //         if(!empty($_COOKIE['stime'])){
+        //             $last_time = base64_decode($_COOKIE['stime']);
+        //             if((time()-$last_time)<60){
+        //                 $result = 'wait';
+        //             } else {					
+        //                 $result = 'ok';					
+        //             }
+        //         } else {			
+        //             $result = 'ok';			
+        //         }
+                
+        //         if($result=='ok'){
+        //             $code = mt_rand(1000, 9999);
+        //             //$code = 3535;
+        //             $_SESSION['auth']['email'] = $email;
+        //             $_SESSION['auth']['code'] = (string)$code;
+        //             $_SESSION['auth']['tries'] = 2;
+        //             $this->send_email($email, "Авторизация на сайте ST Автозапчасти", "<p>Это письмо пришло, потому что кто-то запросил код авторизации на Ваш почтовый адрес.</p><p>Если это были не вы, то просто игнорируйте это сообщение.</p><p>Код для авторизации: ".$code."</p>");
+        //             setcookie('stime', base64_encode(time()), time()+60*60*24*365,'/');
+        //         }
+                
+        //     }
+            
+        //     $this->response->addHeader('Content-Type: application/json');
+        //     $this->response->setOutput(json_encode(['result'=>$result]));
+        // }
+        
+        // private function send_email($email, $subject, $message) {
+        //     $mail = new Mail();
+        //     $mail->protocol = $this->config->get('config_mail_protocol');
+        //     $mail->parameter = $this->config->get('config_mail_parameter');
+        //     $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+        //     $mail->smtp_username = $this->config->get('config_mail_smtp_username');
+        //     $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+        //     $mail->smtp_port = $this->config->get('config_mail_smtp_port');
+        //     $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+    
+        //     $mail->setTo($email);
+        //     $mail->setFrom($this->config->get('config_email'));
+        //     $mail->setSender(html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
+        //     $mail->setSubject($subject);
+        //     $mail->setText($message);
+        //     $mail->send();
+        // }
+        /*Get sms */
+
     /*check database modification*/
     public function getchecksum()
     {
@@ -136,11 +288,17 @@ class ControllerFeedRestApi extends RestController
             //get product details
             if (isset($this->request->get['id']) && ctype_digit($this->request->get['id'])) {
                 $this->getProduct($this->request->get['id']);
-            } else {
+            }
+            elseif (isset($this->request->get['alias']) && ctype_digit($this->request->get['alias'])) {
+                var_dump('alias');
+            }
+             else {
                 //get products list
                 if (isset($this->request->get['category']) && ctype_digit($this->request->get['category'])) {
-                    $category_id = $this->request->get['category'];
+                //   var_dump($this->request->get['category']);
+                     $category_id = $this->request->get['category'];
                 } else {
+                   // var_dump('ok');
                     $category_id = 0;
                 }
 
@@ -479,15 +637,36 @@ class ControllerFeedRestApi extends RestController
         }
 
         /*check category id parameter*/
+     //   var_dump($request->get['category']);
         if (isset($request->get['category']) && !empty($request->get['category'])) {
             $parameters["filter_category_id"] = $request->get['category'];
         }
+        //   var_dump($request->get['category']);
+        
+        // if (isset($request->get['alias']) && !empty($request->get['alias'])) {
+        //     $alias = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "url_alias WHERE query LIKE '%product_id=$request->get['alias']%'");
+        //     foreach ($alias->rows as $url) {
+        //         return     $url['keyword'];
+        //     }
+        //     // $parameters["alias"] = $request->get['category'];
+        // }
 
         /*check subcategory id parameter*/
         if (isset($request->get['subcategory']) && !empty($request->get['subcategory'])) {
             $parameters["filter_sub_category"] = $request->get['subcategory'];
+        }else{
+            $data = $this->db->query("SELECT * FROM product_to_category INNER JOIN category on product_to_category.category_id = category.category_id AND category.parent_id = ".$request->get['category']);
+            foreach($data->rows as $da){
+               // var_dump($da['category_id']);
+               $parameters["filter_sub_category"] = $da['category_id'];
+            }
+         // var_dump($data);
+           // var_dump($parameters["filter_sub_category"]);
+            // $parameters["filter_sub_category"] = [61,62,63];
         }
 
+
+        
         /*check tag parameter*/
         if (isset($request->get['tag']) && !empty($request->get['tag'])) {
             $parameters["filter_tag"] = $request->get['tag'];
@@ -573,13 +752,13 @@ class ControllerFeedRestApi extends RestController
         $products = $this->model_catalog_product->getProductsAllData($parameters, $this->customer);
 
         if (!empty($products)) {
+          //  var_dump('ok');
             foreach ($products as $product) {
                 $this->json['data'][] = $this->getProductInfo($product, $simpleList, $customFields);
             }
         }
 
         if($this->includeMeta) {
-
             $total = $this->model_catalog_product->getProductsTotal($parameters, $this->customer, true);
             $this->response->addHeader('X-Total-Count: ' . (int)$total);
             $this->response->addHeader('X-Pagination-Limit: ' . (int)$parameters["limit"]);
@@ -594,8 +773,20 @@ class ControllerFeedRestApi extends RestController
            );
         }
     }
+//tugadi
 
 
+
+
+
+
+
+
+
+
+
+
+    
 
     public function getNews($blog_category_id){
         $this->load->model('blog/blog');
@@ -753,12 +944,14 @@ class ControllerFeedRestApi extends RestController
         $filter_groups = $this->model_catalog_category->getCategoryFilters($category_id);
 
         if ($filter_groups) {
+          //  var_dump($filter_groups);
             foreach ($filter_groups as $filter_group) {
                 $childen_data = array();
 
                 foreach ($filter_group['filter'] as $filter) {
                     $filter_data = array(
                         'filter_category_id' => $category_id,
+                        'filter_sub_category' => true,
                         'filter_filter' => $filter['filter_id']
                     );
 
@@ -2411,8 +2604,8 @@ class ControllerFeedRestApi extends RestController
         $this->load->model('catalog/category');
 
         $category_info = $this->model_catalog_category->getCategory($category_id);
-
-        if ($category_info) {
+     // $data['parents_category_id'] = $category_id;
+        if ($category_info ) {
             $this->json["data"] = $this->getCategoryFilters($category_id);
         }
 

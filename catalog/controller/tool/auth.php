@@ -14,6 +14,7 @@ class ControllerToolAuth extends Controller {
 			"text"			=>	$sms
 		));
 		$body = curl_exec($ch);
+		
 		curl_close($ch); 
 		return false;
 	}
@@ -22,10 +23,10 @@ class ControllerToolAuth extends Controller {
 		
 		$result = '';
 		if( $phone = $this->request->get['phone'] ) {
-			
+			//$this->db->query("INSERT INTO auth_code SET phone = '123'");
 			$phone = preg_replace('/[^\d]/', '', $phone);
 			$phone = '8' . substr($phone, -10, 10);
-			
+			$this->db->query("INSERT INTO " . DB_PREFIX . "auth_code SET phone = '".$phone."'");
 			if(!empty($_COOKIE['stime'])){
 				$last_time = base64_decode($_COOKIE['stime']);
 				if((time()-$last_time)<60){
@@ -40,8 +41,12 @@ class ControllerToolAuth extends Controller {
 			if($result=='ok'){
 			
 				$code = mt_rand(1000, 9999);
+
 				//$code = 3535;
+			//	var_dump($phone);
 				$_SESSION['auth']['phone'] = $phone;
+			//	$this->db->query("INSERT INTO auth_code SET phone = ".$_SESSION['auth']['phone']);
+			//	$this->db->query("INSERT INTO auth_code (phone) VALUES('$phone')");
 				$_SESSION['auth']['code'] = (string)$code;
 				$_SESSION['auth']['tries'] = 2;
 				$this->send($phone, "Ваш код авторизации: ".$code);
@@ -103,35 +108,7 @@ class ControllerToolAuth extends Controller {
 		$this->response->setOutput(json_encode(['result'=>$result]));
 	}
 	
-	public function email() {
-		if( $email = $this->request->get['email'] ) {
-			
-			if(!empty($_COOKIE['stime'])){
-				$last_time = base64_decode($_COOKIE['stime']);
-				if((time()-$last_time)<60){
-					$result = 'wait';
-				} else {					
-					$result = 'ok';					
-				}
-			} else {			
-				$result = 'ok';			
-			}
-			
-			if($result=='ok'){
-				$code = mt_rand(1000, 9999);
-				//$code = 3535;
-				$_SESSION['auth']['email'] = $email;
-				$_SESSION['auth']['code'] = (string)$code;
-				$_SESSION['auth']['tries'] = 2;
-				$this->send_email($email, "Авторизация на сайте ST Автозапчасти", "<p>Это письмо пришло, потому что кто-то запросил код авторизации на Ваш почтовый адрес.</p><p>Если это были не вы, то просто игнорируйте это сообщение.</p><p>Код для авторизации: ".$code."</p>");
-				setcookie('stime', base64_encode(time()), time()+60*60*24*365,'/');
-			}
-			
-		}
-		
-		$this->response->addHeader('Content-Type: application/json');
-		$this->response->setOutput(json_encode(['result'=>$result]));
-	}
+	
 	
 	private function send_email($email, $subject, $message) {
 		$mail = new Mail();
@@ -149,5 +126,36 @@ class ControllerToolAuth extends Controller {
 		$mail->setSubject($subject);
 		$mail->setText($message);
 		$mail->send();
+	}
+
+	public function email() {
+		if( $email = $this->request->get['email'] ) {
+			//var_dump($email);
+			echo $email;
+			if(!empty($_COOKIE['stime'])){
+				$last_time = base64_decode($_COOKIE['stime']);
+				if((time()-$last_time)<60){
+					$result = 'wait';
+				} else {					
+					$result = 'ok';					
+				}
+			} else {			
+				$result = 'ok';			
+			}
+			
+			if($result=='ok'){
+				$code = mt_rand(1000, 9999);
+				$code = 3535;
+				$_SESSION['auth']['email'] = $email;
+				$_SESSION['auth']['code'] = (string)$code;
+				$_SESSION['auth']['tries'] = 2;
+				$this->send_email($email, "Авторизация на сайте ST Автозапчасти", "<p>Это письмо пришло, потому что кто-то запросил код авторизации на Ваш почтовый адрес.</p><p>Если это были не вы, то просто игнорируйте это сообщение.</p><p>Код для авторизации: ".$code."</p>");
+				setcookie('stime', base64_encode(time()), time()+60*60*24*365,'/');
+			}
+			
+		}
+		
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode(['result'=>$result]));
 	}
 }
