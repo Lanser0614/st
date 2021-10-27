@@ -287,10 +287,14 @@ class ControllerFeedRestApi extends RestController
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             //get product details
             if (isset($this->request->get['id']) && ctype_digit($this->request->get['id'])) {
-                $this->getProduct($this->request->get['id']);
+              $id = $this->request->get['id'];
+                 $this->getProduct($id);
+                
             }
-            elseif (isset($this->request->get['alias']) && ctype_digit($this->request->get['alias'])) {
-                var_dump('alias');
+            elseif (isset($this->request->get['alias']) && is_string($this->request->get['alias'])) {
+               $alias = $this->request->get['alias'];
+             //  $checksum = $this->model_catalog_product->getChecksum();
+             $this->getProductByAlias($alias);
             }
              else {
                 //get products list
@@ -312,6 +316,23 @@ class ControllerFeedRestApi extends RestController
 
         return $this->sendResponse();
     }
+
+    public function getProductByAlias($alias)
+    {
+
+        $this->load->model('catalog/product');
+
+        $products = $this->model_catalog_product->getProductWithAlias($alias);
+       //var_dump($products);
+        // if (!empty($products)) {
+        //     $this->json["data"] = $this->getProductInfo(reset($products));
+        // } else {
+        //     $this->json['error'][] = 'Product not found';
+        //     $this->statusCode = 404;
+        // }
+    }
+
+
 
     public function getProduct($id)
     {
@@ -637,36 +658,34 @@ class ControllerFeedRestApi extends RestController
         }
 
         /*check category id parameter*/
-     //   var_dump($request->get['category']);
         if (isset($request->get['category']) && !empty($request->get['category'])) {
             $parameters["filter_category_id"] = $request->get['category'];
         }
-        //   var_dump($request->get['category']);
+     
         
         // if (isset($request->get['alias']) && !empty($request->get['alias'])) {
-        //     $alias = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "url_alias WHERE query LIKE '%product_id=$request->get['alias']%'");
-        //     foreach ($alias->rows as $url) {
-        //         return     $url['keyword'];
-        //     }
-        //     // $parameters["alias"] = $request->get['category'];
+        //     // $alias = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "url_alias WHERE keyword LIKE '%$request->get['alias']%'");
+        //     // foreach ($alias->rows as $url) {
+        //     //    // return     $url['keyword'];
+
+        //     // }
+        //      $parameters["alias"] = 'ok';
         // }
+
 
         /*check subcategory id parameter*/
         if (isset($request->get['subcategory']) && !empty($request->get['subcategory'])) {
             $parameters["filter_sub_category"] = $request->get['subcategory'];
-        }else{
+        }
+        elseif(isset($request->get['category'])){
             $data = $this->db->query("SELECT * FROM product_to_category INNER JOIN category on product_to_category.category_id = category.category_id AND category.parent_id = ".$request->get['category']);
             foreach($data->rows as $da){
-               // var_dump($da['category_id']);
                $parameters["filter_sub_category"] = $da['category_id'];
             }
-         // var_dump($data);
-           // var_dump($parameters["filter_sub_category"]);
-            // $parameters["filter_sub_category"] = [61,62,63];
         }
 
 
-        
+
         /*check tag parameter*/
         if (isset($request->get['tag']) && !empty($request->get['tag'])) {
             $parameters["filter_tag"] = $request->get['tag'];
