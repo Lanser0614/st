@@ -12453,3 +12453,288 @@
 2021-10-27 10:03:58 - PHP Warning:  Illegal string offset 'reward' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 573
 2021-10-27 10:03:58 - PHP Warning:  Illegal string offset 'points' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 574
 2021-10-27 11:56:54 - PHP Warning:  json_decode() expects parameter 1 to be string, array given in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 351
+2021-10-27 13:36:13 - PHP Notice:  Trying to get property of non-object in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 928
+2021-10-27 13:36:13 - PHP Notice:  Trying to get property of non-object in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 928
+2021-10-27 13:36:13 - PHP Notice:  Trying to get property of non-object in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 928
+2021-10-27 13:36:18 - PHP Notice:  Trying to get property of non-object in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 928
+2021-10-27 13:36:18 - PHP Notice:  Trying to get property of non-object in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 928
+2021-10-27 13:36:18 - PHP Notice:  Trying to get property of non-object in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 928
+2021-10-27 13:37:35 - PHP Warning:  Illegal string offset 'value' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 928
+2021-10-27 13:37:35 - PHP Warning:  Illegal string offset 'value' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 928
+2021-10-27 13:37:35 - PHP Warning:  Illegal string offset 'value' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 928
+2021-10-27 13:38:06 - PHP Warning:  Illegal string offset 'filters' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 928
+2021-10-27 13:38:06 - PHP Warning:  Illegal string offset 'filters' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 928
+2021-10-27 13:38:06 - PHP Warning:  Illegal string offset 'filters' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 928
+2021-10-27 13:39:30 - PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 928
+2021-10-27 13:39:30 - PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 928
+2021-10-27 13:40:04 - PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 928
+2021-10-27 13:40:04 - PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 928
+2021-10-27 13:41:15 - PHP Notice:  Trying to get property of non-object in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 928
+2021-10-27 13:41:15 - PHP Notice:  Trying to get property of non-object in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 928
+2021-10-27 13:41:15 - PHP Notice:  Trying to get property of non-object in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 928
+2021-10-27 13:41:41 - PHP Warning:  Illegal string offset 'value' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 928
+2021-10-27 13:41:41 - PHP Warning:  Illegal string offset 'value' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 928
+2021-10-27 13:41:41 - PHP Notice:  Undefined index: value in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 928
+2021-10-27 13:47:28 - PHP Notice:  Undefined index: value in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 927
+2021-10-27 13:54:50 - PHP Notice:  Array to string conversion in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 929
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 440
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'special' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 455
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'special' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 456
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'special' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 457
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'special' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 458
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'tax_class_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 458
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'special' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 459
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'tax_class_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 459
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 463
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 479
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 528
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 540
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 551
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 553
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 568
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 569
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'name' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 570
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 571
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'manufacturer' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 572
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'model' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 574
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'price' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 579
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'price' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 580
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'price' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 581
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'tax_class_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 581
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'price' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 582
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'tax_class_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 582
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'rating' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 583
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'description' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 584
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 585
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'meta_title' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 595
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'meta_description' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 596
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'meta_keyword' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 597
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'tag' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 598
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'upc' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 599
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'ean' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 600
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'jan' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 601
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'isbn' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 602
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'mpn' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 603
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'location' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 604
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'stock_status' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 605
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'manufacturer_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 607
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'tax_class_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 608
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'date_available' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 609
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'weight' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 610
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'weight_class_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 611
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'length' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 612
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'width' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 613
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'height' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 614
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'length_class_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 615
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'subtract' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 616
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'sort_order' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 617
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'status' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 618
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'date_added' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 619
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'date_modified' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 620
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'viewed' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 621
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'reward' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 625
+2021-10-27 14:05:56 - PHP Warning:  Illegal string offset 'points' in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 626
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: product_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 20
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: name in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: min_price_analog in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 22
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: description in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 23
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: meta_title in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 24
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: meta_h1 in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 25
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: meta_description in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 26
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: meta_keyword in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 27
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: tag in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 28
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: model in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 29
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: sku in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 30
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: upc in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 31
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: ean in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 32
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: jan in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 33
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: isbn in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 34
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: mpn in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 35
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: location in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 36
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: quantity in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 37
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: stock_status_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 38
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: stock_status in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 39
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: image in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 40
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: manufacturer_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 41
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: manufacturer in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 42
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: discount in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 43
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: price in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 43
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: special in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 44
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: reward in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 45
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: points in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 46
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: tax_class_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 47
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: date_available in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 48
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: weight in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 49
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: weight_class_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 50
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: length in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 51
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: width in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 52
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: height in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 53
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: length_class_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 54
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: subtract in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 55
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: rating in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 56
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: reviews in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 57
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: minimum in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 58
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: sort_order in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 59
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: status in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 60
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: date_added in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 61
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: date_modified in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 62
+2021-10-27 14:08:13 - PHP Notice:  Undefined index: viewed in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 63
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: product_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 20
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: name in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: min_price_analog in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 22
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: description in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 23
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: meta_title in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 24
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: meta_h1 in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 25
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: meta_description in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 26
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: meta_keyword in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 27
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: tag in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 28
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: model in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 29
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: sku in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 30
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: upc in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 31
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: ean in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 32
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: jan in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 33
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: isbn in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 34
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: mpn in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 35
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: location in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 36
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: quantity in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 37
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: stock_status_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 38
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: stock_status in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 39
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: image in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 40
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: manufacturer_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 41
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: manufacturer in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 42
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: discount in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 43
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: price in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 43
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: special in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 44
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: reward in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 45
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: points in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 46
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: tax_class_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 47
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: date_available in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 48
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: weight in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 49
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: weight_class_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 50
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: length in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 51
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: width in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 52
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: height in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 53
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: length_class_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 54
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: subtract in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 55
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: rating in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 56
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: reviews in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 57
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: minimum in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 58
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: sort_order in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 59
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: status in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 60
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: date_added in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 61
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: date_modified in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 62
+2021-10-27 14:08:31 - PHP Notice:  Undefined index: viewed in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 63
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: product_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 20
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: name in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: min_price_analog in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 22
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: description in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 23
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: meta_title in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 24
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: meta_h1 in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 25
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: meta_description in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 26
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: meta_keyword in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 27
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: tag in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 28
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: model in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 29
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: sku in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 30
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: upc in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 31
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: ean in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 32
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: jan in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 33
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: isbn in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 34
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: mpn in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 35
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: location in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 36
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: quantity in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 37
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: stock_status_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 38
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: stock_status in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 39
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: image in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 40
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: manufacturer_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 41
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: manufacturer in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 42
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: discount in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 43
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: price in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 43
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: special in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 44
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: reward in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 45
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: points in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 46
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: tax_class_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 47
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: date_available in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 48
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: weight in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 49
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: weight_class_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 50
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: length in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 51
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: width in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 52
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: height in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 53
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: length_class_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 54
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: subtract in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 55
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: rating in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 56
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: reviews in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 57
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: minimum in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 58
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: sort_order in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 59
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: status in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 60
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: date_added in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 61
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: date_modified in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 62
+2021-10-27 14:08:32 - PHP Notice:  Undefined index: viewed in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 63
+2021-10-27 14:11:29 - PHP Notice:  Undefined index: product_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 19
+2021-10-27 14:14:42 - PHP Notice:  Undefined variable: rows in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Notice:  Uninitialized string offset: 0 in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Notice:  Uninitialized string offset: 0 in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Notice:  Uninitialized string offset: 0 in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Notice:  Uninitialized string offset: 0 in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Notice:  Uninitialized string offset: 0 in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Notice:  Uninitialized string offset: 0 in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Notice:  Uninitialized string offset: 0 in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Notice:  Uninitialized string offset: 0 in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Notice:  Uninitialized string offset: 0 in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Notice:  Uninitialized string offset: 0 in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Notice:  Uninitialized string offset: 0 in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Notice:  Uninitialized string offset: 0 in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:29 - PHP Warning:  Illegal string offset 'product_id' in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:20:44 - PHP Notice:  Undefined index: product_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 21
+2021-10-27 14:21:30 - PHP Notice:  Trying to get property of non-object in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 19
+2021-10-27 14:21:30 - PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 19
+2021-10-27 14:21:30 - PHP Notice:  Trying to get property of non-object in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 19
+2021-10-27 14:21:30 - PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 19
+2021-10-27 14:21:30 - PHP Notice:  Trying to get property of non-object in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 19
+2021-10-27 14:21:30 - PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 19
+2021-10-27 14:21:40 - PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 19
+2021-10-27 14:32:05 - PHP Notice:  Trying to get property of non-object in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 17
+2021-10-27 14:37:30 - PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 17

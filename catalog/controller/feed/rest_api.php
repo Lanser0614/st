@@ -373,13 +373,16 @@ class ControllerFeedRestApi extends RestController
         $this->load->model('catalog/product');
 
         $products = $this->model_catalog_product->getProductWithAlias($alias);
-       //var_dump($products);
-        // if (!empty($products)) {
-        //     $this->json["data"] = $this->getProductInfo(reset($products));
-        // } else {
-        //     $this->json['error'][] = 'Product not found';
-        //     $this->statusCode = 404;
-        // }
+      //  var_dump($products);
+        // $this->response->addHeader('Content-Type: application/json');
+        // $this->response->setOutput(json_encode($products));
+        //var_dump($products);
+        if (!empty($products)) {
+            $this->json["data"] = $this->getProductInfo(reset($products));
+        } else {
+            $this->json['error'][] = 'Product not found';
+            $this->statusCode = 404;
+        }
     }
 
 
@@ -390,6 +393,7 @@ class ControllerFeedRestApi extends RestController
         $this->load->model('catalog/product');
 
         $products = $this->model_catalog_product->getProductsByIds(array($id), $this->customer);
+      
         if (!empty($products)) {
             $this->json["data"] = $this->getProductInfo(reset($products));
         } else {
@@ -707,6 +711,8 @@ class ControllerFeedRestApi extends RestController
             $parameters["filter_manufacturer_id"] = $request->get['manufacturer'];
         }
 
+
+        
         /*check category id parameter*/
         if (isset($request->get['category']) && !empty($request->get['category'])) {
             $parameters["filter_category_id"] = $request->get['category'];
@@ -885,6 +891,7 @@ class ControllerFeedRestApi extends RestController
             $post = $this->getPost();
             $this->searchService($post);
         } else {
+            
             $this->statusCode = 405;
             $this->allowedHeaders = array("POST");
         }
@@ -920,6 +927,13 @@ class ControllerFeedRestApi extends RestController
             foreach ($products as $product) {
                 $this->json['data'][] = $this->getProductInfo($product);
             }
+        }elseif (empty($products)) {
+            foreach ($post["filters"] as  $value) {
+             var_dump($value["value"]);
+            // $data = $this->db->query("SELECT * FROM product_to_category INNER JOIN category on product_to_category.category_id = category.category_id AND category.parent_id = ".$value["value"]);
+            //var_dump($data);
+            }
+          //var_dump($post["filters"]);
         }
 
     }
