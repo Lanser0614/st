@@ -55,6 +55,18 @@ class ModelCatalogCategory extends Model
 		return $query->row;
 	}
 
+	public function getCategoryByAlias($alias){
+		$category_id = $this->db->query("SELECT SUBSTR(query, 13, 5) FROM url_alias WHERE keyword LIKE '$alias%'");
+		foreach($category_id->rows as $key){
+			//var_dump($key);
+            $key["SUBSTR(query, 13, 5)"];
+             $key_value = intval($key["SUBSTR(query, 13, 5)"]);
+        }
+		//var_dump($key_value);
+		$query = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "category c LEFT JOIN " . DB_PREFIX . "category_description cd ON (c.category_id = cd.category_id) LEFT JOIN " . DB_PREFIX . "category_to_store c2s ON (c.category_id = c2s.category_id) WHERE c.category_id = '" . (int)$key_value . "' AND cd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND c2s.store_id = '" . (int)$this->config->get('config_store_id') . "' AND c.status = '1'");
+		return $query->row;
+	}
+
 	public function getAlias($category_id){ //
 		//$alias = $this->db->query("SELECT  url_alias.keyword, url_alias.query, category.category_id FROM url_alias LEFT JOIN category ON url_alias.query = CONCAT('category_id=', category.category_id) LIMIT 30");
 		//$alias = $this->db->query("SELECT  url_alias.keyword category.category_id FROM url_alias LEFT JOIN category ON url_alias.query = 'category_id= 'category.category_id");

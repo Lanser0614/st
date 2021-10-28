@@ -289,7 +289,6 @@ class ControllerFeedRestApi extends RestController
             if (isset($this->request->get['id']) && ctype_digit($this->request->get['id'])) {
               $id = $this->request->get['id'];
                  $this->getProduct($id);
-                
             }
             elseif (isset($this->request->get['alias']) && is_string($this->request->get['alias'])) {
                $alias = $this->request->get['alias'];
@@ -372,7 +371,7 @@ class ControllerFeedRestApi extends RestController
 
         $this->load->model('catalog/product');
 
-        $products = $this->model_catalog_product->getProductWithAlias($alias);
+        $products = $this->model_catalog_product->getProductWithAlias($alias, $this->customer);
       //  var_dump($products);
         // $this->response->addHeader('Content-Type: application/json');
         // $this->response->setOutput(json_encode($products));
@@ -928,12 +927,23 @@ class ControllerFeedRestApi extends RestController
                 $this->json['data'][] = $this->getProductInfo($product);
             }
         }elseif (empty($products)) {
-            foreach ($post["filters"] as  $value) {
-             var_dump($value["value"]);
-            // $data = $this->db->query("SELECT * FROM product_to_category INNER JOIN category on product_to_category.category_id = category.category_id AND category.parent_id = ".$value["value"]);
-            //var_dump($data);
-            }
-          //var_dump($post["filters"]);
+            echo 'Have not product';
+            // $customer_group_id = $this->config->get('config_customer_group_id');
+            // foreach ($post["filters"] as  $value) {
+            // foreach ($value["value"] as $key => $value) {
+            // }
+            // }
+            // $data = $this->db->query(" SELECT * FROM `category` WHERE parent_id = ".$value); 
+           
+            // var_dump($data->rows);
+            // foreach($data->rows as $da){
+            //     $array = array($da['category_id']);
+            //     var_dump($array);
+            // }
+            
+            // $sql = "SELECT p.product_id, (SELECT price FROM " . DB_PREFIX . "product_discount pd2 WHERE pd2.product_id = p.product_id AND pd2.customer_group_id = '" . (int)$customer_group_id . "' AND pd2.quantity = '1' AND ((pd2.date_start = '0000-00-00' OR pd2.date_start < NOW()) AND (pd2.date_end = '0000-00-00' OR pd2.date_end > NOW())) ORDER BY pd2.priority ASC, pd2.price ASC LIMIT 1) AS discount, (SELECT price FROM " . DB_PREFIX . "product_special ps WHERE ps.product_id = p.product_id AND ps.customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' AND ((ps.date_start = '0000-00-00' OR ps.date_start < NOW()) AND (ps.date_end = '0000-00-00' OR ps.date_end > NOW())) ORDER BY ps.priority ASC, ps.price ASC LIMIT 1) AS special, (SELECT AVG(rating) AS total FROM " . DB_PREFIX . "review r1 WHERE r1.product_id = p.product_id AND r1.status = '1' GROUP BY r1.product_id) AS rating FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (p.product_id = p2c.product_id) LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) LEFT JOIN " . DB_PREFIX . "product_to_store p2s ON (p.product_id = p2s.product_id) WHERE pd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND p.status = '1' AND p.date_available <= NOW() AND p2s.store_id = '" . (int)$this->config->get('config_store_id') ."'and p2c.category_id in '"."' ";
+            // $sql .=$da['category_id'];
+            // var_dump($sql);
         }
 
     }
@@ -948,7 +958,12 @@ class ControllerFeedRestApi extends RestController
             //get category details
             if (isset($this->request->get['id']) && ctype_digit($this->request->get['id'])) {
                 $this->getCategory($this->request->get['id']);
-            } else {
+            }  elseif (isset($this->request->get['alias']) && is_string($this->request->get['alias'])) {
+                $alias = $this->request->get['alias'];
+              //  $checksum = $this->model_catalog_product->getChecksum();
+              $this->getCategoryByAlias($alias);
+            }
+             else {
                 /*check parent parameter*/
                 if (isset($this->request->get['parent'])) {
                     $parent = $this->request->get['parent'];
@@ -977,6 +992,47 @@ class ControllerFeedRestApi extends RestController
         return $this->sendResponse();
     }
 
+    public function getCategoryByAlias($alias, $level = 10)
+    {
+
+        $this->load->model('catalog/category');
+        $this->load->model('tool/image');
+
+        if (ctype_digit($alias)) {
+            $category_id = $alias;
+        } else {
+            $category_id = 0;
+        }
+
+        $category = $this->model_catalog_category->getCategoryByAlias($alias);
+      //  var_dump($category);
+        if (isset($category['category_id'])) {
+
+            if (isset($category['image']) && !empty($category['image']) && file_exists(DIR_IMAGE . $category['image'])) {
+                $image = $this->model_tool_image->resize($category['image'], $this->config->get('config_rest_api_image_width'), $this->config->get('config_rest_api_image_height'));
+                $original_image = $this->urlPrefix . 'image/' . $category['image'];
+            } else {
+                $image = $this->model_tool_image->resize('no_image.png', $this->config->get('config_rest_api_image_width'), $this->config->get('config_rest_api_image_height'));
+                $original_image = $this->urlPrefix . 'image/no_image.png';
+            }
+
+            $this->json['data'] = array(
+                'id' => (int)$category['category_id'],
+                'name' => $category['name'],
+                'description' => $category['description'],
+                'image' => $image,
+                'original_image' => $original_image,
+                'filters' => $this->getCategoryFilters($category_id),
+                'alias' => $this->model_catalog_category->getAlias((int)$category['category_id']),
+                'sub_categories' => $this->loadCatTree($category['category_id'], $level)
+            );
+        } else {
+            $this->statusCode = 404;
+            $this->json['error'][] = "The specified category does not exist.";
+        }
+    }
+  
+  
     public function getCategory($id, $level = 10)
     {
 
