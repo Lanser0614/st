@@ -19,53 +19,52 @@ require_once(DIR_SYSTEM . 'engine/restcontroller.php');
 
 class ControllerFeedRestApi extends RestController
 {
-    
 
 
-    public function getAnalog(){
+
+    public function getAnalog()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             //get product details
             if (isset($this->request->get['id']) && ctype_digit($this->request->get['id'])) {
-              $product_id = $this->request->get['id'];
+                $product_id = $this->request->get['id'];
             }
-            }
-            $this->load->model('catalog/product');
+        }
+        $this->load->model('catalog/product');
 
-            $product_info = $this->model_catalog_product->getProduct($product_id);
-            try {
-                $autopiter = new AutoPiterComponent($product_info['model']);
-                $autopiter->manufacturer_id = $product_info['manufacturer_id'];
-                $autopiter->manufacturer = $product_info['manufacturer'];
-                $autopiter->counts = $product_info['stock_status'];
-                $autopiter->setUrl($this->request->get);
-                $data['articles'] = $autopiter->getItems();
-                $price_min = $autopiter->minPrice();
-                $data['brands_analog'] = $autopiter->brands_price;
-                $this->model_catalog_product->editPriceAnalog($product_id, $price_min);
-                $cache = new Cache('file', 259200);
-                $cache->set('autopiter.' . $product_info['model'], $data['articles']);
-                $price_autopiter = $autopiter->my_absolute_price();
-                if (!empty($price_autopiter)) {
-                    $price_autopiters = $autopiter->getPrice($price_autopiter[0]);
-                    $product_info['price'] = $price_autopiters;
-                    $this->model_catalog_product->editProduct($product_id, $price_autopiters);
-                }
-            } catch (SoapFault $message) {
-                if ($this->cache->get('autopiter.' . $product_info['model'])) { //проверяем, если ли закешированные данные
-                    $data['articles'] = $this->cache->get('autopiter.' . $product_info['model']); //забираем в массив уже готовые данные и не делаем запросов
-                }
+        $product_info = $this->model_catalog_product->getProduct($product_id);
+        try {
+            $autopiter = new AutoPiterComponent($product_info['model']);
+            $autopiter->manufacturer_id = $product_info['manufacturer_id'];
+            $autopiter->manufacturer = $product_info['manufacturer'];
+            $autopiter->counts = $product_info['stock_status'];
+            $autopiter->setUrl($this->request->get);
+            $data['articles'] = $autopiter->getItems();
+            $price_min = $autopiter->minPrice();
+            $data['brands_analog'] = $autopiter->brands_price;
+            $this->model_catalog_product->editPriceAnalog($product_id, $price_min);
+            $cache = new Cache('file', 259200);
+            $cache->set('autopiter.' . $product_info['model'], $data['articles']);
+            $price_autopiter = $autopiter->my_absolute_price();
+            if (!empty($price_autopiter)) {
+                $price_autopiters = $autopiter->getPrice($price_autopiter[0]);
+                $product_info['price'] = $price_autopiters;
+                $this->model_catalog_product->editProduct($product_id, $price_autopiters);
             }
-           // var_dump($price_min);
-      echo json_encode($data['articles'], JSON_UNESCAPED_UNICODE);
-
+        } catch (SoapFault $message) {
+            if ($this->cache->get('autopiter.' . $product_info['model'])) { //проверяем, если ли закешированные данные
+                $data['articles'] = $this->cache->get('autopiter.' . $product_info['model']); //забираем в массив уже готовые данные и не делаем запросов
+            }
+        }
+        // var_dump($price_min);
+        echo json_encode($data['articles'], JSON_UNESCAPED_UNICODE);
     }
 
     /*Get Oauth token*/
     public function getToken()
     {
 
-         if ($_SERVER['REQUEST_METHOD'] === 'POST')
-     {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             /*check rest api is enabled*/
             if (!$this->config->get('rest_api_status')) {
@@ -112,7 +111,7 @@ class ControllerFeedRestApi extends RestController
                         $this->session->start(0);
                     } else {
 
-                        if(isset($oldTokenData['data'])) {
+                        if (isset($oldTokenData['data'])) {
                             $data = json_decode($oldTokenData['data'], true);
                             $this->session->start('default', $data['rest_session_id']);
                         }
@@ -121,7 +120,6 @@ class ControllerFeedRestApi extends RestController
                     $this->session->data['token_id'] = $token['access_token'];
                     $this->session->data['language'] = $oldSession['language'];
                     $this->session->data['currency'] = $oldSession['currency'];
-
                 } else {
 
                     if (isset($token['error_description'])) {
@@ -133,7 +131,6 @@ class ControllerFeedRestApi extends RestController
                     $this->statusCode = 400;
                 }
             }
-
         } else {
             $this->statusCode = 405;
             $this->allowedHeaders = array("POST");
@@ -142,156 +139,156 @@ class ControllerFeedRestApi extends RestController
         return $this->sendResponse();
     }
 
-        /*Get sms */
-        // private function send($phone,$sms) {
-        //     $ch = curl_init("http://sms.ru/sms/send");
-        //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-        //     curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-        //     curl_setopt($ch, CURLOPT_POSTFIELDS, array(
-        //         "api_id"		=>	'D0E13900-A03C-38AC-D6C9-E1D4C34EE107',
-        //         "to"			=>	$phone,
-        //         "partner_id"	=>	"6583",
-        //         "text"			=>	$sms
-        //     ));
-        //     $body = curl_exec($ch);
-        //     curl_close($ch); 
-        //     return false;
-        // }
-        
-        // public function phone() {
-            
-        //     $result = '';
-        //     if( $phone = $this->request->get['phone'] ) {
-                
-        //         $phone = preg_replace('/[^\d]/', '', $phone);
-        //         $phone = '8' . substr($phone, -10, 10);
-                
-        //         if(!empty($_COOKIE['stime'])){
-        //             $last_time = base64_decode($_COOKIE['stime']);
-        //             if((time()-$last_time)<60){
-        //                 $result = 'wait';
-        //             } else {					
-        //                 $result = 'ok';					
-        //             }
-        //         } else {			
-        //             $result = 'ok';			
-        //         }
-                
-        //         if($result=='ok'){
-                
-        //             $code = mt_rand(1000, 9999);
-    
-        //             //$code = 3535;
-        //             $_SESSION['auth']['phone'] = $phone;
-        //             $_SESSION['auth']['code'] = (string)$code;
-        //             $_SESSION['auth']['tries'] = 2;
-        //             $this->send($phone, "Ваш код авторизации: ".$code);
-        //             setcookie('stime', base64_encode(time()), time()+60*60*24*365,'/');
-        //         }
-                
-        //     }
-        //     $this->response->addHeader('Content-Type: application/json');
-        //     $this->response->setOutput(json_encode(['result'=>$result]));
-        // }
-        
-        // public function code() {
-            
-        //     if( $code = $this->request->get['code'] ) {
-                
-        //         $_SESSION['auth']['tries'] -= 1;
-                
-        //         if( (int)$code == $_SESSION['auth']['code'] ) {
-                    
-        //             $this->load->model('account/customer');
-                    
-        //             if( !empty($_SESSION['auth']['phone']) ) {
-        //                 $customer_info = $this->model_account_customer->getCustomerByPhone($_SESSION['auth']['phone']);
-                        
-        //                 if( empty($customer_info) ) {
-        //                     $customer_id = $this->model_account_customer->addCustomer(['telephone' => $_SESSION['auth']['phone'], 'firstname'=>'', 'lastname'=>'', 'email'=>'', 'fax'=>'', 'password'=>'', 'company'=>'', 'address_1'=>'', 'address_2'=>'', 'city'=>'', 'postcode'=>'', 'country_id'=>0, 'zone_id'=>0]);
-        //                 } else {
-        //                     $customer_id = $customer_info['customer_id'];
-        //                 }
-                        
-        //             } elseif( !empty($_SESSION['auth']['email']) ) {
-        //                 $customer_info = $this->model_account_customer->getCustomerByEmail($_SESSION['auth']['email']);
-                        
-        //                 if( empty($customer_info) ) {
-        //                     $customer_id = $this->model_account_customer->addCustomer(['email' => $_SESSION['auth']['email'], 'telephone'=> '', 'firstname'=>'', 'lastname'=>'', 'fax'=>'', 'password'=>'', 'company'=>'', 'address_1'=>'', 'address_2'=>'', 'city'=>'', 'postcode'=>'', 'country_id'=>0, 'zone_id'=>0]);
-        //                 } else {
-        //                     $customer_id = $customer_info['customer_id'];
-        //                 }
-        //             }
-                    
-        //             $this->session->data['customer_id'] = $customer_id;
-                    
-        //             unset($_SESSION['auth']);
-        //             $result = 'ok';
-                    
-        //         } else {
-                    
-        //             if( $_SESSION['auth']['tries'] > 0 ) {
-        //                 $result = 'fail';
-        //             } else {
-        //                 unset($_SESSION['auth']);
-        //                 $result = 'reset';
-        //             }
-        //         }
-                
-        //     }
-            
-        //     $this->response->addHeader('Content-Type: application/json');
-        //     $this->response->setOutput(json_encode(['result'=>$result]));
-        // }
-        
-        // public function email() {
-        //     if( $email = $this->request->get['email'] ) {
-                
-        //         if(!empty($_COOKIE['stime'])){
-        //             $last_time = base64_decode($_COOKIE['stime']);
-        //             if((time()-$last_time)<60){
-        //                 $result = 'wait';
-        //             } else {					
-        //                 $result = 'ok';					
-        //             }
-        //         } else {			
-        //             $result = 'ok';			
-        //         }
-                
-        //         if($result=='ok'){
-        //             $code = mt_rand(1000, 9999);
-        //             //$code = 3535;
-        //             $_SESSION['auth']['email'] = $email;
-        //             $_SESSION['auth']['code'] = (string)$code;
-        //             $_SESSION['auth']['tries'] = 2;
-        //             $this->send_email($email, "Авторизация на сайте ST Автозапчасти", "<p>Это письмо пришло, потому что кто-то запросил код авторизации на Ваш почтовый адрес.</p><p>Если это были не вы, то просто игнорируйте это сообщение.</p><p>Код для авторизации: ".$code."</p>");
-        //             setcookie('stime', base64_encode(time()), time()+60*60*24*365,'/');
-        //         }
-                
-        //     }
-            
-        //     $this->response->addHeader('Content-Type: application/json');
-        //     $this->response->setOutput(json_encode(['result'=>$result]));
-        // }
-        
-        // private function send_email($email, $subject, $message) {
-        //     $mail = new Mail();
-        //     $mail->protocol = $this->config->get('config_mail_protocol');
-        //     $mail->parameter = $this->config->get('config_mail_parameter');
-        //     $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-        //     $mail->smtp_username = $this->config->get('config_mail_smtp_username');
-        //     $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-        //     $mail->smtp_port = $this->config->get('config_mail_smtp_port');
-        //     $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
-    
-        //     $mail->setTo($email);
-        //     $mail->setFrom($this->config->get('config_email'));
-        //     $mail->setSender(html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
-        //     $mail->setSubject($subject);
-        //     $mail->setText($message);
-        //     $mail->send();
-        // }
-        /*Get sms */
+    /*Get sms */
+    // private function send($phone,$sms) {
+    //     $ch = curl_init("http://sms.ru/sms/send");
+    //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+    //     curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+    //     curl_setopt($ch, CURLOPT_POSTFIELDS, array(
+    //         "api_id"		=>	'D0E13900-A03C-38AC-D6C9-E1D4C34EE107',
+    //         "to"			=>	$phone,
+    //         "partner_id"	=>	"6583",
+    //         "text"			=>	$sms
+    //     ));
+    //     $body = curl_exec($ch);
+    //     curl_close($ch); 
+    //     return false;
+    // }
+
+    // public function phone() {
+
+    //     $result = '';
+    //     if( $phone = $this->request->get['phone'] ) {
+
+    //         $phone = preg_replace('/[^\d]/', '', $phone);
+    //         $phone = '8' . substr($phone, -10, 10);
+
+    //         if(!empty($_COOKIE['stime'])){
+    //             $last_time = base64_decode($_COOKIE['stime']);
+    //             if((time()-$last_time)<60){
+    //                 $result = 'wait';
+    //             } else {					
+    //                 $result = 'ok';					
+    //             }
+    //         } else {			
+    //             $result = 'ok';			
+    //         }
+
+    //         if($result=='ok'){
+
+    //             $code = mt_rand(1000, 9999);
+
+    //             //$code = 3535;
+    //             $_SESSION['auth']['phone'] = $phone;
+    //             $_SESSION['auth']['code'] = (string)$code;
+    //             $_SESSION['auth']['tries'] = 2;
+    //             $this->send($phone, "Ваш код авторизации: ".$code);
+    //             setcookie('stime', base64_encode(time()), time()+60*60*24*365,'/');
+    //         }
+
+    //     }
+    //     $this->response->addHeader('Content-Type: application/json');
+    //     $this->response->setOutput(json_encode(['result'=>$result]));
+    // }
+
+    // public function code() {
+
+    //     if( $code = $this->request->get['code'] ) {
+
+    //         $_SESSION['auth']['tries'] -= 1;
+
+    //         if( (int)$code == $_SESSION['auth']['code'] ) {
+
+    //             $this->load->model('account/customer');
+
+    //             if( !empty($_SESSION['auth']['phone']) ) {
+    //                 $customer_info = $this->model_account_customer->getCustomerByPhone($_SESSION['auth']['phone']);
+
+    //                 if( empty($customer_info) ) {
+    //                     $customer_id = $this->model_account_customer->addCustomer(['telephone' => $_SESSION['auth']['phone'], 'firstname'=>'', 'lastname'=>'', 'email'=>'', 'fax'=>'', 'password'=>'', 'company'=>'', 'address_1'=>'', 'address_2'=>'', 'city'=>'', 'postcode'=>'', 'country_id'=>0, 'zone_id'=>0]);
+    //                 } else {
+    //                     $customer_id = $customer_info['customer_id'];
+    //                 }
+
+    //             } elseif( !empty($_SESSION['auth']['email']) ) {
+    //                 $customer_info = $this->model_account_customer->getCustomerByEmail($_SESSION['auth']['email']);
+
+    //                 if( empty($customer_info) ) {
+    //                     $customer_id = $this->model_account_customer->addCustomer(['email' => $_SESSION['auth']['email'], 'telephone'=> '', 'firstname'=>'', 'lastname'=>'', 'fax'=>'', 'password'=>'', 'company'=>'', 'address_1'=>'', 'address_2'=>'', 'city'=>'', 'postcode'=>'', 'country_id'=>0, 'zone_id'=>0]);
+    //                 } else {
+    //                     $customer_id = $customer_info['customer_id'];
+    //                 }
+    //             }
+
+    //             $this->session->data['customer_id'] = $customer_id;
+
+    //             unset($_SESSION['auth']);
+    //             $result = 'ok';
+
+    //         } else {
+
+    //             if( $_SESSION['auth']['tries'] > 0 ) {
+    //                 $result = 'fail';
+    //             } else {
+    //                 unset($_SESSION['auth']);
+    //                 $result = 'reset';
+    //             }
+    //         }
+
+    //     }
+
+    //     $this->response->addHeader('Content-Type: application/json');
+    //     $this->response->setOutput(json_encode(['result'=>$result]));
+    // }
+
+    // public function email() {
+    //     if( $email = $this->request->get['email'] ) {
+
+    //         if(!empty($_COOKIE['stime'])){
+    //             $last_time = base64_decode($_COOKIE['stime']);
+    //             if((time()-$last_time)<60){
+    //                 $result = 'wait';
+    //             } else {					
+    //                 $result = 'ok';					
+    //             }
+    //         } else {			
+    //             $result = 'ok';			
+    //         }
+
+    //         if($result=='ok'){
+    //             $code = mt_rand(1000, 9999);
+    //             //$code = 3535;
+    //             $_SESSION['auth']['email'] = $email;
+    //             $_SESSION['auth']['code'] = (string)$code;
+    //             $_SESSION['auth']['tries'] = 2;
+    //             $this->send_email($email, "Авторизация на сайте ST Автозапчасти", "<p>Это письмо пришло, потому что кто-то запросил код авторизации на Ваш почтовый адрес.</p><p>Если это были не вы, то просто игнорируйте это сообщение.</p><p>Код для авторизации: ".$code."</p>");
+    //             setcookie('stime', base64_encode(time()), time()+60*60*24*365,'/');
+    //         }
+
+    //     }
+
+    //     $this->response->addHeader('Content-Type: application/json');
+    //     $this->response->setOutput(json_encode(['result'=>$result]));
+    // }
+
+    // private function send_email($email, $subject, $message) {
+    //     $mail = new Mail();
+    //     $mail->protocol = $this->config->get('config_mail_protocol');
+    //     $mail->parameter = $this->config->get('config_mail_parameter');
+    //     $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+    //     $mail->smtp_username = $this->config->get('config_mail_smtp_username');
+    //     $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+    //     $mail->smtp_port = $this->config->get('config_mail_smtp_port');
+    //     $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+
+    //     $mail->setTo($email);
+    //     $mail->setFrom($this->config->get('config_email'));
+    //     $mail->setSender(html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
+    //     $mail->setSubject($subject);
+    //     $mail->setText($message);
+    //     $mail->send();
+    // }
+    /*Get sms */
 
     /*check database modification*/
     public function getchecksum()
@@ -308,7 +305,6 @@ class ControllerFeedRestApi extends RestController
             for ($i = 0; $i < count($checksum); $i++) {
                 $this->json["data"][] = array('table' => $checksum[$i]['Table'], 'checksum' => $checksum[$i]['Checksum']);
             }
-
         } else {
             $this->statusCode = 405;
             $this->allowedHeaders = array("GET");
@@ -328,27 +324,27 @@ class ControllerFeedRestApi extends RestController
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             //get product details
             if (isset($this->request->get['id']) && ctype_digit($this->request->get['id'])) {
-              $id = $this->request->get['id'];
-                 $this->getProduct($id);
-            }
-            elseif (isset($this->request->get['alias']) && is_string($this->request->get['alias'])) {
-               $alias = $this->request->get['alias'];
-             //  $checksum = $this->model_catalog_product->getChecksum();
-             $this->getProductByAlias($alias);
-            }
-             else {
+                $id = $this->request->get['id'];
+                $this->getProduct($id);
+            } elseif (isset($this->request->get['alias']) && is_string($this->request->get['alias'])) {
+                $alias = $this->request->get['alias'];
+                //  $checksum = $this->model_catalog_product->getChecksum();
+                $this->getProductByAlias($alias);
+            } else {
                 //get products list
                 if (isset($this->request->get['category']) && ctype_digit($this->request->get['category'])) {
-                //   var_dump($this->request->get['category']);
-                     $category_id = $this->request->get['category'];
-                } else {
-                   // var_dump('ok');
-                    $category_id = 0;
+                    //   var_dump($this->request->get['category']);
+                    $category_id = $this->request->get['category'];
+                } elseif (isset($this->request->get['category_alias']) && is_string($this->request->get['category_alias'])) {
+                    $category_id = $this->request->get['category_alias'];
+                }elseif (isset($this->request->get['category_alias_parent']) && is_string($this->request->get['category_alias_parent'])) {
+                    $category_id = $this->request->get['category_alias_parent'];
                 }
+
+
 
                 $this->listProducts($category_id, $this->request);
             }
-
         } else {
             $this->statusCode = 405;
             $this->allowedHeaders = array("GET");
@@ -358,7 +354,8 @@ class ControllerFeedRestApi extends RestController
     }
 
 
-    public function getFaq(){
+    public function getFaq()
+    {
         var_dump('ok');
     }
 
@@ -388,11 +385,11 @@ class ControllerFeedRestApi extends RestController
                     'title' => $row['title'],
                     'description' => $row['description']
                 ]
-                );
+            );
         }
-       
 
-       echo json_encode($query->rows, JSON_UNESCAPED_UNICODE);
+
+        echo json_encode($query->rows, JSON_UNESCAPED_UNICODE);
     }
 
 
@@ -416,8 +413,8 @@ class ControllerFeedRestApi extends RestController
         $this->load->model('catalog/product');
 
         $products = $this->model_catalog_product->getProductWithAlias($alias, $this->customer);
-     // $products = $this->model_catalog_product->getProductsByAlias($alias, $this->customer);
-      //  var_dump($products);
+        // $products = $this->model_catalog_product->getProductsByAlias($alias, $this->customer);
+        //  var_dump($products);
         // $this->response->addHeader('Content-Type: application/json');
         // $this->response->setOutput(json_encode($products));
         //var_dump($products);
@@ -437,7 +434,7 @@ class ControllerFeedRestApi extends RestController
         $this->load->model('catalog/product');
 
         $products = $this->model_catalog_product->getProductsByIds(array($id), $this->customer);
-      
+
         if (!empty($products)) {
             $this->json["data"] = $this->getProductInfo(reset($products));
         } else {
@@ -452,7 +449,7 @@ class ControllerFeedRestApi extends RestController
 
         $this->load->model('tool/image');
         $this->load->model('catalog/category');
-        
+
 
         //product image
         if (isset($product['image']) && !empty($product['image']) && file_exists(DIR_IMAGE . $product['image'])) {
@@ -485,7 +482,7 @@ class ControllerFeedRestApi extends RestController
         if (!$simpleList) {
             $additional_images = $this->model_catalog_product->getProductImages($product['product_id']);
 
-            if(!empty($additional_images)){
+            if (!empty($additional_images)) {
                 foreach ($additional_images as $additional_image) {
                     if (isset($additional_image['image']) && !empty($additional_image['image']) && file_exists(DIR_IMAGE . $additional_image['image'])) {
                         $images[] = $this->model_tool_image->resize($additional_image['image'], $this->config->get('config_rest_api_image_width'), $this->config->get('config_rest_api_image_height'));
@@ -508,7 +505,7 @@ class ControllerFeedRestApi extends RestController
             //discounts
             $data_discounts = $this->model_catalog_product->getProductDiscounts($product['product_id']);
 
-            if(!empty($data_discounts)) {
+            if (!empty($data_discounts)) {
                 foreach ($data_discounts as $discount) {
                     $discounts[] = array(
                         'quantity' => $discount['quantity'],
@@ -518,7 +515,6 @@ class ControllerFeedRestApi extends RestController
                         'price_formated' => empty($hidePrices) ? $this->currency->format($this->tax->calculate($discount['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->currency->getRestCurrencyCode()) : false
                     );
                 }
-
             }
 
             //options
@@ -555,7 +551,7 @@ class ControllerFeedRestApi extends RestController
                             'option_value_id' => (int)$option_value['option_value_id'],
                             'name' => $option_value['name'],
                             'quantity' => !empty($option_value['quantity']) ? $option_value['quantity'] : 0,
-                           
+
                         );
                     }
                 }
@@ -599,7 +595,7 @@ class ControllerFeedRestApi extends RestController
 
             $reviewList = $this->model_catalog_review->getReviewsByProductId($product['product_id'], 0, 1000);
 
-            if(!empty($reviewList)) {
+            if (!empty($reviewList)) {
                 foreach ($reviewList as $review) {
                     $reviews['reviews'][] = array(
                         'author' => $review['author'],
@@ -691,12 +687,11 @@ class ControllerFeedRestApi extends RestController
                 return $modRetval;
             }
         }
-    
+
         return $retval;
-      
     }
 
-    public function listProducts($category_id, $request)
+    public function listProducts($category_id,  $request)
     {
 
         $this->load->model('catalog/product');
@@ -746,6 +741,8 @@ class ControllerFeedRestApi extends RestController
             $parameters["order"] = $request->get['order'];
         }
 
+
+
         /*check filters parameter*/
         if (isset($request->get['filters']) && !empty($request->get['filters'])) {
             $parameters["filter_filter"] = $request->get['filters'];
@@ -757,13 +754,42 @@ class ControllerFeedRestApi extends RestController
         }
 
 
-        
+
+
+        // var_dump($request->get['category']);
         /*check category id parameter*/
         if (isset($request->get['category']) && !empty($request->get['category'])) {
             $parameters["filter_category_id"] = $request->get['category'];
         }
-     
-        
+
+
+        if (isset($request->get['category_alias']) && !empty($request->get['category_alias'])) {
+            $alias = $request->get['category_alias'];
+            $id = $this->db->query("SELECT url_alias.query, url_alias.keyword, category.category_id FROM url_alias INNER JOIN category ON SUBSTR(url_alias.query, 13,5) = category.category_id AND url_alias.keyword LIKE '$alias'");
+            foreach ($id->rows as $url) {
+                $data = $url["category_id"];
+            }
+            $category_id = $data;
+            $parameters["filter_category_id"] = $category_id;
+        }
+
+
+        if (isset($request->get['category_alias_parent'])  && !empty($request->get['category_alias_parent'])) {
+            $alias = $request->get['category_alias_parent'];
+            $id = $this->db->query("SELECT url_alias.query, url_alias.keyword, category.category_id FROM url_alias INNER JOIN category ON SUBSTR(url_alias.query, 13,5) = category.category_id AND url_alias.keyword LIKE '$alias'");
+           foreach ($id->rows as $key) {
+               $parent = $key["category_id"];
+           }
+            $data = $this->db->query("SELECT * FROM product_to_category INNER JOIN category on product_to_category.category_id = category.category_id AND category.parent_id = " . $parent);
+            foreach ($data->rows as $da) {
+                var_dump($da['category_id']);
+              $parameters["filter_sub_category"] = $da['category_id'];
+            }
+        }
+
+
+
+
         // if (isset($request->get['alias']) && !empty($request->get['alias'])) {
         //     // $alias = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "url_alias WHERE keyword LIKE '%$request->get['alias']%'");
         //     // foreach ($alias->rows as $url) {
@@ -777,11 +803,11 @@ class ControllerFeedRestApi extends RestController
         /*check subcategory id parameter*/
         if (isset($request->get['subcategory']) && !empty($request->get['subcategory'])) {
             $parameters["filter_sub_category"] = $request->get['subcategory'];
-        }
-        elseif(isset($request->get['category'])){
-            $data = $this->db->query("SELECT * FROM product_to_category INNER JOIN category on product_to_category.category_id = category.category_id AND category.parent_id = ".$request->get['category']);
-            foreach($data->rows as $da){
-               $parameters["filter_sub_category"] = $da['category_id'];
+        } elseif (isset($request->get['category'])) {
+            $data = $this->db->query("SELECT * FROM product_to_category INNER JOIN category on product_to_category.category_id = category.category_id AND category.parent_id = " . $request->get['category']);
+            foreach ($data->rows as $da) {
+             //   var_dump($da['category_id']);
+                $parameters["filter_sub_category"] = $da['category_id'];
             }
         }
 
@@ -872,28 +898,28 @@ class ControllerFeedRestApi extends RestController
         $products = $this->model_catalog_product->getProductsAllData($parameters, $this->customer);
 
         if (!empty($products)) {
-          //  var_dump('ok');
+            //  var_dump('ok');
             foreach ($products as $product) {
                 $this->json['data'][] = $this->getProductInfo($product, $simpleList, $customFields);
             }
         }
 
-        if($this->includeMeta) {
+        if ($this->includeMeta) {
             $total = $this->model_catalog_product->getProductsTotal($parameters, $this->customer, true);
             $this->response->addHeader('X-Total-Count: ' . (int)$total);
             $this->response->addHeader('X-Pagination-Limit: ' . (int)$parameters["limit"]);
             $this->response->addHeader('X-Pagination-Page: ' . (int)($page));
-           $data = $this->json['data'];
+            $data = $this->json['data'];
 
-           $this->json['data'] = array(
-               'totalrowcount' => (int)$total,
-               'pagenumber'    => (int)$page,
-               'pagesize'      => (int)$parameters["limit"],
-               'items'         => $data
-           );
+            $this->json['data'] = array(
+                'totalrowcount' => (int)$total,
+                'pagenumber'    => (int)$page,
+                'pagesize'      => (int)$parameters["limit"],
+                'items'         => $data
+            );
         }
     }
-//tugadi
+    //tugadi
 
 
 
@@ -906,9 +932,10 @@ class ControllerFeedRestApi extends RestController
 
 
 
-    
 
-    public function getNews($blog_category_id){
+
+    public function getNews($blog_category_id)
+    {
         $this->load->model('blog/blog');
 
         $parameters = array(
@@ -919,7 +946,7 @@ class ControllerFeedRestApi extends RestController
         );
     }
 
-    
+
 
     private function validateDate($date, $format = 'Y-m-d H:i:s')
     {
@@ -936,7 +963,7 @@ class ControllerFeedRestApi extends RestController
             $post = $this->getPost();
             $this->searchService($post);
         } else {
-            
+
             $this->statusCode = 405;
             $this->allowedHeaders = array("POST");
         }
@@ -972,7 +999,7 @@ class ControllerFeedRestApi extends RestController
             foreach ($products as $product) {
                 $this->json['data'][] = $this->getProductInfo($product);
             }
-        }elseif (empty($products)) {
+        } elseif (empty($products)) {
             echo 'Have not product';
             // $customer_group_id = $this->config->get('config_customer_group_id');
             // foreach ($post["filters"] as  $value) {
@@ -980,18 +1007,17 @@ class ControllerFeedRestApi extends RestController
             // }
             // }
             // $data = $this->db->query(" SELECT * FROM `category` WHERE parent_id = ".$value); 
-           
+
             // var_dump($data->rows);
             // foreach($data->rows as $da){
             //     $array = array($da['category_id']);
             //     var_dump($array);
             // }
-            
+
             // $sql = "SELECT p.product_id, (SELECT price FROM " . DB_PREFIX . "product_discount pd2 WHERE pd2.product_id = p.product_id AND pd2.customer_group_id = '" . (int)$customer_group_id . "' AND pd2.quantity = '1' AND ((pd2.date_start = '0000-00-00' OR pd2.date_start < NOW()) AND (pd2.date_end = '0000-00-00' OR pd2.date_end > NOW())) ORDER BY pd2.priority ASC, pd2.price ASC LIMIT 1) AS discount, (SELECT price FROM " . DB_PREFIX . "product_special ps WHERE ps.product_id = p.product_id AND ps.customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' AND ((ps.date_start = '0000-00-00' OR ps.date_start < NOW()) AND (ps.date_end = '0000-00-00' OR ps.date_end > NOW())) ORDER BY ps.priority ASC, ps.price ASC LIMIT 1) AS special, (SELECT AVG(rating) AS total FROM " . DB_PREFIX . "review r1 WHERE r1.product_id = p.product_id AND r1.status = '1' GROUP BY r1.product_id) AS rating FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (p.product_id = p2c.product_id) LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) LEFT JOIN " . DB_PREFIX . "product_to_store p2s ON (p.product_id = p2s.product_id) WHERE pd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND p.status = '1' AND p.date_available <= NOW() AND p2s.store_id = '" . (int)$this->config->get('config_store_id') ."'and p2c.category_id in '"."' ";
             // $sql .=$da['category_id'];
             // var_dump($sql);
         }
-
     }
 
 
@@ -1004,12 +1030,12 @@ class ControllerFeedRestApi extends RestController
             //get category details
             if (isset($this->request->get['id']) && ctype_digit($this->request->get['id'])) {
                 $this->getCategory($this->request->get['id']);
-            }  elseif (isset($this->request->get['alias']) && is_string($this->request->get['alias'])) {
+            } elseif (isset($this->request->get['alias']) && is_string($this->request->get['alias'])) {
                 $alias = $this->request->get['alias'];
-              //  $checksum = $this->model_catalog_product->getChecksum();
-              $this->getCategoryByAlias($alias);
-            }
-             else {
+                // var_dump($alias);
+                //  $checksum = $this->model_catalog_product->getChecksum();
+                $this->getCategoryByAlias($alias);
+            } else {
                 /*check parent parameter*/
                 if (isset($this->request->get['parent'])) {
                     $parent = $this->request->get['parent'];
@@ -1051,7 +1077,7 @@ class ControllerFeedRestApi extends RestController
         }
 
         $category = $this->model_catalog_category->getCategoryByAlias($alias);
-      //  var_dump($category);
+        //  var_dump($category);
         if (isset($category['category_id'])) {
 
             if (isset($category['image']) && !empty($category['image']) && file_exists(DIR_IMAGE . $category['image'])) {
@@ -1077,8 +1103,8 @@ class ControllerFeedRestApi extends RestController
             $this->json['error'][] = "The specified category does not exist.";
         }
     }
-  
-  
+
+
     public function getCategory($id, $level = 10)
     {
 
@@ -1129,7 +1155,7 @@ class ControllerFeedRestApi extends RestController
         $filter_groups = $this->model_catalog_category->getCategoryFilters($category_id);
 
         if ($filter_groups) {
-          //  var_dump($filter_groups);
+            //  var_dump($filter_groups);
             foreach ($filter_groups as $filter_group) {
                 $childen_data = array();
 
@@ -1208,18 +1234,18 @@ class ControllerFeedRestApi extends RestController
             $this->json['data'] = $data;
         }
 
-        if($this->includeMeta) {
+        if ($this->includeMeta) {
             $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Limit: 1000');
             $this->response->addHeader('X-Pagination-Page: 1');
-//            $data = $this->json['data'];
-//
-//            $this->json['data'] = array(
-//                'totalrowcount' => count($data),
-//                'pagenumber'    => 1,
-//                'pagesize'      => 1000,
-//                'items'         => $data
-//            );
+            //            $data = $this->json['data'];
+            //
+            //            $this->json['data'] = array(
+            //                'totalrowcount' => count($data),
+            //                'pagenumber'    => 1,
+            //                'pagesize'      => 1000,
+            //                'items'         => $data
+            //            );
         }
     }
 
@@ -1272,9 +1298,9 @@ class ControllerFeedRestApi extends RestController
             foreach ($categories as $category) {
 
                 $categoryDetails = $this->model_catalog_category->getCategory($category['category_id']);
-                
-                
-                
+
+
+
                 // $slugAlias = $this->model_catalog_category->getAlias($category['category_id']);
                 // var_dump($slugAlias);
 
@@ -1288,7 +1314,7 @@ class ControllerFeedRestApi extends RestController
                         $original_image = $this->urlPrefix . 'image/no_image.png';
                     }
 
-                   
+
                     $info = array(
                         'id' => (int)$categoryDetails['category_id'],
                         'name' => $categoryDetails['name'],
@@ -1297,7 +1323,7 @@ class ControllerFeedRestApi extends RestController
                         'original_image' => $original_image,
                         'status' => $categoryDetails['status'],
                         'parent_id' => (int)$categoryDetails['parent_id'],
-                      //  'alias' => $this->model_catalog_category->getAlias($categoryDetails['category_id']),
+                        //  'alias' => $this->model_catalog_category->getAlias($categoryDetails['category_id']),
                         'filters' => $this->getCategoryFilters($categoryDetails['category_id']),
                     );
                 }
@@ -1309,7 +1335,7 @@ class ControllerFeedRestApi extends RestController
 
         $this->json['data'] = !empty($data) ? $categories : array();
 
-        if($this->includeMeta) {
+        if ($this->includeMeta) {
             $this->response->addHeader('X-Total-Count: ' . (int)$total);
             $this->response->addHeader('X-Pagination-Limit: ' . (int)$parameters["limit"]);
             $this->response->addHeader('X-Pagination-Page: ' . (int)$page);
@@ -1331,14 +1357,13 @@ class ControllerFeedRestApi extends RestController
 
             $stores = array();
 
-            if(!empty($stores_result)) {
+            if (!empty($stores_result)) {
                 foreach ($stores_result as $result) {
                     $stores[] = array(
                         'store_id' => (int)$result['store_id'],
                         'name' => $result['name']
                     );
                 }
-
             }
 
             $default_store[] = array(
@@ -1356,7 +1381,7 @@ class ControllerFeedRestApi extends RestController
 
             $results = $this->model_localisation_currency->getCurrencies();
 
-            if(!empty($results)) {
+            if (!empty($results)) {
                 foreach ($results as $result) {
                     if ($result['status']) {
                         $this->json['data']['currencies'][] = array(
@@ -1379,7 +1404,7 @@ class ControllerFeedRestApi extends RestController
 
                 $customer_groups = $this->model_account_customer_group->getCustomerGroups();
 
-                if(!empty($customer_groups)) {
+                if (!empty($customer_groups)) {
                     foreach ($customer_groups as $customer_group) {
                         if (in_array($customer_group['customer_group_id'], $this->config->get('config_customer_group_display'))) {
                             $this->json['data']['customer_groups'][] = $customer_group;
@@ -1473,18 +1498,18 @@ class ControllerFeedRestApi extends RestController
             }
         }
 
-        if($this->includeMeta) {
+        if ($this->includeMeta) {
             $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Limit: 1000');
             $this->response->addHeader('X-Pagination-Page: 1');
-//            $data = $this->json['data'];
-//
-//            $this->json['data'] = array(
-//                'totalrowcount' => count($data),
-//                'pagenumber'    => 1,
-//                'pagesize'      => 1000,
-//                'items'         => $data
-//            );
+            //            $data = $this->json['data'];
+            //
+            //            $this->json['data'] = array(
+            //                'totalrowcount' => count($data),
+            //                'pagenumber'    => 1,
+            //                'pagesize'      => 1000,
+            //                'items'         => $data
+            //            );
         }
     }
 
@@ -1523,16 +1548,13 @@ class ControllerFeedRestApi extends RestController
 
             if (!empty($order_info)) {
                 $this->json['data'] = $this->getOrderDetailsToOrder($order_info);
-
             } else {
                 $this->json['error'][] = "Order not found";
                 $this->statusCode = 404;
-
             }
         } else {
             $this->json['error'][] = "Invalid order id.";
             $this->statusCode = 400;
-
         }
     }
 
@@ -1552,7 +1574,7 @@ class ControllerFeedRestApi extends RestController
 
             $products = $this->model_account_order->getOrderProducts($orderData['order_id']);
 
-            if(!empty($products)) {
+            if (!empty($products)) {
                 foreach ($products as $product) {
                     $option_data = array();
 
@@ -1600,7 +1622,7 @@ class ControllerFeedRestApi extends RestController
 
         $histories = $this->model_account_order->getOrderHistoriesRest($orderData['order_id'], 0, 1000);
 
-        if(!empty($histories)) {
+        if (!empty($histories)) {
             foreach ($histories as $result) {
                 $orderData['histories'][] = array(
                     'notify' => $result['notify'] ? $this->language->get('text_yes') : $this->language->get('text_no'),
@@ -1616,7 +1638,7 @@ class ControllerFeedRestApi extends RestController
 
         $vouchers = $this->model_account_order->getOrderVouchers($orderData['order_id']);
 
-        if(!empty($vouchers)) {
+        if (!empty($vouchers)) {
             foreach ($vouchers as $voucher) {
                 $orderData['vouchers'][] = array(
                     'description' => $voucher['description'],
@@ -1630,7 +1652,7 @@ class ControllerFeedRestApi extends RestController
 
         $totals = $this->model_account_order->getOrderTotals($orderData['order_id']);
 
-        if(!empty($totals)) {
+        if (!empty($totals)) {
             foreach ($totals as $total) {
                 $orderData['totals'][] = array(
                     'title' => $total['title'],
@@ -1687,7 +1709,6 @@ class ControllerFeedRestApi extends RestController
             if (!empty($orders)) {
                 $this->json['data'] = $orders;
             }
-
         }
     }
 
@@ -1806,7 +1827,6 @@ class ControllerFeedRestApi extends RestController
                 }
 
                 $this->json['data'] = $orders;
-
             }
         } else {
             $this->statusCode = 405;
@@ -1829,7 +1849,8 @@ class ControllerFeedRestApi extends RestController
             $user = null;
 
             /*check user parameter*/
-            if (isset($this->request->get['user']) && $this->request->get['user'] != ""
+            if (
+                isset($this->request->get['user']) && $this->request->get['user'] != ""
                 && ctype_digit($this->request->get['user'])
             ) {
 
@@ -1862,7 +1883,6 @@ class ControllerFeedRestApi extends RestController
                     }
                 }
             }
-
         } else {
             $this->statusCode = 405;
             $this->allowedHeaders = array("GET");
@@ -1975,7 +1995,6 @@ class ControllerFeedRestApi extends RestController
         }
 
         return $this->sendResponse();
-
     }
 
 
@@ -1996,7 +2015,7 @@ class ControllerFeedRestApi extends RestController
             $this->json['error']['rating'] = $this->language->get('error_rating');
         }
 
-       
+
 
         if (empty($this->json["error"])) {
             $this->load->model('catalog/review');
@@ -2057,7 +2076,6 @@ class ControllerFeedRestApi extends RestController
             $this->json['error'][] = "Language not found";
             $this->statusCode = 404;
         }
-
     }
 
     private function listLanguages()
@@ -2071,20 +2089,19 @@ class ControllerFeedRestApi extends RestController
             $this->json['data'] = array_values($languages);
         }
 
-        if($this->includeMeta) {
-            $this->response->addHeader('X-Total-Count: ' .count($this->json['data']));
-            $this->response->addHeader('X-Pagination-Limit: '.count($this->json['data']));
+        if ($this->includeMeta) {
+            $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
+            $this->response->addHeader('X-Pagination-Limit: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Page: 1');
-//            $data = $this->json['data'];
-//
-//            $this->json['data'] = array(
-//                'totalrowcount' => count($data),
-//                'pagenumber'    => 1,
-//                'pagesize'      => count($data),
-//                'items'         => $data
-//            );
+            //            $data = $this->json['data'];
+            //
+            //            $this->json['data'] = array(
+            //                'totalrowcount' => count($data),
+            //                'pagenumber'    => 1,
+            //                'pagesize'      => count($data),
+            //                'items'         => $data
+            //            );
         }
-
     }
 
 
@@ -2116,18 +2133,18 @@ class ControllerFeedRestApi extends RestController
         }
 
 
-        if($this->includeMeta) {
-            $this->response->addHeader('X-Total-Count: ' .count($this->json['data']));
-            $this->response->addHeader('X-Pagination-Limit: '.count($this->json['data']));
+        if ($this->includeMeta) {
+            $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
+            $this->response->addHeader('X-Pagination-Limit: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Page: 1');
-//            $data = $this->json['data'];
-//
-//            $this->json['data'] = array(
-//                'totalrowcount' => count($data),
-//                'pagenumber'    => 1,
-//                'pagesize'      => count($data),
-//                'items'         => $data
-//            );
+            //            $data = $this->json['data'];
+            //
+            //            $this->json['data'] = array(
+            //                'totalrowcount' => count($data),
+            //                'pagenumber'    => 1,
+            //                'pagesize'      => count($data),
+            //                'items'         => $data
+            //            );
         }
     }
 
@@ -2260,14 +2277,11 @@ class ControllerFeedRestApi extends RestController
                         }
                         break;
                 }
-
             }
-
         } else {
             $this->json['error'][] = "Store not found";
             $this->statusCode = 404;
         }
-
     }
 
     private function listStores()
@@ -2292,18 +2306,18 @@ class ControllerFeedRestApi extends RestController
         );
 
 
-        if($this->includeMeta) {
-            $this->response->addHeader('X-Total-Count: ' .count($this->json['data']));
-            $this->response->addHeader('X-Pagination-Limit: '.count($this->json['data']));
+        if ($this->includeMeta) {
+            $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
+            $this->response->addHeader('X-Pagination-Limit: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Page: 1');
-//            $data = $this->json['data'];
-//
-//            $this->json['data'] = array(
-//                'totalrowcount' => count($data),
-//                'pagenumber'    => 1,
-//                'pagesize'      => count($data),
-//                'items'         => $data
-//            );
+            //            $data = $this->json['data'];
+            //
+            //            $this->json['data'] = array(
+            //                'totalrowcount' => count($data),
+            //                'pagenumber'    => 1,
+            //                'pagesize'      => count($data),
+            //                'items'         => $data
+            //            );
         }
     }
 
@@ -2340,7 +2354,6 @@ class ControllerFeedRestApi extends RestController
             $this->json['error'][] = "Country not found";
             $this->statusCode = 404;
         }
-
     }
 
     private function getCountryInfo($country_info, $addZone = true)
@@ -2376,20 +2389,19 @@ class ControllerFeedRestApi extends RestController
             }
         }
 
-        if($this->includeMeta) {
-            $this->response->addHeader('X-Total-Count: ' .count($this->json['data']));
-            $this->response->addHeader('X-Pagination-Limit: '.count($this->json['data']));
+        if ($this->includeMeta) {
+            $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
+            $this->response->addHeader('X-Pagination-Limit: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Page: 1');
-//            $data = $this->json['data'];
-//
-//            $this->json['data'] = array(
-//                'totalrowcount' => count($data),
-//                'pagenumber'    => 1,
-//                'pagesize'      => count($data),
-//                'items'         => $data
-//            );
+            //            $data = $this->json['data'];
+            //
+            //            $this->json['data'] = array(
+            //                'totalrowcount' => count($data),
+            //                'pagenumber'    => 1,
+            //                'pagesize'      => count($data),
+            //                'items'         => $data
+            //            );
         }
-
     }
 
     public function session()
@@ -2470,7 +2482,7 @@ class ControllerFeedRestApi extends RestController
 
                 $all = $this->model_catalog_product->getProductsByIds($products, $this->customer);
 
-                if(!empty($all)) {
+                if (!empty($all)) {
                     foreach ($all as $product_info) {
 
                         if ($product_info) {
@@ -2546,18 +2558,18 @@ class ControllerFeedRestApi extends RestController
         }
         $this->json['data'] = $data;
 
-        if($this->includeMeta) {
-            $this->response->addHeader('X-Total-Count: ' .count($this->json['data']));
-            $this->response->addHeader('X-Pagination-Limit: '.(int)$limit);
+        if ($this->includeMeta) {
+            $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
+            $this->response->addHeader('X-Pagination-Limit: ' . (int)$limit);
             $this->response->addHeader('X-Pagination-Page: 1');
-//            $data = $this->json['data'];
-//
-//            $this->json['data'] = array(
-//                'totalrowcount' => count($data),
-//                'pagenumber'    => 1,
-//                'pagesize'      => (int)$limit,
-//                'items'         => $data
-//            );
+            //            $data = $this->json['data'];
+            //
+            //            $this->json['data'] = array(
+            //                'totalrowcount' => count($data),
+            //                'pagenumber'    => 1,
+            //                'pagesize'      => (int)$limit,
+            //                'items'         => $data
+            //            );
         }
     }
 
@@ -2630,7 +2642,6 @@ class ControllerFeedRestApi extends RestController
             $this->json['error'][] = "Order not found";
             $this->statusCode = 404;
         }
-
     }
 
     public function bestsellers()
@@ -2669,18 +2680,18 @@ class ControllerFeedRestApi extends RestController
             }
         }
 
-        if($this->includeMeta) {
-            $this->response->addHeader('X-Total-Count: ' .count($this->json['data']));
-            $this->response->addHeader('X-Pagination-Limit: '.(int)$limit);
+        if ($this->includeMeta) {
+            $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
+            $this->response->addHeader('X-Pagination-Limit: ' . (int)$limit);
             $this->response->addHeader('X-Pagination-Page: 1');
-//            $data = $this->json['data'];
-//
-//            $this->json['data'] = array(
-//                'totalrowcount' => count($data),
-//                'pagenumber'    => 1,
-//                'pagesize'      => (int)$limit,
-//                'items'         => $data
-//            );
+            //            $data = $this->json['data'];
+            //
+            //            $this->json['data'] = array(
+            //                'totalrowcount' => count($data),
+            //                'pagenumber'    => 1,
+            //                'pagesize'      => (int)$limit,
+            //                'items'         => $data
+            //            );
         }
     }
 
@@ -2716,7 +2727,7 @@ class ControllerFeedRestApi extends RestController
         //discounts
         $data_discounts = $this->model_catalog_product->getProductDiscounts($product['product_id']);
 
-        if(!empty($data_discounts)) {
+        if (!empty($data_discounts)) {
             foreach ($data_discounts as $discount) {
                 $discounts[] = array(
                     'quantity' => (int)$discount['quantity'],
@@ -2789,26 +2800,25 @@ class ControllerFeedRestApi extends RestController
         $this->load->model('catalog/category');
 
         $category_info = $this->model_catalog_category->getCategory($category_id);
-     // $data['parents_category_id'] = $category_id;
-        if ($category_info ) {
+        // $data['parents_category_id'] = $category_id;
+        if ($category_info) {
             $this->json["data"] = $this->getCategoryFilters($category_id);
         }
 
 
-        if($this->includeMeta) {
-            $this->response->addHeader('X-Total-Count: ' .count($this->json['data']));
-            $this->response->addHeader('X-Pagination-Limit: '.count($this->json['data']));
+        if ($this->includeMeta) {
+            $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
+            $this->response->addHeader('X-Pagination-Limit: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Page: 1');
-           $data = $this->json['data'];
+            $data = $this->json['data'];
 
-           $this->json['data'] = array(
-               'totalrowcount' => count($data),
-               'pagenumber'    => 1,
-               'pagesize'      => count($data),
-               'items'         => $data
-           );
+            $this->json['data'] = array(
+                'totalrowcount' => count($data),
+                'pagenumber'    => 1,
+                'pagesize'      => count($data),
+                'items'         => $data
+            );
         }
-
     }
 
     public function slideshows()
@@ -2853,7 +2863,7 @@ class ControllerFeedRestApi extends RestController
 
                 $results = $this->model_design_banner->getBanner($module_info['banner_id']);
 
-                if(!empty($results)) {
+                if (!empty($results)) {
                     foreach ($results as $result) {
                         if (is_file(DIR_IMAGE . $result['image'])) {
                             $data[$index]['banners'][] = array(
@@ -2863,7 +2873,6 @@ class ControllerFeedRestApi extends RestController
                             );
                         }
                     }
-
                 }
 
                 $index++;
@@ -2872,18 +2881,18 @@ class ControllerFeedRestApi extends RestController
 
         $this->json['data'] = $data;
 
-        if($this->includeMeta) {
-            $this->response->addHeader('X-Total-Count: ' .count($this->json['data']));
-            $this->response->addHeader('X-Pagination-Limit: '.count($this->json['data']));
+        if ($this->includeMeta) {
+            $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
+            $this->response->addHeader('X-Pagination-Limit: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Page: 1');
-           $data = $this->json['data'];
+            $data = $this->json['data'];
 
-           $this->json['data'] = array(
-               'totalrowcount' => count($data),
-               'pagenumber'    => 1,
-               'pagesize'      => count($data),
-               'items'         => $data
-           );
+            $this->json['data'] = array(
+                'totalrowcount' => count($data),
+                'pagenumber'    => 1,
+                'pagesize'      => count($data),
+                'items'         => $data
+            );
         }
     }
 
@@ -2901,7 +2910,6 @@ class ControllerFeedRestApi extends RestController
                 $this->statusCode = 400;
                 $this->json['error'][] = "Invalid identifier.";
             }
-
         } else {
             $this->statusCode = 405;
             $this->allowedHeaders = array("GET");
@@ -2966,18 +2974,18 @@ class ControllerFeedRestApi extends RestController
             }
         }
 
-        if($this->includeMeta) {
-            $this->response->addHeader('X-Total-Count: ' .count($this->json['data']));
-            $this->response->addHeader('X-Pagination-Limit: '.(int)$limit);
+        if ($this->includeMeta) {
+            $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
+            $this->response->addHeader('X-Pagination-Limit: ' . (int)$limit);
             $this->response->addHeader('X-Pagination-Page: 1');
-//            $data = $this->json['data'];
-//
-//            $this->json['data'] = array(
-//                'totalrowcount' => count($data),
-//                'pagenumber'    => 1,
-//                'pagesize'      => (int)$limit,
-//                'items'         => $data
-//            );
+            //            $data = $this->json['data'];
+            //
+            //            $this->json['data'] = array(
+            //                'totalrowcount' => count($data),
+            //                'pagenumber'    => 1,
+            //                'pagesize'      => (int)$limit,
+            //                'items'         => $data
+            //            );
         }
     }
 
@@ -3021,7 +3029,6 @@ class ControllerFeedRestApi extends RestController
             $this->statusCode = 400;
             $this->json['error'][] = "Invalid identifier.";
         }
-
     }
 
 
@@ -3038,18 +3045,18 @@ class ControllerFeedRestApi extends RestController
             );
         }
 
-        if($this->includeMeta) {
-            $this->response->addHeader('X-Total-Count: ' .count($this->json['data']));
-            $this->response->addHeader('X-Pagination-Limit: '.count($this->json['data']));
+        if ($this->includeMeta) {
+            $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
+            $this->response->addHeader('X-Pagination-Limit: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Page: 1');
-//            $data = $this->json['data'];
-//
-//            $this->json['data'] = array(
-//                'totalrowcount' => count($data),
-//                'pagenumber'    => 1,
-//                'pagesize'      => count($data),
-//                'items'         => $data
-//            );
+            //            $data = $this->json['data'];
+            //
+            //            $this->json['data'] = array(
+            //                'totalrowcount' => count($data),
+            //                'pagenumber'    => 1,
+            //                'pagesize'      => count($data),
+            //                'items'         => $data
+            //            );
         }
     }
 
@@ -3105,7 +3112,6 @@ class ControllerFeedRestApi extends RestController
             $this->statusCode = 400;
             $this->json['error'][] = "Invalid identifier.";
         }
-
     }
 
     public function listBanners()
@@ -3132,18 +3138,18 @@ class ControllerFeedRestApi extends RestController
         }
 
 
-        if($this->includeMeta) {
-            $this->response->addHeader('X-Total-Count: ' .count($this->json['data']));
-            $this->response->addHeader('X-Pagination-Limit: '.count($this->json['data']));
+        if ($this->includeMeta) {
+            $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
+            $this->response->addHeader('X-Pagination-Limit: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Page: 1');
-//            $data = $this->json['data'];
-//
-//            $this->json['data'] = array(
-//                'totalrowcount' => count($data),
-//                'pagenumber'    => 1,
-//                'pagesize'      => count($data),
-//                'items'         => $data
-//            );
+            //            $data = $this->json['data'];
+            //
+            //            $this->json['data'] = array(
+            //                'totalrowcount' => count($data),
+            //                'pagenumber'    => 1,
+            //                'pagesize'      => count($data),
+            //                'items'         => $data
+            //            );
         }
     }
 
@@ -3190,18 +3196,18 @@ class ControllerFeedRestApi extends RestController
             }
         }
 
-        if($this->includeMeta) {
-            $this->response->addHeader('X-Total-Count: ' .count($this->json['data']));
-            $this->response->addHeader('X-Pagination-Limit: '.(int)$limit);
+        if ($this->includeMeta) {
+            $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
+            $this->response->addHeader('X-Pagination-Limit: ' . (int)$limit);
             $this->response->addHeader('X-Pagination-Page: 1');
-//            $data = $this->json['data'];
-//
-//            $this->json['data'] = array(
-//                'totalrowcount' => count($data),
-//                'pagenumber'    => 1,
-//                'pagesize'      => (int)$limit,
-//                'items'         => $data
-//            );
+            //            $data = $this->json['data'];
+            //
+            //            $this->json['data'] = array(
+            //                'totalrowcount' => count($data),
+            //                'pagenumber'    => 1,
+            //                'pagesize'      => (int)$limit,
+            //                'items'         => $data
+            //            );
         }
     }
 
@@ -3219,14 +3225,12 @@ class ControllerFeedRestApi extends RestController
                 $this->statusCode = 400;
                 $this->json['error'][] = "Compare parameter is required";
             }
-
         } else {
             $this->statusCode = 405;
             $this->allowedHeaders = array("GET");
         }
 
         return $this->sendResponse();
-
     }
 
     private function compareProducts($compare)
@@ -3245,7 +3249,7 @@ class ControllerFeedRestApi extends RestController
 
         $data['attribute_groups'] = array();
 
-        if(!empty($compare)) {
+        if (!empty($compare)) {
             foreach ($compare as $key => $product_id) {
                 $product_info = $this->model_catalog_product->getProduct($product_id);
 
@@ -3280,7 +3284,7 @@ class ControllerFeedRestApi extends RestController
 
                     $attribute_groups = $this->model_catalog_product->getProductAttributes($product_id);
 
-                    if(!empty($attribute_groups)) {
+                    if (!empty($attribute_groups)) {
                         foreach ($attribute_groups as $attribute_group) {
                             foreach ($attribute_group['attribute'] as $attribute) {
                                 $attribute_data[$attribute['attribute_id']] = $attribute['text'];
@@ -3308,7 +3312,7 @@ class ControllerFeedRestApi extends RestController
                         'attribute' => $attribute_data,
                     );
 
-                    if(!empty($attribute_groups)) {
+                    if (!empty($attribute_groups)) {
                         foreach ($attribute_groups as $attribute_group) {
                             $data['attribute_groups'][$attribute_group['attribute_group_id']]['name'] = $attribute_group['name'];
 
@@ -3334,7 +3338,7 @@ class ControllerFeedRestApi extends RestController
 
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $this->json['data']['tracking'] = "";
-            if (isset($this->session->data['tracking'])){
+            if (isset($this->session->data['tracking'])) {
                 $this->json['data']['tracking'] = $this->session->data['tracking'];
             }
         } else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -3342,13 +3346,11 @@ class ControllerFeedRestApi extends RestController
             $post = $this->getPost();
 
             $this->session->data['tracking'] = $post['tracking'];
-
         } else if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
 
-            if (isset($this->session->data['tracking'])){
+            if (isset($this->session->data['tracking'])) {
                 unset($this->session->data['tracking']);
             }
-
         } else {
             $this->statusCode = 405;
             $this->allowedHeaders = array("GET", "POST", "DELETE");

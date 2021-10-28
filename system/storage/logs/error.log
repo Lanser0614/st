@@ -14846,3 +14846,40 @@
 2021-10-28 9:23:02 - PHP Notice:  Undefined variable: result2 in /opt/lampp/htdocs/st-spares-current.ru/catalog/components/AutoPiterComponent.php on line 92
 2021-10-28 9:50:41 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
 2021-10-28 9:50:53 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-10-28 9:54:47 - PHP Notice:  Undefined variable: product_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 34
+2021-10-28 9:54:47 - PHP Notice:  Undefined property: stdClass::$FindCatalogResult in /opt/lampp/htdocs/st-spares-current.ru/catalog/components/AutoPiterComponent.php on line 48
+2021-10-28 9:54:47 - PHP Notice:  Undefined variable: product_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 44
+2021-10-28 11:30:28 - PHP Notice:  Undefined variable: category_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 350
+2021-10-28 11:54:25 - PHP Notice:  Undefined variable: category_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 350
+2021-10-28 11:55:26 - PHP Notice:  Undefined variable: category_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 350
+2021-10-28 11:55:40 - PHP Notice:  Array to string conversion in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 764
+2021-10-28 12:00:51 - PHP Notice:  Undefined index: keyword in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 766
+2021-10-28 13:06:27 - PHP Notice:  Undefined variable: category_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 353
+2021-10-28 13:06:27 - PHP Notice:  Trying to get property of non-object in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 777
+2021-10-28 13:06:27 - PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 777
+2021-10-28 13:06:27 - PHP Notice:  Undefined variable: id in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 782
+2021-10-28 13:07:08 - PHP Notice:  Undefined variable: category_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 353
+2021-10-28 13:07:09 - PHP Notice:  Trying to get property of non-object in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 777
+2021-10-28 13:07:09 - PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 777
+2021-10-28 13:07:09 - PHP Notice:  Undefined variable: id in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 782
+2021-10-28 13:07:44 - PHP Notice:  Trying to get property of non-object in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 777
+2021-10-28 13:07:44 - PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 777
+2021-10-28 13:07:44 - PHP Notice:  Undefined variable: id in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 782
+2021-10-28 13:17:24 - PHP Notice:  Undefined index: category in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 770
+2021-10-28 13:18:29 - PHP Notice:  Undefined index: category in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 770
+2021-10-28 13:22:20 - PHP Notice:  Undefined variable: data in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 351
+2021-10-28 13:24:32 - PHP Notice:  Array to string conversion in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 773
+2021-10-28 13:25:15 - PHP Notice:  Array to string conversion in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 773
+2021-10-28 13:26:59 - PHP Notice:  Array to string conversion in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 774
+2021-10-28 14:04:06 - PHP Notice:  Undefined index: SUBSTR(query, 13, 5) in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/category.php on line 64
+2021-10-28 14:04:06 - PHP Notice:  Undefined index: SUBSTR(query, 13, 5) in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/category.php on line 65
+2021-10-28 14:04:06 - PHP Notice:  Undefined index: SUBSTR(query, 13, 5) in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/category.php on line 64
+2021-10-28 14:04:06 - PHP Notice:  Undefined index: SUBSTR(query, 13, 5) in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/category.php on line 65
+2021-10-28 14:05:05 - PHP Notice:  Undefined variable: key_value in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/category.php on line 68
+2021-10-28 14:05:48 - PHP Notice:  Undefined variable: key_value in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/category.php on line 68
+2021-10-28 14:22:44 - PHP Notice:  Undefined variable: category_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 346
+2021-10-28 14:23:00 - PHP Notice:  Undefined variable: category_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 346
+2021-10-28 14:27:09 - PHP Notice:  Undefined variable: category_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 346
+2021-10-28 14:34:18 - PHP Unknown:  Object of class stdClass could not be converted to string in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 779
+2021-10-28 14:34:52 - PHP Unknown:  Object of class stdClass could not be converted to string in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 779
+2021-10-28 14:35:43 - PHP Unknown:  Object of class stdClass could not be converted to string in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 779
