@@ -78,6 +78,7 @@ class AutoPiterComponent
             } else {
                 foreach ($results as $key => $item) {
                     $this->results[$item->CatalogName][] = $item;
+                    
                 }
             }
         } catch (Exception $message) {
@@ -103,16 +104,17 @@ class AutoPiterComponent
             return '';
         }
         //var_dump($this->results);
+       return $this->results;
        // return json_encode($this->results, JSON_UNESCAPED_UNICODE);
     //    $this->response->addHeader('Content-Type: application/json');
     //    $this->response->setOutput(json_encode($this->results, JSON_UNESCAPED_UNICODE));
-        $this->sort();
-        return $this->getHtml();
+        // $this->sort();
+        // return $this->getHtml();
     }
 
     protected function thead()
     {
-        //                    <th>Номер</th>
+                    //       <th>Номер</th>
 
         return '
             <thead>
@@ -126,6 +128,7 @@ class AutoPiterComponent
                 </tr>
             </thead>
         ';
+       
     }
 
     public function sort()
@@ -293,29 +296,30 @@ class AutoPiterComponent
 
     protected function detailsTblRowCreate($item, $index)
     {
+        
         $catalogName = str_replace(" ", '-', $item->CatalogName);
-        if ($index > 2) {
-            $class = "hidden toggleclass child childs-parent-" . $catalogName;
-        } else {
-            $class = "child childs-parent-" . $catalogName;
-        }
-        $price = $this->getPrice($item->SalePrice);
-        $html = '';
-        $html .= "<tr id='" . $price . "' data-article='" . $this->article_id . "' class='" . $class . "' data-id='" . $item->DetailUid . "' data-price='" . $price . "'  data-days='" . $item->NumberOfDaysSupply . "'  data-brand='" . $item->CatalogName . "' data-name='" . $item->Name . "'>";
-        $html .= "<td>" . $item->CatalogName . "</td>";
-      // $html.="<td>" . $item->ShotNumber . "</td>";
-        $html .= "<td>" . $item->Name . "</td>";
-        $html .= "<td class='ofAval'>" . (($item->NumberOfAvailable) ? $item->NumberOfAvailable : '<span class="glyphicon glyphicon-ok"></span>') . "</td>";
-        $html .= "<td>" . $price . " ₽</td>";
-        $html .= "<td>" . $item->NumberOfDaysSupply . " дн.</td>";
-        $html .= "<td class='td-order nowrap'>";
-        $html .= "<form method='POST' class='analog-form' action=''>";
-        $html .= "<input type='text' class='form-control col-xs-2' value='" . (($item->MinNumberOfSales) ? $item->MinNumberOfSales : '1') . "' name='quantity' />";
-        $html .= "<a class='analog-icon button-cart-analog'></a>";
-        $html .= "</form>";
-        $html .= "</td>";
-        $html .= "</tr>";
-        return $html;
+        // if ($index > 2) {
+        //     $class = "hidden toggleclass child childs-parent-" . $catalogName;
+        // } else {
+        //     $class = "child childs-parent-" . $catalogName;
+        // }
+       return $price = $this->getPrice($item->SalePrice);
+        // $html = '';
+        // $html .= "<tr id='" . $price . "' data-article='" . $this->article_id . "' class='" . $class . "' data-id='" . $item->DetailUid . "' data-price='" . $price . "'  data-days='" . $item->NumberOfDaysSupply . "'  data-brand='" . $item->CatalogName . "' data-name='" . $item->Name . "'>";
+    //     $html .= "<td>" . $item->CatalogName . "</td>";
+    //   // $html.="<td>" . $item->ShotNumber . "</td>";
+    //     $html .= "<td>" . $item->Name . "</td>";
+    //     $html .= "<td class='ofAval'>" . (($item->NumberOfAvailable) ? $item->NumberOfAvailable : '<span class="glyphicon glyphicon-ok"></span>') . "</td>";
+    //     $html .= "<td>" . $price . " ₽</td>";
+    //     $html .= "<td>" . $item->NumberOfDaysSupply . " дн.</td>";
+    //     $html .= "<td class='td-order nowrap'>";
+    //     $html .= "<form method='POST' class='analog-form' action=''>";
+    //     $html .= "<input type='text' class='form-control col-xs-2' value='" . (($item->MinNumberOfSales) ? $item->MinNumberOfSales : '1') . "' name='quantity' />";
+    //     $html .= "<a class='analog-icon button-cart-analog'></a>";
+    //     $html .= "</form>";
+    //     $html .= "</td>";
+    //     $html .= "</tr>";
+    //     return $html;
     }
 
     public function getPrice($price)

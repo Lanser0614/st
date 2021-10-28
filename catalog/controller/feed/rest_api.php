@@ -1,4 +1,5 @@
 <?php
+include(DIR_COMPONENTS . 'AutoPiterComponent.php');
 /**
  * rest_api.php
  *
@@ -18,6 +19,46 @@ require_once(DIR_SYSTEM . 'engine/restcontroller.php');
 
 class ControllerFeedRestApi extends RestController
 {
+    
+
+
+    public function getAnalog(){
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            //get product details
+            if (isset($this->request->get['id']) && ctype_digit($this->request->get['id'])) {
+              $product_id = $this->request->get['id'];
+            }
+            }
+            $this->load->model('catalog/product');
+
+            $product_info = $this->model_catalog_product->getProduct($product_id);
+            try {
+                $autopiter = new AutoPiterComponent($product_info['model']);
+                $autopiter->manufacturer_id = $product_info['manufacturer_id'];
+                $autopiter->manufacturer = $product_info['manufacturer'];
+                $autopiter->counts = $product_info['stock_status'];
+                $autopiter->setUrl($this->request->get);
+                $data['articles'] = $autopiter->getItems();
+                $price_min = $autopiter->minPrice();
+                $data['brands_analog'] = $autopiter->brands_price;
+                $this->model_catalog_product->editPriceAnalog($product_id, $price_min);
+                $cache = new Cache('file', 259200);
+                $cache->set('autopiter.' . $product_info['model'], $data['articles']);
+                $price_autopiter = $autopiter->my_absolute_price();
+                if (!empty($price_autopiter)) {
+                    $price_autopiters = $autopiter->getPrice($price_autopiter[0]);
+                    $product_info['price'] = $price_autopiters;
+                    $this->model_catalog_product->editProduct($product_id, $price_autopiters);
+                }
+            } catch (SoapFault $message) {
+                if ($this->cache->get('autopiter.' . $product_info['model'])) { //проверяем, если ли закешированные данные
+                    $data['articles'] = $this->cache->get('autopiter.' . $product_info['model']); //забираем в массив уже готовые данные и не делаем запросов
+                }
+            }
+           // var_dump($price_min);
+      echo json_encode($data['articles'], JSON_UNESCAPED_UNICODE);
+
+    }
 
     /*Get Oauth token*/
     public function getToken()
@@ -536,8 +577,9 @@ class ControllerFeedRestApi extends RestController
                 $category_info = $this->model_catalog_category->getCategory($prodcat['category_id']);
                 if ($category_info) {
                     $productCategories[] = array(
+                        'id' => (int)$category_info['category_id'],
                         'name' => $category_info['name'],
-                        'id' => (int)$category_info['category_id']
+                        'alias' => $this->model_catalog_category->getAlias((int)$category_info['category_id']),
                     );
                 }
             }
