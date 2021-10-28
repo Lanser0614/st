@@ -372,6 +372,7 @@ class ControllerFeedRestApi extends RestController
         $this->load->model('catalog/product');
 
         $products = $this->model_catalog_product->getProductWithAlias($alias, $this->customer);
+     // $products = $this->model_catalog_product->getProductsByAlias($alias, $this->customer);
       //  var_dump($products);
         // $this->response->addHeader('Content-Type: application/json');
         // $this->response->setOutput(json_encode($products));
