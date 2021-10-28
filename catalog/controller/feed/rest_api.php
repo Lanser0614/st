@@ -341,14 +341,17 @@ class ControllerFeedRestApi extends RestController
                 ORDER BY fc.sort_order, f.sort_order");
 
         foreach ($query->rows as $row) {
-            $data[$row['category']][] = [
-                'id' => $row['id'],
-                'title' => $row['title'],
-                'description' => $row['description']
-            ];
+            $this->json['data'] = array(
+                $data[$row['category']][] = [
+                    'id' => $row['id'],
+                    'title' => $row['title'],
+                    'description' => $row['description']
+                ]
+                );
         }
+       
 
-        var_dump(json_encode($data, JSON_UNESCAPED_UNICODE));
+       echo json_encode($query->rows, JSON_UNESCAPED_UNICODE);
     }
 
 
