@@ -57,7 +57,8 @@ class ControllerFeedRestApi extends RestController
             }
         }
         // var_dump($price_min);
-        echo json_encode($data['articles'], JSON_UNESCAPED_UNICODE);
+      echo json_encode($data['articles'], JSON_UNESCAPED_UNICODE);
+      //  echo json_encode( $price_autopiters , JSON_UNESCAPED_UNICODE);
     }
 
     /*Get Oauth token*/
@@ -312,7 +313,21 @@ class ControllerFeedRestApi extends RestController
 
         return $this->sendResponse();
     }
-
+    /*
+    * FAQ FUNCTIONS
+    */
+        public function storeFaq(){
+            if($_SERVER['REQUEST_METHOD'] === 'POST'){
+                if(isset($this->request->post['title, username, email, phone'])){
+                  $data = $this->request->post['title, username, email, phone'];
+                  var_dump($data);
+                    //  var_dump($this->request->post['title']);
+                if($this->model_extension_module_faq->validate($this->request->post)){
+                    $this->model_extension_module_faq->add($this->request->post);
+                }
+                }
+        }
+    }
     /*
     * PRODUCT FUNCTIONS
     */

@@ -58,8 +58,8 @@ class AutoPiterComponent
             $this->many($items);
         }
         return $this->results;
-      // return json_decode($this->results);
-    //   var_dump($this->results);
+      // return json_encode($this->results);
+     // var_dump($this->results);
     }
 
     public function many($items)
@@ -102,9 +102,14 @@ class AutoPiterComponent
         $this->results = $this->findCatalog();
         if (empty($this->results)) {
             return '';
+        }elseif(!empty($this->results)){
+         
+
+       return $this->results;
+       
         }
         //var_dump($this->results);
-       return $this->results;
+      // return $this->results;
        // return json_encode($this->results, JSON_UNESCAPED_UNICODE);
     //    $this->response->addHeader('Content-Type: application/json');
     //    $this->response->setOutput(json_encode($this->results, JSON_UNESCAPED_UNICODE));
@@ -297,7 +302,7 @@ class AutoPiterComponent
     protected function detailsTblRowCreate($item, $index)
     {
         
-        $catalogName = str_replace(" ", '-', $item->CatalogName);
+       // $catalogName = str_replace(" ", '-', $item->CatalogName);
         // if ($index > 2) {
         //     $class = "hidden toggleclass child childs-parent-" . $catalogName;
         // } else {

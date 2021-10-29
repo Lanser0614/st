@@ -197,6 +197,7 @@
                 <div class="form_head">
                     <h4>Задать вопрос</h4>
                 </div>
+                
                 <form method="POST" enctype="multipart/form-data">
                     <div class="form_body">
                         <div class="form-group required">
