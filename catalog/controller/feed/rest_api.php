@@ -1052,9 +1052,19 @@ class ControllerFeedRestApi extends RestController
                 $this->getCategoryByAlias($alias);
             } else {
                 /*check parent parameter*/
-                if (isset($this->request->get['parent'])) {
+                if (isset($this->request->get['parent']) && ctype_digit($this->request->get['parent'])) {
                     $parent = $this->request->get['parent'];
-                } else {
+                } 
+                elseif(isset($this->request->get['parent']) && is_string($this->request->get['parent'])) {
+                    $word = $this->request->get['parent'];
+                  $id = $this->db->query("SELECT url_alias.query, url_alias.keyword, category.category_id FROM url_alias INNER JOIN category ON SUBSTR(url_alias.query, 13,5) = category.category_id AND url_alias.keyword LIKE '$word'");
+                   foreach ($id->rows as $key ) {
+                      // var_dump($key['category_id']);
+                   }
+                   $category_id = intval($key['category_id']);
+                  $parent = $category_id;
+                }
+                else{
                     $parent = 0;
                 }
 

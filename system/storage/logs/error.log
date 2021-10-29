@@ -15150,3 +15150,16 @@
 2021-10-29 7:42:59 - PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/st-spares-current.ru/catalog/components/AutoPiterComponent.php on line 584
 2021-10-29 7:42:59 - PHP Warning:  sort() expects parameter 1 to be array, null given in /opt/lampp/htdocs/st-spares-current.ru/catalog/components/AutoPiterComponent.php on line 594
 2021-10-29 7:42:59 - PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/st-spares-current.ru/catalog/components/AutoPiterComponent.php on line 454
+2021-10-29 8:58:43 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-10-29 8:59:18 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-10-29 8:59:29 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-10-29 11:52:11 - PHP Notice:  Undefined variable: parent in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 1071
+2021-10-29 11:54:51 - PHP Notice:  Undefined variable: parent in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 1073
+2021-10-29 11:55:44 - PHP Notice:  Undefined variable: parent in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 1073
+2021-10-29 11:56:46 - PHP Notice:  Undefined variable: parent in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 1073
+2021-10-29 11:59:45 - PHP Notice:  Undefined variable: parent in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 1075
+2021-10-29 12:00:38 - PHP Notice:  Undefined variable: parent in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 1075
+2021-10-29 12:01:21 - PHP Notice:  Undefined variable: parent in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 1075
+2021-10-29 12:02:24 - PHP Notice:  Undefined variable: parent in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 1078
+2021-10-29 12:02:53 - PHP Notice:  Undefined variable: parent in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 1078
+2021-10-29 12:04:03 - PHP Notice:  Undefined variable: parent in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 1079
