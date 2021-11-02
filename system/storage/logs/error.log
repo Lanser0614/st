@@ -15748,3 +15748,19 @@
 2021-11-01 14:33:27 - PHP Notice:  Undefined index: category_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 1015
 2021-11-01 14:34:21 - PHP Notice:  Undefined index: category_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 1015
 2021-11-02 4:49:21 - PHP Notice:  Undefined index: category_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 1014
+2021-11-02 5:04:18 - PHP Warning:  explode() expects parameter 2 to be string, array given in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 246
+2021-11-02 5:04:18 - PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 247
+2021-11-02 5:04:18 - PHP Warning:  explode() expects parameter 2 to be string, array given in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 254
+2021-11-02 5:04:18 - PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 255
+2021-11-02 5:04:18 - PHP Warning:  explode() expects parameter 2 to be string, array given in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 246
+2021-11-02 5:04:18 - PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 247
+2021-11-02 5:04:18 - PHP Warning:  explode() expects parameter 2 to be string, array given in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 254
+2021-11-02 5:04:18 - PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 255
+2021-11-02 5:41:09 - PHP Warning:  explode() expects parameter 2 to be string, array given in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 246
+2021-11-02 5:41:09 - PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 247
+2021-11-02 5:41:09 - PHP Warning:  explode() expects parameter 2 to be string, array given in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 254
+2021-11-02 5:41:09 - PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 255
+2021-11-02 5:41:09 - PHP Warning:  explode() expects parameter 2 to be string, array given in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 246
+2021-11-02 5:41:09 - PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 247
+2021-11-02 5:41:09 - PHP Warning:  explode() expects parameter 2 to be string, array given in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 254
+2021-11-02 5:41:09 - PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 255

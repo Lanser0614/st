@@ -671,7 +671,6 @@ class ControllerFeedRestApi extends RestController
             'reviews' => $reviews,
             'recurrings' => $recurringDetails
         );
-
         if (!empty($customFields)) {
             $fields = explode(',', $customFields);
             $modRetval = array();
@@ -690,7 +689,7 @@ class ControllerFeedRestApi extends RestController
         return $retval;
     }
 
-    public function listProducts($category_id,  $request)
+    public function listProducts($category_id,  $request, $isItems = true)
     {
 
         $this->load->model('catalog/product');
@@ -896,7 +895,7 @@ class ControllerFeedRestApi extends RestController
         $parameters["start"] = ($parameters["start"] - 1) * $parameters["limit"];
 
         $products = $this->model_catalog_product->getProductsAllData($parameters, $this->customer);
-
+        
         if (!empty($products)) {
             //  var_dump('ok');
             foreach ($products as $product) {
@@ -973,7 +972,16 @@ class ControllerFeedRestApi extends RestController
 
     public function searchService($post)
     {
-
+        if(isset($post['filters'][0])&& isset($post['filters'][0]['value']) && isset($post['filters'][0]['is_parent'])){
+            $parent = $post['filters'][0]['value'][0];
+            $data = $this->db->query("SELECT * FROM product_to_category INNER JOIN category on product_to_category.category_id = category.category_id AND category.parent_id = $parent group by product_to_category.category_id ");
+            foreach ($data->rows as $da) {
+                //var_dump($da['category_id']);
+              $post['filters'][0]['value'][] = $da['category_id'];
+            }
+        }
+     
+      
         $this->load->model('catalog/product');
 
         $parameters = array(
@@ -994,28 +1002,16 @@ class ControllerFeedRestApi extends RestController
         $parameters["start"] = ($parameters["start"] - 1) * $parameters["limit"];
 
         $products = $this->model_catalog_product->search($parameters, $post, $this->customer);
-
+      
         if (!empty($products)) {
             foreach ($products as $product) {
                 $this->json['data'][] = $this->getProductInfo($product);
             }
+          
         }
         elseif (empty($products)) {
-            //echo 'Have not product';
-            $customer_group_id = $this->config->get('config_customer_group_id');
-            foreach ($post["filters"] as  $value) {
-            foreach ($value["value"] as $key => $value) {
-            }
-            }
-            $data = $this->db->query("SELECT category.category_id FROM `category` WHERE parent_id = ". $value);
-           // $this->load->model('catalog/category');
-
-            //$data = $this->loadCatTree($value);
-           // var_dump($data->rows);
-            foreach ($data->rows as $key ) {
-                $this->listProducts($key["category_id"], $this->request);
-            }
-            
+            echo 'Have not product';
+      
         }
     }
 
