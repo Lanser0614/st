@@ -46,7 +46,7 @@ class ModelExtensionModuleFaq extends Model {
     }
 
     public function add($data) {
-        var_dump($data);
+        //var_dump($data);
         $data['status'] = false;
         $data['sort_order'] = 1;
         $this->db->query("INSERT INTO " . DB_PREFIX . "faq SET `sort_order` = '" . (int)$data['sort_order'] . "', `status` = '" . (int)$data['status'] . "', `create` = NOW()");

@@ -22,6 +22,151 @@ class ControllerFeedRestApi extends RestController
 
 
 
+
+    //Start auth email
+    public function index() {}
+	
+	private function send($phone,$sms) {
+		$ch = curl_init("http://sms.ru/sms/send");
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+		curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, array(
+			"api_id"		=>	'D0E13900-A03C-38AC-D6C9-E1D4C34EE107',
+			"to"			=>	$phone,
+			"partner_id"	=>	"6583",
+			"text"			=>	$sms
+		));
+		$body = curl_exec($ch);
+		
+		curl_close($ch); 
+		return false;
+	}
+
+    public function code() {
+		
+		if( $code = $this->request->get['code'] ) {
+			
+			$_SESSION['auth']['tries'] -= 1;
+            // $current_time = date("H:i:s");
+            // $auth = $this->db->query("SELECT * FROM `auth_code` WHERE code = $code AND expired_time <= '$current_time'");
+            // var_dump($auth);
+			if( (int)$code == $_SESSION['auth']['code'] ) {
+
+               
+				$this->load->model('account/customer');
+				
+				if( !empty($_SESSION['auth']['phone']) ) {
+					$customer_info = $this->model_account_customer->getCustomerByPhone($_SESSION['auth']['phone']);
+					
+					if( empty($customer_info) ) {
+						$customer_id = $this->model_account_customer->addCustomer(['telephone' => $_SESSION['auth']['phone'], 'firstname'=>'', 'lastname'=>'', 'email'=>'', 'fax'=>'', 'password'=>'', 'company'=>'', 'address_1'=>'', 'address_2'=>'', 'city'=>'', 'postcode'=>'', 'country_id'=>0, 'zone_id'=>0]);
+					} else {
+						$customer_id = $customer_info['customer_id'];
+					}
+
+                   
+					
+				} elseif( !empty($_SESSION['auth']['email']) ) {
+					$customer_info = $this->model_account_customer->getCustomerByEmail($_SESSION['auth']['email']);
+					
+					if( empty($customer_info) ) {
+						$customer_id = $this->model_account_customer->addCustomer(['email' => $_SESSION['auth']['email'], 'telephone'=> '', 'firstname'=>'', 'lastname'=>'', 'fax'=>'', 'password'=>'', 'company'=>'', 'address_1'=>'', 'address_2'=>'', 'city'=>'', 'postcode'=>'', 'country_id'=>0, 'zone_id'=>0]);
+					} else {
+						$customer_id = $customer_info['customer_id'];
+					}
+				}
+				
+				$this->session->data['customer_id'] = $customer_id;
+				
+				unset($_SESSION['auth']);
+				$result = 'ok';
+				
+			} else {
+				
+				if( $_SESSION['auth']['tries'] > 0 ) {
+					$result = 'fail';
+				} else {
+					unset($_SESSION['auth']);
+					$result = 'reset';
+				}
+			}
+			
+		}
+		
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode(['result'=>$result]));
+	}
+	
+	
+	
+	private function send_email($email, $subject, $message) {
+		$mail = new Mail();
+		$mail->protocol = $this->config->get('config_mail_protocol');
+		$mail->parameter = $this->config->get('config_mail_parameter');
+		$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+		$mail->smtp_username = $this->config->get('config_mail_smtp_username');
+		$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+		$mail->smtp_port = $this->config->get('config_mail_smtp_port');
+		$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+
+		$mail->setTo($email);
+		$mail->setFrom($this->config->get('config_email'));
+		$mail->setSender(html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
+		$mail->setSubject($subject);
+		$mail->setText($message);
+		$mail->send();
+	}
+
+	public function email() {
+		if( $email = $this->request->get['email'] ) {
+			//var_dump($email);
+		//	echo $email;
+			if(!empty($this->request->get['email'])){
+			//	$last_time = base64_decode($_COOKIE['stime']);
+            $last_time = date("H:i:s");
+            // var_dump($last_time);
+            // var_dump($last_time);
+				if(($last_time) == date("H:i")){
+                    
+					$result = 'wait';
+				} else {					
+					$result = 'ok';					
+				}
+			} else {			
+				$result = 'ok';			
+			}
+			
+			if($result=='ok'){
+				$code = mt_rand(1000, 9999);
+               //$code = 3535;
+               $expired_time = date('H:i:s', strtotime("+2 minutes"));
+              // var_dump($current, $expired_time);
+                 $this->db->query("INSERT INTO `auth_code` (`id`, `email`, `code`, `current_time`, expired_time) VALUES (NULL, '$email', '$code', '$last_time', '$expired_time')");
+
+                $verify = $this->db->query("SELECT * FROM `auth_code`");
+                //  var_dump($verify->rows);
+                  foreach ($verify->rows as $key) {
+                    //  var_dump($key["email"], $key["code"]);
+                  }
+               // echo json_encode($verify);
+               // var_dump($verify);
+				
+				$_SESSION['auth']['email'] = $key["email"];
+				$_SESSION['auth']['code'] = (string)$key["code"];
+				$_SESSION['auth']['tries'] = 2;
+				$this->send_email($email, "Авторизация на сайте ST Автозапчасти", "<p>Это письмо пришло, потому что кто-то запросил код авторизации на Ваш почтовый адрес.</p><p>Если это были не вы, то просто игнорируйте это сообщение.</p><p>Код для авторизации: ".$code."</p>");
+				setcookie('stime', base64_encode(time()), time()+60*60*24*365,'/');
+			}
+			
+		}
+		
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode(['result'=>$result]));
+	}
+    //End auth email
+
+
+
     public function getAnalog()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -140,156 +285,6 @@ class ControllerFeedRestApi extends RestController
         return $this->sendResponse();
     }
 
-    /*Get sms */
-    // private function send($phone,$sms) {
-    //     $ch = curl_init("http://sms.ru/sms/send");
-    //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-    //     curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-    //     curl_setopt($ch, CURLOPT_POSTFIELDS, array(
-    //         "api_id"		=>	'D0E13900-A03C-38AC-D6C9-E1D4C34EE107',
-    //         "to"			=>	$phone,
-    //         "partner_id"	=>	"6583",
-    //         "text"			=>	$sms
-    //     ));
-    //     $body = curl_exec($ch);
-    //     curl_close($ch); 
-    //     return false;
-    // }
-
-    // public function phone() {
-
-    //     $result = '';
-    //     if( $phone = $this->request->get['phone'] ) {
-
-    //         $phone = preg_replace('/[^\d]/', '', $phone);
-    //         $phone = '8' . substr($phone, -10, 10);
-
-    //         if(!empty($_COOKIE['stime'])){
-    //             $last_time = base64_decode($_COOKIE['stime']);
-    //             if((time()-$last_time)<60){
-    //                 $result = 'wait';
-    //             } else {					
-    //                 $result = 'ok';					
-    //             }
-    //         } else {			
-    //             $result = 'ok';			
-    //         }
-
-    //         if($result=='ok'){
-
-    //             $code = mt_rand(1000, 9999);
-
-    //             //$code = 3535;
-    //             $_SESSION['auth']['phone'] = $phone;
-    //             $_SESSION['auth']['code'] = (string)$code;
-    //             $_SESSION['auth']['tries'] = 2;
-    //             $this->send($phone, "Ваш код авторизации: ".$code);
-    //             setcookie('stime', base64_encode(time()), time()+60*60*24*365,'/');
-    //         }
-
-    //     }
-    //     $this->response->addHeader('Content-Type: application/json');
-    //     $this->response->setOutput(json_encode(['result'=>$result]));
-    // }
-
-    // public function code() {
-
-    //     if( $code = $this->request->get['code'] ) {
-
-    //         $_SESSION['auth']['tries'] -= 1;
-
-    //         if( (int)$code == $_SESSION['auth']['code'] ) {
-
-    //             $this->load->model('account/customer');
-
-    //             if( !empty($_SESSION['auth']['phone']) ) {
-    //                 $customer_info = $this->model_account_customer->getCustomerByPhone($_SESSION['auth']['phone']);
-
-    //                 if( empty($customer_info) ) {
-    //                     $customer_id = $this->model_account_customer->addCustomer(['telephone' => $_SESSION['auth']['phone'], 'firstname'=>'', 'lastname'=>'', 'email'=>'', 'fax'=>'', 'password'=>'', 'company'=>'', 'address_1'=>'', 'address_2'=>'', 'city'=>'', 'postcode'=>'', 'country_id'=>0, 'zone_id'=>0]);
-    //                 } else {
-    //                     $customer_id = $customer_info['customer_id'];
-    //                 }
-
-    //             } elseif( !empty($_SESSION['auth']['email']) ) {
-    //                 $customer_info = $this->model_account_customer->getCustomerByEmail($_SESSION['auth']['email']);
-
-    //                 if( empty($customer_info) ) {
-    //                     $customer_id = $this->model_account_customer->addCustomer(['email' => $_SESSION['auth']['email'], 'telephone'=> '', 'firstname'=>'', 'lastname'=>'', 'fax'=>'', 'password'=>'', 'company'=>'', 'address_1'=>'', 'address_2'=>'', 'city'=>'', 'postcode'=>'', 'country_id'=>0, 'zone_id'=>0]);
-    //                 } else {
-    //                     $customer_id = $customer_info['customer_id'];
-    //                 }
-    //             }
-
-    //             $this->session->data['customer_id'] = $customer_id;
-
-    //             unset($_SESSION['auth']);
-    //             $result = 'ok';
-
-    //         } else {
-
-    //             if( $_SESSION['auth']['tries'] > 0 ) {
-    //                 $result = 'fail';
-    //             } else {
-    //                 unset($_SESSION['auth']);
-    //                 $result = 'reset';
-    //             }
-    //         }
-
-    //     }
-
-    //     $this->response->addHeader('Content-Type: application/json');
-    //     $this->response->setOutput(json_encode(['result'=>$result]));
-    // }
-
-    // public function email() {
-    //     if( $email = $this->request->get['email'] ) {
-
-    //         if(!empty($_COOKIE['stime'])){
-    //             $last_time = base64_decode($_COOKIE['stime']);
-    //             if((time()-$last_time)<60){
-    //                 $result = 'wait';
-    //             } else {					
-    //                 $result = 'ok';					
-    //             }
-    //         } else {			
-    //             $result = 'ok';			
-    //         }
-
-    //         if($result=='ok'){
-    //             $code = mt_rand(1000, 9999);
-    //             //$code = 3535;
-    //             $_SESSION['auth']['email'] = $email;
-    //             $_SESSION['auth']['code'] = (string)$code;
-    //             $_SESSION['auth']['tries'] = 2;
-    //             $this->send_email($email, "Авторизация на сайте ST Автозапчасти", "<p>Это письмо пришло, потому что кто-то запросил код авторизации на Ваш почтовый адрес.</p><p>Если это были не вы, то просто игнорируйте это сообщение.</p><p>Код для авторизации: ".$code."</p>");
-    //             setcookie('stime', base64_encode(time()), time()+60*60*24*365,'/');
-    //         }
-
-    //     }
-
-    //     $this->response->addHeader('Content-Type: application/json');
-    //     $this->response->setOutput(json_encode(['result'=>$result]));
-    // }
-
-    // private function send_email($email, $subject, $message) {
-    //     $mail = new Mail();
-    //     $mail->protocol = $this->config->get('config_mail_protocol');
-    //     $mail->parameter = $this->config->get('config_mail_parameter');
-    //     $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-    //     $mail->smtp_username = $this->config->get('config_mail_smtp_username');
-    //     $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-    //     $mail->smtp_port = $this->config->get('config_mail_smtp_port');
-    //     $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
-
-    //     $mail->setTo($email);
-    //     $mail->setFrom($this->config->get('config_email'));
-    //     $mail->setSender(html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
-    //     $mail->setSubject($subject);
-    //     $mail->setText($message);
-    //     $mail->send();
-    // }
-    /*Get sms */
 
     /*check database modification*/
     public function getchecksum()
@@ -316,18 +311,7 @@ class ControllerFeedRestApi extends RestController
     /*
     * FAQ FUNCTIONS
     */
-        public function storeFaq(){
-            if($_SERVER['REQUEST_METHOD'] === 'POST'){
-                if(isset($this->request->post['title, username, email, phone'])){
-                  $data = $this->request->post['title, username, email, phone'];
-                  var_dump($data);
-                    //  var_dump($this->request->post['title']);
-                if($this->model_extension_module_faq->validate($this->request->post)){
-                    $this->model_extension_module_faq->add($this->request->post);
-                }
-                }
-        }
-    }
+    
     /*
     * PRODUCT FUNCTIONS
     */
@@ -784,6 +768,7 @@ class ControllerFeedRestApi extends RestController
             foreach ($id->rows as $url) {
                 $data = $url["category_id"];
             }
+
             $category_id = $data;
             $parameters["filter_category_id"] = $category_id;
         }
@@ -797,7 +782,7 @@ class ControllerFeedRestApi extends RestController
            }
             $data = $this->db->query("SELECT * FROM product_to_category INNER JOIN category on product_to_category.category_id = category.category_id AND category.parent_id = " . $parent);
             foreach ($data->rows as $da) {
-                var_dump($da['category_id']);
+                //var_dump($da['category_id']);
               $parameters["filter_sub_category"] = $da['category_id'];
             }
         }
@@ -1014,24 +999,23 @@ class ControllerFeedRestApi extends RestController
             foreach ($products as $product) {
                 $this->json['data'][] = $this->getProductInfo($product);
             }
-        } elseif (empty($products)) {
-            echo 'Have not product';
-            // $customer_group_id = $this->config->get('config_customer_group_id');
-            // foreach ($post["filters"] as  $value) {
-            // foreach ($value["value"] as $key => $value) {
-            // }
-            // }
-            // $data = $this->db->query(" SELECT * FROM `category` WHERE parent_id = ".$value); 
+        }
+        elseif (empty($products)) {
+            //echo 'Have not product';
+            $customer_group_id = $this->config->get('config_customer_group_id');
+            foreach ($post["filters"] as  $value) {
+            foreach ($value["value"] as $key => $value) {
+            }
+            }
+            $data = $this->db->query("SELECT category.category_id FROM `category` WHERE parent_id = ". $value);
+           // $this->load->model('catalog/category');
 
-            // var_dump($data->rows);
-            // foreach($data->rows as $da){
-            //     $array = array($da['category_id']);
-            //     var_dump($array);
-            // }
-
-            // $sql = "SELECT p.product_id, (SELECT price FROM " . DB_PREFIX . "product_discount pd2 WHERE pd2.product_id = p.product_id AND pd2.customer_group_id = '" . (int)$customer_group_id . "' AND pd2.quantity = '1' AND ((pd2.date_start = '0000-00-00' OR pd2.date_start < NOW()) AND (pd2.date_end = '0000-00-00' OR pd2.date_end > NOW())) ORDER BY pd2.priority ASC, pd2.price ASC LIMIT 1) AS discount, (SELECT price FROM " . DB_PREFIX . "product_special ps WHERE ps.product_id = p.product_id AND ps.customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' AND ((ps.date_start = '0000-00-00' OR ps.date_start < NOW()) AND (ps.date_end = '0000-00-00' OR ps.date_end > NOW())) ORDER BY ps.priority ASC, ps.price ASC LIMIT 1) AS special, (SELECT AVG(rating) AS total FROM " . DB_PREFIX . "review r1 WHERE r1.product_id = p.product_id AND r1.status = '1' GROUP BY r1.product_id) AS rating FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (p.product_id = p2c.product_id) LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) LEFT JOIN " . DB_PREFIX . "product_to_store p2s ON (p.product_id = p2s.product_id) WHERE pd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND p.status = '1' AND p.date_available <= NOW() AND p2s.store_id = '" . (int)$this->config->get('config_store_id') ."'and p2c.category_id in '"."' ";
-            // $sql .=$da['category_id'];
-            // var_dump($sql);
+            //$data = $this->loadCatTree($value);
+           // var_dump($data->rows);
+            foreach ($data->rows as $key ) {
+                $this->listProducts($key["category_id"], $this->request);
+            }
+            
         }
     }
 
@@ -1248,6 +1232,10 @@ class ControllerFeedRestApi extends RestController
     }
 
 
+
+
+
+
     public function listCategories($parent, $level)
     {
 
@@ -1263,14 +1251,14 @@ class ControllerFeedRestApi extends RestController
             $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Limit: 1000');
             $this->response->addHeader('X-Pagination-Page: 1');
-            //            $data = $this->json['data'];
-            //
-            //            $this->json['data'] = array(
-            //                'totalrowcount' => count($data),
-            //                'pagenumber'    => 1,
-            //                'pagesize'      => 1000,
-            //                'items'         => $data
-            //            );
+                       $data = $this->json['data'];
+            
+                       $this->json['data'] = array(
+                           'totalrowcount' => count($data),
+                           'pagenumber'    => 1,
+                           'pagesize'      => 1000,
+                           'items'         => $data
+                       );
         }
     }
 
@@ -1997,6 +1985,19 @@ class ControllerFeedRestApi extends RestController
             }
         }
     }
+
+    public function Faq(){
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+          $post = $this->getPost();
+          $this->storeFaq($post);
+
+    }
+}
+
+public function storeFaq($post){
+    $this->load->model('extension/module/faq');
+    $this->model_extension_module_faq->add($post);
+}
 
 
     public function reviews()
@@ -3074,14 +3075,14 @@ class ControllerFeedRestApi extends RestController
             $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Limit: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Page: 1');
-            //            $data = $this->json['data'];
-            //
-            //            $this->json['data'] = array(
-            //                'totalrowcount' => count($data),
-            //                'pagenumber'    => 1,
-            //                'pagesize'      => count($data),
-            //                'items'         => $data
-            //            );
+                       $data = $this->json['data'];
+            
+                       $this->json['data'] = array(
+                           'totalrowcount' => count($data),
+                           'pagenumber'    => 1,
+                           'pagesize'      => count($data),
+                           'items'         => $data
+                       );
         }
     }
 

@@ -26,7 +26,6 @@ class ControllerToolAuth extends Controller {
 			//$this->db->query("INSERT INTO auth_code SET phone = '123'");
 			$phone = preg_replace('/[^\d]/', '', $phone);
 			$phone = '8' . substr($phone, -10, 10);
-			$this->db->query("INSERT INTO " . DB_PREFIX . "auth_code SET phone = '".$phone."'");
 			if(!empty($_COOKIE['stime'])){
 				$last_time = base64_decode($_COOKIE['stime']);
 				if((time()-$last_time)<60){
@@ -131,7 +130,7 @@ class ControllerToolAuth extends Controller {
 	public function email() {
 		if( $email = $this->request->get['email'] ) {
 			//var_dump($email);
-			echo $email;
+		//	echo $email;
 			if(!empty($_COOKIE['stime'])){
 				$last_time = base64_decode($_COOKIE['stime']);
 				if((time()-$last_time)<60){
@@ -145,7 +144,7 @@ class ControllerToolAuth extends Controller {
 			
 			if($result=='ok'){
 				$code = mt_rand(1000, 9999);
-				$code = 3535;
+				//$code = 3535;
 				$_SESSION['auth']['email'] = $email;
 				$_SESSION['auth']['code'] = (string)$code;
 				$_SESSION['auth']['tries'] = 2;
