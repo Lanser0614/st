@@ -740,7 +740,6 @@ class ControllerFeedRestApi extends RestController
         }
 
 
-
         /*check filters parameter*/
         if (isset($request->get['filters']) && !empty($request->get['filters'])) {
             $parameters["filter_filter"] = $request->get['filters'];
@@ -752,9 +751,6 @@ class ControllerFeedRestApi extends RestController
         }
 
 
-
-
-        // var_dump($request->get['category']);
         /*check category id parameter*/
         if (isset($request->get['category']) && !empty($request->get['category'])) {
             $parameters["filter_category_id"] = $request->get['category'];
@@ -781,22 +777,9 @@ class ControllerFeedRestApi extends RestController
            }
             $data = $this->db->query("SELECT * FROM product_to_category INNER JOIN category on product_to_category.category_id = category.category_id AND category.parent_id = " . $parent);
             foreach ($data->rows as $da) {
-                //var_dump($da['category_id']);
               $parameters["filter_sub_category"] = $da['category_id'];
             }
         }
-
-
-
-
-        // if (isset($request->get['alias']) && !empty($request->get['alias'])) {
-        //     // $alias = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "url_alias WHERE keyword LIKE '%$request->get['alias']%'");
-        //     // foreach ($alias->rows as $url) {
-        //     //    // return     $url['keyword'];
-
-        //     // }
-        //      $parameters["alias"] = 'ok';
-        // }
 
 
         /*check subcategory id parameter*/
@@ -805,7 +788,6 @@ class ControllerFeedRestApi extends RestController
         } elseif (isset($request->get['category'])) {
             $data = $this->db->query("SELECT * FROM product_to_category INNER JOIN category on product_to_category.category_id = category.category_id AND category.parent_id = " . $request->get['category']);
             foreach ($data->rows as $da) {
-             //   var_dump($da['category_id']);
                 $parameters["filter_sub_category"] = $da['category_id'];
             }
         }
@@ -972,13 +954,16 @@ class ControllerFeedRestApi extends RestController
 
     public function searchService($post)
     {
+      
         if(isset($post['filters'][0])&& isset($post['filters'][0]['value']) && isset($post['filters'][0]['is_parent'])){
             $parent = $post['filters'][0]['value'][0];
             $data = $this->db->query("SELECT * FROM product_to_category INNER JOIN category on product_to_category.category_id = category.category_id AND category.parent_id = $parent group by product_to_category.category_id ");
             foreach ($data->rows as $da) {
                 //var_dump($da['category_id']);
               $post['filters'][0]['value'][] = $da['category_id'];
+            
             }
+            // var_dump($post['filters'][0]['value']);
         }
      
       
