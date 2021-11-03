@@ -129,13 +129,13 @@ class ControllerRestPaymentMethod extends RestController
             $this->response->addHeader('X-Total-Count: ' .count($data['payment_methods']));
             $this->response->addHeader('X-Pagination-Limit: '.count($data['payment_methods']));
             $this->response->addHeader('X-Pagination-Page: 1');
-            //$data = $data['payment_methods'];
-//            $this->json['data'] = array(
-//                'totalrowcount' => count($data),
-//                'pagenumber'    => 1,
-//                'pagesize'      => count($data),
-//                'items'         => $data
-//            );
+            $data = $data['payment_methods'];
+           $this->json['data'] = array(
+               'totalrowcount' => count($data),
+               'pagenumber'    => 1,
+               'pagesize'      => count($data),
+               'items'         => $data
+           );
         }
     }
 

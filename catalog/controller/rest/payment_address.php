@@ -195,6 +195,10 @@ class ControllerRestPaymentAddress extends RestController
 
                 }
             } else {
+                if (!isset($post['INN']) || (utf8_strlen(trim($post['INN'])) < 1) || (utf8_strlen(trim($post['INN'])) > 32)) {
+                    $this->json['error'][] = $this->language->get('error_INN');
+                }
+
                 if (!isset($post['firstname']) || (utf8_strlen(trim($post['firstname'])) < 1) || (utf8_strlen(trim($post['firstname'])) > 32)) {
                     $this->json['error'][] = $this->language->get('error_firstname');
                 }

@@ -995,8 +995,8 @@ class ControllerFeedRestApi extends RestController
           
         }
         elseif (empty($products)) {
-            echo 'Have not product';
-      
+            //echo 'Have not product';
+            $this->json['data'][]='Have not product';
         }
     }
 
