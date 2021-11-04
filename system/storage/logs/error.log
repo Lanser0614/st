@@ -16610,3 +16610,6 @@
 2021-11-04 8:34:03 - PHP Notice:  Undefined index: category_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 784
 2021-11-04 8:34:35 - PHP Notice:  Undefined index: category_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 784
 2021-11-04 8:35:17 - PHP Notice:  Undefined index: category_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 785
+2021-11-04 9:06:09 - PHP Notice:  Undefined variable: alias in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 812
+2021-11-04 10:26:39 - PHP Notice:  Undefined variable: category_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 351
+2021-11-04 10:27:47 - PHP Notice:  Undefined variable: category_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 352
