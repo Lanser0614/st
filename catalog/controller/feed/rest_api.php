@@ -769,29 +769,42 @@ class ControllerFeedRestApi extends RestController
         }
 
 
-        if (isset($request->get['category_alias_parent'])  && !empty($request->get['category_alias_parent'])) {
-            $alias = $request->get['category_alias_parent'];
-            $id = $this->db->query("SELECT url_alias.query, url_alias.keyword, category.category_id FROM url_alias INNER JOIN category ON SUBSTR(url_alias.query, 13,5) = category.category_id AND url_alias.keyword LIKE '$alias'");
-           foreach ($id->rows as $key) {
-               $parent = $key["category_id"];
-           }
-            $data = $this->db->query("SELECT * FROM product_to_category INNER JOIN category on product_to_category.category_id = category.category_id AND category.parent_id = " . $parent);
-            foreach ($data->rows as $da) {
-              $parameters["filter_sub_category"] = $da['category_id'];
-            }
-        }
+        
 
 
         /*check subcategory id parameter*/
         if (isset($request->get['subcategory']) && !empty($request->get['subcategory'])) {
             $parameters["filter_sub_category"] = $request->get['subcategory'];
-        } elseif (isset($request->get['category'])) {
-            $data = $this->db->query("SELECT * FROM product_to_category INNER JOIN category on product_to_category.category_id = category.category_id AND category.parent_id = " . $request->get['category']);
+        } 
+        
+        elseif (isset($request->get['category'])) {
+            //var_dump($request->get['category']);
+            $data = $this->db->query("SELECT * FROM product_to_category INNER JOIN category on product_to_category.category_id = category.category_id AND category.parent_id = " . $request->get['category'] );
             foreach ($data->rows as $da) {
                 $parameters["filter_sub_category"] = $da['category_id'];
-            }
+               // var_dump($parameters["filter_sub_category"]);
+            } 
         }
 
+        if (isset($request->get['category_alias_parent'])  && !empty($request->get['category_alias_parent'])) {
+            $alias = $request->get['category_alias_parent'];
+            $id = $this->db->query("SELECT url_alias.query, url_alias.keyword, category.category_id FROM url_alias INNER JOIN category ON SUBSTR(url_alias.query, 13,5) = category.category_id AND url_alias.keyword LIKE '$alias'");
+           // var_dump($id);
+            foreach ($id->rows as $key) {
+               $parent = $key["category_id"];
+           }
+        
+         //$data = $this->db->query("SELECT category.category_id FROM `category` WHERE parent_id = $parent");    
+         $data = $this->db->query("SELECT * FROM product_to_category INNER JOIN category on product_to_category.category_id = category.category_id AND category.parent_id = " . $parent );
+
+         //  var_dump($data);
+         foreach ($data->rows as $key ) {
+        //  $category_id = $key["category_id"];
+         // var_dump($key["category_id"]);
+         $parameters["filter_category_id"] = $key["category_id"];
+         } 
+
+        }
 
 
         /*check tag parameter*/
