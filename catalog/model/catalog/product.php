@@ -677,6 +677,8 @@ class ModelCatalogProduct extends Model
             $sortSql .= " ASC, LCASE(pd.name) ASC";
         }
         $sql .= $sortSql;
+        $count = $this->db->query($sql);
+       // var_dump(count($count->rows));
         if (isset($data['start']) || isset($data['limit'])) {
             if ($data['limit'] < 1) {
                 $limit = 20;

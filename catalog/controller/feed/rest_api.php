@@ -119,7 +119,7 @@ class ControllerFeedRestApi extends RestController
 
 	public function email() {
 		if( $email = $this->request->get['email'] ) {
-			//var_dump($email);
+			var_dump($email);
 		//	echo $email;
 			if(!empty($this->request->get['email'])){
 			//	$last_time = base64_decode($_COOKIE['stime']);
@@ -325,11 +325,14 @@ class ControllerFeedRestApi extends RestController
             if (isset($this->request->get['id']) && ctype_digit($this->request->get['id'])) {
                 $id = $this->request->get['id'];
                 $this->getProduct($id);
-            } elseif (isset($this->request->get['alias']) && is_string($this->request->get['alias'])) {
+            } 
+            elseif (isset($this->request->get['alias']) && is_string($this->request->get['alias'])) {
                 $alias = $this->request->get['alias'];
                 //  $checksum = $this->model_catalog_product->getChecksum();
                 $this->getProductByAlias($alias);
-            } else {
+            }
+           
+            else {
                 //get products list
                 if (isset($this->request->get['category']) && ctype_digit($this->request->get['category'])) {
                     //   var_dump($this->request->get['category']);
@@ -350,11 +353,11 @@ class ControllerFeedRestApi extends RestController
                      $parent = intval($key['category_id']);
                     $category_id = $parent;
                     //var_dump($category_id);
+                } else {
+                    $category_id = 0;
                 }
-
-
-
-                $this->listProducts($category_id, $this->request);
+              // var_dump($category_id);
+              $this->listProducts($category_id, $this->request);
             }
         } else {
             $this->statusCode = 405;
@@ -424,11 +427,6 @@ class ControllerFeedRestApi extends RestController
         $this->load->model('catalog/product');
 
         $products = $this->model_catalog_product->getProductWithAlias($alias, $this->customer);
-        // $products = $this->model_catalog_product->getProductsByAlias($alias, $this->customer);
-        //  var_dump($products);
-        // $this->response->addHeader('Content-Type: application/json');
-        // $this->response->setOutput(json_encode($products));
-        //var_dump($products);
         if (!empty($products)) {
             $this->json["data"] = $this->getProductInfo(reset($products));
         } else {
@@ -452,6 +450,27 @@ class ControllerFeedRestApi extends RestController
             $this->json['error'][] = 'Product not found';
             $this->statusCode = 404;
         }
+
+
+        $manufakture = $this->db->query("SELECT * FROM `manufacturer_description` WHERE manufacturer_id = ". $this->json["data"]['manufacturer_id']);
+        //var_dump($manufakture->row["name"]);
+        if ($this->includeMeta) {
+            // var_dump($category_id);
+             $this->response->addHeader('X-Total-Count: ' . $this->json["data"]["sku"]);
+             $this->response->addHeader('X-Pagination-Limit: ' . $manufakture->row["name"]);
+             $data = $this->json['data'];
+ 
+             $this->json['data'] = array(
+                'item'  => $data,
+                'Analog' => [
+                 'SKU' => $this->json["data"]["sku"],
+                 'Manufacture' => $manufakture->row["name"],
+                 'Stock'=> $this->json["data"]["stock_status_id"],
+                 ]
+             );
+         }
+
+       
     }
 
 
@@ -707,7 +726,7 @@ class ControllerFeedRestApi extends RestController
         $this->load->model('catalog/product');
 
         $parameters = array(
-            "limit" => 16,
+            "limit" => 20,
             "start" => 1,
             "sort"  => "id",
             'filter_category_id' => $category_id
@@ -926,13 +945,16 @@ class ControllerFeedRestApi extends RestController
         }
 
         if ($this->includeMeta) {
+           // var_dump($category_id);
             $total = $this->model_catalog_product->getProductsTotal($parameters, $this->customer, true);
             $this->response->addHeader('X-Total-Count: ' . (int)$total);
             $this->response->addHeader('X-Pagination-Limit: ' . (int)$parameters["limit"]);
             $this->response->addHeader('X-Pagination-Page: ' . (int)($page));
+            $this->response->addHeader('X-Category_Id: ' . (int)$category_id);
             $data = $this->json['data'];
 
             $this->json['data'] = array(
+                'Category_id' => (int)$category_id,
                 'totalrowcount' => (int)$total,
                 'pagenumber'    => (int)$page,
                 'pagesize'      => (int)$parameters["limit"],
@@ -1027,13 +1049,27 @@ class ControllerFeedRestApi extends RestController
         $parameters["start"] = ($parameters["start"] - 1) * $parameters["limit"];
 
         $products = $this->model_catalog_product->search($parameters, $post, $this->customer);
-      
+      //var_dump(count($products));
         if (!empty($products)) {
             foreach ($products as $product) {
                 $this->json['data'][] = $this->getProductInfo($product);
             }
-          
         }
+        if ($this->includeMeta) {
+            $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
+            $this->response->addHeader('X-Pagination-Limit: ' . count($this->json['data']));
+            $this->response->addHeader('X-Pagination-Page: 1');
+                       $data = $this->json['data'];
+            
+                       $this->json['data'] = array(
+                           'totalrowcount' => count($data),
+                           'pagenumber'    => 1,
+                           'pagesize'      => count($data),
+                           'items'         => $data
+                       );
+           
+         }
+
         elseif (empty($products)) {
             //echo 'Have not product';
             $this->json['data'][]='Have not product';
@@ -2010,14 +2046,22 @@ class ControllerFeedRestApi extends RestController
     public function Faq(){
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
           $post = $this->getPost();
-          $this->storeFaq($post);
-
+       $this->storeFaq($post);
+       $data = array();
+       echo json_encode($data, JSON_UNESCAPED_UNICODE);
     }
 }
 
 public function storeFaq($post){
     $this->load->model('extension/module/faq');
-    $this->model_extension_module_faq->add($post);
+  $this->model_extension_module_faq->add($post);
+   
+  
+
+  
+
+    // $this->json[] = $post;
+    // echo json_encode($post);
 }
 
 
@@ -2032,7 +2076,18 @@ public function storeFaq($post){
 
             if (isset($this->request->get['id']) && ctype_digit($this->request->get['id'])) {
                 $this->addReview($this->request->get['id'], $post);
-            } else {
+            } elseif (isset($this->request->get['alias']) && is_string($this->request->get['alias'])) {
+                $alias = $this->request->get['alias'];
+                $product_id = $this->db->query("SELECT SUBSTR(query, 12, 5) FROM `url_alias` WHERE `keyword` LIKE '%$alias%'");
+               // var_dump($product_id->row["SUBSTR(query, 12, 5)"]);
+               $id = $product_id->row["SUBSTR(query, 12, 5)"];
+               $this->addReview($id, $post);
+                //  $checksum = $this->model_catalog_product->getChecksum();
+            //  $this->getProductByAlias($alias);
+          //  var_dump($alias);
+             
+            } 
+            else {
                 $this->statusCode = 400;
                 $this->json['error'][] = "Invalid identifier.";
             }
@@ -2140,14 +2195,14 @@ public function storeFaq($post){
             $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Limit: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Page: 1');
-            //            $data = $this->json['data'];
-            //
-            //            $this->json['data'] = array(
-            //                'totalrowcount' => count($data),
-            //                'pagenumber'    => 1,
-            //                'pagesize'      => count($data),
-            //                'items'         => $data
-            //            );
+                       $data = $this->json['data'];
+            
+                       $this->json['data'] = array(
+                           'totalrowcount' => count($data),
+                           'pagenumber'    => 1,
+                           'pagesize'      => count($data),
+                           'items'         => $data
+                       );
         }
     }
 
@@ -2184,14 +2239,14 @@ public function storeFaq($post){
             $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Limit: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Page: 1');
-            //            $data = $this->json['data'];
-            //
-            //            $this->json['data'] = array(
-            //                'totalrowcount' => count($data),
-            //                'pagenumber'    => 1,
-            //                'pagesize'      => count($data),
-            //                'items'         => $data
-            //            );
+                       $data = $this->json['data'];
+            
+                       $this->json['data'] = array(
+                           'totalrowcount' => count($data),
+                           'pagenumber'    => 1,
+                           'pagesize'      => count($data),
+                           'items'         => $data
+                       );
         }
     }
 
@@ -2357,14 +2412,14 @@ public function storeFaq($post){
             $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Limit: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Page: 1');
-            //            $data = $this->json['data'];
-            //
-            //            $this->json['data'] = array(
-            //                'totalrowcount' => count($data),
-            //                'pagenumber'    => 1,
-            //                'pagesize'      => count($data),
-            //                'items'         => $data
-            //            );
+                       $data = $this->json['data'];
+            
+                       $this->json['data'] = array(
+                           'totalrowcount' => count($data),
+                           'pagenumber'    => 1,
+                           'pagesize'      => count($data),
+                           'items'         => $data
+                       );
         }
     }
 
@@ -2440,14 +2495,14 @@ public function storeFaq($post){
             $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Limit: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Page: 1');
-            //            $data = $this->json['data'];
-            //
-            //            $this->json['data'] = array(
-            //                'totalrowcount' => count($data),
-            //                'pagenumber'    => 1,
-            //                'pagesize'      => count($data),
-            //                'items'         => $data
-            //            );
+                       $data = $this->json['data'];
+            
+                       $this->json['data'] = array(
+                           'totalrowcount' => count($data),
+                           'pagenumber'    => 1,
+                           'pagesize'      => count($data),
+                           'items'         => $data
+                       );
         }
     }
 
@@ -2609,14 +2664,14 @@ public function storeFaq($post){
             $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Limit: ' . (int)$limit);
             $this->response->addHeader('X-Pagination-Page: 1');
-            //            $data = $this->json['data'];
-            //
-            //            $this->json['data'] = array(
-            //                'totalrowcount' => count($data),
-            //                'pagenumber'    => 1,
-            //                'pagesize'      => (int)$limit,
-            //                'items'         => $data
-            //            );
+                       $data = $this->json['data'];
+            
+                       $this->json['data'] = array(
+                           'totalrowcount' => count($data),
+                           'pagenumber'    => 1,
+                           'pagesize'      => (int)$limit,
+                           'items'         => $data
+                       );
         }
     }
 
@@ -2731,14 +2786,14 @@ public function storeFaq($post){
             $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Limit: ' . (int)$limit);
             $this->response->addHeader('X-Pagination-Page: 1');
-            //            $data = $this->json['data'];
-            //
-            //            $this->json['data'] = array(
-            //                'totalrowcount' => count($data),
-            //                'pagenumber'    => 1,
-            //                'pagesize'      => (int)$limit,
-            //                'items'         => $data
-            //            );
+                       $data = $this->json['data'];
+            
+                       $this->json['data'] = array(
+                           'totalrowcount' => count($data),
+                           'pagenumber'    => 1,
+                           'pagesize'      => (int)$limit,
+                           'items'         => $data
+                       );
         }
     }
 
@@ -3025,14 +3080,14 @@ public function storeFaq($post){
             $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Limit: ' . (int)$limit);
             $this->response->addHeader('X-Pagination-Page: 1');
-            //            $data = $this->json['data'];
-            //
-            //            $this->json['data'] = array(
-            //                'totalrowcount' => count($data),
-            //                'pagenumber'    => 1,
-            //                'pagesize'      => (int)$limit,
-            //                'items'         => $data
-            //            );
+                       $data = $this->json['data'];
+            
+                       $this->json['data'] = array(
+                           'totalrowcount' => count($data),
+                           'pagenumber'    => 1,
+                           'pagesize'      => (int)$limit,
+                           'items'         => $data
+                       );
         }
     }
 
@@ -3189,14 +3244,14 @@ public function storeFaq($post){
             $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Limit: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Page: 1');
-            //            $data = $this->json['data'];
-            //
-            //            $this->json['data'] = array(
-            //                'totalrowcount' => count($data),
-            //                'pagenumber'    => 1,
-            //                'pagesize'      => count($data),
-            //                'items'         => $data
-            //            );
+                       $data = $this->json['data'];
+            
+                       $this->json['data'] = array(
+                           'totalrowcount' => count($data),
+                           'pagenumber'    => 1,
+                           'pagesize'      => count($data),
+                           'items'         => $data
+                       );
         }
     }
 
@@ -3247,14 +3302,14 @@ public function storeFaq($post){
             $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Limit: ' . (int)$limit);
             $this->response->addHeader('X-Pagination-Page: 1');
-            //            $data = $this->json['data'];
-            //
-            //            $this->json['data'] = array(
-            //                'totalrowcount' => count($data),
-            //                'pagenumber'    => 1,
-            //                'pagesize'      => (int)$limit,
-            //                'items'         => $data
-            //            );
+                       $data = $this->json['data'];
+            
+                       $this->json['data'] = array(
+                           'totalrowcount' => count($data),
+                           'pagenumber'    => 1,
+                           'pagesize'      => (int)$limit,
+                           'items'         => $data
+                       );
         }
     }
 
