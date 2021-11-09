@@ -731,7 +731,7 @@ class ControllerFeedRestApi extends RestController
         $this->load->model('catalog/product');
 
         $parameters = array(
-            "limit" => 20,
+            "limit" => 16,
             "start" => 1,
             "sort"  => "id",
             'filter_category_id' => $category_id
@@ -932,10 +932,10 @@ class ControllerFeedRestApi extends RestController
             $data = $this->json['data'];
 
             $this->json['data'] = array(
-                'Category_id' => (int)$category_id,
+                'category_id' => (int)$category_id,
                 'totalrowcount' => (int)$total,
                 'pagenumber'    => (int)$page,
-                'pagesize'      => (int)$parameters["limit"],
+                'pagesize'      => count($data),
                 'items'         => $data
             );
         }
