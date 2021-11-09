@@ -17046,3 +17046,4 @@
 2021-11-09 12:56:02 - PHP Notice:  Undefined index: total in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 718
 2021-11-09 12:56:02 - PHP Notice:  Undefined index: total in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 718
 2021-11-09 12:56:02 - PHP Notice:  Undefined index: total in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 718
+2021-11-09 13:50:01 - PHP Notice:  Indirect modification of overloaded property ModelCatalogProduct::$data has no effect in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 9

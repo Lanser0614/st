@@ -1026,9 +1026,9 @@ class ControllerFeedRestApi extends RestController
         $parameters["start"] = ($parameters["start"] - 1) * $parameters["limit"];
 
         $products = $this->model_catalog_product->search($parameters, $post, $this->customer);
-
-
-        //var_dump(count($total));
+        //  $total_count_product = $this->model_catalog_product->download_function();
+        // // global $total_count_product;
+        //  var_dump($total_count_product);
         if (!empty($products)) {
             foreach ($products as $product) {
                 $this->json['data'][] = $this->getProductInfo($product);
