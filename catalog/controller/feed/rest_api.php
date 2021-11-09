@@ -24,147 +24,152 @@ class ControllerFeedRestApi extends RestController
 
 
     //Start auth email
-    public function index() {}
-	
-	private function send($phone,$sms) {
-		$ch = curl_init("http://sms.ru/sms/send");
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-		curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, array(
-			"api_id"		=>	'D0E13900-A03C-38AC-D6C9-E1D4C34EE107',
-			"to"			=>	$phone,
-			"partner_id"	=>	"6583",
-			"text"			=>	$sms
-		));
-		$body = curl_exec($ch);
-		
-		curl_close($ch); 
-		return false;
-	}
+    public function index()
+    {
+    }
 
-    public function code() {
-		
-		if( $code = $this->request->get['code'] ) {
-			
-			$_SESSION['auth']['tries'] -= 1;
+    private function send($phone, $sms)
+    {
+        $ch = curl_init("http://sms.ru/sms/send");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, array(
+            "api_id"        =>    'D0E13900-A03C-38AC-D6C9-E1D4C34EE107',
+            "to"            =>    $phone,
+            "partner_id"    =>    "6583",
+            "text"            =>    $sms
+        ));
+        $body = curl_exec($ch);
+
+        curl_close($ch);
+        return false;
+    }
+
+    public function code()
+    {
+
+        if ($code = $this->request->get['code']) {
+
+            $_SESSION['auth']['tries'] -= 1;
             // $current_time = date("H:i:s");
             // $auth = $this->db->query("SELECT * FROM `auth_code` WHERE code = $code AND expired_time <= '$current_time'");
             // var_dump($auth);
-			if( (int)$code == $_SESSION['auth']['code'] ) {
+            if ((int)$code == $_SESSION['auth']['code']) {
 
-               
-				$this->load->model('account/customer');
-				
-				if( !empty($_SESSION['auth']['phone']) ) {
-					$customer_info = $this->model_account_customer->getCustomerByPhone($_SESSION['auth']['phone']);
-					
-					if( empty($customer_info) ) {
-						$customer_id = $this->model_account_customer->addCustomer(['telephone' => $_SESSION['auth']['phone'], 'firstname'=>'', 'lastname'=>'', 'email'=>'', 'fax'=>'', 'password'=>'', 'company'=>'', 'address_1'=>'', 'address_2'=>'', 'city'=>'', 'postcode'=>'', 'country_id'=>0, 'zone_id'=>0]);
-					} else {
-						$customer_id = $customer_info['customer_id'];
-					}
 
-                   
-					
-				} elseif( !empty($_SESSION['auth']['email']) ) {
-					$customer_info = $this->model_account_customer->getCustomerByEmail($_SESSION['auth']['email']);
-					
-					if( empty($customer_info) ) {
-						$customer_id = $this->model_account_customer->addCustomer(['email' => $_SESSION['auth']['email'], 'telephone'=> '', 'firstname'=>'', 'lastname'=>'', 'fax'=>'', 'password'=>'', 'company'=>'', 'address_1'=>'', 'address_2'=>'', 'city'=>'', 'postcode'=>'', 'country_id'=>0, 'zone_id'=>0]);
-					} else {
-						$customer_id = $customer_info['customer_id'];
-					}
-				}
-				
-				$this->session->data['customer_id'] = $customer_id;
-				
-				unset($_SESSION['auth']);
-				$result = 'ok';
-				
-			} else {
-				
-				if( $_SESSION['auth']['tries'] > 0 ) {
-					$result = 'fail';
-				} else {
-					unset($_SESSION['auth']);
-					$result = 'reset';
-				}
-			}
-			
-		}
-		
-		$this->response->addHeader('Content-Type: application/json');
-		$this->response->setOutput(json_encode(['result'=>$result]));
-	}
-	
-	
-	
-	private function send_email($email, $subject, $message) {
-		$mail = new Mail();
-		$mail->protocol = $this->config->get('config_mail_protocol');
-		$mail->parameter = $this->config->get('config_mail_parameter');
-		$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-		$mail->smtp_username = $this->config->get('config_mail_smtp_username');
-		$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-		$mail->smtp_port = $this->config->get('config_mail_smtp_port');
-		$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+                $this->load->model('account/customer');
 
-		$mail->setTo($email);
-		$mail->setFrom($this->config->get('config_email'));
-		$mail->setSender(html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
-		$mail->setSubject($subject);
-		$mail->setText($message);
-		$mail->send();
-	}
+                if (!empty($_SESSION['auth']['phone'])) {
+                    $customer_info = $this->model_account_customer->getCustomerByPhone($_SESSION['auth']['phone']);
 
-	public function email() {
-		if( $email = $this->request->get['email'] ) {
-			var_dump($email);
-		//	echo $email;
-			if(!empty($this->request->get['email'])){
-			//	$last_time = base64_decode($_COOKIE['stime']);
-            $last_time = date("H:i:s");
-            // var_dump($last_time);
-            // var_dump($last_time);
-				if(($last_time) == date("H:i")){
-                    
-					$result = 'wait';
-				} else {					
-					$result = 'ok';					
-				}
-			} else {			
-				$result = 'ok';			
-			}
-			
-			if($result=='ok'){
-				$code = mt_rand(1000, 9999);
-               //$code = 3535;
-               $expired_time = date('H:i:s', strtotime("+2 minutes"));
-              // var_dump($current, $expired_time);
-                 $this->db->query("INSERT INTO `auth_code` (`id`, `email`, `code`, `current_time`, expired_time) VALUES (NULL, '$email', '$code', '$last_time', '$expired_time')");
+                    if (empty($customer_info)) {
+                        $customer_id = $this->model_account_customer->addCustomer(['telephone' => $_SESSION['auth']['phone'], 'firstname' => '', 'lastname' => '', 'email' => '', 'fax' => '', 'password' => '', 'company' => '', 'address_1' => '', 'address_2' => '', 'city' => '', 'postcode' => '', 'country_id' => 0, 'zone_id' => 0]);
+                    } else {
+                        $customer_id = $customer_info['customer_id'];
+                    }
+                } elseif (!empty($_SESSION['auth']['email'])) {
+                    $customer_info = $this->model_account_customer->getCustomerByEmail($_SESSION['auth']['email']);
+
+                    if (empty($customer_info)) {
+                        $customer_id = $this->model_account_customer->addCustomer(['email' => $_SESSION['auth']['email'], 'telephone' => '', 'firstname' => '', 'lastname' => '', 'fax' => '', 'password' => '', 'company' => '', 'address_1' => '', 'address_2' => '', 'city' => '', 'postcode' => '', 'country_id' => 0, 'zone_id' => 0]);
+                    } else {
+                        $customer_id = $customer_info['customer_id'];
+                    }
+                }
+
+                $this->session->data['customer_id'] = $customer_id;
+
+                unset($_SESSION['auth']);
+                $result = 'ok';
+            } else {
+
+                if ($_SESSION['auth']['tries'] > 0) {
+                    $result = 'fail';
+                } else {
+                    unset($_SESSION['auth']);
+                    $result = 'reset';
+                }
+            }
+        }
+
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode(['result' => $result]));
+    }
+
+
+
+    private function send_email($email, $subject, $message)
+    {
+        $mail = new Mail();
+        $mail->protocol = $this->config->get('config_mail_protocol');
+        $mail->parameter = $this->config->get('config_mail_parameter');
+        $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+        $mail->smtp_username = $this->config->get('config_mail_smtp_username');
+        $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+        $mail->smtp_port = $this->config->get('config_mail_smtp_port');
+        $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+
+        $mail->setTo($email);
+        $mail->setFrom($this->config->get('config_email'));
+        $mail->setSender(html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
+        $mail->setSubject($subject);
+        $mail->setText($message);
+        $mail->send();
+    }
+
+    public function email()
+    {
+        if ($email = $this->request->get['email']) {
+            var_dump($email);
+            //	echo $email;
+            if (!empty($this->request->get['email'])) {
+                //	$last_time = base64_decode($_COOKIE['stime']);
+                $last_time = date("H:i:s");
+                // var_dump($last_time);
+                // var_dump($last_time);
+                if (($last_time) == date("H:i")) {
+
+                    $result = 'wait';
+                } else {
+                    $result = 'ok';
+                }
+            } else {
+                $result = 'ok';
+            }
+
+            if ($result == 'ok') {
+                $code = mt_rand(1000, 9999);
+                //$code = 3535;
+                $expired_time = date('H:i:s', strtotime("+2 minutes"));
+                // var_dump($current, $expired_time);
+                $this->db->query("INSERT INTO `auth_code` (`id`, `email`, `code`, `current_time`, expired_time) VALUES (NULL, '$email', '$code', '$last_time', '$expired_time')");
 
                 $verify = $this->db->query("SELECT * FROM `auth_code`");
                 //  var_dump($verify->rows);
-                  foreach ($verify->rows as $key) {
+                foreach ($verify->rows as $key) {
                     //  var_dump($key["email"], $key["code"]);
-                  }
-               // echo json_encode($verify);
-               // var_dump($verify);
-				
-				$_SESSION['auth']['email'] = $key["email"];
-				$_SESSION['auth']['code'] = (string)$key["code"];
-				$_SESSION['auth']['tries'] = 2;
-				$this->send_email($email, "Авторизация на сайте ST Автозапчасти", "<p>Это письмо пришло, потому что кто-то запросил код авторизации на Ваш почтовый адрес.</p><p>Если это были не вы, то просто игнорируйте это сообщение.</p><p>Код для авторизации: ".$code."</p>");
-				setcookie('stime', base64_encode(time()), time()+60*60*24*365,'/');
-			}
-			
-		}
-		
-		$this->response->addHeader('Content-Type: application/json');
-		$this->response->setOutput(json_encode(['result'=>$result]));
-	}
+                }
+                // echo json_encode($verify);
+                // var_dump($verify);
+
+                $_SESSION['auth']['email'] = $key["email"];
+                $_SESSION['auth']['code'] = (string)$key["code"];
+                $_SESSION['auth']['tries'] = 2;
+                $this->send_email($email, "Авторизация на сайте ST Автозапчасти", "<p>Это письмо пришло, потому что кто-то запросил код авторизации на Ваш почтовый адрес.</p><p>Если это были не вы, то просто игнорируйте это сообщение.</p><p>Код для авторизации: " . $code . "</p>");
+                setcookie('stime', base64_encode(time()), time() + 60 * 60 * 24 * 365, '/');
+            }
+        }
+
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode(['result' => $result]));
+    }
     //End auth email
 
+
+
+    public function filtrReview()
+    {
+    }
 
 
     public function getAnalog()
@@ -202,8 +207,8 @@ class ControllerFeedRestApi extends RestController
             }
         }
         // var_dump($price_min);
-      echo json_encode($data['articles'], JSON_UNESCAPED_UNICODE);
-      //  echo json_encode( $price_autopiters , JSON_UNESCAPED_UNICODE);
+        echo json_encode($data['articles'], JSON_UNESCAPED_UNICODE);
+        //  echo json_encode( $price_autopiters , JSON_UNESCAPED_UNICODE);
     }
 
     /*Get Oauth token*/
@@ -311,7 +316,7 @@ class ControllerFeedRestApi extends RestController
     /*
     * FAQ FUNCTIONS
     */
-    
+
     /*
     * PRODUCT FUNCTIONS
     */
@@ -325,39 +330,35 @@ class ControllerFeedRestApi extends RestController
             if (isset($this->request->get['id']) && ctype_digit($this->request->get['id'])) {
                 $id = $this->request->get['id'];
                 $this->getProduct($id);
-            } 
-            elseif (isset($this->request->get['alias']) && is_string($this->request->get['alias'])) {
+            } elseif (isset($this->request->get['alias']) && is_string($this->request->get['alias'])) {
                 $alias = $this->request->get['alias'];
                 //  $checksum = $this->model_catalog_product->getChecksum();
                 $this->getProductByAlias($alias);
-            }
-           
-            else {
+            } else {
                 //get products list
                 if (isset($this->request->get['category']) && ctype_digit($this->request->get['category'])) {
                     //   var_dump($this->request->get['category']);
                     $category_id = $this->request->get['category'];
                 } elseif (isset($this->request->get['category']) && is_string($this->request->get['category'])) {
                     $category_id = $this->request->get['category'];
-                }
-                elseif (isset($this->request->get['category_alias']) && is_string($this->request->get['category_alias'])) {
+                } elseif (isset($this->request->get['category_alias']) && is_string($this->request->get['category_alias'])) {
                     $category_id = $this->request->get['category_alias'];
-                }elseif (isset($this->request->get['category_alias_parent']) && is_string($this->request->get['category_alias_parent'])) {
+                } elseif (isset($this->request->get['category_alias_parent']) && is_string($this->request->get['category_alias_parent'])) {
                     //$category_id = $this->request->get['category_alias_parent'];
                     $alias = $this->request->get['category_alias_parent'];
                     $id = $this->db->query("SELECT url_alias.query, url_alias.keyword, category.category_id FROM url_alias INNER JOIN category ON SUBSTR(url_alias.query, 13,5) = category.category_id AND url_alias.keyword LIKE '$alias'");
                     //var_dump($id);
-                    foreach ($id->rows as $key ) {
+                    foreach ($id->rows as $key) {
                         // var_dump($key['category_id']);
-                     }
-                     $parent = intval($key['category_id']);
+                    }
+                    $parent = intval($key['category_id']);
                     $category_id = $parent;
                     //var_dump($category_id);
                 } else {
                     $category_id = 0;
                 }
-              // var_dump($category_id);
-              $this->listProducts($category_id, $this->request);
+                // var_dump($category_id);
+                $this->listProducts($category_id, $this->request);
             }
         } else {
             $this->statusCode = 405;
@@ -452,25 +453,29 @@ class ControllerFeedRestApi extends RestController
         }
 
 
-        $manufakture = $this->db->query("SELECT * FROM `manufacturer_description` WHERE manufacturer_id = ". $this->json["data"]['manufacturer_id']);
+        $manufakture = $this->db->query("SELECT * FROM `manufacturer_description` WHERE manufacturer_id = " . $this->json["data"]['manufacturer_id']);
         //var_dump($manufakture->row["name"]);
         if ($this->includeMeta) {
             // var_dump($category_id);
-             $this->response->addHeader('X-Total-Count: ' . $this->json["data"]["sku"]);
-             $this->response->addHeader('X-Pagination-Limit: ' . $manufakture->row["name"]);
-             $data = $this->json['data'];
- 
-             $this->json['data'] = array(
+            $this->response->addHeader('X-Total-Count: ' . $this->json["data"]["sku"]);
+            $this->response->addHeader('X-Pagination-Limit: ' . $manufakture->row["name"]);
+            $data = $this->json['data'];
+
+
+          
+          
+         
+
+            $this->json['data'] = array(
                 'item'  => $data,
                 'Analog' => [
-                 'SKU' => $this->json["data"]["sku"],
-                 'Manufacture' => $manufakture->row["name"],
-                 'Stock'=> $this->json["data"]["stock_status_id"],
-                 ]
-             );
-         }
-
-       
+                    'SKU' => $this->json["data"]["sku"],
+                    'Manufacture' => $manufakture->row["name"],
+                    'Stock' => $this->json["data"]["stock_status_id"],
+                //    'user' => ,
+                ]
+            );
+        }
     }
 
 
@@ -799,58 +804,31 @@ class ControllerFeedRestApi extends RestController
         }
 
 
-        
-
-        // if (isset($request->get['category_alias_parent'])  && !empty($request->get['category_alias_parent'])) {
-        //     $alias = $request->get['category_alias_parent'];
-        //     $id = $this->db->query("SELECT url_alias.query, url_alias.keyword, category.category_id FROM url_alias INNER JOIN category ON SUBSTR(url_alias.query, 13,5) = category.category_id AND url_alias.keyword LIKE '$alias'");
-        //    // var_dump($id);
-        //     foreach ($id->rows as $key) {
-        //        $parent = $key["category_id"];
-        //    }
-        
-        //  //$data = $this->db->query("SELECT category.category_id FROM `category` WHERE parent_id = $parent");    
-        //            $data = $this->db->query("SELECT * FROM product_to_category INNER JOIN category on product_to_category.category_id = category.category_id AND category.parent_id = " . $request->get['category'] );
-
-        //  //  var_dump($data);
-        //  foreach ($data->rows as $key ) {
-        // //  $category_id = $key["category_id"];
-        //  // var_dump($key["category_id"]);
-        //  $parameters["filter_sub_category"] = $key["category_id"];
-        //  } 
-
-        // }
-
-
-
-
         /*check subcategory id parameter*/
         if (isset($request->get['subcategory']) && !empty($request->get['subcategory'])) {
             $parameters["filter_sub_category"] = $request->get['subcategory'];
-        } 
-        
-        elseif (isset($request->get['category'])) {
+        } elseif (isset($request->get['category'])) {
             //var_dump($request->get['category']);
-            $data = $this->db->query("SELECT * FROM product_to_category INNER JOIN category on product_to_category.category_id = category.category_id AND category.parent_id = " . $request->get['category'] );
+            $data = $this->db->query("SELECT * FROM product_to_category INNER JOIN category on product_to_category.category_id = category.category_id AND category.parent_id = " . $request->get['category']);
             foreach ($data->rows as $da) {
                 $parameters["filter_sub_category"] = $da['category_id'];
-               // var_dump($parameters["filter_sub_category"]);
-            } 
+                // var_dump($parameters["filter_sub_category"]);
+            }
         }
 
         if (isset($request->get['category_alias_parent'])  && !empty($request->get['category_alias_parent'])) {
             $alias = $request->get['category_alias_parent'];
             $id = $this->db->query("SELECT url_alias.query, url_alias.keyword, category.category_id FROM url_alias INNER JOIN category ON SUBSTR(url_alias.query, 13,5) = category.category_id AND url_alias.keyword LIKE '$alias'");
-           foreach ($id->rows as $key) {
-               $parent = $key["category_id"];
-           }
-            $data = $this->db->query("SELECT * FROM product_to_category INNER JOIN category on product_to_category.category_id = category.category_id AND category.parent_id = $parent" );
+            foreach ($id->rows as $key) {
+                $parent = $key["category_id"];
+            }
+            $data = $this->db->query("SELECT * FROM product_to_category INNER JOIN category on product_to_category.category_id = category.category_id AND category.parent_id = $parent");
             foreach ($data->rows as $da) {
-               //var_dump($da['category_id']);
-              $parameters["filter_sub_category"] = $da['category_id'];
+                //var_dump($da['category_id']);
+                $parameters["filter_sub_category"] = $da['category_id'];
             }
         }
-       
+
 
 
         /*check tag parameter*/
@@ -936,7 +914,7 @@ class ControllerFeedRestApi extends RestController
         $parameters["start"] = ($parameters["start"] - 1) * $parameters["limit"];
 
         $products = $this->model_catalog_product->getProductsAllData($parameters, $this->customer);
-        
+
         if (!empty($products)) {
             //  var_dump('ok');
             foreach ($products as $product) {
@@ -945,7 +923,7 @@ class ControllerFeedRestApi extends RestController
         }
 
         if ($this->includeMeta) {
-           // var_dump($category_id);
+            // var_dump($category_id);
             $total = $this->model_catalog_product->getProductsTotal($parameters, $this->customer, true);
             $this->response->addHeader('X-Total-Count: ' . (int)$total);
             $this->response->addHeader('X-Pagination-Limit: ' . (int)$parameters["limit"]);
@@ -1016,23 +994,22 @@ class ControllerFeedRestApi extends RestController
 
     public function searchService($post)
     {
-      
-        if(isset($post['filters'][0])&& isset($post['filters'][0]['value']) && isset($post['filters'][0]['is_parent'])){
+
+        if (isset($post['filters'][0]) && isset($post['filters'][0]['value']) && isset($post['filters'][0]['is_parent'])) {
             $parent = $post['filters'][0]['value'][0];
             $data = $this->db->query("SELECT * FROM product_to_category INNER JOIN category on product_to_category.category_id = category.category_id AND category.parent_id = $parent group by product_to_category.category_id ");
             foreach ($data->rows as $da) {
                 //var_dump($da['category_id']);
-              $post['filters'][0]['value'][] = $da['category_id'];
-            
+                $post['filters'][0]['value'][] = $da['category_id'];
             }
             // var_dump($post['filters'][0]['value']);
         }
-     
-      
+
+
         $this->load->model('catalog/product');
 
         $parameters = array(
-            "limit" => 100,
+            "limit" => 16,
             "start" => 1
         );
 
@@ -1045,11 +1022,13 @@ class ControllerFeedRestApi extends RestController
         if (isset($this->request->get['page']) && ctype_digit($this->request->get['page'])) {
             $parameters["start"] = $this->request->get['page'];
         }
-
+        $page = $parameters["start"];
         $parameters["start"] = ($parameters["start"] - 1) * $parameters["limit"];
 
         $products = $this->model_catalog_product->search($parameters, $post, $this->customer);
-      //var_dump(count($products));
+
+
+        //var_dump(count($total));
         if (!empty($products)) {
             foreach ($products as $product) {
                 $this->json['data'][] = $this->getProductInfo($product);
@@ -1058,21 +1037,18 @@ class ControllerFeedRestApi extends RestController
         if ($this->includeMeta) {
             $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Limit: ' . count($this->json['data']));
-            $this->response->addHeader('X-Pagination-Page: 1');
-                       $data = $this->json['data'];
-            
-                       $this->json['data'] = array(
-                           'totalrowcount' => count($data),
-                           'pagenumber'    => 1,
-                           'pagesize'      => count($data),
-                           'items'         => $data
-                       );
-           
-         }
+            $this->response->addHeader('X-Pagination-Page: '. $parameters["start"]);
+            $data = $this->json['data'];
 
-        elseif (empty($products)) {
+            $this->json['data'] = array(
+                'totalrowcount' => count($data),
+                'pagenumber'    => (int)$page,
+                'pagesize'      => count($data),
+                'items'         => $data
+            );
+        } elseif (empty($products)) {
             //echo 'Have not product';
-            $this->json['data'][]='Have not product';
+            $this->json['data'][] = 'Have not product';
         }
     }
 
@@ -1095,17 +1071,15 @@ class ControllerFeedRestApi extends RestController
                 /*check parent parameter*/
                 if (isset($this->request->get['parent']) && ctype_digit($this->request->get['parent'])) {
                     $parent = $this->request->get['parent'];
-                } 
-                elseif(isset($this->request->get['parent']) && is_string($this->request->get['parent'])) {
+                } elseif (isset($this->request->get['parent']) && is_string($this->request->get['parent'])) {
                     $word = $this->request->get['parent'];
-                  $id = $this->db->query("SELECT url_alias.query, url_alias.keyword, category.category_id FROM url_alias INNER JOIN category ON SUBSTR(url_alias.query, 13,5) = category.category_id AND url_alias.keyword LIKE '$word'");
-                   foreach ($id->rows as $key ) {
-                      // var_dump($key['category_id']);
-                   }
-                   $category_id = intval($key['category_id']);
-                  $parent = $category_id;
-                }
-                else{
+                    $id = $this->db->query("SELECT url_alias.query, url_alias.keyword, category.category_id FROM url_alias INNER JOIN category ON SUBSTR(url_alias.query, 13,5) = category.category_id AND url_alias.keyword LIKE '$word'");
+                    foreach ($id->rows as $key) {
+                        // var_dump($key['category_id']);
+                    }
+                    $category_id = intval($key['category_id']);
+                    $parent = $category_id;
+                } else {
                     $parent = 0;
                 }
 
@@ -1308,14 +1282,14 @@ class ControllerFeedRestApi extends RestController
             $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Limit: 1000');
             $this->response->addHeader('X-Pagination-Page: 1');
-                       $data = $this->json['data'];
-            
-                       $this->json['data'] = array(
-                           'totalrowcount' => count($data),
-                           'pagenumber'    => 1,
-                           'pagesize'      => 1000,
-                           'items'         => $data
-                       );
+            $data = $this->json['data'];
+
+            $this->json['data'] = array(
+                'totalrowcount' => count($data),
+                'pagenumber'    => 1,
+                'pagesize'      => 1000,
+                'items'         => $data
+            );
         }
     }
 
@@ -2043,26 +2017,28 @@ class ControllerFeedRestApi extends RestController
         }
     }
 
-    public function Faq(){
-        if($_SERVER['REQUEST_METHOD'] === 'POST'){
-          $post = $this->getPost();
-       $this->storeFaq($post);
-       $data = array();
-       echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    public function Faq()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $post = $this->getPost();
+            $this->storeFaq($post);
+            $data = array();
+            echo json_encode($data, JSON_UNESCAPED_UNICODE);
+        }
     }
-}
 
-public function storeFaq($post){
-    $this->load->model('extension/module/faq');
-  $this->model_extension_module_faq->add($post);
-   
-  
+    public function storeFaq($post)
+    {
+        $this->load->model('extension/module/faq');
+        $this->model_extension_module_faq->add($post);
 
-  
 
-    // $this->json[] = $post;
-    // echo json_encode($post);
-}
+
+
+
+        // $this->json[] = $post;
+        // echo json_encode($post);
+    }
 
 
     public function reviews()
@@ -2079,15 +2055,14 @@ public function storeFaq($post){
             } elseif (isset($this->request->get['alias']) && is_string($this->request->get['alias'])) {
                 $alias = $this->request->get['alias'];
                 $product_id = $this->db->query("SELECT SUBSTR(query, 12, 5) FROM `url_alias` WHERE `keyword` LIKE '%$alias%'");
-               // var_dump($product_id->row["SUBSTR(query, 12, 5)"]);
-               $id = $product_id->row["SUBSTR(query, 12, 5)"];
-               $this->addReview($id, $post);
+                // var_dump($product_id->row["SUBSTR(query, 12, 5)"]);
+                $id = $product_id->row["SUBSTR(query, 12, 5)"];
+                $this->addReview($id, $post);
                 //  $checksum = $this->model_catalog_product->getChecksum();
-            //  $this->getProductByAlias($alias);
-          //  var_dump($alias);
-             
-            } 
-            else {
+                //  $this->getProductByAlias($alias);
+                //  var_dump($alias);
+
+            } else {
                 $this->statusCode = 400;
                 $this->json['error'][] = "Invalid identifier.";
             }
@@ -2195,14 +2170,14 @@ public function storeFaq($post){
             $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Limit: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Page: 1');
-                       $data = $this->json['data'];
-            
-                       $this->json['data'] = array(
-                           'totalrowcount' => count($data),
-                           'pagenumber'    => 1,
-                           'pagesize'      => count($data),
-                           'items'         => $data
-                       );
+            $data = $this->json['data'];
+
+            $this->json['data'] = array(
+                'totalrowcount' => count($data),
+                'pagenumber'    => 1,
+                'pagesize'      => count($data),
+                'items'         => $data
+            );
         }
     }
 
@@ -2239,14 +2214,14 @@ public function storeFaq($post){
             $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Limit: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Page: 1');
-                       $data = $this->json['data'];
-            
-                       $this->json['data'] = array(
-                           'totalrowcount' => count($data),
-                           'pagenumber'    => 1,
-                           'pagesize'      => count($data),
-                           'items'         => $data
-                       );
+            $data = $this->json['data'];
+
+            $this->json['data'] = array(
+                'totalrowcount' => count($data),
+                'pagenumber'    => 1,
+                'pagesize'      => count($data),
+                'items'         => $data
+            );
         }
     }
 
@@ -2412,14 +2387,14 @@ public function storeFaq($post){
             $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Limit: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Page: 1');
-                       $data = $this->json['data'];
-            
-                       $this->json['data'] = array(
-                           'totalrowcount' => count($data),
-                           'pagenumber'    => 1,
-                           'pagesize'      => count($data),
-                           'items'         => $data
-                       );
+            $data = $this->json['data'];
+
+            $this->json['data'] = array(
+                'totalrowcount' => count($data),
+                'pagenumber'    => 1,
+                'pagesize'      => count($data),
+                'items'         => $data
+            );
         }
     }
 
@@ -2495,14 +2470,14 @@ public function storeFaq($post){
             $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Limit: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Page: 1');
-                       $data = $this->json['data'];
-            
-                       $this->json['data'] = array(
-                           'totalrowcount' => count($data),
-                           'pagenumber'    => 1,
-                           'pagesize'      => count($data),
-                           'items'         => $data
-                       );
+            $data = $this->json['data'];
+
+            $this->json['data'] = array(
+                'totalrowcount' => count($data),
+                'pagenumber'    => 1,
+                'pagesize'      => count($data),
+                'items'         => $data
+            );
         }
     }
 
@@ -2664,14 +2639,14 @@ public function storeFaq($post){
             $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Limit: ' . (int)$limit);
             $this->response->addHeader('X-Pagination-Page: 1');
-                       $data = $this->json['data'];
-            
-                       $this->json['data'] = array(
-                           'totalrowcount' => count($data),
-                           'pagenumber'    => 1,
-                           'pagesize'      => (int)$limit,
-                           'items'         => $data
-                       );
+            $data = $this->json['data'];
+
+            $this->json['data'] = array(
+                'totalrowcount' => count($data),
+                'pagenumber'    => 1,
+                'pagesize'      => (int)$limit,
+                'items'         => $data
+            );
         }
     }
 
@@ -2786,14 +2761,14 @@ public function storeFaq($post){
             $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Limit: ' . (int)$limit);
             $this->response->addHeader('X-Pagination-Page: 1');
-                       $data = $this->json['data'];
-            
-                       $this->json['data'] = array(
-                           'totalrowcount' => count($data),
-                           'pagenumber'    => 1,
-                           'pagesize'      => (int)$limit,
-                           'items'         => $data
-                       );
+            $data = $this->json['data'];
+
+            $this->json['data'] = array(
+                'totalrowcount' => count($data),
+                'pagenumber'    => 1,
+                'pagesize'      => (int)$limit,
+                'items'         => $data
+            );
         }
     }
 
@@ -3080,14 +3055,14 @@ public function storeFaq($post){
             $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Limit: ' . (int)$limit);
             $this->response->addHeader('X-Pagination-Page: 1');
-                       $data = $this->json['data'];
-            
-                       $this->json['data'] = array(
-                           'totalrowcount' => count($data),
-                           'pagenumber'    => 1,
-                           'pagesize'      => (int)$limit,
-                           'items'         => $data
-                       );
+            $data = $this->json['data'];
+
+            $this->json['data'] = array(
+                'totalrowcount' => count($data),
+                'pagenumber'    => 1,
+                'pagesize'      => (int)$limit,
+                'items'         => $data
+            );
         }
     }
 
@@ -3151,14 +3126,14 @@ public function storeFaq($post){
             $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Limit: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Page: 1');
-                       $data = $this->json['data'];
-            
-                       $this->json['data'] = array(
-                           'totalrowcount' => count($data),
-                           'pagenumber'    => 1,
-                           'pagesize'      => count($data),
-                           'items'         => $data
-                       );
+            $data = $this->json['data'];
+
+            $this->json['data'] = array(
+                'totalrowcount' => count($data),
+                'pagenumber'    => 1,
+                'pagesize'      => count($data),
+                'items'         => $data
+            );
         }
     }
 
@@ -3244,14 +3219,14 @@ public function storeFaq($post){
             $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Limit: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Page: 1');
-                       $data = $this->json['data'];
-            
-                       $this->json['data'] = array(
-                           'totalrowcount' => count($data),
-                           'pagenumber'    => 1,
-                           'pagesize'      => count($data),
-                           'items'         => $data
-                       );
+            $data = $this->json['data'];
+
+            $this->json['data'] = array(
+                'totalrowcount' => count($data),
+                'pagenumber'    => 1,
+                'pagesize'      => count($data),
+                'items'         => $data
+            );
         }
     }
 
@@ -3302,14 +3277,14 @@ public function storeFaq($post){
             $this->response->addHeader('X-Total-Count: ' . count($this->json['data']));
             $this->response->addHeader('X-Pagination-Limit: ' . (int)$limit);
             $this->response->addHeader('X-Pagination-Page: 1');
-                       $data = $this->json['data'];
-            
-                       $this->json['data'] = array(
-                           'totalrowcount' => count($data),
-                           'pagenumber'    => 1,
-                           'pagesize'      => (int)$limit,
-                           'items'         => $data
-                       );
+            $data = $this->json['data'];
+
+            $this->json['data'] = array(
+                'totalrowcount' => count($data),
+                'pagenumber'    => 1,
+                'pagesize'      => (int)$limit,
+                'items'         => $data
+            );
         }
     }
 

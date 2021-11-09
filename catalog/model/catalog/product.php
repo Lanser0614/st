@@ -3,6 +3,14 @@
 class ModelCatalogProduct extends Model
 {
 
+    public function download_function($product_count) {
+        //print_r($keyword);
+        // $this->data['re']      =   $this->csv->ExportCSV($keyword);
+         $this->data['pro_ids'] =   $product_count;
+         $total = $this->data['pro_ids'];
+         var_dump($total);
+        // $this->twig->display('home.html', $this->data);
+    }
     public function getProductsByAlias($alias, $product_ids, $customer, $sortSql = "ORDER BY p.product_id ASC")
     {
         $product_id = $this->db->query("SELECT SUBSTR(query, 12, 5) FROM `url_alias` WHERE `keyword` LIKE '%$alias%'");
@@ -40,6 +48,15 @@ class ModelCatalogProduct extends Model
         } else {
             return false;
         }
+    }
+
+    public function filtrReview($alias) {
+
+        $product_id = $this->db->query("SELECT SUBSTR(query, 12, 5) FROM `url_alias` WHERE `keyword` LIKE '%$alias%'");
+        $id = $product_id->row["SUBSTR(query, 12, 5)"];
+       
+
+
     }
 
 
@@ -317,7 +334,7 @@ class ModelCatalogProduct extends Model
         if (!empty($data['filter_manufacturer_id'])) {
             $sql .= " AND p.manufacturer_id = '" . (int)$data['filter_manufacturer_id'] . "'";
         }
-        if (!empty($data['filter_date_added_to']) && !empty($data['filter_date_added_from'])) {
+        if (!empty($data['filter_date_added_to']) && !empty($data['`filter_date_added_from`'])) {
             $sql .= " AND p.date_added BETWEEN STR_TO_DATE('" . $this->db->escape($data['filter_date_added_from']) . "','%Y-%m-%d %H:%i:%s') AND STR_TO_DATE('" . $this->db->escape($data['filter_date_added_to']) . "','%Y-%m-%d %H:%i:%s')";
         } elseif (!empty($data['filter_date_added_from'])) {
             $sql .= " AND p.date_added >= STR_TO_DATE('" . $this->db->escape($data['filter_date_added_from']) . "','%Y-%m-%d %H:%i:%s')";
@@ -678,7 +695,9 @@ class ModelCatalogProduct extends Model
         }
         $sql .= $sortSql;
         $count = $this->db->query($sql);
-       // var_dump(count($count->rows));
+       //var_dump(count($count->rows));
+      $product_count = count($count->rows);
+      $this->download_function($product_count);
         if (isset($data['start']) || isset($data['limit'])) {
             if ($data['limit'] < 1) {
                 $limit = 20;
@@ -698,8 +717,10 @@ class ModelCatalogProduct extends Model
         $product_data = array();
         $query = $this->db->query($sql);
         foreach ($query->rows as $result) {
+         //   $total = $product_count;
             $product_data[$result['product_id']] = $result['product_id'];
         }
+        //echo 
         return $this->getProductsByIds(array_keys($product_data), $customer, $sortSql);
     }
 

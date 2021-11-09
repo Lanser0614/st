@@ -286,7 +286,7 @@ class ControllerRestAccount extends RestController
         $this->checkPlugin();
 
         $this->language->load('account/address');
-
+       // var_dump($this->customer->isLogged());
         if (!$this->customer->isLogged()) {
             $this->json['error'][] = "User is not logged in";
             $this->statusCode = 403;

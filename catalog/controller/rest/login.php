@@ -30,7 +30,7 @@ class ControllerRestLogin extends RestController
             $post = $this->getPost();
 
             $this->language->load('checkout/checkout');
-
+            //var_dump($this->customer->isLogged());
             if ($this->customer->isLogged()) {
                 $this->json['error'][] = "User is logged.";
                 $this->statusCode = 400;
@@ -44,7 +44,7 @@ class ControllerRestLogin extends RestController
                     $email = $post['email'];
 
                     $customer_info = $this->model_account_customer->getCustomerByEmail($email);
-
+                       
                     if ($customer_info && !$customer_info['approved']) {
                         $this->json['error'][] = $this->language->get('error_approved');
                         $this->statusCode = 403;
