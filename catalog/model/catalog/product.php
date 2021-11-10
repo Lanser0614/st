@@ -3,20 +3,21 @@
 class ModelCatalogProduct extends Model
 {
 
-    // public function download_function($product_count) {
-    //     //print_r($keyword);
-    //     // $this->data['re']      =   $this->csv->ExportCSV($keyword);
-    //      $count =   $product_count;
-    //     // global $total_count_product = array();
-    //     $total_count_product = array(
-    //         'Total_Product' => $count,
-    //     );
 
-    //     return $total_count_product;
-    //    //  echo json_encode($total);
-    //      //var_dump($total);
-    //     // $this->twig->display('home.html', $this->data);
-    // }
+    public function download_function($product_count) {
+        //print_r($keyword);
+        // $this->data['re']      =   $this->csv->ExportCSV($keyword);
+         $count =   $product_count;
+        // global $total_count_product = array();
+        $total_count_product = array(
+            'Total_Product' => $count,
+        );
+
+        echo json_encode($total_count_product);
+       //  echo json_encode($total);
+         //var_dump($total);
+        // $this->twig->display('home.html', $this->data);
+    }
 
 
     // function function_name($total_count_product) {
@@ -711,7 +712,7 @@ class ModelCatalogProduct extends Model
         $count = $this->db->query($sql);
        //var_dump(count($count->rows));
       $product_count = count($count->rows);
-      
+      $this->download_function($product_count);
         if (isset($data['start']) || isset($data['limit'])) {
             if ($data['limit'] < 1) {
                 $limit = 20;
@@ -735,12 +736,12 @@ class ModelCatalogProduct extends Model
             $product_data[$result['product_id']] = $result['product_id'];
         }
         //echo 
-        $this->download_function($product_count);
+        
         return $this->getProductsByIds(array_keys($product_data), $customer, $sortSql);
     
     }
 
-
+        
 
     public function getStore($store_id)
     {
