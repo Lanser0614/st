@@ -21,13 +21,62 @@ class ControllerFeedRestApi extends RestController
 {
 
 
+    public function filtrReview()
+    {
+        $this->checkPlugin();
+        $sql = "SELECT * FROM `review`";
+
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            if (isset($this->request->get['id']) && ctype_digit($this->request->get['id'])) {
+                $id = $this->request->get['id'];
+                $product_id = (int)$id;
+            }elseif (isset($this->request->get['alias']) && is_string($this->request->get['alias'])) {
+                $alias = $this->request->get['alias'];
+                $this->load->model('catalog/product');
+                $products = $this->model_catalog_product->getProductWithAlias($alias, $this->customer);
+              //  var_dump($products[0]["product_id"]);
+              $product_id = (int)$products[0]["product_id"];
+            }else{
+                $product_id = 0;
+            }
+
+
+              $sql .=   " WHERE product_id = ". $product_id;
+
+              
+                if (isset($this->request->get['date']) && is_string($this->request->get['date'])) {
+                    $date = $this->request->get['date'];
+                   // $product_id = (int)$id;
+                   $sql .= " ORDER BY date_added ". $date;
+                }
+
+                if (isset($this->request->get['rating']) && is_string($this->request->get['rating'])) {
+                    $rating = $this->request->get['rating'];
+                   // $product_id = (int)$id;
+                   $sql .= " ORDER BY rating ". $rating;
+                }
+                
+                $data = $this->db->query($sql);
+               
+                
+                foreach ($data->rows as $key ) {
+                    $this->json['data'][] = $key;
+                }
+
+                $reviews =  $this->json['data'];
+               
+               
+                echo json_encode($reviews);
+                //var_dump($data);
+        
+
+    }
+}
+
+
 
 
     //Start auth email
-    public function index()
-    {
-    }
-
     private function send($phone, $sms)
     {
         $ch = curl_init("http://sms.ru/sms/send");
@@ -166,10 +215,6 @@ class ControllerFeedRestApi extends RestController
     //End auth email
 
 
-
-    public function filtrReview()
-    {
-    }
 
 
     public function getAnalog()

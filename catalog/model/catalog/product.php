@@ -4,6 +4,14 @@ class ModelCatalogProduct extends Model
 {
 
 
+    public function sortReview($product_id)
+    {
+      //  var_dump($product_id);
+        $review = $this->db->query("SELECT * FROM `review` WHERE product_id = ". $product_id);
+
+        return $review;
+    }
+
     public function download_function($product_count) {
         //print_r($keyword);
         // $this->data['re']      =   $this->csv->ExportCSV($keyword);

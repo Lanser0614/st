@@ -17047,3 +17047,26 @@
 2021-11-09 12:56:02 - PHP Notice:  Undefined index: total in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 718
 2021-11-09 12:56:02 - PHP Notice:  Undefined index: total in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 718
 2021-11-09 13:50:01 - PHP Notice:  Indirect modification of overloaded property ModelCatalogProduct::$data has no effect in /opt/lampp/htdocs/st-spares-current.ru/catalog/model/catalog/product.php on line 9
+2021-11-10 6:54:30 - PHP Notice:  Undefined variable: date in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 44
+2021-11-10 7:06:40 - PHP Notice:  Undefined index: review_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 53
+2021-11-10 7:07:33 - PHP Notice:  Undefined index: review_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 57
+2021-11-10 7:09:33 - PHP Unknown:  Object of class stdClass could not be converted to string in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 53
+2021-11-10 7:09:33 - PHP Notice:  Undefined variable:  in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 53
+2021-11-10 7:09:33 - PHP Notice:  Trying to get property of non-object in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 53
+2021-11-10 7:09:33 - PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 53
+2021-11-10 7:09:51 - PHP Unknown:  Object of class stdClass could not be converted to string in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 53
+2021-11-10 7:09:51 - PHP Notice:  Undefined variable:  in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 53
+2021-11-10 7:09:51 - PHP Notice:  Trying to get property of non-object in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 53
+2021-11-10 7:09:51 - PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 53
+2021-11-10 7:22:24 - PHP Notice:  Undefined index: rating in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 62
+2021-11-10 7:25:16 - PHP Notice:  Undefined offset: 6 in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 64
+2021-11-10 7:25:43 - PHP Notice:  Undefined offset: 6 in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 64
+2021-11-10 7:25:50 - PHP Notice:  Undefined offset: 6 in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 64
+2021-11-10 7:26:08 - PHP Notice:  Undefined offset: 6 in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 64
+2021-11-10 7:26:21 - PHP Notice:  Undefined offset: 6 in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 64
+2021-11-10 7:27:22 - PHP Notice:  Undefined offset: 6 in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 64
+2021-11-10 7:28:02 - PHP Notice:  Undefined offset: 6 in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 65
+2021-11-10 7:33:45 - PHP Notice:  Undefined variable: product_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 43
+2021-11-10 7:34:22 - PHP Notice:  Undefined variable: product_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 44
+2021-11-10 7:36:01 - PHP Notice:  Undefined variable: product_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 44
+2021-11-10 7:36:40 - PHP Notice:  Undefined variable: product_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 44
