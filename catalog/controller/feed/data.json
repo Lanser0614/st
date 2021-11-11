@@ -1,0 +1,35 @@
+[
+	{
+		"brand": "Hepu",
+		"articleCode": "P999",
+		"articleCodeFix": "P999",
+		"articleId": "2854918",
+		"description": "Антифриз [синий] 1,5л.",
+		"availability": "-1",
+		"deliveryPeriod": 3,
+		"price": 231,
+		"weight": "0"
+	},
+	{
+		"brand": "Febi",
+		"articleCode": "01089",
+		"articleCodeFix": "01089",
+		"articleId": "37367",
+		"description": "Антифриз 1.5 л синий",
+		"availability": "1943",
+		"deliveryPeriod": 3,
+		"price": 233,
+		"weight": "1.76"
+	},
+	{
+		"brand": "Vaico Vemo",
+		"articleCode": "V600020",
+		"articleCodeFix": "V600020",
+		"articleId": "4144961",
+		"description": "Антифриз g-11 1.5л. концентрат",
+		"availability": "-2",
+		"deliveryPeriod": 3,
+		"price": 235,
+		"weight": "0"
+	}
+]

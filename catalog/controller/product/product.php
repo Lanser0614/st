@@ -182,6 +182,7 @@ class ControllerProductProduct extends Controller
 //        }else{
         try {
             $autopiter = new AutoPiterComponent($product_info['model']);
+        //    var_dump($product_info);
             $autopiter->manufacturer_id = $product_info['manufacturer_id'];
             $autopiter->manufacturer = $product_info['manufacturer'];
             $autopiter->counts = $product_info['stock_status'];
@@ -204,9 +205,7 @@ class ControllerProductProduct extends Controller
             
             }
         }
-   //  var_dump($autopiter);
-       //return json_decode($data['articles']);
-//        }
+
 
         if ($product_info) {
             $data['product_analog_id'] = round($product_info['min_price_analog'], 0);

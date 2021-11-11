@@ -1,5 +1,5 @@
 <?php
-include(DIR_COMPONENTS . 'AutoPiterComponent.php');
+include(DIR_ANALOGAPI . 'analog.php');
 /**
  * rest_api.php
  *
@@ -496,29 +496,24 @@ class ControllerFeedRestApi extends RestController
             $this->json['error'][] = 'Product not found';
             $this->statusCode = 404;
         }
-
-
-        $manufakture = $this->db->query("SELECT * FROM `manufacturer_description` WHERE manufacturer_id = " . $this->json["data"]['manufacturer_id']);
-        //var_dump($manufakture->row["name"]);
+        $manufakture = $this->db->query("SELECT * FROM manufacturer_description WHERE manufacturer_id = " . $this->json["data"]['manufacturer_id']);
         if ($this->includeMeta) {
-            // var_dump($category_id);
             $this->response->addHeader('X-Total-Count: ' . $this->json["data"]["sku"]);
             $this->response->addHeader('X-Pagination-Limit: ' . $manufakture->row["name"]);
             $data = $this->json['data'];
-
-
-          
-          
+            $sku = $this->json["data"]["sku"];
+            $mono = $manufakture->row["name"];
          
-
+            $curlSession = curl_init();
+            curl_setopt($curlSession, CURLOPT_URL, "https://id25394.public.api.abcp.ru/search/articles/?userlogin=sybaritetrade@gmail.com&userpsw=d272d4ec79ed408d275e65db3fcb1314&number=$sku&brand=$mono&useOnlineStocks=1");
+            curl_setopt($curlSession, CURLOPT_BINARYTRANSFER, true);
+            curl_setopt($curlSession, CURLOPT_RETURNTRANSFER, true);
+            $jsonData = json_decode(curl_exec($curlSession));
+            curl_close($curlSession);
+           // $json = new analog($sku, $mono);
             $this->json['data'] = array(
                 'item'  => $data,
-                'Analog' => [
-                    'SKU' => $this->json["data"]["sku"],
-                    'Manufacture' => $manufakture->row["name"],
-                    'Stock' => $this->json["data"]["stock_status_id"],
-                //    'user' => ,
-                ]
+                'Analog' => $jsonData
             );
         }
     }
@@ -691,6 +686,7 @@ class ControllerFeedRestApi extends RestController
             'id' => (int)$product['product_id'],
             'product_id' => (int)$product['product_id'],
             'name' => $product['name'],
+            'min_price_analog' => $product['min_price_analog'],
             'alias' => $this->model_catalog_product->getAlias((int)$product['product_id']),
             'manufacturer' => $product['manufacturer'],
             'sku' => (!empty($product['sku']) ? $product['sku'] : ""),

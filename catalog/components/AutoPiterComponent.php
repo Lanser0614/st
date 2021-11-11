@@ -38,6 +38,7 @@ class AutoPiterComponent
             //UserID - ваш клиентский id, Password - ваш пароль
             $this->client->Authorization(array("UserID" => AUTOPITER_LOGIN, "Password" => AUTOPITER_PASSWORD, "Save" => "true"));
         }
+       // var_dump($this->client);
     }
 
     public function findCatalog()

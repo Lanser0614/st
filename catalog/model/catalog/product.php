@@ -4,33 +4,22 @@ class ModelCatalogProduct extends Model
 {
 
 
-    public function sortReview($product_id)
-    {
-      //  var_dump($product_id);
-        $review = $this->db->query("SELECT * FROM `review` WHERE product_id = ". $product_id);
-
-        return $review;
-    }
+   
 
     public function download_function($product_count) {
-        //print_r($keyword);
-        // $this->data['re']      =   $this->csv->ExportCSV($keyword);
+
          $count =   $product_count;
-        // global $total_count_product = array();
+
         $total_count_product = array(
             'Total_Product' => $count,
         );
 
         echo json_encode($total_count_product);
-       //  echo json_encode($total);
-         //var_dump($total);
-        // $this->twig->display('home.html', $this->data);
+    
     }
 
 
-    // function function_name($total_count_product) {
-    //     //do something with $newVar
-    //     }
+   
 
 
 
@@ -219,7 +208,7 @@ class ModelCatalogProduct extends Model
                     }
                 }
             }
-
+            //var_dump($product_data);
             return $product_data;
             //return json_encode($product_data);
         } else {
@@ -421,7 +410,7 @@ class ModelCatalogProduct extends Model
             $specialIds[$result['product_id']] = $result['special_id'];
             $product_data[$result['product_id']] = array(
                 'product_id' => $result['product_id'], 'name' => $result['name'], 'description' => $result['description'], 'meta_description' => $result['meta_description'], 'meta_keyword' => $result['meta_keyword'], 'meta_title' => $result['meta_title'], 'tag' => $result['tag'], 'model' => $result['model'], 'sku' => $result['sku'], 'upc' => $result['upc'], 'ean' => $result['ean'], 'jan' => $result['jan'], 'isbn' => $result['isbn'], 'mpn' => $result['mpn'], 'location' => $result['location'], 'quantity' => $result['quantity'], 'stock_status' => $result['stock_status'], 'stock_status_id' => $result['stock_status_id'], 'image' => $result['image'],
-                'manufacturer_id' => $result['manufacturer_id'], 'manufacturer' => $result['manufacturer'], 'price' => ($result['discount'] ? $result['discount'] : $result['price']), 'special' => isset($result['special']) ? $result['special'] : '', 'reward' => $result['reward'], 'points' => $result['points'], 'tax_class_id' => $result['tax_class_id'], 'date_available' => $result['date_available'], 'weight' => $result['weight'], 'weight_class_id' => $result['weight_class_id'], 'length' => $result['length'], 'width' => $result['width'], 'height' => $result['height'], 'length_class_id' => $result['length_class_id'], 'subtract' => $result['subtract'], 'rating' => round($result['rating']), 'reviews' => $result['reviews'] ? $result['reviews'] : 0, 'minimum' => $result['minimum'], 'sort_order' => $result['sort_order'], 'status' => $result['status'], 'date_added' => $result['date_added'], 'date_modified' => $result['date_modified'], 'viewed' => $result['viewed'], 'weight_class' => $result['weight_class'], 'length_class' => $result['length_class'], 'shipping' => $result['shipping']
+                'manufacturer_id' => $result['manufacturer_id'], 'manufacturer' => $result['manufacturer'], 'price' => ($result['discount'] ? $result['discount'] : $result['price']), 'special' => isset($result['special']) ? $result['special'] : '', 'reward' => $result['reward'], 'points' => $result['points'], 'tax_class_id' => $result['tax_class_id'], 'date_available' => $result['date_available'], 'weight' => $result['weight'], 'weight_class_id' => $result['weight_class_id'], 'length' => $result['length'], 'width' => $result['width'], 'height' => $result['height'], 'length_class_id' => $result['length_class_id'], 'subtract' => $result['subtract'], 'rating' => round($result['rating']), 'reviews' => $result['reviews'] ? $result['reviews'] : 0, 'minimum' => $result['minimum'], 'sort_order' => $result['sort_order'], 'status' => $result['status'], 'date_added' => $result['date_added'], 'date_modified' => $result['date_modified'], 'viewed' => $result['viewed'], 'weight_class' => $result['weight_class'], 'length_class' => $result['length_class'], 'shipping' => $result['shipping'], 'min_price_analog' => $result['min_price_analog']
             );
         }
         $specialIds = array_filter($specialIds, function ($item) {
