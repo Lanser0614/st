@@ -17372,3 +17372,119 @@
 2021-11-11 10:03:37 - PHP Notice:  Undefined index: min_price_analog in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 689
 2021-11-11 10:03:37 - PHP Notice:  Undefined index: min_price_analog in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 689
 2021-11-11 10:03:37 - PHP Notice:  Undefined index: min_price_analog in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 689
+2021-11-11 10:33:48 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-11 10:33:54 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-11 10:34:01 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-11 10:48:30 - PHP Notice:  Undefined index: manufacturer_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 499
+2021-11-11 10:57:16 - PHP Notice:  Undefined index: manufacturer_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 499
+2021-11-11 10:58:38 - PHP Notice:  Undefined index: manufacturer_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 499
+2021-11-12 11:04:52 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-12 11:06:51 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-12 11:21:57 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-12 11:26:11 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-12 11:28:02 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-12 11:29:50 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-12 11:31:30 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-12 11:32:18 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-12 12:26:00 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-12 12:54:59 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-12 12:56:52 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-12 13:05:58 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-12 13:07:05 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-12 13:07:56 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-12 13:10:03 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-12 13:10:08 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-12 13:10:08 - PHP Notice:  Undefined variable: model in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/category.tpl on line 8
+2021-11-12 13:10:08 - PHP Notice:  Undefined variable: manufacturer in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/category.tpl on line 12
+2021-11-12 13:10:08 - PHP Notice:  Undefined variable: price in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/category.tpl on line 16
+2021-11-12 13:10:08 - PHP Notice:  Undefined offset: 2 in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/category.tpl on line 38
+2021-11-12 13:10:13 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-12 13:10:13 - PHP Notice:  Array to string conversion in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/product.tpl on line 504
+2021-11-12 13:10:13 - PHP Notice:  Undefined index: 
+        decimal_point
+         in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/product.tpl on line 629
+2021-11-12 13:10:13 - PHP Notice:  Undefined index: 
+        thousand_point
+         in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/product.tpl on line 632
+2021-11-12 13:10:13 - PHP Notice:  Undefined index: 
+        symbol_left
+         in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/product.tpl on line 636
+2021-11-12 13:10:13 - PHP Notice:  Undefined index: 
+        symbol_right
+         in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/product.tpl on line 640
+2021-11-12 13:10:13 - PHP Notice:  Undefined variable: autocalc_currency2 in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/product.tpl on line 663
+2021-11-12 13:10:13 - PHP Notice:  Undefined variable: autocalc_currency2 in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/product.tpl on line 666
+2021-11-12 13:10:13 - PHP Notice:  Undefined variable: autocalc_currency2 in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/product.tpl on line 670
+2021-11-12 13:10:13 - PHP Notice:  Undefined variable: autocalc_currency2 in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/product.tpl on line 674
+2021-11-13 11:57:44 - PHP Notice:  Undefined index: email in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 184
+2021-11-13 11:58:16 - PHP Notice:  Undefined index: email in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 183
+2021-11-13 11:58:45 - PHP Notice:  Undefined index: email in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 183
+2021-11-13 12:05:17 - PHP Notice:  Undefined index: email in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 184
+2021-11-13 12:12:48 - PHP Notice:  Undefined index: code in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 100
+2021-11-13 12:12:48 - PHP Notice:  Undefined variable: result in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 150
+2021-11-13 12:18:28 - PHP Notice:  Undefined index: code in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 100
+2021-11-13 12:18:28 - PHP Notice:  Undefined variable: result in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 150
+2021-11-13 12:18:42 - PHP Notice:  Undefined index: code in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 100
+2021-11-13 12:18:42 - PHP Notice:  Undefined variable: result in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 150
+2021-11-13 12:19:58 - PHP Notice:  Undefined index: code in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 100
+2021-11-13 12:19:58 - PHP Notice:  Undefined variable: result in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 150
+2021-11-13 12:20:23 - PHP Notice:  Undefined index: email in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 185
+2021-11-13 12:20:23 - PHP Notice:  Undefined index: code in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 100
+2021-11-13 12:20:23 - PHP Notice:  Undefined variable: result in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 150
+2021-11-13 12:22:57 - PHP Notice:  Undefined index: code in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 102
+2021-11-13 12:22:57 - PHP Notice:  Undefined variable: result in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 147
+2021-11-13 12:37:31 - PHP Notice:  Undefined index: code in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 107
+2021-11-13 12:37:31 - PHP Notice:  Undefined variable: result in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 152
+2021-11-13 12:40:30 - PHP Notice:  Undefined index: code in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 107
+2021-11-13 12:40:30 - PHP Notice:  Undefined variable: result in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 152
+2021-11-13 12:40:56 - PHP Notice:  Undefined index: email in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 188
+2021-11-13 12:42:19 - PHP Notice:  Undefined index: email in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 188
+2021-11-13 12:43:28 - PHP Notice:  Undefined index: email in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 188
+2021-11-13 12:45:30 - PHP Notice:  Undefined index: email in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 188
+2021-11-13 12:45:30 - PHP Notice:  Undefined index: code in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 107
+2021-11-13 12:45:30 - PHP Notice:  Undefined variable: result in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 152
+2021-11-13 12:46:02 - PHP Notice:  Undefined index: code in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 107
+2021-11-13 12:46:02 - PHP Notice:  Undefined variable: result in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 152
+2021-11-13 12:46:25 - PHP Notice:  Undefined index: code in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 107
+2021-11-13 12:46:25 - PHP Notice:  Undefined variable: result in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 152
+2021-11-13 12:49:19 - PHP Notice:  Undefined index: code in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 108
+2021-11-13 12:49:19 - PHP Notice:  Undefined variable: result in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 153
+2021-11-13 12:49:32 - PHP Notice:  Undefined index: code in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 108
+2021-11-13 12:49:32 - PHP Notice:  Undefined variable: result in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 153
+2021-11-13 12:51:27 - PHP Notice:  Undefined index: code in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 108
+2021-11-13 12:51:27 - PHP Notice:  Undefined variable: result in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 153
+2021-11-13 12:56:52 - PHP Notice:  Undefined index: code in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 105
+2021-11-13 12:56:52 - PHP Notice:  Undefined variable: result in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 150
+2021-11-13 12:57:08 - PHP Notice:  Undefined index: email in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 186
+2021-11-13 12:57:08 - PHP Notice:  Undefined index: code in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 105
+2021-11-13 12:57:08 - PHP Notice:  Undefined variable: result in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 150
+2021-11-13 12:57:37 - PHP Notice:  Undefined index: email in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 174
+2021-11-13 12:57:37 - PHP Notice:  Undefined variable: result in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 206
+2021-11-13 12:57:49 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-13 12:57:56 - PHP Notice:  Undefined index: email in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 174
+2021-11-13 12:57:56 - PHP Notice:  Undefined variable: result in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 206
+2021-11-13 12:58:47 - PHP Notice:  Undefined index: email in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 174
+2021-11-13 12:58:47 - PHP Notice:  Undefined variable: result in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 206
+2021-11-13 13:47:01 - PHP Notice:  Undefined index: email in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 197
+2021-11-13 13:47:49 - PHP Notice:  Undefined variable: result in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 161
+2021-11-13 13:48:33 - PHP Notice:  Undefined variable: result in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 161
+2021-11-13 14:01:50 - PHP Notice:  Undefined index: code in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 120
+2021-11-13 14:02:14 - PHP Notice:  Undefined index: code in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 121
+2021-11-13 14:23:58 - PHP Notice:  Undefined index: code in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 118
+2021-11-13 14:23:58 - PHP Notice:  Undefined index: email in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 119
+2021-11-13 14:23:58 - PHP Notice:  Undefined variable: result in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 164
+2021-11-13 14:29:16 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-14 17:02:38 - PHP Notice:  Undefined index: code in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 147
+2021-11-14 17:02:38 - PHP Notice:  Undefined index: phone in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 148
+2021-11-14 17:03:48 - PHP Notice:  Undefined index: code in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 148
+2021-11-14 17:03:48 - PHP Notice:  Undefined index: phone in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 149
+2021-11-14 17:11:06 - PHP Notice:  Undefined index: email in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 255
+2021-11-14 17:12:52 - PHP Notice:  Undefined index: email in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 255
+2021-11-14 17:17:36 - PHP Notice:  Undefined index: email in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 255
+2021-11-14 17:19:23 - PHP Notice:  Undefined index: email in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 255
+2021-11-14 17:19:23 - PHP Notice:  Undefined index: email in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 256
+2021-11-14 17:19:23 - PHP Notice:  Undefined index: email in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 257
+2021-11-14 17:20:47 - PHP Notice:  Undefined index: email in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 257
+2021-11-14 17:22:19 - PHP Notice:  Undefined index: email in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 255
+2021-11-14 17:23:50 - PHP Notice:  Undefined index: email in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 255
+2021-11-15 7:10:41 - PHP Notice:  Undefined index: phone in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 225

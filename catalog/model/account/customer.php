@@ -205,6 +205,13 @@ class ModelAccountCustomer extends Model
 		return $query->row;
 	}
 
+	public function getCustomerByPhone($phone)
+	{
+		$query = $this->db->query("SELECT * FROM customer WHERE telephone = ". $this->db->escape(utf8_strtolower($phone)));
+		//$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer WHERE LOWER(telephone) = '" . $this->db->escape(utf8_strtolower($phone)) . "'");
+		return $query->row;
+	}
+
 	public function getCustomerByCode($code)
 	{
 		$query = $this->db->query("SELECT customer_id, firstname, lastname, email FROM `" . DB_PREFIX . "customer` WHERE code = '" . $this->db->escape($code) . "' AND code != ''");

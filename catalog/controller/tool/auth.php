@@ -20,7 +20,6 @@ class ControllerToolAuth extends Controller {
 	}
 	
 	public function phone() {
-		
 		$result = '';
 		if( $phone = $this->request->get['phone'] ) {
 			//$this->db->query("INSERT INTO auth_code SET phone = '123'");
@@ -38,14 +37,8 @@ class ControllerToolAuth extends Controller {
 			}
 			
 			if($result=='ok'){
-			
 				$code = mt_rand(1000, 9999);
-
-				//$code = 3535;
-			//	var_dump($phone);
 				$_SESSION['auth']['phone'] = $phone;
-			//	$this->db->query("INSERT INTO auth_code SET phone = ".$_SESSION['auth']['phone']);
-			//	$this->db->query("INSERT INTO auth_code (phone) VALUES('$phone')");
 				$_SESSION['auth']['code'] = (string)$code;
 				$_SESSION['auth']['tries'] = 2;
 				$this->send($phone, "Ваш код авторизации: ".$code);
@@ -129,8 +122,7 @@ class ControllerToolAuth extends Controller {
 
 	public function email() {
 		if( $email = $this->request->get['email'] ) {
-			//var_dump($email);
-		//	echo $email;
+		
 			if(!empty($_COOKIE['stime'])){
 				$last_time = base64_decode($_COOKIE['stime']);
 				if((time()-$last_time)<60){

@@ -1,6 +1,8 @@
 {
     "manufacture": "name",
     "description": "name",
-    "availability": "quantity"
-
+    "availability": "quantity",
+    "price":"price",
+    "deliveryPeriod" : "soatda berilgan kunga o'girish kere",
+    "cart": "zakazat"
 }

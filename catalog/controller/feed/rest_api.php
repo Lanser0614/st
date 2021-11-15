@@ -77,78 +77,113 @@ class ControllerFeedRestApi extends RestController
 
 
     //Start auth email
-    private function send($phone, $sms)
-    {
+    private function send($phone,$sms) {
         $ch = curl_init("http://sms.ru/sms/send");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
         curl_setopt($ch, CURLOPT_TIMEOUT, 30);
         curl_setopt($ch, CURLOPT_POSTFIELDS, array(
-            "api_id"        =>    'D0E13900-A03C-38AC-D6C9-E1D4C34EE107',
-            "to"            =>    $phone,
-            "partner_id"    =>    "6583",
-            "text"            =>    $sms
+          "api_id"    =>  'D0E13900-A03C-38AC-D6C9-E1D4C34EE107',
+          "to"      =>  $phone,
+          "partner_id"  =>  "6583",
+          "text"      =>  $sms
         ));
         $body = curl_exec($ch);
-
-        curl_close($ch);
+        
+        curl_close($ch); 
         return false;
-    }
-
-    public function code()
-    {
-
-        if ($code = $this->request->get['code']) {
-
-            $_SESSION['auth']['tries'] -= 1;
-            // $current_time = date("H:i:s");
-            // $auth = $this->db->query("SELECT * FROM `auth_code` WHERE code = $code AND expired_time <= '$current_time'");
-            // var_dump($auth);
-            if ((int)$code == $_SESSION['auth']['code']) {
+      }
 
 
-                $this->load->model('account/customer');
+      
 
-                if (!empty($_SESSION['auth']['phone'])) {
-                    $customer_info = $this->model_account_customer->getCustomerByPhone($_SESSION['auth']['phone']);
-
-                    if (empty($customer_info)) {
-                        $customer_id = $this->model_account_customer->addCustomer(['telephone' => $_SESSION['auth']['phone'], 'firstname' => '', 'lastname' => '', 'email' => '', 'fax' => '', 'password' => '', 'company' => '', 'address_1' => '', 'address_2' => '', 'city' => '', 'postcode' => '', 'country_id' => 0, 'zone_id' => 0]);
-                    } else {
-                        $customer_id = $customer_info['customer_id'];
-                    }
-                } elseif (!empty($_SESSION['auth']['email'])) {
-                    $customer_info = $this->model_account_customer->getCustomerByEmail($_SESSION['auth']['email']);
-
-                    if (empty($customer_info)) {
-                        $customer_id = $this->model_account_customer->addCustomer(['email' => $_SESSION['auth']['email'], 'telephone' => '', 'firstname' => '', 'lastname' => '', 'fax' => '', 'password' => '', 'company' => '', 'address_1' => '', 'address_2' => '', 'city' => '', 'postcode' => '', 'country_id' => 0, 'zone_id' => 0]);
-                    } else {
-                        $customer_id = $customer_info['customer_id'];
-                    }
-                }
-
-                $this->session->data['customer_id'] = $customer_id;
-
-                unset($_SESSION['auth']);
-                $result = 'ok';
-            } else {
-
-                if ($_SESSION['auth']['tries'] > 0) {
-                    $result = 'fail';
-                } else {
-                    unset($_SESSION['auth']);
-                    $result = 'reset';
-                }
+   
+      public function code() {
+    
+        if( isset($this->request->get['code']) && isset($this->request->get['email'])) {
+            $code = $this->request->get['code'];
+            $email = $this->request->get['email'];
+            $sql = $this->db->query("SELECT * FROM auth_code WHERE auth_code.code = '$code' AND auth_code.email = '$email'");
+           $authCode = $sql->row["code"];
+           $email = $sql->row["email"];
+          if( (int)$code == $authCode  ) {
+                   
+            $this->load->model('account/customer');
+            
+            
+            if( !empty($email) ) {
+              $customer_info = $this->model_account_customer->getCustomerByEmail($email);
+              
+              if( empty($customer_info) ) {
+                $customer_id = $this->model_account_customer->addCustomer(['email' => $email, 'telephone'=> '', 'firstname'=>'', 'lastname'=>'', 'fax'=>'', 'password'=>'', 'company'=>'', 'address_1'=>'', 'address_2'=>'', 'city'=>'', 'postcode'=>'', 'country_id'=>0, 'zone_id'=>0]);
+              } else {
+                $customer_id = $customer_info['customer_id'];
+                //var_dump($customer_id);
+              }
             }
+            
+            $this->session->data['customer_id'] = $customer_id;
+            
+          
+            $result = 'ok';
+            
+          } else {
+          
+            $result = 'Try to login after 5 minut';
+          
+          }
+          
         }
-
+        
         $this->response->addHeader('Content-Type: application/json');
-        $this->response->setOutput(json_encode(['result' => $result]));
-    }
+        $this->response->setOutput(json_encode(['result'=>$result]));
+      }
+
+      public function phoneCode()
+      {
+        if( isset($this->request->get['code']) && isset($this->request->get['phone'])) {
+            $code = $this->request->get['code'];
+            $phone = $this->request->get['phone'];
+            $phone = preg_replace('/[^\d]/', '', $phone);
+			$phone = '8' . substr($phone, -10, 10);
+            $sql = $this->db->query("SELECT * FROM phone_auth_code WHERE phone_auth_code.code = '$code' AND phone_auth_code.phone = '$phone'");
+          
+           $authCode = $sql->row["code"];
+           $phone = $sql->row["phone"];
+          
+          if( (int)$code == $authCode  ) {
+
+            $this->load->model('account/customer');
+            
+            if( !empty($phone) ) {
+              
+              $customer_info = $this->model_account_customer->getCustomerByPhone($phone);
+              
+              if( empty($customer_info) ) {
+                $customer_id = $this->model_account_customer->addCustomer(['telephone' => $phone, 'firstname'=>'', 'lastname'=>'', 'email'=>'', 'fax'=>'', 'password'=>'', 'company'=>'', 'address_1'=>'', 'address_2'=>'', 'city'=>'', 'postcode'=>'', 'country_id'=>0, 'zone_id'=>0]);
+              } else {
+                $customer_id = $customer_info['customer_id'];
+              }
+
+                
+              
+            } 
+
+            $this->session->data['customer_id'] = $customer_id;
+
+            $result = 'ok';
+
+          }else {
+          
+            $result = 'Try to login after 5 minut';
+          
+          }
+        }
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode(['result'=>$result]));
+      }
 
 
-
-    private function send_email($email, $subject, $message)
-    {
+      private function send_email($email, $subject, $message) {
         $mail = new Mail();
         $mail->protocol = $this->config->get('config_mail_protocol');
         $mail->parameter = $this->config->get('config_mail_parameter');
@@ -157,62 +192,86 @@ class ControllerFeedRestApi extends RestController
         $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
         $mail->smtp_port = $this->config->get('config_mail_smtp_port');
         $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
-
+    
         $mail->setTo($email);
         $mail->setFrom($this->config->get('config_email'));
         $mail->setSender(html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
         $mail->setSubject($subject);
         $mail->setText($message);
         $mail->send();
-    }
+      }
 
-    public function email()
-    {
-        if ($email = $this->request->get['email']) {
-            var_dump($email);
-            //	echo $email;
-            if (!empty($this->request->get['email'])) {
-                //	$last_time = base64_decode($_COOKIE['stime']);
-                $last_time = date("H:i:s");
-                // var_dump($last_time);
-                // var_dump($last_time);
-                if (($last_time) == date("H:i")) {
 
-                    $result = 'wait';
-                } else {
-                    $result = 'ok';
-                }
-            } else {
-                $result = 'ok';
-            }
 
-            if ($result == 'ok') {
-                $code = mt_rand(1000, 9999);
-                //$code = 3535;
-                $expired_time = date('H:i:s', strtotime("+2 minutes"));
-                // var_dump($current, $expired_time);
-                $this->db->query("INSERT INTO `auth_code` (`id`, `email`, `code`, `current_time`, expired_time) VALUES (NULL, '$email', '$code', '$last_time', '$expired_time')");
 
-                $verify = $this->db->query("SELECT * FROM `auth_code`");
-                //  var_dump($verify->rows);
-                foreach ($verify->rows as $key) {
-                    //  var_dump($key["email"], $key["code"]);
-                }
-                // echo json_encode($verify);
-                // var_dump($verify);
+      public function phone() {
+		$result = '';
+		if( $phone = $this->request->get['phone'] ) {
+			//$this->db->query("INSERT INTO auth_code SET phone = '123'");
+			$phone = preg_replace('/[^\d]/', '', $phone);
+			$phone = '8' . substr($phone, -10, 10);
+			if(empty($phone)){
+				$result = 'Enter the valid Phone';
+			} else {			
+				$result = 'ok';			
+			}
+			
+			if($result=='ok'){
+				$code = mt_rand(1000, 9999);
+				$query = "SELECT * FROM `phone_auth_code` WHERE phone='$phone'";
+            $sql = $this->db->query($query);
+            $time = date('d-m-y h:i:s');
+            $expired_time = date('d-m-y h:i:s', strtotime('now +5 minutes'));
+                if ($sql->row["phone"] == $phone) {
+                   $this->db->query("UPDATE phone_auth_code SET code='$code', expired_time='$expired_time' where phone='$phone'");
+                }else{
+                     $this->db->query("INSERT INTO phone_auth_code (id, phone, code, created_at, expired_time) VALUES (NULL, '$phone', '$code', '$time', '$expired_time')");
+                    }
 
-                $_SESSION['auth']['email'] = $key["email"];
-                $_SESSION['auth']['code'] = (string)$key["code"];
-                $_SESSION['auth']['tries'] = 2;
-                $this->send_email($email, "Авторизация на сайте ST Автозапчасти", "<p>Это письмо пришло, потому что кто-то запросил код авторизации на Ваш почтовый адрес.</p><p>Если это были не вы, то просто игнорируйте это сообщение.</p><p>Код для авторизации: " . $code . "</p>");
-                setcookie('stime', base64_encode(time()), time() + 60 * 60 * 24 * 365, '/');
-            }
+                    $code = (string)$code;
+				$this->send($phone, "Ваш код авторизации: ".$code);
+				//setcookie('stime', base64_encode(time()), time()+60*60*24*365,'/');
+			}
+			
+		}
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode(['result'=>$result]));
+	}
+    
+      public function email() {
+        if( $email = $this->request->get['email'] ) {
+          if(empty($this->request->get['email'])){
+             $result =  'Enter the valid email';
+          } else {      
+            $result = 'ok';      
+          }
+          if($result=='ok'){
+            
+            $code = mt_rand(1000, 9999);
+            $query = $this->db->query("SELECT * FROM `auth_code` WHERE email='$email'");
+            $time = date('d-m-y h:i:s');
+            $expired_time = date('d-m-y h:i:s', strtotime('now +5 minutes'));
+            
+                if ($query->row["email"] ?? '' == $email) {
+                   $this->db->query("UPDATE auth_code SET code='$code', expired_time='$expired_time' where email='$email'");
+                }else{
+                     $this->db->query("INSERT INTO auth_code (id, email, code, created_at, expired_time) VALUES (NULL, '$email', '$code', '$time', '$expired_time')");
+                    }
+
+          
+            $email = $email;
+            $code = (string)$code;
+          
+            $this->send_email($email, "Авторизация на сайте ST Автозапчасти", "<p>Это письмо пришло, потому что кто-то запросил код авторизации на Ваш почтовый адрес.</p><p>Если это были не вы, то просто игнорируйте это сообщение.</p><p>Код для авторизации: ".$code."</p>");
+           
+          }
+          
         }
-
+        
         $this->response->addHeader('Content-Type: application/json');
-        $this->response->setOutput(json_encode(['result' => $result]));
-    }
-    //End auth email
+        $this->response->setOutput(json_encode(['result'=>$result]));
+      }
+        //End auth email
 
 
 
