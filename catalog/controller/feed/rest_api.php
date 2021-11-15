@@ -159,7 +159,7 @@ class ControllerFeedRestApi extends RestController
               $customer_info = $this->model_account_customer->getCustomerByPhone($phone);
               
               if( empty($customer_info) ) {
-                $customer_id = $this->model_account_customer->addCustomer(['telephone' => $phone, 'firstname'=>'', 'lastname'=>'', 'email'=>'', 'fax'=>'', 'password'=>'', 'company'=>'', 'address_1'=>'', 'address_2'=>'', 'city'=>'', 'postcode'=>'', 'country_id'=>0, 'zone_id'=>0]);
+                $customer_id = $this->model_account_customer->addCustomer(['telephone' => $phone, 'firstname'=>'', 'lastname'=>'', 'email'=>'test@mail.ru', 'fax'=>'', 'password'=>'', 'company'=>'', 'address_1'=>'', 'address_2'=>'', 'city'=>'', 'postcode'=>'', 'country_id'=>0, 'zone_id'=>0]);
               } else {
                 $customer_id = $customer_info['customer_id'];
               }
@@ -169,7 +169,7 @@ class ControllerFeedRestApi extends RestController
             } 
 
             $this->session->data['customer_id'] = $customer_id;
-
+           // var_dump($customer_id);
             $result = 'ok';
 
           }else {
@@ -222,7 +222,7 @@ class ControllerFeedRestApi extends RestController
             $sql = $this->db->query($query);
             $time = date('d-m-y h:i:s');
             $expired_time = date('d-m-y h:i:s', strtotime('now +5 minutes'));
-                if ($sql->row["phone"] == $phone) {
+                if ($sql->row["phone"] ?? '' == $phone) {
                    $this->db->query("UPDATE phone_auth_code SET code='$code', expired_time='$expired_time' where phone='$phone'");
                 }else{
                      $this->db->query("INSERT INTO phone_auth_code (id, phone, code, created_at, expired_time) VALUES (NULL, '$phone', '$code', '$time', '$expired_time')");
@@ -538,6 +538,27 @@ class ControllerFeedRestApi extends RestController
             $this->json['error'][] = 'Product not found';
             $this->statusCode = 404;
         }
+        $manufakture = $this->db->query("SELECT * FROM manufacturer_description WHERE manufacturer_id = " . $this->json["data"]['manufacturer_id']);
+        if ($this->includeMeta) {
+            $this->response->addHeader('X-Total-Count: ' . $this->json["data"]["sku"]);
+            $this->response->addHeader('X-Pagination-Limit: ' . $manufakture->row["name"]);
+            $data = $this->json['data'];
+            $sku = $this->json["data"]["sku"];
+            $mono = $manufakture->row["name"];
+         
+            $analogApi = new analog();
+            $json = $analogApi->getAnaligApi( $sku, $mono);
+           // var_dump($data);
+           $sortedData = $analogApi->getSortData( $json);
+           //sort($sortedData);
+           $analogProduct = $analogApi->sortArrayByBrand( $sortedData);
+            //var_dump($analogProduct);
+
+            $this->json['data'] = array(
+                'item'  => $data,
+                'Analog' => $analogProduct
+            );
+        }
     }
 
 
@@ -563,16 +584,16 @@ class ControllerFeedRestApi extends RestController
             $sku = $this->json["data"]["sku"];
             $mono = $manufakture->row["name"];
          
-            $curlSession = curl_init();
-            curl_setopt($curlSession, CURLOPT_URL, "https://id25394.public.api.abcp.ru/search/articles/?userlogin=sybaritetrade@gmail.com&userpsw=d272d4ec79ed408d275e65db3fcb1314&number=$sku&brand=$mono&useOnlineStocks=1");
-            curl_setopt($curlSession, CURLOPT_BINARYTRANSFER, true);
-            curl_setopt($curlSession, CURLOPT_RETURNTRANSFER, true);
-            $jsonData = json_decode(curl_exec($curlSession));
-            curl_close($curlSession);
-           // $json = new analog($sku, $mono);
+            $analogApi = new analog();
+            $json = $analogApi->getAnaligApi( $sku, $mono);
+           // var_dump($data);
+           $sortedData = $analogApi->getSortData( $json);
+           $analogProduct = $analogApi->sortArrayByBrand( $sortedData);
+            //var_dump($analogProduct);
+
             $this->json['data'] = array(
                 'item'  => $data,
-                'Analog' => $jsonData
+                'Analog' => $analogProduct
             );
         }
     }
