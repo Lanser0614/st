@@ -1,5 +1,6 @@
 <?php
 class ModelToolImage extends Model {
+	
 	public function resize($filename, $width, $height) {
 		if (!is_file(DIR_IMAGE . $filename)) {
 			if (is_file(DIR_IMAGE . 'no_image.jpg')) {

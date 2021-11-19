@@ -1,0 +1,164 @@
+http://localhost/st-spares-current.ru%20Final%20project/OpenCartFinal/index.php?route=rest/order/orders&id=1178
+{
+    "success": 1,
+    "error": [],
+    "data": {
+      "order_id": "1178",
+      "invoice_no": "",
+      "invoice_prefix": "INV-2013-00",
+      "store_id": "0",
+      "store_name": "st-spares.ru - запчасти для грузовых автомобилей.",
+      "store_url": "https://st-spares.ru/",
+      "customer_id": "86",
+      "firstname": "Алексей",
+      "lastname": "Богородских",
+      "telephone": "89824396391",
+      "fax": "",
+      "email": "Bogorodskikh@yandex.ru",
+      "payment_firstname": "Алексей",
+      "payment_lastname": "Богородских",
+      "payment_company": "",
+      "payment_address_1": "Пермский край, Кунгур",
+      "payment_address_2": "",
+      "payment_postcode": "",
+      "payment_city": "",
+      "payment_zone_id": "2761",
+      "payment_zone": "Москва",
+      "payment_zone_code": "MOW",
+      "payment_country_id": "176",
+      "payment_country": "Российская Федерация",
+      "payment_iso_code_2": "RU",
+      "payment_iso_code_3": "RUS",
+      "payment_address_format": "",
+      "payment_method": "Онлайн оплата",
+      "shipping_firstname": "",
+      "shipping_lastname": "",
+      "shipping_company": "",
+      "shipping_address_1": "",
+      "shipping_address_2": "",
+      "shipping_postcode": "",
+      "shipping_city": "",
+      "shipping_zone_id": "0",
+      "shipping_zone": "",
+      "shipping_zone_code": "",
+      "shipping_country_id": "0",
+      "shipping_country": "",
+      "shipping_iso_code_2": "",
+      "shipping_iso_code_3": "",
+      "shipping_address_format": "",
+      "shipping_method": "",
+      "comment": "",
+      "total": "3600.0000",
+      "order_status_id": "8",
+      "language_id": "1",
+      "currency_id": "1",
+      "currency_code": "RUB",
+      "currency_value": "1.00000000",
+      "date_modified": "2020-06-05 12:09:16",
+      "date_added": "05pm30Europe/Berlin_f2020Fri, 05 Jun 2020 12:04:07 +020006pm30_07122020Fri, 05 Jun 2020 12:04:07 +020030",
+      "ip": "89.148.196.247",
+      "payment_address": "Алексей Богородских<br />Пермский край, Кунгур<br />Москва<br />Российская Федерация",
+      "shipping_address": "",
+      "products": [
+        {
+          "0": "RUB",
+          "product_id": "135",
+          "order_product_id": "3310",
+          "name": "Фильтр масляный Евро 2 TATA 613 252518130124",
+          "model": "252518130124",
+          "option": [],
+          "quantity": "1",
+          "price": "600 ₽",
+          "total": "600 ₽",
+          "price_raw": 600,
+          "total_raw": 600,
+          "return": "http://localhost/st-spares-current.ru/index.php?route=account/return/insert&amp;order_id=1178&amp;product_id=135"
+        },
+        {
+          "0": "RUB",
+          "product_id": "207",
+          "order_product_id": "3311",
+          "name": "Комплект наконечников рулевых тяг  TATA 613 164133200135",
+          "model": "164133200135",
+          "option": [],
+          "quantity": "1",
+          "price": "3 000 ₽",
+          "total": "3 000 ₽",
+          "price_raw": 3000,
+          "total_raw": 3000,
+          "return": "http://localhost/st-spares-current.ru/index.php?route=account/return/insert&amp;order_id=1178&amp;product_id=207"
+        }
+      ],
+      "vouchers": [],
+      "totals": [
+        {
+          "order_total_id": "3097",
+          "order_id": "1178",
+          "code": "sub_total",
+          "title": "Сумма",
+          "value": "3600.0000",
+          "sort_order": "1"
+        },
+        {
+          "order_total_id": "3098",
+          "order_id": "1178",
+          "code": "total",
+          "title": "Всего к оплате",
+          "value": "3600.0000",
+          "sort_order": "9"
+        }
+      ],
+      "histories": [
+        {
+          "date_added": "05pm30Europe/Berlin_f2020Fri, 05 Jun 2020 12:04:08 +020006pm30_08122020Fri, 05 Jun 2020 12:04:08 +020030",
+          "status": "Заказ в обработке",
+          "comment": ""
+        },
+        {
+          "date_added": "05pm30Europe/Berlin_f2020Fri, 05 Jun 2020 12:09:16 +020006pm30_16122020Fri, 05 Jun 2020 12:09:16 +020030",
+          "status": "Заказ оплачен",
+          "comment": ""
+        }
+      ],
+      "timestamp": 1591351447,
+      "currency": {
+        "currency_id": "1",
+        "symbol_left": "",
+        "symbol_right": " ₽",
+        "decimal_place": "0",
+        "value": "1.00000000"
+      }
+    }
+  }
+
+
+
+
+
+  http://localhost/st-spares-current.ru%20Final%20project/OpenCartFinal/index.php?route=rest/order/orders&limit={limit}&page={page}
+
+  {
+    "success": 1,
+    "error": [],
+    "data": [
+      {
+        "order_id": "1178",
+        "name": "Алексей Богородских",
+        "status": "Заказ оплачен",
+        "date_added": "05pm30Europe/Berlin_f2020Fri, 05 Jun 2020 12:04:07 +020006pm30_07122020Fri, 05 Jun 2020 12:04:07 +020030",
+        "products": 2,
+        "total": "3 600 ₽",
+        "currency_code": "RUB",
+        "currency_value": "1.00000000",
+        "total_raw": "3600.0000",
+        "timestamp": 1591351447,
+        "currency": {
+          "currency_id": "1",
+          "symbol_left": "",
+          "symbol_right": " ₽",
+          "decimal_place": "0",
+          "value": "1.00000000"
+        }
+      }
+    ]
+  }

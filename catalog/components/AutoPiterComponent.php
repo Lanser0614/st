@@ -59,8 +59,7 @@ class AutoPiterComponent
             $this->many($items);
         }
         return $this->results;
-      // return json_encode($this->results);
-     // var_dump($this->results);
+  
     }
 
     public function many($items)

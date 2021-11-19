@@ -182,12 +182,30 @@ class ControllerRestOrder extends RestController
                     }
 
                     $product_info = $this->model_catalog_product->getProduct($product['product_id']);
-
+                  
+                    
+             
                     if ($product_info) {
                         $order_product_id = $product['order_product_id'];
                     } else {
                         $order_product_id = '';
                     }
+
+                   
+                    
+
+                   // var_dump($product['product_id']);
+                //    $data_discounts = $this->model_catalog_product->getProductDiscounts($product['product_id']);
+                //    if (!empty($data_discounts)) {
+                  
+                //     $discounts_price = $data_discounts[0]["price"];
+                //     $discount = $product['price'] - $discounts_price;
+                   
+                //    }else{
+                //     $discount = '';
+                //    }
+                    // $discounts_price = $data_discounts[0]["price"];
+                   // var_dump();
 
                     $data['products'][] = array(
                         'product_id' => $product['product_id'],
@@ -200,7 +218,9 @@ class ControllerRestOrder extends RestController
                         'total' => $this->currency->format($product['total'] + ($this->config->get('config_tax') ? ($product['tax'] * $product['quantity']) : 0), $order_info['currency_code'], $order_info['currency_value']),
                         'price_raw' => $product['price'] + ($this->config->get('config_tax') ? $product['tax'] : 0), $order_info['currency_code'],
                         'total_raw' => $product['total'] + ($this->config->get('config_tax') ? ($product['tax'] * $product['quantity']) : 0),
-                        'return' => $this->url->link('account/return/insert', 'order_id=' . $order_info['order_id'] . '&product_id=' . $product['product_id'], 'SSL')
+                        'return' => $this->url->link('account/return/insert', 'order_id=' . $order_info['order_id'] . '&product_id=' . $product['product_id'], 'SSL'),
+                        //'images' => $image,
+                       // 'discount' =>  $discount,
                     );
                 }
 

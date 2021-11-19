@@ -276,44 +276,44 @@ class ControllerFeedRestApi extends RestController
 
 
 
-    public function getAnalog()
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-            //get product details
-            if (isset($this->request->get['id']) && ctype_digit($this->request->get['id'])) {
-                $product_id = $this->request->get['id'];
-            }
-        }
-        $this->load->model('catalog/product');
+    // public function getAnalog()
+    // {
+    //     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    //         //get product details
+    //         if (isset($this->request->get['id']) && ctype_digit($this->request->get['id'])) {
+    //             $product_id = $this->request->get['id'];
+    //         }
+    //     }
+    //     $this->load->model('catalog/product');
 
-        $product_info = $this->model_catalog_product->getProduct($product_id);
-        try {
-            $autopiter = new AutoPiterComponent($product_info['model']);
-            $autopiter->manufacturer_id = $product_info['manufacturer_id'];
-            $autopiter->manufacturer = $product_info['manufacturer'];
-            $autopiter->counts = $product_info['stock_status'];
-            $autopiter->setUrl($this->request->get);
-            $data['articles'] = $autopiter->getItems();
-            $price_min = $autopiter->minPrice();
-            $data['brands_analog'] = $autopiter->brands_price;
-            $this->model_catalog_product->editPriceAnalog($product_id, $price_min);
-            $cache = new Cache('file', 259200);
-            $cache->set('autopiter.' . $product_info['model'], $data['articles']);
-            $price_autopiter = $autopiter->my_absolute_price();
-            if (!empty($price_autopiter)) {
-                $price_autopiters = $autopiter->getPrice($price_autopiter[0]);
-                $product_info['price'] = $price_autopiters;
-                $this->model_catalog_product->editProduct($product_id, $price_autopiters);
-            }
-        } catch (SoapFault $message) {
-            if ($this->cache->get('autopiter.' . $product_info['model'])) { //проверяем, если ли закешированные данные
-                $data['articles'] = $this->cache->get('autopiter.' . $product_info['model']); //забираем в массив уже готовые данные и не делаем запросов
-            }
-        }
-        // var_dump($price_min);
-        echo json_encode($data['articles'], JSON_UNESCAPED_UNICODE);
-        //  echo json_encode( $price_autopiters , JSON_UNESCAPED_UNICODE);
-    }
+    //     $product_info = $this->model_catalog_product->getProduct($product_id);
+    //     try {
+    //         $autopiter = new AutoPiterComponent($product_info['model']);
+    //         $autopiter->manufacturer_id = $product_info['manufacturer_id'];
+    //         $autopiter->manufacturer = $product_info['manufacturer'];
+    //         $autopiter->counts = $product_info['stock_status'];
+    //         $autopiter->setUrl($this->request->get);
+    //         $data['articles'] = $autopiter->getItems();
+    //         $price_min = $autopiter->minPrice();
+    //         $data['brands_analog'] = $autopiter->brands_price;
+    //         $this->model_catalog_product->editPriceAnalog($product_id, $price_min);
+    //         $cache = new Cache('file', 259200);
+    //         $cache->set('autopiter.' . $product_info['model'], $data['articles']);
+    //         $price_autopiter = $autopiter->my_absolute_price();
+    //         if (!empty($price_autopiter)) {
+    //             $price_autopiters = $autopiter->getPrice($price_autopiter[0]);
+    //             $product_info['price'] = $price_autopiters;
+    //             $this->model_catalog_product->editProduct($product_id, $price_autopiters);
+    //         }
+    //     } catch (SoapFault $message) {
+    //         if ($this->cache->get('autopiter.' . $product_info['model'])) { //проверяем, если ли закешированные данные
+    //             $data['articles'] = $this->cache->get('autopiter.' . $product_info['model']); //забираем в массив уже готовые данные и не делаем запросов
+    //         }
+    //     }
+    //     // var_dump($price_min);
+    //     echo json_encode($data['articles'], JSON_UNESCAPED_UNICODE);
+    //     //  echo json_encode( $price_autopiters , JSON_UNESCAPED_UNICODE);
+    // }
 
     /*Get Oauth token*/
     public function getToken()
@@ -532,6 +532,7 @@ class ControllerFeedRestApi extends RestController
         $this->load->model('catalog/product');
 
         $products = $this->model_catalog_product->getProductWithAlias($alias, $this->customer);
+        
         if (!empty($products)) {
             $this->json["data"] = $this->getProductInfo(reset($products));
         } else {
@@ -545,17 +546,26 @@ class ControllerFeedRestApi extends RestController
             $data = $this->json['data'];
             $sku = $this->json["data"]["sku"];
             $mono = $manufakture->row["name"];
-         
+            $product_id = $this->json["data"]["product_id"];
             $analogApi = new analog();
             $json = $analogApi->getAnaligApi( $sku, $mono);
-           // var_dump($data);
-           $sortedData = $analogApi->getSortData( $json);
-           //sort($sortedData);
-           $analogProduct = $analogApi->sortArrayByBrand( $sortedData);
-            //var_dump($analogProduct);
+
+            if (!(array)$json){
+                $analogProduct = [];
+                $minPrice = '';
+            }
+            elseif (!empty($json)) {
+                $minPrice = $analogApi->getMinPrice( $json);
+                $this->model_catalog_product->editPriceAnalog($product_id, $minPrice);
+                $sortedData = $analogApi->getSortData( $json);
+                $analogProduct = $analogApi->sortArrayByBrand( $sortedData);
+            }
+        
+      
 
             $this->json['data'] = array(
                 'item'  => $data,
+                'Min Price for analog products' => $minPrice,
                 'Analog' => $analogProduct
             );
         }
@@ -583,16 +593,28 @@ class ControllerFeedRestApi extends RestController
             $data = $this->json['data'];
             $sku = $this->json["data"]["sku"];
             $mono = $manufakture->row["name"];
-         
+            $product_id = $this->json["data"]["product_id"];
+
+            
             $analogApi = new analog();
+
             $json = $analogApi->getAnaligApi( $sku, $mono);
-           // var_dump($data);
-           $sortedData = $analogApi->getSortData( $json);
-           $analogProduct = $analogApi->sortArrayByBrand( $sortedData);
-            //var_dump($analogProduct);
+            if (!(array)$json){
+                $analogProduct = [];
+                $minPrice = '';
+            }
+            elseif (!empty($json)) {
+                $minPrice = $analogApi->getMinPrice( $json);
+                $this->model_catalog_product->editPriceAnalog($product_id, $minPrice);
+                $sortedData = $analogApi->getSortData( $json);
+                $analogProduct = $analogApi->sortArrayByBrand( $sortedData);
+            }
+        
+      
 
             $this->json['data'] = array(
                 'item'  => $data,
+                'Min Price for analog products' => $minPrice,
                 'Analog' => $analogProduct
             );
         }

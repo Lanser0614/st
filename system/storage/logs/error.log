@@ -17515,3 +17515,262 @@
 2021-11-15 12:02:01 - PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 32
 2021-11-15 12:08:49 - PHP Notice:  Undefined index: manufacturer_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 558
 2021-11-15 12:09:31 - PHP Notice:  Undefined index: manufacturer_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 558
+2021-11-15 13:51:02 - PHP Notice:  Undefined variable: mono in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 554
+2021-11-15 13:51:03 - PHP Warning:  array_column() expects parameter 1 to be array, object given in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 10
+2021-11-15 13:51:03 - PHP Warning:  min(): When only one parameter is given, it must be an array in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 11
+2021-11-15 13:51:03 - PHP Warning:  Illegal string offset 'price' in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 37
+2021-11-15 13:51:03 - PHP Warning:  A non-numeric value encountered in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 37
+2021-11-15 13:52:04 - PHP Warning:  array_column() expects parameter 1 to be array, object given in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 10
+2021-11-15 13:52:04 - PHP Warning:  min(): When only one parameter is given, it must be an array in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 11
+2021-11-15 13:52:04 - PHP Warning:  Illegal string offset 'price' in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 37
+2021-11-15 13:52:04 - PHP Warning:  A non-numeric value encountered in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 37
+2021-11-15 14:00:24 - PHP Notice:  Trying to get property of non-object in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 545
+2021-11-15 14:00:24 - PHP Notice:  Trying to get property of non-object in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 548
+2021-11-15 14:00:27 - PHP Warning:  array_column() expects parameter 1 to be array, null given in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 10
+2021-11-15 14:00:27 - PHP Warning:  min(): When only one parameter is given, it must be an array in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 11
+2021-11-15 14:00:27 - PHP Warning:  usort() expects parameter 1 to be array, null given in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 40
+2021-11-15 14:00:27 - PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 43
+2021-11-15 14:00:55 - PHP Notice:  Trying to get property of non-object in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 546
+2021-11-15 14:00:55 - PHP Notice:  Trying to get property of non-object in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 549
+2021-11-15 14:01:26 - PHP Warning:  array_column() expects parameter 1 to be array, null given in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 10
+2021-11-15 14:01:26 - PHP Warning:  min(): When only one parameter is given, it must be an array in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 11
+2021-11-15 14:01:26 - PHP Warning:  usort() expects parameter 1 to be array, null given in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 40
+2021-11-15 14:01:26 - PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 43
+2021-11-16 10:15:57 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-17 11:01:33 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-18 8:11:30 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-18 9:33:56 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-18 9:34:01 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-18 9:34:02 - PHP Notice:  Undefined variable: model in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/category.tpl on line 8
+2021-11-18 9:34:02 - PHP Notice:  Undefined variable: manufacturer in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/category.tpl on line 12
+2021-11-18 9:34:02 - PHP Notice:  Undefined variable: price in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/category.tpl on line 16
+2021-11-18 9:34:11 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-18 9:34:11 - PHP Notice:  Array to string conversion in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/product.tpl on line 504
+2021-11-18 9:34:11 - PHP Notice:  Undefined index: 
+        decimal_point
+         in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/product.tpl on line 629
+2021-11-18 9:34:11 - PHP Notice:  Undefined index: 
+        thousand_point
+         in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/product.tpl on line 632
+2021-11-18 9:34:11 - PHP Notice:  Undefined index: 
+        symbol_left
+         in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/product.tpl on line 636
+2021-11-18 9:34:11 - PHP Notice:  Undefined index: 
+        symbol_right
+         in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/product.tpl on line 640
+2021-11-18 9:34:11 - PHP Notice:  Undefined variable: autocalc_currency2 in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/product.tpl on line 663
+2021-11-18 9:34:11 - PHP Notice:  Undefined variable: autocalc_currency2 in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/product.tpl on line 666
+2021-11-18 9:34:11 - PHP Notice:  Undefined variable: autocalc_currency2 in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/product.tpl on line 670
+2021-11-18 9:34:11 - PHP Notice:  Undefined variable: autocalc_currency2 in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/product.tpl on line 674
+2021-11-18 9:34:36 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-18 9:34:42 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-18 9:34:46 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-18 9:34:46 - PHP Notice:  Undefined variable: model in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/category.tpl on line 8
+2021-11-18 9:34:46 - PHP Notice:  Undefined variable: manufacturer in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/category.tpl on line 12
+2021-11-18 9:34:46 - PHP Notice:  Undefined variable: price in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/category.tpl on line 16
+2021-11-18 9:35:17 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-18 9:35:20 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-18 9:35:20 - PHP Notice:  Undefined variable: model in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/category.tpl on line 8
+2021-11-18 9:35:20 - PHP Notice:  Undefined variable: manufacturer in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/category.tpl on line 12
+2021-11-18 9:35:20 - PHP Notice:  Undefined variable: price in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/category.tpl on line 16
+2021-11-18 9:35:28 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-18 9:35:28 - PHP Notice:  Array to string conversion in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/product.tpl on line 504
+2021-11-18 9:35:28 - PHP Notice:  Undefined index: 
+        decimal_point
+         in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/product.tpl on line 629
+2021-11-18 9:35:28 - PHP Notice:  Undefined index: 
+        thousand_point
+         in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/product.tpl on line 632
+2021-11-18 9:35:28 - PHP Notice:  Undefined index: 
+        symbol_left
+         in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/product.tpl on line 636
+2021-11-18 9:35:28 - PHP Notice:  Undefined index: 
+        symbol_right
+         in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/product.tpl on line 640
+2021-11-18 9:35:28 - PHP Notice:  Undefined variable: autocalc_currency2 in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/product.tpl on line 663
+2021-11-18 9:35:28 - PHP Notice:  Undefined variable: autocalc_currency2 in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/product.tpl on line 666
+2021-11-18 9:35:28 - PHP Notice:  Undefined variable: autocalc_currency2 in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/product.tpl on line 670
+2021-11-18 9:35:28 - PHP Notice:  Undefined variable: autocalc_currency2 in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/product.tpl on line 674
+2021-11-18 9:37:03 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-18 9:37:04 - PHP Notice:  Array to string conversion in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/product.tpl on line 504
+2021-11-18 9:37:04 - PHP Notice:  Undefined index: 
+        decimal_point
+         in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/product.tpl on line 629
+2021-11-18 9:37:04 - PHP Notice:  Undefined index: 
+        thousand_point
+         in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/product.tpl on line 632
+2021-11-18 9:37:04 - PHP Notice:  Undefined index: 
+        symbol_left
+         in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/product.tpl on line 636
+2021-11-18 9:37:04 - PHP Notice:  Undefined index: 
+        symbol_right
+         in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/product.tpl on line 640
+2021-11-18 9:37:04 - PHP Notice:  Undefined variable: autocalc_currency2 in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/product.tpl on line 663
+2021-11-18 9:37:04 - PHP Notice:  Undefined variable: autocalc_currency2 in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/product.tpl on line 666
+2021-11-18 9:37:04 - PHP Notice:  Undefined variable: autocalc_currency2 in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/product.tpl on line 670
+2021-11-18 9:37:04 - PHP Notice:  Undefined variable: autocalc_currency2 in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/product/product.tpl on line 674
+2021-11-18 9:37:32 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-18 9:37:44 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_field_lang in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/checkout/buy.php on line 19
+2021-11-18 9:37:51 - PHP Warning:  key() expects parameter 1 to be array, null given in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/checkout/buy.php on line 19
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_field_lang in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/checkout/buy.php on line 19
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_lang in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/checkout/buy.php on line 20
+2021-11-18 9:37:51 - PHP Warning:  key() expects parameter 1 to be array, null given in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/checkout/buy.php on line 20
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_lang in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/checkout/buy.php on line 20
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_telephone_mask in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/checkout/buy.php on line 25
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_bootstrap in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/checkout/buy.php on line 29
+2021-11-18 9:37:51 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_page_design in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 4
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_page_design in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 12
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_oneclick in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 20
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_oneclick in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 23
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_page_design in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 23
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_page_design in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 26
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_oneclick in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 43
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_oneclick_only in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 68
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_login in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 71
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_form_design in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 105
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_form_design in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 106
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_form_headings in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 108
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_firstname_status in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 128
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_lastname_status in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 134
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_email_status in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 140
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_telephone_status in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 146
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_fax_status in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 152
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_company_status in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 158
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_register_status in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 273
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_register_status in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 278
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_shipping_select in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 299
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_country_status in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 313
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_zone_status in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 334
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_city_status in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 347
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_postcode_status in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 353
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_address_1_status in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 359
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_address_2_status in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 365
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_payment_select in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 485
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_comment_status in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 496
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_clear_show in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy_product.tpl on line 27
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_coupon in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy_product.tpl on line 42
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_voucher in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy_product.tpl on line 52
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_form_design in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 521
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_clear_show in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy_product.tpl on line 27
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_coupon in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy_product.tpl on line 42
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_voucher in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy_product.tpl on line 52
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_page_design in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 534
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_zone_status in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 564
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_email_required in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 566
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_shipping_select in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 567
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_payment_select in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 568
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_clear_show in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 569
+2021-11-18 9:37:51 - PHP Notice:  Undefined index: buy_telephone_mask in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/checkout/buy.tpl on line 571
+2021-11-18 9:38:25 - PHP Notice:  Undefined variable: smart_notification_bar_pro_plus in /opt/lampp/htdocs/st-spares-current.ru/catalog/view/theme/default/template/common/footer.tpl on line 147
+2021-11-18 10:20:05 - PHP Notice:  Undefined index: price in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/rest/order.php on line 194
+2021-11-18 10:20:05 - PHP Notice:  Undefined index: price in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/rest/order.php on line 194
+2021-11-18 10:20:37 - PHP Notice:  Undefined index: price in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/rest/order.php on line 194
+2021-11-18 10:20:37 - PHP Notice:  Undefined index: price in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/rest/order.php on line 194
+2021-11-18 10:21:27 - PHP Notice:  Undefined offset: 0 in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/rest/order.php on line 194
+2021-11-18 10:22:14 - PHP Notice:  Undefined offset: 0 in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/rest/order.php on line 193
+2021-11-18 10:29:14 - PHP Notice:  A non well formed numeric value encountered in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/rest/order.php on line 212
+2021-11-18 10:29:14 - PHP Notice:  A non well formed numeric value encountered in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/rest/order.php on line 212
+2021-11-18 10:32:41 - PHP Notice:  Undefined offset: 0 in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/rest/order.php on line 195
+2021-11-18 10:33:21 - PHP Notice:  Undefined offset: 0 in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/rest/order.php on line 194
+2021-11-18 10:36:50 - PHP Warning:  A non-numeric value encountered in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/rest/order.php on line 214
+2021-11-18 10:40:50 - PHP Notice:  Undefined index: tax_class_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/rest/order.php on line 203
+2021-11-18 10:40:50 - PHP Notice:  Undefined index: tax_class_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/rest/order.php on line 204
+2021-11-18 10:42:55 - PHP Notice:  Undefined variable: discounts in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/rest/order.php on line 217
+2021-11-18 10:42:55 - PHP Notice:  Undefined variable: discounts in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/rest/order.php on line 217
+2021-11-18 11:20:00 - PHP Warning:  Illegal string offset 'price' in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 37
+2021-11-18 11:20:00 - PHP Warning:  A non-numeric value encountered in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 37
+2021-11-18 11:21:18 - PHP Warning:  Illegal string offset 'price' in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 37
+2021-11-18 11:21:18 - PHP Warning:  A non-numeric value encountered in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 37
+2021-11-18 11:21:46 - PHP Warning:  usort() expects parameter 2 to be a valid callback, function 'sortByOrder' not found or invalid function name in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 40
+2021-11-18 11:26:53 - PHP Notice:  Undefined variable: image in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/rest/order.php on line 228
+2021-11-18 11:26:53 - PHP Notice:  Undefined variable: image in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/rest/order.php on line 228
+2021-11-18 11:27:15 - PHP Notice:  Undefined variable: image in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/rest/order.php on line 228
+2021-11-18 11:27:15 - PHP Notice:  Undefined variable: image in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/rest/order.php on line 228
+2021-11-18 11:27:34 - PHP Notice:  Undefined variable: image in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/rest/order.php on line 228
+2021-11-18 11:27:34 - PHP Notice:  Undefined variable: image in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/rest/order.php on line 228
+2021-11-18 11:27:45 - PHP Notice:  Undefined variable: image in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/rest/order.php on line 228
+2021-11-18 11:27:45 - PHP Notice:  Undefined variable: image in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/rest/order.php on line 228
+2021-11-18 11:53:00 - PHP Warning:  array_column() expects parameter 1 to be array, object given in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 10
+2021-11-18 11:53:00 - PHP Warning:  min(): When only one parameter is given, it must be an array in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 11
+2021-11-18 11:53:00 - PHP Warning:  Illegal string offset 'price' in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 37
+2021-11-18 11:53:00 - PHP Warning:  A non-numeric value encountered in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 37
+2021-11-18 11:53:20 - PHP Warning:  array_column() expects parameter 1 to be array, object given in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 10
+2021-11-18 11:53:20 - PHP Warning:  min(): When only one parameter is given, it must be an array in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 11
+2021-11-18 11:53:20 - PHP Warning:  Illegal string offset 'price' in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 37
+2021-11-18 11:53:20 - PHP Warning:  A non-numeric value encountered in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 37
+2021-11-18 11:55:06 - PHP Warning:  array_column() expects parameter 1 to be array, object given in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 11
+2021-11-18 11:55:06 - PHP Warning:  min(): When only one parameter is given, it must be an array in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 12
+2021-11-18 11:55:06 - PHP Warning:  Illegal string offset 'price' in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 40
+2021-11-18 11:55:06 - PHP Warning:  A non-numeric value encountered in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 40
+2021-11-18 11:55:51 - PHP Warning:  Illegal string offset 'price' in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 40
+2021-11-18 11:55:51 - PHP Warning:  A non-numeric value encountered in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 40
+2021-11-18 11:57:26 - PHP Warning:  array_column() expects parameter 1 to be array, object given in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 11
+2021-11-18 11:57:26 - PHP Warning:  min(): When only one parameter is given, it must be an array in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 12
+2021-11-18 11:57:26 - PHP Warning:  Illegal string offset 'price' in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 44
+2021-11-18 11:57:26 - PHP Warning:  A non-numeric value encountered in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 44
+2021-11-18 11:58:25 - PHP Warning:  array_column() expects parameter 1 to be array, object given in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 11
+2021-11-18 11:58:25 - PHP Warning:  min(): When only one parameter is given, it must be an array in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 12
+2021-11-18 11:58:25 - PHP Warning:  Illegal string offset 'price' in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 44
+2021-11-18 11:58:25 - PHP Warning:  A non-numeric value encountered in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 44
+2021-11-18 11:59:33 - PHP Warning:  array_column() expects parameter 1 to be array, object given in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 13
+2021-11-18 11:59:33 - PHP Warning:  min(): When only one parameter is given, it must be an array in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 14
+2021-11-18 11:59:33 - PHP Warning:  Illegal string offset 'price' in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 46
+2021-11-18 11:59:33 - PHP Warning:  A non-numeric value encountered in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 46
+2021-11-18 12:00:40 - PHP Warning:  array_column() expects parameter 1 to be array, object given in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 14
+2021-11-18 12:00:40 - PHP Warning:  min(): When only one parameter is given, it must be an array in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 15
+2021-11-18 12:00:40 - PHP Warning:  Illegal string offset 'price' in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 47
+2021-11-18 12:00:40 - PHP Warning:  A non-numeric value encountered in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 47
+2021-11-18 12:01:33 - PHP Warning:  Illegal string offset 'price' in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 47
+2021-11-18 12:01:33 - PHP Warning:  A non-numeric value encountered in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 47
+2021-11-18 12:02:54 - PHP Warning:  Illegal string offset 'price' in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 48
+2021-11-18 12:02:54 - PHP Warning:  A non-numeric value encountered in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 48
+2021-11-18 12:03:15 - PHP Warning:  usort() expects parameter 2 to be a valid callback, function 'sortByOrder' not found or invalid function name in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 51
+2021-11-18 12:04:22 - PHP Warning:  Illegal string offset 'price' in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 48
+2021-11-18 12:04:22 - PHP Warning:  A non-numeric value encountered in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 48
+2021-11-18 12:05:01 - PHP Warning:  Illegal string offset 'price' in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 48
+2021-11-18 12:05:01 - PHP Warning:  A non-numeric value encountered in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 48
+2021-11-18 12:06:21 - PHP Warning:  Illegal string offset 'price' in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 48
+2021-11-18 12:06:21 - PHP Warning:  A non-numeric value encountered in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 48
+2021-11-18 12:06:52 - PHP Warning:  Illegal string offset 'price' in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 49
+2021-11-18 12:06:52 - PHP Warning:  A non-numeric value encountered in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 49
+2021-11-18 12:08:16 - PHP Warning:  Illegal string offset 'price' in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 49
+2021-11-18 12:08:16 - PHP Warning:  A non-numeric value encountered in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 49
+2021-11-18 12:09:26 - PHP Warning:  Illegal string offset 'price' in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 49
+2021-11-18 12:09:26 - PHP Warning:  A non-numeric value encountered in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 49
+2021-11-18 12:10:54 - PHP Notice:  Uninitialized string offset: 0 in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 87
+2021-11-18 12:10:54 - PHP Warning:  Illegal string offset 'brand' in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 87
+2021-11-18 12:10:54 - PHP Notice:  Uninitialized string offset: 0 in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 87
+2021-11-18 12:10:54 - PHP Notice:  Uninitialized string offset: 0 in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 92
+2021-11-18 12:10:54 - PHP Warning:  Illegal string offset 'brand' in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 92
+2021-11-18 12:10:54 - PHP Notice:  Uninitialized string offset: 0 in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 92
+2021-11-18 12:10:54 - PHP Notice:  Uninitialized string offset: 0 in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 93
+2021-11-18 12:11:32 - PHP Notice:  Uninitialized string offset: 0 in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 87
+2021-11-18 12:11:32 - PHP Warning:  Illegal string offset 'brand' in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 87
+2021-11-18 12:11:32 - PHP Notice:  Uninitialized string offset: 0 in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 87
+2021-11-18 12:11:32 - PHP Notice:  Uninitialized string offset: 0 in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 92
+2021-11-18 12:11:32 - PHP Warning:  Illegal string offset 'brand' in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 92
+2021-11-18 12:11:32 - PHP Notice:  Uninitialized string offset: 0 in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 92
+2021-11-18 12:11:32 - PHP Notice:  Uninitialized string offset: 0 in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 93
+2021-11-18 12:13:46 - PHP Notice:  Uninitialized string offset: 0 in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 87
+2021-11-18 12:13:46 - PHP Warning:  Illegal string offset 'brand' in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 87
+2021-11-18 12:13:46 - PHP Notice:  Uninitialized string offset: 0 in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 87
+2021-11-18 12:13:46 - PHP Notice:  Uninitialized string offset: 0 in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 92
+2021-11-18 12:13:46 - PHP Warning:  Illegal string offset 'brand' in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 92
+2021-11-18 12:13:46 - PHP Notice:  Uninitialized string offset: 0 in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 92
+2021-11-18 12:13:46 - PHP Notice:  Uninitialized string offset: 0 in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 93
+2021-11-18 12:17:44 - PHP Warning:  array_column() expects parameter 1 to be array, object given in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 14
+2021-11-18 12:17:44 - PHP Warning:  min(): When only one parameter is given, it must be an array in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 15
+2021-11-18 12:18:43 - PHP Warning:  array_column() expects parameter 1 to be array, object given in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 14
+2021-11-18 12:18:43 - PHP Warning:  min(): When only one parameter is given, it must be an array in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 15
+2021-11-18 12:20:17 - PHP Warning:  array_column() expects parameter 1 to be array, object given in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 14
+2021-11-18 12:20:17 - PHP Warning:  min(): When only one parameter is given, it must be an array in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 15
+2021-11-18 12:20:41 - PHP Notice:  Undefined variable: minPrice in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 555
+2021-11-18 12:21:15 - PHP Warning:  array_column() expects parameter 1 to be array, object given in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 14
+2021-11-18 12:21:15 - PHP Warning:  min(): When only one parameter is given, it must be an array in /opt/lampp/htdocs/st-spares-current.ru/catalog/AnalogApi/analog.php on line 15
+2021-11-18 12:21:43 - PHP Notice:  Undefined variable: minPrice in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 556
+2021-11-18 12:29:14 - PHP Notice:  Undefined variable: analogProduct in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 567
+2021-11-18 12:31:49 - PHP Notice:  Undefined variable: minPrice in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 567
+2021-11-19 7:18:42 - PHP Notice:  Undefined index: manufacturer_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 589
+2021-11-19 7:20:02 - PHP Notice:  Undefined index: manufacturer_id in /opt/lampp/htdocs/st-spares-current.ru/catalog/controller/feed/rest_api.php on line 589

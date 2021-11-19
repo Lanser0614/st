@@ -104,6 +104,8 @@ class ControllerRestWishlist extends RestController
                     $special = 0;
                 }
 
+            
+
                 $this->json["data"][] = array(
                     'product_id' => $product_info['product_id'],
                     'thumb' => $image,
@@ -111,7 +113,9 @@ class ControllerRestWishlist extends RestController
                     'model' => $product_info['model'],
                     'stock' => $stock,
                     'price' => $price,
-                    'special' => $special
+                    'special' => $special,
+                    'alias' => $this->model_catalog_product->getAlias((int)$product_info['product_id']),
+                    
                 );
             } else {
 
